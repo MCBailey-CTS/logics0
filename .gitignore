@@ -134,3 +134,4 @@ dmypy.json
 .pyre/
 .vs/logics-py/FileContentIndex/b8126f16-b5c5-446b-a4f9-a420caf1a92b.vsidx
 .vs/ProjectSettings.json
+.vs/logics-py/FileContentIndex/read.lock

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from turtle import pu
 from Loc import Loc
-from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences, RobotCrosswords, Minesweeper
+from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, AbstractPainting, Clouds, Futoshiki, Mathrax
 
 
 PLUS = "+"
