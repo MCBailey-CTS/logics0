@@ -15517,6 +15517,18 @@ class Constants:
         """
 
     @staticmethod
+    def minesweeper_001():
+        return f"""
+        001.minesweeper
+        5
+        # 01 01 02 01 01
+        # +- +- 04 +- 02
+        # +- 04 +- +- 03
+        # 02 +- +- +- 03
+        # 01 01 +- +- 02
+        """
+
+    @staticmethod
     def minesweeper_002():
         return f"""
         002.minesweeper

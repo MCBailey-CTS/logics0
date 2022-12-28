@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from turtle import pu
 from Loc import Loc
-from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences
+from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences, RobotCrosswords, Minesweeper
 
 
 PLUS = "+"
@@ -13,6 +13,61 @@ class Techs:
     class BasePuzzleTechnique:
         def __repr__(self) -> str:
             return f'{self.__class__.__name__}()'
+
+
+   
+
+    class MinesweeperSolver:  # (BasePuzzleTechnique):
+
+        @staticmethod
+        def surrounding(puzzle: Minesweeper, loc: Loc) -> list[Loc]:
+            valid = []
+            directions = [
+                loc.north(),
+                loc.east(),
+                loc.south(),
+                loc.west(),
+                loc.north().east(),
+                loc.north().west(),
+                loc.south().east(),
+                loc.south().west(),
+            ]
+
+            for temp in directions:
+                if temp.is_valid_parks(puzzle.grid):
+                    valid.append(temp)
+
+            return valid
+
+        def solve0(self, puzzle: Minesweeper) -> int:
+            edits = 0
+            for r in range(puzzle.length):
+                for c in range(puzzle.length):
+                    loc = Loc(r, c)
+                    if puzzle.is_number_cell(loc):
+                        number = int(self.grid[loc.row][loc.col])
+
+                        if number == 0:
+                            edits += puzzle.rem()
+
+            return edits
+
+    class CrossHatchKnightoku:
+        def solve0(self):
+            pass
+
+    class SkyscrapersCrossHatch:
+        def solve0(self):
+            pass
+
+    
+    class SkyscrapersHiddenSingle:
+        def solve0(self):
+            pass
+
+    class SkyscrapersEdges:
+        def solve0(self):
+            pass
 
     # @staticmethod
     # def _cross_hatch()
@@ -2919,5 +2974,174 @@ class Techs:
                     # print(unsolved)
 
             return edits
+
+    class RobotCrosswordsHouses:  # (BasePuzzleTechnique):
+        def solve0(self, puzzle: RobotCrosswords) -> int:
+            edits = 0
+
+            houses = []
+
+            for row in range(puzzle.length):
+                house = []
+                for col in range(puzzle.length):
+                    house.append(Loc(row, col))
+                houses.append(house)
+
+            for col in range(puzzle.length):
+                house = []
+                for row in range(puzzle.length):
+                    house.append(Loc(row, col))
+                houses.append(house)
+
+            for house in houses:
+
+                # temp_house = list(house)
+                #
+                #
+                #
+                #
+                #
+                #
+                # continue
+
+                string = ""
+
+                all_crosswords = []
+
+                in_crossword = False
+
+                crossword = []
+
+                for index in range(len(house)):
+                    if 'x' in puzzle.grid[house[index].row][house[index].col]:
+                        if in_crossword:
+                            all_crosswords.append(list(crossword))
+                            crossword = []
+                            in_crossword = False
+                            # continue
+                    elif in_crossword:
+                        crossword.append(house[index])
+                    else:
+                        crossword.append(house[index])
+                        in_crossword = True
+                # for cross in
+
+                print(all_crosswords)
+
+                # loc = house[index]
+
+                #     string += f'{puzzle.grid[loc.row][loc.col]} '
+                #
+                # string = string.replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).strip()
+                # .split(" ")
+
+                # string = string.strip()
+
+                # print(string)
+
+            return edits
+
+
+
+
+class PowerGridTech:
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
+
+        for group in puzzle.house_rows_cols_edges():
+            house, edge = group
+
+            if edge < 1:
+                continue
+
+            if puzzle.length == 9 and edge == 6:
+                next_to0 = [house.pop(0), house.pop(0)]
+                next_to1 = [house.pop(len(house) - 1), house.pop(len(house) - 1)]
+                edits += puzzle.rem(house, ["+"])
+                edits += puzzle.required_power(next_to0)
+                edits += puzzle.required_power(next_to1)
+
+        #
+        #     print(house)
+        #     print(edge)
+
+        # for index in range(puzzle.length):
+
+        return edits
+
+class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
+    def solve0(self, puzzle: Futoshiki) -> int:
+        edits = 0
+
+        for r in range(puzzle.length * 2 - 1):
+            for c in range(puzzle.length * 2 - 1):
+
+                even_row = r % 2 == 0
+                even_col = c % 2 == 0
+
+                if even_row and even_col:
+                    continue
+
+                if not even_row and not even_col:
+                    continue
+
+                if even_row:
+                    loc = Loc(r, c)
+                    string = puzzle.cell_string(loc)
+
+                    if string == '>':
+                        edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
+
+                    # print(puzzle.cell_string(loc))
+        # for row_house in puzzle.house_row_cells()
+
+        return edits
+
+    def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
+        edits = 0
+        lesser_candidates = puzzle.cell_candidates(lesser)
+        greater_candidates = puzzle.cell_candidates(greater)
+
+        min_greater = min(greater_candidates)
+        max_lesser = max(lesser_candidates)
+
+        print(min_greater)
+        print(max_lesser)
+
+        for candidate in lesser_candidates:
+            if candidate >= min_greater:
+                print(f'removing {candidate} from {lesser}')
+                edits += puzzle.rem([lesser], [str(candidate)])
+
+        # print(lesser_candidates)
+        # print(greater_candidates)
+
+        return edits
+
+
+
+class MathraxCrossHatch:
+
+    def solve0(self, puzzle: Mathrax) -> int:
+        edits = 0
+        return edits
+
+
+class MathraxHiddenSingle:
+
+    def solve0(self, puzzle: Mathrax) -> int:
+        edits = 0
+        return edits
+
+
+class MineShips:
+    pass
+
+
+
+class Nurikabe:
+    pass
+
+
 
 # 2865

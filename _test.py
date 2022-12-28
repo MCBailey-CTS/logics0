@@ -1,12 +1,11 @@
 from Constants import Constants
 from Techniques import Techs
-from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences
+from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, RobotCrosswords, Minesweeper, Knightoku, Snail3, Sumscrapers, Walls
 from Loc import Loc
 from typing import Union, Optional
 import pytest
 
 EXPLICITLY = "EXPLICITLY"
-
 
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
@@ -24,7 +23,6 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     print(actual_puzzle)
     print(expected_puzzle)
     return False
-
 
 
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
@@ -144,6 +142,7 @@ def test_puzzle_sudoku_difficult_03():
 def test_puzzle_sudoku_difficult_04():
     assert default_test_puzzle(Constants.sudoku_difficult_04(), Sudoku, sudoku_techniques())
 
+
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_05():
     assert default_test_puzzle(
@@ -203,14 +202,15 @@ def test_puzzle_sudoku_difficult_09():
 def test_puzzle_sudoku_difficult_10():
     assert default_test_puzzle(
         Constants.sudoku_difficult_10(),
-        Sudoku,sudoku_techniques())
-        
+        Sudoku, sudoku_techniques())
+
+
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_11():
     assert default_test_puzzle(
         Constants.sudoku_difficult_11(),
         Sudoku
-        ,sudoku_techniques())
+        , sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
@@ -292,6 +292,7 @@ def test_puzzle_sudoku_difficult_16():
 def test_puzzle_sudoku_difficult_17():
     assert default_test_puzzle(Constants.sudoku_difficult_17(), Sudoku, sudoku_techniques())
 
+
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_18():
     assert default_test_puzzle(Constants.sudoku_difficult_18(), Sudoku, sudoku_techniques())
@@ -299,135 +300,47 @@ def test_puzzle_sudoku_difficult_18():
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_19():
-    assert default_test_puzzle(Constants.sudoku_difficult_19(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_19(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_20():
-    assert default_test_puzzle(Constants.sudoku_difficult_20(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_20(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_21():
-    assert default_test_puzzle(Constants.sudoku_difficult_21(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_21(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_22():
-    assert default_test_puzzle(Constants.sudoku_difficult_22(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_22(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_23():
-    assert default_test_puzzle(Constants.sudoku_difficult_23(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_23(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_24():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_24(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_24(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_24(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_25():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_25(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_25(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_25(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_26():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_26(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_26(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_26(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_27():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_27(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_27(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_27(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
@@ -437,34 +350,12 @@ def test_puzzle_sudoku_difficult_28():
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_29():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_29(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_29(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_29(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_30():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_30(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_30(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_30(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
@@ -474,49 +365,17 @@ def test_puzzle_sudoku_difficult_31():
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_32():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_32(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_32(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_32(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_33():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_33(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_33(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_33(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_34():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_34(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_34(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_34(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
@@ -524,19 +383,9 @@ def test_puzzle_sudoku_difficult_35():
     assert default_test_puzzle(Constants.sudoku_difficult_35(), Sudoku, sudoku_techniques())
 
 
+@pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sudoku_difficult_36():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_36(), Sudoku, sudoku_techniques())
-    assert default_test_puzzle(Constants.sudoku_difficult_36(), Sudoku,
-                               [
-                                   Techs.CrossHatch(),
-                                   Techs.HiddenSingle(),
-                                   Techs.LockedCandidatesPointing(),
-                                   Techs.LockedCandidatesClaiming(),
-                                   Techs.UniqueRectangleType1(),
-                                   Techs.UniqueRectangleType4(),
-                                   Techs.NakedPair(),
-                                   Techs.Bug()
-                               ])
+    assert default_test_puzzle(Constants.sudoku_difficult_36(), Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip(EXPLICITLY)
@@ -545,7 +394,6 @@ def test_puzzle_sudoku_difficult_37():
 
 
 def test_puzzle_sudoku_difficult_38():
-    #     assert default_test_puzzle(Constants.sudoku_difficult_38(), Sudoku, sudoku_techniques())
     assert default_test_puzzle(Constants.sudoku_difficult_38(), Sudoku,
                                [
                                    Techs.CrossHatch(),
@@ -1576,8 +1424,6 @@ def test_puzzle_sudoku_mild_0():
     assert default_test_puzzle(Constants.sudoku_mild_0(), Sudoku, sudoku_techniques())
 
 
-#
-#
 def test_puzzle_sudoku_mild_1():
     assert default_test_puzzle(Constants.sudoku_mild_1(), Sudoku, sudoku_techniques())
 
@@ -4339,9 +4185,7 @@ Techs = Techs
 Constants = Constants
 
 
-class Parks2:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        pass
+
 
 
 def parks1_techniques() -> list:
@@ -5040,8 +4884,7 @@ def test_puzzle_tenner_harder_004():
     assert default_test_puzzle(Constants.tenner_harder_004(), Tenner, tenner_techniques())
 
 
-class AbstractPainting:
-    pass
+
 
 
 def abstractpainting_techniques() -> list:
@@ -5203,8 +5046,7 @@ def test_puzzle_abstractpainting_008():
     assert default_test_puzzle(Constants.abstractpainting_008(), AbstractPainting, abstractpainting_techniques())
 
 
-class BattleShips:
-    pass
+
 
 
 def battle_ships_techniques() -> list:
@@ -5288,9 +5130,6 @@ def test_puzzle_botanical_park_011():
     assert default_test_puzzle(Constants.botanical_park_011(), Walls, walls_techniques())
 
 
-class Clouds:
-    pass
-
 
 def clouds_techniques() -> list:
     return []
@@ -5301,115 +5140,6 @@ def test_puzzle_clouds_001():
     assert default_test_puzzle(Constants.clouds_001(), Clouds, clouds_techniques())
 
 
-class Futoshiki:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            # print(temp)
-
-            array.append(temp)
-        self.Constantsid = array[0]
-        self.Constantslength = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        self.Constantsgrid = []
-        for r in range(self.Constantslength * 2 - 1):
-            line = array[0].strip().replace("  ", " ", -1).split(" ")
-            print(line)
-            self.Constantsgrid.append(line)
-            array.pop(0)
-
-        # print("/////")
-        # print(array)
-
-    def id(self) -> str:
-        return self.Constantsid
-
-    @property
-    def length(self):
-        return self.Constantslength
-
-    def cell_string(self, loc: Loc) -> str:
-        return self.Constantsgrid[loc.row][loc.col]
-
-    def cell_candidates(self, loc: Loc) -> list[int]:
-        return [int(s) for s in self.Constantsgrid[loc.row][loc.col] if s.isnumeric()]
-
-    def rem(self, locs: list[Loc], candidates: list) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(candidate, "_")
-                edits += 1
-
-        return edits
-
-    def ConstantsstrConstants(self):
-        string = f'{self.Constantsid}\n'
-        string += f'{self.Constantslength}\n'
-
-        for r in range(self.Constantslength * 2 - 1):
-            for c in range(self.Constantslength * 2 - 1):
-                string += f'{self.Constantsgrid[r][c]} '
-            string += '\n'
-        return string
-
-
-class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
-    def solve0(self, puzzle: Futoshiki) -> int:
-        edits = 0
-
-        for r in range(puzzle.length * 2 - 1):
-            for c in range(puzzle.length * 2 - 1):
-
-                even_row = r % 2 == 0
-                even_col = c % 2 == 0
-
-                if even_row and even_col:
-                    continue
-
-                if not even_row and not even_col:
-                    continue
-
-                if even_row:
-                    loc = Loc(r, c)
-                    string = puzzle.cell_string(loc)
-
-                    if string == '>':
-                        edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
-
-                    # print(puzzle.cell_string(loc))
-        # for row_house in puzzle.house_row_cells()
-
-        return edits
-
-    def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
-        edits = 0
-        lesser_candidates = puzzle.cell_candidates(lesser)
-        greater_candidates = puzzle.cell_candidates(greater)
-
-        min_greater = min(greater_candidates)
-        max_lesser = max(lesser_candidates)
-
-        print(min_greater)
-        print(max_lesser)
-
-        for candidate in lesser_candidates:
-            if candidate >= min_greater:
-                print(f'removing {candidate} from {lesser}')
-                edits += puzzle.rem([lesser], [str(candidate)])
-
-        # print(lesser_candidates)
-        # print(greater_candidates)
-
-        return edits
 
 
 def futoshiki_techniques() -> list:
@@ -5463,10 +5193,6 @@ def test_puzzle_futoshiki_010():
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_futoshiki_001():
     assert default_test_puzzle(Constants.futoshiki_001(), Futoshiki, futoshiki_techniques())
-
-
-class HiddenStars:
-    pass
 
 
 def hidden_stars_techniques() -> list:
@@ -5543,9 +5269,6 @@ def test_puzzle_hidden_stars_014():
     assert default_test_puzzle(Constants.hidden_stars_014(), HiddenStars, hidden_stars_techniques())
 
 
-class Kakuro:
-    pass
-
 
 def kakuro_techniques() -> list:
     return []
@@ -5554,13 +5277,6 @@ def kakuro_techniques() -> list:
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_kakuro_001():
     assert default_test_puzzle(Constants.kakuro_001(), Kakuro, kakuro_techniques())
-
-
-class Knightoku:  # (Sudoku):
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        super().ConstantsinitConstants(puzzle)
-
-
 
 
 def knightoku_techniques() -> list:
@@ -5758,152 +5474,6 @@ def test_puzzle_knightoku_045():
     assert default_test_puzzle(Constants.knightoku_045(), Knightoku, knightoku_techniques())
 
 
-class LightenUp:  # (Sudoku):
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        super().__init__(puzzle)
-        self.Constantsgrid = []
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        array.pop(0)
-        array.pop(0)
-
-        # for r in range(self.length):
-        #     for c in range(self.length):
-        #         loc = Loc(r, c)
-
-        for temp in array:
-            print(temp)
-
-        # for row in range(self.length + 1):
-        #     temp = []
-        #     split = array[row].replace("\r", " ", -1).replace("\t", " ", -1).replace("  ", " ", -1).strip().split(' ')
-        #     for t in split:
-        #         if len(t) == 0:
-        #             continue
-        #         temp.append(t)
-        #     self.Constantsgrid.append(temp)
-
-    @property
-    def col_length(self) -> int:
-        return 10
-
-    def is_row_house_solved(self, row: int) -> bool:
-        solved_candidates = set(
-            [self.cell_candidates(loc)[0] for loc in self.house_row_cell_locs(row) if self.is_cell_solved(loc)])
-        return solved_candidates.issuperset(self.expected_candidates()) and solved_candidates.issubset(
-            self.expected_candidates())
-
-    def is_col_house_solved(self, col: int) -> bool:
-        solved_candidates = [
-            self.cell_candidates(loc)[0]
-            for loc in self.house_col_cell_locs(col)
-            if self.is_cell_solved(loc)
-        ]
-        if len(solved_candidates) != self.length:
-            return False
-        total = self.total(col)
-        if total is None:
-            return True
-        return sum(solved_candidates) == total
-
-    def is_solved(self) -> bool:
-        return False
-        for row in range(self.length):
-            if not self.is_row_house_solved(row):
-                print(f'print bad row: {row}')
-
-                return False
-
-        for col in range(self.col_length):
-            if not self.is_col_house_solved(col):
-                print(f'print bad col: {col}')
-                return False
-
-        for r in range(self.length):
-            for c in range(self.col_length):
-                cell = Loc(r, c)
-                if not self.is_cell_solved(cell):
-                    # print(f'{self.Constantsgrid[r][c]}///////////////////////////')
-                    return False
-                solved_candidate = self.cell_candidates(cell)[0]
-                directions = [
-                    cell.north(),
-                    cell.east(),
-                    cell.south(),
-                    cell.west(),
-                    cell.north().east(),
-                    cell.north().west(),
-                    cell.south().east(),
-                    cell.south().west()
-                ]
-                for direction in directions:
-                    if direction.row < 0 or direction.col < 0:
-                        continue
-                    if direction.row >= self.length or direction.col >= 10:
-                        continue
-
-                    if not self.is_cell_solved(direction):
-                        return False
-
-                    other = self.cell_candidates(direction)[0]
-
-                    if other == solved_candidate:
-                        print(f'{cell} {direction}')
-                        return False
-
-        return True
-
-    def expected_candidates(self) -> list:
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    def ConstantsstrConstants(self):
-        string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length + 1):
-            for c in range(self.col_length):
-                string += f'{self.Constantsgrid[r][c].ljust(self.col_length)} '
-            string += '\n'
-        return string
-
-    def house_row_cell_locs(self, loc_row: Union[int, Loc]) -> list[Loc]:
-        if isinstance(loc_row, Loc):
-            return self.house_row_cell_locs(loc_row.row)
-        return [Loc(loc_row, col) for col in range(self.col_length)]
-
-    def house_col_cell_locs(self, loc_col: Union[int, Loc]) -> list[Loc]:
-        if isinstance(loc_col, Loc):
-            return self.house_col_cell_locs(loc_col.col)
-        return [Loc(row, loc_col) for row in range(self.length)]
-
-    def cell_candidates(self, loc: Loc):
-        return [int(s) for s in self.Constantsgrid[loc.row][loc.col] if s.isnumeric()]
-
-    def rem(self, locs: list[Loc], candidates: list[int]) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
-                edits += 1
-
-        return edits
-
-    def is_cell_solved(self, loc: Loc) -> bool:
-        return len(self.cell_candidates(loc)) == 1
-
-    def total(self, col: int) -> Union[int, None]:
-        string = self.Constantsgrid[self.length][col]
-        if string.isnumeric():
-            return int(string)
-        return None
-
 
 def lightenup_techniques() -> list:
     return []
@@ -6099,8 +5669,7 @@ def test_puzzle_lightenup_081():
     assert default_test_puzzle(Constants.lightenup_081(), LightenUp, lightenup_techniques())
 
 
-class Lighthouses:
-    pass
+
 
 
 def lighthouses_techniques() -> list:
@@ -6437,26 +6006,6 @@ def test_puzzle_lighthouses_011():
     assert default_test_puzzle(Constants.lighthouses_011(), Lighthouses, lighthouses_techniques())
 
 
-class Mathrax:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        pass
-
-    def solve0(self):
-        pass
-
-
-class MathraxCrossHatch:
-
-    def solve0(self, puzzle: Mathrax) -> int:
-        edits = 0
-        return edits
-
-
-class MathraxHiddenSingle:
-
-    def solve0(self, puzzle: Mathrax) -> int:
-        edits = 0
-        return edits
 
 
 def mathrax_techniques() -> list:
@@ -6582,8 +6131,6 @@ def test_puzzle_mathrax_012():
     assert default_test_puzzle(Constants.mathrax_012(), Mathrax, mathrax_techniques())
 
 
-class MineShips:
-    pass
 
 
 def mine_ships_techniques() -> list:
@@ -6607,89 +6154,6 @@ def test_puzzle_mine_ships_003():
 
 Techs = Techs
 Constants = Constants
-
-
-class Minesweeper:  # (Puzzle):
-    def is_solved(self) -> bool:
-        return False
-
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        super().ConstantsinitConstants(puzzle)
-        array = []
-        self.grid = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        array.pop(0)
-        array.pop(0)
-        for line in array:
-            self.grid.append(line.split(' '))
-
-    def is_number_cell(self, loc: Loc) -> bool:
-        return self.grid[loc.row][loc.col].isalnum()
-
-    def is_mine_cell(self, loc: Loc) -> bool:
-        return not self.is_number_cell(loc)
-
-    def ConstantsstrConstants(self):
-        string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
-                string += f'{self.grid[r][c]} '
-            string += '\n'
-        return string
-
-    def rem(self, locs: list[Loc], candidates: list[str]) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.grid[loc.row][loc.col] = self.grid[loc.row][loc.col].replace(str(candidate), "_")
-                edits += 1
-
-        return edits
-
-
-class MinesweeperSolver:  # (BasePuzzleTechnique):
-
-    @staticmethod
-    def surrounding(puzzle: Minesweeper, loc: Loc) -> list[Loc]:
-        valid = []
-        directions = [
-            loc.north(),
-            loc.east(),
-            loc.south(),
-            loc.west(),
-            loc.north().east(),
-            loc.north().west(),
-            loc.south().east(),
-            loc.south().west(),
-        ]
-
-        for temp in directions:
-            if temp.is_valid_parks(puzzle.grid):
-                valid.append(temp)
-
-        return valid
-
-    def solve0(self, puzzle: Minesweeper) -> int:
-        edits = 0
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
-                loc = Loc(r, c)
-                if puzzle.is_number_cell(loc):
-                    number = int(self.grid[loc.row][loc.col])
-
-                    if number == 0:
-                        edits += puzzle.rem()
-
-        return edits
 
 
 def minesweeper_techniques():
@@ -6835,10 +6299,6 @@ def test_puzzle_minesweeper_016():
     assert default_test_puzzle(Constants.minesweeper_016(), Minesweeper, minesweeper_techniques())
 
 
-class Nurikabe:
-    pass
-
-
 def nurikabe_techniques() -> list:
     return []
 
@@ -6888,178 +6348,6 @@ def test_puzzle_nurikabe_008():
     assert default_test_puzzle(Constants.nurikabe_008(), Nurikabe, nurikabe_techniques())
 
 
-class PowerGrid:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        self.Constantsid = array[0]
-        self.Constantslength = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        self.Constantsgrid = []
-        for _ in range(self.Constantslength + 1):
-            line = array[0].strip().replace("  ", " ", -1).split(" ")
-            temp = []
-            for l in line:
-                if len(l) == 0:
-                    continue
-                temp.append(l)
-            self.Constantsgrid.append(temp)
-            array.pop(0)
-
-    def id(self) -> str:
-        return self.Constantsid
-
-    @property
-    def length(self) -> int:
-        return self.Constantslength
-
-    @property
-    def grid_length(self):
-        return self.length + 1
-
-    def grid(self, loc: Loc) -> str:
-        return self.Constantsgrid[loc.row][loc.col]
-
-    def is_cell_solved_as_power(self, loc: Loc) -> bool:
-        return '-' not in self.Constantsgrid[loc.row][loc.col]
-
-    def is_cell_solved_as_empty(self, loc: Loc) -> bool:
-        return '+' not in self.Constantsgrid[loc.row][loc.col]
-
-    def ConstantsstrConstants(self) -> str:
-        string = f'{self.Constantsid}\n'
-        string += f'{self.Constantslength}\n'
-        for r in range(self.grid_length):
-            for c in range(self.grid_length):
-                string += f'{self.grid(Loc(r, c))} '
-            string += '\n'
-        return string
-
-    def is_solved(self) -> bool:
-        return False
-
-    def house_row_edge(self, row: int) -> int:
-        string: str = self.Constantsgrid[row][self.length]
-        if string.isnumeric():
-            return int(string)
-        return -1
-
-    def house_row_cells(self, row: int) -> list[Loc]:
-        house = []
-        for index in range(self.length):
-            house.append(Loc(row, index))
-        return house
-
-    def house_col_edge(self, col: int) -> int:
-        string: str = self.Constantsgrid[self.length][col]
-        if string.isnumeric():
-            return int(string)
-        return -1
-
-    def house_col_cells(self, col: int) -> list[Loc]:
-        house = []
-        for index in range(self.length):
-            house.append(Loc(index, col))
-        return house
-
-    def house_rows_cols_edges(self) -> list[tuple[list[Loc], int]]:
-        house_edges = []
-        for index in range(self.length):
-            row_house = self.house_row_cells(index)
-            row_edge = self.house_row_edge(index)
-            col_house = self.house_col_cells(index)
-            col_edge = self.house_col_edge(index)
-            house_edges.append((row_house, row_edge))
-            house_edges.append((col_house, col_edge))
-        return house_edges
-
-    def cell_candidates(self, loc: Loc) -> list[str]:
-        return [candidate for candidate in self.Constantsgrid[loc.row][loc.col]]
-
-    def rem(self, locs: list[Loc], _candidates: list[int]) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in _candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
-                edits += 1
-
-        return edits
-
-    def require_power2(self, locs: list[Loc]) -> int:
-        edits = 0
-
-        if len(locs) == 2:
-
-            # return 0
-            if not locs[0].is_next_to(locs[1]):
-                return edits
-
-            row_set = set([loc.row for loc in locs])
-            col_set = set([loc.col for loc in locs])
-
-            cells_to_remove = []
-
-            if len(row_set) == 1:
-                cells_to_remove.append(locs[0].north())
-                cells_to_remove.append(locs[1].north())
-                cells_to_remove.append(locs[0].south())
-                cells_to_remove.append(locs[1].south())
-
-            if len(col_set) == 1:
-                cells_to_remove.append(locs[0].east())
-                cells_to_remove.append(locs[1].east())
-                cells_to_remove.append(locs[0].west())
-                cells_to_remove.append(locs[1].west())
-
-        cells_to_remove = [loc for loc in cells_to_remove if loc.is_valid_sudoku(self.length)]
-
-        # edits
-
-        return self.rem(cells_to_remove, ['+'])
-
-    def require_power3(self, locs: list[Loc]) -> int:
-        return 0
-
-    def require_power(self, locs: list[Loc]) -> int:
-        return self.require_power2(locs) + self.require_power3(locs)
-
-    def require_power(self, locs: list[Loc]) -> int:
-        return self.require_power2(locs) + self.require_power3(locs)
-
-
-class PowerGridTech:
-    def solve0(self, puzzle: PowerGrid) -> int:
-        edits = 0
-
-        for group in puzzle.house_rows_cols_edges():
-            house, edge = group
-
-            if edge < 1:
-                continue
-
-            if puzzle.length == 9 and edge == 6:
-                next_to0 = [house.pop(0), house.pop(0)]
-                next_to1 = [house.pop(len(house) - 1), house.pop(len(house) - 1)]
-                edits += puzzle.rem(house, ["+"])
-                edits += puzzle.required_power(next_to0)
-                edits += puzzle.required_power(next_to1)
-
-        #
-        #     print(house)
-        #     print(edge)
-
-        # for index in range(puzzle.length):
-
-        return edits
 
 
 def power_grid_techniques() -> list:
@@ -7181,122 +6469,6 @@ def test_puzzle_hidden_stars_014():
     assert default_test_puzzle(Constants.hidden_stars_014(), HiddenStars, hidden_stars_techniques())
 
 
-class RobotCrosswords:  # (Puzzle):
-    def ConstantsinitConstants(self, puzzle: str) -> None:
-        super().ConstantsinitConstants(puzzle)
-        array = []
-        self.grid = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        array.pop(0)
-        array.pop(0)
-        for line in array:
-            split = line.split(' ')
-            other = []
-
-            for item in split:
-                if item == '.' or item == '_':
-                    other.append('123456789')
-                elif item == 'x':
-                    other.append('xxxxxxxxx')
-                elif item.isalnum():
-                    number = int(item)
-                    temp = ''
-                    for num in range(1, 10):
-                        if number == num:
-                            temp += f'{num}'
-                        else:
-                            temp += '_'
-                    other.append(temp)
-            # print(split)
-            # self.grid.append(line.split(" "))
-            self.grid.append(other)
-
-    def ConstantsstrConstants(self) -> str:
-        string = f'///////////////////////////////////\n'
-        string += f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
-                string += f'{self.grid[r][c]} '
-            string += '\n'
-        string += f'///////////////////////////////////'
-        return string
-
-    def is_solved(self) -> bool:
-        return False
-
-
-class RobotCrosswordsHouses:  # (BasePuzzleTechnique):
-    def solve0(self, puzzle: RobotCrosswords) -> int:
-        edits = 0
-
-        houses = []
-
-        for row in range(puzzle.length):
-            house = []
-            for col in range(puzzle.length):
-                house.append(Loc(row, col))
-            houses.append(house)
-
-        for col in range(puzzle.length):
-            house = []
-            for row in range(puzzle.length):
-                house.append(Loc(row, col))
-            houses.append(house)
-
-        for house in houses:
-
-            # temp_house = list(house)
-            #
-            #
-            #
-            #
-            #
-            #
-            # continue
-
-            string = ""
-
-            all_crosswords = []
-
-            in_crossword = False
-
-            crossword = []
-
-            for index in range(len(house)):
-                if 'x' in puzzle.grid[house[index].row][house[index].col]:
-                    if in_crossword:
-                        all_crosswords.append(list(crossword))
-                        crossword = []
-                        in_crossword = False
-                        # continue
-                elif in_crossword:
-                    crossword.append(house[index])
-                else:
-                    crossword.append(house[index])
-                    in_crossword = True
-            # for cross in
-
-            print(all_crosswords)
-
-            # loc = house[index]
-
-            #     string += f'{puzzle.grid[loc.row][loc.col]} '
-            #
-            # string = string.replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).strip()
-            # .split(" ")
-
-            # string = string.strip()
-
-            # print(string)
-
-        return edits
-
-
 def robot_crosswords_techniques() -> list:
     return [Techs.RobotCrosswordsHouses()]
 
@@ -7416,8 +6588,7 @@ def test_puzzle_robot_crosswords_002():
     assert default_test_puzzle(Constants.robot_crosswords_002(), RobotCrosswords, robot_crosswords_techniques())
 
 
-class Sentinels:
-    pass
+
 
 
 def sentinels_techniques() -> list:
@@ -7452,10 +6623,6 @@ def test_puzzle_sentinels_003():
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_sentinels_007():
     assert default_test_puzzle(Constants.sentinels_007(), Sentinels, sentinels_techniques())
-
-
-class Skyscrapers:
-    pass
 
 
 def skyscrapers_techniques() -> list:
@@ -7970,10 +7137,6 @@ def test_1explicit_skyscrapers_explicit_edges():
                                                  Constants.skyscrapers_explicit_edges_expected())
 
 
-class Snail3:
-    pass
-
-
 def snail3_techniques() -> list:
     return []
 
@@ -8098,10 +7261,6 @@ def test_puzzle_snail3_077():
     assert default_test_puzzle(Constants.snail3_077(), Snail3, snail3_techniques())
 
 
-class Sumscrapers:
-    pass
-
-
 def sumscrapers_techniques() -> list:
     return []
 
@@ -8186,8 +7345,7 @@ def test_puzzle_sumscrapers_005():
     assert default_test_puzzle(Constants.sumscrapers_005(), Sumscrapers, sumscrapers_techniques())
 
 
-class Tents:
-    pass
+
 
 
 def tents_techniques() -> list:
@@ -8202,10 +7360,6 @@ def test_puzzle_tents_001():
 @pytest.mark.skip(EXPLICITLY)
 def test_puzzle_tents_009():
     assert default_test_puzzle(Constants.tents_009(), Tents, tents_techniques())
-
-
-class Walls:
-    pass
 
 
 def walls_techniques() -> list:

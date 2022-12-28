@@ -1001,3 +1001,523 @@ class Tenner(Puzzle):
         if string.isnumeric():
             return int(string)
         return None
+
+
+
+class Knightoku:  # (Sudoku):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+
+class RobotCrosswords (Puzzle):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+        array = []
+        self.grid = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            array.append(temp)
+        array.pop(0)
+        array.pop(0)
+        for line in array:
+            split = line.split(' ')
+            other = []
+
+            for item in split:
+                if item == '.' or item == '_':
+                    other.append('123456789')
+                elif item == 'x':
+                    other.append('xxxxxxxxx')
+                elif item.isalnum():
+                    number = int(item)
+                    temp = ''
+                    for num in range(1, 10):
+                        if number == num:
+                            temp += f'{num}'
+                        else:
+                            temp += '_'
+                    other.append(temp)
+            # print(split)
+            # self.grid.append(line.split(" "))
+            self.grid.append(other)
+
+    def __str__(self) -> str:
+        string = f'///////////////////////////////////\n'
+        string += f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.length):
+            for c in range(self.length):
+                string += f'{self.grid[r][c]} '
+            string += '\n'
+        string += f'///////////////////////////////////'
+        return string
+
+    def is_solved(self) -> bool:
+        return False
+
+
+
+class Minesweeper:  # (Puzzle):
+    def is_solved(self) -> bool:
+        return False
+
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+        array = []
+        self.grid = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            array.append(temp)
+        array.pop(0)
+        array.pop(0)
+        for line in array:
+            self.grid.append(line.split(' '))
+
+    def is_number_cell(self, loc: Loc) -> bool:
+        return self.grid[loc.row][loc.col].isalnum()
+
+    def is_mine_cell(self, loc: Loc) -> bool:
+        return not self.is_number_cell(loc)
+
+    def ConstantsstrConstants(self):
+        string = f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.length):
+            for c in range(self.length):
+                string += f'{self.grid[r][c]} '
+            string += '\n'
+        return string
+
+    def rem(self, locs: list[Loc], candidates: list[str]) -> int:
+        edits = 0
+
+        for loc in locs:
+            for candidate in candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                self.grid[loc.row][loc.col] = self.grid[loc.row][loc.col].replace(str(candidate), "_")
+                edits += 1
+
+        return edits
+
+
+
+class Snail3:
+    pass
+
+
+class Sumscrapers:
+    pass
+
+
+class Walls:
+    pass
+
+
+class Parks2:    
+    pass
+
+class AbstractPainting:
+    pass
+
+class BattleShips:
+    pass
+
+
+class Clouds:
+    pass
+
+
+
+class PowerGrid:
+    def ConstantsinitConstants(self, puzzle: str) -> None:
+        array = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            array.append(temp)
+        self.Constantsid = array[0]
+        self.Constantslength = int(array[1])
+        array.pop(0)
+        array.pop(0)
+        self.Constantsgrid = []
+        for _ in range(self.Constantslength + 1):
+            line = array[0].strip().replace("  ", " ", -1).split(" ")
+            temp = []
+            for l in line:
+                if len(l) == 0:
+                    continue
+                temp.append(l)
+            self.Constantsgrid.append(temp)
+            array.pop(0)
+
+    def id(self) -> str:
+        return self.Constantsid
+
+    @property
+    def length(self) -> int:
+        return self.Constantslength
+
+    @property
+    def grid_length(self):
+        return self.length + 1
+
+    def grid(self, loc: Loc) -> str:
+        return self.Constantsgrid[loc.row][loc.col]
+
+    def is_cell_solved_as_power(self, loc: Loc) -> bool:
+        return '-' not in self.Constantsgrid[loc.row][loc.col]
+
+    def is_cell_solved_as_empty(self, loc: Loc) -> bool:
+        return '+' not in self.Constantsgrid[loc.row][loc.col]
+
+    def ConstantsstrConstants(self) -> str:
+        string = f'{self.Constantsid}\n'
+        string += f'{self.Constantslength}\n'
+        for r in range(self.grid_length):
+            for c in range(self.grid_length):
+                string += f'{self.grid(Loc(r, c))} '
+            string += '\n'
+        return string
+
+    def is_solved(self) -> bool:
+        return False
+
+    def house_row_edge(self, row: int) -> int:
+        string: str = self.Constantsgrid[row][self.length]
+        if string.isnumeric():
+            return int(string)
+        return -1
+
+    def house_row_cells(self, row: int) -> list[Loc]:
+        house = []
+        for index in range(self.length):
+            house.append(Loc(row, index))
+        return house
+
+    def house_col_edge(self, col: int) -> int:
+        string: str = self.Constantsgrid[self.length][col]
+        if string.isnumeric():
+            return int(string)
+        return -1
+
+    def house_col_cells(self, col: int) -> list[Loc]:
+        house = []
+        for index in range(self.length):
+            house.append(Loc(index, col))
+        return house
+
+    def house_rows_cols_edges(self) -> list[tuple[list[Loc], int]]:
+        house_edges = []
+        for index in range(self.length):
+            row_house = self.house_row_cells(index)
+            row_edge = self.house_row_edge(index)
+            col_house = self.house_col_cells(index)
+            col_edge = self.house_col_edge(index)
+            house_edges.append((row_house, row_edge))
+            house_edges.append((col_house, col_edge))
+        return house_edges
+
+    def cell_candidates(self, loc: Loc) -> list[str]:
+        return [candidate for candidate in self.Constantsgrid[loc.row][loc.col]]
+
+    def rem(self, locs: list[Loc], _candidates: list[int]) -> int:
+        edits = 0
+
+        for loc in locs:
+            for candidate in _candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
+                edits += 1
+
+        return edits
+
+    def require_power2(self, locs: list[Loc]) -> int:
+        edits = 0
+
+        if len(locs) == 2:
+
+            # return 0
+            if not locs[0].is_next_to(locs[1]):
+                return edits
+
+            row_set = set([loc.row for loc in locs])
+            col_set = set([loc.col for loc in locs])
+
+            cells_to_remove = []
+
+            if len(row_set) == 1:
+                cells_to_remove.append(locs[0].north())
+                cells_to_remove.append(locs[1].north())
+                cells_to_remove.append(locs[0].south())
+                cells_to_remove.append(locs[1].south())
+
+            if len(col_set) == 1:
+                cells_to_remove.append(locs[0].east())
+                cells_to_remove.append(locs[1].east())
+                cells_to_remove.append(locs[0].west())
+                cells_to_remove.append(locs[1].west())
+
+        cells_to_remove = [loc for loc in cells_to_remove if loc.is_valid_sudoku(self.length)]
+
+        # edits
+
+        return self.rem(cells_to_remove, ['+'])
+
+    def require_power3(self, locs: list[Loc]) -> int:
+        return 0
+
+    def require_power(self, locs: list[Loc]) -> int:
+        return self.require_power2(locs) + self.require_power3(locs)
+
+    def require_power(self, locs: list[Loc]) -> int:
+        return self.require_power2(locs) + self.require_power3(locs)
+
+class Sentinels:
+    pass
+
+
+
+class Skyscrapers:
+    pass
+
+
+class Tents:
+    pass
+
+class Futoshiki:
+    def ConstantsinitConstants(self, puzzle: str) -> None:
+        array = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            # print(temp)
+
+            array.append(temp)
+        self.Constantsid = array[0]
+        self.Constantslength = int(array[1])
+        array.pop(0)
+        array.pop(0)
+        self.Constantsgrid = []
+        for r in range(self.Constantslength * 2 - 1):
+            line = array[0].strip().replace("  ", " ", -1).split(" ")
+            print(line)
+            self.Constantsgrid.append(line)
+            array.pop(0)
+
+        # print("/////")
+        # print(array)
+
+    def id(self) -> str:
+        return self.Constantsid
+
+    @property
+    def length(self):
+        return self.Constantslength
+
+    def cell_string(self, loc: Loc) -> str:
+        return self.Constantsgrid[loc.row][loc.col]
+
+    def cell_candidates(self, loc: Loc) -> list[int]:
+        return [int(s) for s in self.Constantsgrid[loc.row][loc.col] if s.isnumeric()]
+
+    def rem(self, locs: list[Loc], candidates: list) -> int:
+        edits = 0
+
+        for loc in locs:
+            for candidate in candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(candidate, "_")
+                edits += 1
+
+        return edits
+
+    def ConstantsstrConstants(self):
+        string = f'{self.Constantsid}\n'
+        string += f'{self.Constantslength}\n'
+
+        for r in range(self.Constantslength * 2 - 1):
+            for c in range(self.Constantslength * 2 - 1):
+                string += f'{self.Constantsgrid[r][c]} '
+            string += '\n'
+        return string
+
+
+
+
+class HiddenStars:
+    pass
+
+
+class Kakuro:
+    pass
+
+
+class LightenUp:  # (Sudoku):
+    def ConstantsinitConstants(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+        self.Constantsgrid = []
+        array = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            array.append(temp)
+        array.pop(0)
+        array.pop(0)
+
+        # for r in range(self.length):
+        #     for c in range(self.length):
+        #         loc = Loc(r, c)
+
+        for temp in array:
+            print(temp)
+
+        # for row in range(self.length + 1):
+        #     temp = []
+        #     split = array[row].replace("\r", " ", -1).replace("\t", " ", -1).replace("  ", " ", -1).strip().split(' ')
+        #     for t in split:
+        #         if len(t) == 0:
+        #             continue
+        #         temp.append(t)
+        #     self.Constantsgrid.append(temp)
+
+    @property
+    def col_length(self) -> int:
+        return 10
+
+    def is_row_house_solved(self, row: int) -> bool:
+        solved_candidates = set(
+            [self.cell_candidates(loc)[0] for loc in self.house_row_cell_locs(row) if self.is_cell_solved(loc)])
+        return solved_candidates.issuperset(self.expected_candidates()) and solved_candidates.issubset(
+            self.expected_candidates())
+
+    def is_col_house_solved(self, col: int) -> bool:
+        solved_candidates = [
+            self.cell_candidates(loc)[0]
+            for loc in self.house_col_cell_locs(col)
+            if self.is_cell_solved(loc)
+        ]
+        if len(solved_candidates) != self.length:
+            return False
+        total = self.total(col)
+        if total is None:
+            return True
+        return sum(solved_candidates) == total
+
+    def is_solved(self) -> bool:
+        return False
+        for row in range(self.length):
+            if not self.is_row_house_solved(row):
+                print(f'print bad row: {row}')
+
+                return False
+
+        for col in range(self.col_length):
+            if not self.is_col_house_solved(col):
+                print(f'print bad col: {col}')
+                return False
+
+        for r in range(self.length):
+            for c in range(self.col_length):
+                cell = Loc(r, c)
+                if not self.is_cell_solved(cell):
+                    # print(f'{self.Constantsgrid[r][c]}///////////////////////////')
+                    return False
+                solved_candidate = self.cell_candidates(cell)[0]
+                directions = [
+                    cell.north(),
+                    cell.east(),
+                    cell.south(),
+                    cell.west(),
+                    cell.north().east(),
+                    cell.north().west(),
+                    cell.south().east(),
+                    cell.south().west()
+                ]
+                for direction in directions:
+                    if direction.row < 0 or direction.col < 0:
+                        continue
+                    if direction.row >= self.length or direction.col >= 10:
+                        continue
+
+                    if not self.is_cell_solved(direction):
+                        return False
+
+                    other = self.cell_candidates(direction)[0]
+
+                    if other == solved_candidate:
+                        print(f'{cell} {direction}')
+                        return False
+
+        return True
+
+    def expected_candidates(self) -> list:
+        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    def ConstantsstrConstants(self):
+        string = f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.length + 1):
+            for c in range(self.col_length):
+                string += f'{self.Constantsgrid[r][c].ljust(self.col_length)} '
+            string += '\n'
+        return string
+
+    def house_row_cell_locs(self, loc_row: Union[int, Loc]) -> list[Loc]:
+        if isinstance(loc_row, Loc):
+            return self.house_row_cell_locs(loc_row.row)
+        return [Loc(loc_row, col) for col in range(self.col_length)]
+
+    def house_col_cell_locs(self, loc_col: Union[int, Loc]) -> list[Loc]:
+        if isinstance(loc_col, Loc):
+            return self.house_col_cell_locs(loc_col.col)
+        return [Loc(row, loc_col) for row in range(self.length)]
+
+    def cell_candidates(self, loc: Loc):
+        return [int(s) for s in self.Constantsgrid[loc.row][loc.col] if s.isnumeric()]
+
+    def rem(self, locs: list[Loc], candidates: list[int]) -> int:
+        edits = 0
+
+        for loc in locs:
+            for candidate in candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
+                edits += 1
+
+        return edits
+
+    def is_cell_solved(self, loc: Loc) -> bool:
+        return len(self.cell_candidates(loc)) == 1
+
+    def total(self, col: int) -> Union[int, None]:
+        string = self.Constantsgrid[self.length][col]
+        if string.isnumeric():
+            return int(string)
+        return None
+
+
+
+class Lighthouses:
+    pass
+
+
+class Mathrax:
+    def ConstantsinitConstants(self, puzzle: str) -> None:
+        pass
+
+    def solve0(self):
+        pass
