@@ -161,8 +161,8 @@ class Loc:
 
         return houses
 
-    # @staticmethod
-    # def get_sudoku_cell_locs()
+    @staticmethod
+    def shape()
 
 
 # loc0 = Loc(1, 6)
