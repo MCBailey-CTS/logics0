@@ -3,6 +3,7 @@ from turtle import pu
 from Loc import Loc
 from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences
 
+
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
@@ -598,6 +599,54 @@ class Techs:
                         puzzle.house_col(ii),
                     )
             return edits
+
+    # class CrossHatchKnightoku:
+    #     def solve0(self, puzzle: Knightoku) -> int:
+    #         edits = 0
+    #
+    #         for cell in puzzle.unsolved_cells():
+    #             _candidates = puzzle.cell_candidates(cell)
+    #
+    #             if len(_candidates) != 1:
+    #                 continue
+    #
+    #             solved_candidate = list(_candidates)[0]
+    #
+    #             knights_moves = [
+    #                 cell.north(2).west(),
+    #                 cell.north(2).east(),
+    #                 cell.north().west(2),
+    #                 cell.north().east(2),
+    #                 cell.south(2).west(),
+    #                 cell.south(2).east(),
+    #                 cell.south().west(2),
+    #                 cell.south().east(2),
+    #
+    #             ]
+    #
+    #             print("made it here")
+    #
+    #             for knight_move in knights_moves:
+    #                 if knight_move.is_valid_sudoku(puzzle.length):
+    #                     edits += puzzle.rem([knight_move], [solved_candidate])
+    #
+    #             # neighors = puzzle.house_row(cell) + puzzle.house_col(cell)
+    #
+    #             # if puzzle.has_fences():
+    #             #     neighbors = neighors + puzzle.house_fence(puzzle.cell_fence(cell))
+    #
+    #             # # row_set = puzzle.house_row(cell)
+    #             # # col_set = puzzle.house_row(cell)
+    #
+    #             # # puzzle.houses_rows_cols()
+    #
+    #             # # for house
+    #
+    #             # edits += puzzle.rem()
+    #
+    #             # for loc in set(neighbors).difference([cell])
+    #
+    #         return edits
 
     class ShashimiXWingPlus1:
         @staticmethod

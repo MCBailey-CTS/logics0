@@ -104,7 +104,7 @@ class Sudoku(Puzzle):
         self.__fences: list[list[str]] = []
         self.grid = []
 
-        self.__un_solved_locs: set[Loc] = set()
+        # self.__un_solved_locs: set[Loc] = set()
 
         fence_grid = Sudoku.default_sudoku_fence_grid()
 
@@ -123,11 +123,11 @@ class Sudoku(Puzzle):
                 else:
                     _candidates = [int(c) for c in _grid[loc.row][loc.col] if c.isnumeric()]
 
-                if len(_candidates) == 1:
-                    pass
-                    # self.__solved_locs.add(loc)
-                else:
-                    self.__un_solved_locs.add(loc)
+                # if len(_candidates) == 1:
+                #     pass
+                #     # self.__solved_locs.add(loc)
+                # else:
+                #     self.__un_solved_locs.add(loc)
 
                 fences = [loc for loc in _grid[r][c] if loc.isalpha()]
 
@@ -149,8 +149,8 @@ class Sudoku(Puzzle):
             if c not in cell:
                 continue
             cell.remove(c)
-            if len(cell) == 1:
-                self.__un_solved_locs.remove(loc)
+            # if len(cell) == 1:
+            #     self.__un_solved_locs.remove(loc)
             edits += 1
         return edits
 
@@ -261,14 +261,17 @@ class Sudoku(Puzzle):
         return string
 
     def unsolved_cells(self) -> set[Loc]:
-        return self.__un_solved_locs
-    
+        unsolved = set()
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                if len(self.cell_candidates(loc)) == 1:
+                    continue
+                unsolved.add(loc)
+        return unsolved
 
     def expected_candidates(self) -> list[int]:
         return [i + 1 for i in range(self.length)]
-
-
-    
 
     def any_cell_is_solved(self, locs) -> bool:
         return [len(self.cell_candidates(loc)) == 1 for loc in locs] > 0
@@ -286,12 +289,8 @@ class Sudoku(Puzzle):
         fence = self.__fences[loc.row][loc.col]
         return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
 
-    
-
     def houses_fences(self) -> list[list[Loc]]:
         return [self.house_fence(fence) for fence in self.__fence_dict]
-
-    
 
     def house_fence(self, fence: str) -> list[Loc]:
         return self.__fence_dict[fence]
@@ -823,7 +822,6 @@ class Parks1(Puzzle):
 
     def cell_fence(self, loc: Loc) -> str:
         return [char for char in self.grid[loc.row][loc.col] if char.isalpha()][0]
-
 
         return [self.house_fence(fence) for fence in self.__fence_dict]
 

@@ -4341,54 +4341,6 @@ class Constants:
         """
 
     @staticmethod
-    def parks1_explicit_cross_hatch_actual():
-        return f"""
-        parks1_explicit_cross_hatch_actual.parks1        
-        5         
-        +.a +.a +.c +.d +.e
-        +.a +.a +.c +.c +.e
-        +.b +_a +.c +.e +.e
-        +.b +.b +.b +.e +.e
-        +.b +.b +.b +.b +.b
-        """
-
-    @staticmethod
-    def parks1_explicit_cross_hatch_expected():
-        return f"""
-        parks1_explicit_cross_hatch_expected.parks1    
-        5
-        _.a _.a +.c +.d +.e
-        _.a _.a _.c +.c +.e
-        _.b +_a _.c _.e _.e
-        _.b _.b _.b +.e +.e
-        +.b _.b +.b +.b +.b    
-        """
-
-    @staticmethod
-    def parks1_explicit_hidden_single_actual():
-        return f"""
-        parks1_explicit_hidden_single_actual.parks1      
-        5
-        _.a _.a _.c _.d +.e
-        _.a +.a +.c _.c +.e
-        +.b _.a +.c _.e +.e
-        +.b +.b +.b +.e +.e
-        +.b +.b +.b _.b +.b  
-        """
-
-    @staticmethod
-    def parks1_explicit_hidden_single_expected():
-        return f"""
-        parks1_explicit_hidden_single_expected.parks1    
-        5
-        _.a _.a _.c _.d +_e
-        _.a +_a +.c _.c +.e
-        +.b _.a +.c _.e +.e
-        +.b +.b +.b +_e +.e
-        +.b +.b +.b _.b +.b   
-        """
-
-    @staticmethod
     def skyscrapers_explicit_cross_hatch_actual():
         return f"""
         skyscrapers_explicit_cross_hatch_actual.skyscrapers      
@@ -15462,950 +15414,6 @@ class Constants:
         """
 
     @staticmethod
-    def parks1_001():
-        return f"""
-        001.parks1
-        5
-        10a 10a 10b 10e 10d
-        10a 10a 10b 10b 10d
-        10c 10a 10b 10d 10d
-        10c 10c 10c 10d 10d
-        10c 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_002():
-        return f"""
-        002.parks1
-        5
-        10a 10a 10a 10a 10a
-        10b 10a 10a 10a 10e
-        10a 10a 10a 10d 10e
-        10a 10c 10d 10d 10e
-        10a 10c 10d 10d 10d
-        """
-
-    @staticmethod
-    def parks1_003():
-        return f"""
-        003.parks1
-        5
-        10a 10a 10d 10d 10d
-        10a 10a 10d 10d 10d
-        10b 10d 10d 10d 10d
-        10b 10c 10c 10e 10e
-        10b 10b 10e 10e 10e
-        """
-
-    @staticmethod
-    def parks1_004():
-        return f"""
-        004.parks1
-        5
-        10a 10a 10e 10e 10e
-        10a 10a 10b 10e 10e
-        10b 10b 10b 10d 10e
-        10b 10c 10c 10d 10e
-        10b 10c 10d 10d 10e
-        """
-
-    @staticmethod
-    def parks1_005():
-        return f"""
-        005.parks1
-        5
-        10a 10a 10a 10b 10b
-        10a 10b 10b 10b 10e
-        10a 10c 10c 10e 10e
-        10c 10c 10e 10e 10d
-        10c 10d 10d 10d 10d
-        """
-
-    @staticmethod
-    def parks1_006():
-        return f"""
-        006.parks1
-        5
-        10a 10a 10a 10d 10d
-        10a 10b 10d 10d 10d
-        10b 10b 10d 10d 10d
-        10c 10c 10d 10e 10e
-        10c 10e 10e 10e 10e
-        """
-
-    @staticmethod
-    def parks1_007():
-        return f"""
-        007.parks1
-        6
-        10a 10a 10f 10f 10f 10f
-        10a 10a 10f 10f 10f 10f
-        10a 10a 10d 10d 10f 10f
-        10a 10d 10d 10d 10e 10f
-        10b 10d 10d 10d 10e 10f
-        10b 10b 10b 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_008():
-        return f"""
-        008.parks1
-        6
-        10a 10a 10b 10d 10d 10d
-        10a 10a 10d 10d 10d 10d
-        10a 10a 10c 10c 10d 10f
-        10a 10f 10f 10f 10f 10f
-        10a 10f 10f 10f 10e 10f
-        10f 10f 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_009():
-        return f"""
-        009.parks1
-        6
-        10a 10b 10b 10b 10f 10f
-        10a 10b 10b 10b 10f 10f
-        10a 10a 10a 10f 10f 10f
-        10a 10c 10d 10f 10f 10f
-        10c 10c 10d 10f 10f 10e
-        10c 10c 10f 10f 10e 10e
-        """
-
-    @staticmethod
-    def parks1_010():
-        return f"""
-        010.parks1
-        6
-        10a 10a 10c 10c 10c 10c
-        10a 10c 10c 10f 10d 10c
-        10a 10c 10c 10f 10d 10d
-        10b 10b 10f 10f 10e 10d
-        10b 10f 10f 10e 10e 10d
-        10b 10b 10b 10e 10e 10e
-        """
-
-    @staticmethod
-    def parks1_011():
-        return f"""
-        011.parks1
-        6
-        10c 10c 10c 10e 10e 10e
-        10c 10c 10c 10e 10e 10e
-        10c 10d 10d 10f 10e 10e
-        10f 10f 10f 10f 10f 10f
-        10f 10f 10a 10a 10f 10f
-        10a 10a 10a 10b 10b 10f
-        """
-
-    @staticmethod
-    def parks1_012():
-        return f"""
-        012.parks1
-        6
-        10a 10a 10a 10a 10e 10e
-        10a 10a 10b 10e 10e 10e
-        10a 10a 10f 10f 10f 10e
-        10a 10f 10f 10c 10c 10d
-        10f 10f 10f 10f 10c 10c
-        10f 10f 10f 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_013():
-        return f"""
-        013.parks1
-        6
-        10b 10c 10c 10c 10d 10a
-        10b 10c 10a 10c 10d 10a
-        10b 10a 10a 10a 10a 10a
-        10a 10a 10a 10a 10a 10a
-        10e 10f 10f 10a 10f 10f
-        10e 10e 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_014():
-        return f"""
-        014.parks1
-        7
-        10g 10g 10g 10g 10b 10b 10b
-        10g 10g 10e 10g 10c 10c 10b
-        10g 10f 10e 10d 10d 10c 10b
-        10g 10f 10e 10e 10d 10c 10c
-        10g 10f 10f 10e 10d 10a 10a
-        10g 10g 10a 10a 10a 10a 10a
-        10a 10a 10a 10a 10a 10a 10a
-        """
-
-    @staticmethod
-    def parks1_beach_001():
-        return f"""
-        beach_001.parks1
-        5
-        10a 10a 10a 10a 10a
-        10b 10a 10a 10a 10a
-        10b 10c 10d 10e 10e
-        10c 10c 10c 10e 10e
-        10c 10c 10c 10e 10e
-        """
-
-    @staticmethod
-    def parks1_beach_002():
-        return f"""
-        beach_002.parks1
-        5
-        10a 10a 10a 10c 10c
-        10a 10a 10c 10d 10c
-        10b 10a 10c 10c 10c
-        10b 10b 10c 10e 10e
-        10b 10b 10b 10b 10e
-        """
-
-    @staticmethod
-    def parks1_beach_003():
-        return f"""
-        beach_003.parks1
-        5
-        10a 10d 10d 10d 10e
-        10a 10d 10d 10d 10e
-        10a 10a 10d 10d 10e
-        10a 10a 10c 10c 10e
-        10b 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_beach_004():
-        return f"""
-        beach_004.parks1
-        5
-        10a 10a 10a 10a 10a
-        10a 10a 10a 10e 10e
-        10a 10c 10c 10c 10e
-        10b 10c 10c 10d 10c
-        10b 10b 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_maui_001():
-        return f"""
-        maui_001.parks1
-        12
-        10a 10a 10a 10a 10a 10a 10a 10i 10i 10i 10i 10i
-        10a 10a 10a 10a 10a 10a 10a 10a 10a 10i 10i 10i
-        10a 10b 10b 10d 10d 10a 10a 10a 10a 10i 10i 10l
-        10c 10e 10e 10d 10d 10h 10a 10h 10i 10i 10i 10l
-        10c 10d 10e 10d 10d 10h 10h 10h 10h 10i 10i 10l
-        10c 10d 10d 10d 10d 10h 10h 10h 10h 10i 10i 10l
-        10f 10f 10f 10f 10h 10h 10h 10h 10k 10k 10k 10l
-        10f 10f 10f 10f 10g 10g 10h 10h 10k 10k 10k 10k
-        10f 10f 10f 10f 10g 10g 10j 10j 10k 10k 10k 10k
-        10f 10f 10f 10f 10j 10j 10j 10j 10k 10k 10k 10k
-        10f 10f 10f 10j 10j 10j 10j 10j 10k 10k 10k 10k
-        10f 10f 10f 10j 10j 10j 10k 10k 10k 10k 10k 10k
-        """
-
-    @staticmethod
-    def parks1_spring_001():
-        return f"""
-        spring_001.parks1
-        5
-        10a 10e 10e 10e 10e
-        10a 10a 10e 10e 10e
-        10a 10b 10c 10e 10e
-        10a 10c 10c 10c 10d
-        10c 10c 10c 10d 10d
-        """
-
-    @staticmethod
-    def parks1_spring_002():
-        return f"""
-        spring_002.parks1
-        5
-        10a 10a 10a 10a 10a
-        10b 10a 10a 10a 10a
-        10b 10b 10a 10d 10d
-        10b 10c 10c 10d 10e
-        10b 10b 10c 10c 10e
-        """
-
-    @staticmethod
-    def parks1_spring_003():
-        return f"""
-        spring_003.parks1
-        5
-        10a 10a 10b 10d 10d
-        10a 10b 10b 10c 10c
-        10b 10b 10b 10c 10c
-        10b 10b 10b 10c 10e
-        10b 10c 10c 10c 10e
-        """
-
-    @staticmethod
-    def parks1_spring_004():
-        return f"""
-        spring_004.parks1
-        5
-        10a 10a 10a 10d 10d
-        10a 10a 10a 10d 10d
-        10a 10a 10a 10d 10e
-        10b 10b 10b 10d 10e
-        10b 10b 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_005():
-        return f"""
-        spring_005.parks1
-        5
-        10a 10a 10d 10d 10e
-        10a 10a 10a 10e 10e
-        10a 10a 10a 10e 10e
-        10a 10b 10e 10e 10e
-        10b 10b 10c 10c 10e
-        """
-
-    @staticmethod
-    def parks1_spring_006():
-        return f"""
-        spring_006.parks1
-        5
-        10a 10a 10a 10a 10a
-        10b 10a 10a 10a 10e
-        10b 10c 10a 10a 10a
-        10b 10c 10c 10d 10a
-        10c 10c 10c 10d 10a
-        """
-
-    @staticmethod
-    def parks1_spring_007():
-        return f"""
-        spring_007.parks1
-        5
-        10a 10a 10a 10d 10d
-        10a 10a 10c 10d 10d
-        10a 10a 10c 10d 10d
-        10a 10a 10c 10d 10e
-        10b 10b 10b 10b 10b
-        """
-
-    @staticmethod
-    def parks1_spring_008():
-        return f"""
-        spring_008.parks1
-        5
-        10a 10a 10b 10b 10b
-        10a 10a 10b 10b 10b
-        10b 10b 10b 10d 10e
-        10b 10c 10e 10e 10e
-        10c 10c 10e 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_009():
-        return f"""
-        spring_009.parks1
-        5
-        10a 10c 10c 10c 10c
-        10a 10c 10c 10c 10c
-        10a 10c 10d 10d 10d
-        10a 10a 10d 10e 10e
-        10b 10b 10b 10b 10e
-        """
-
-    @staticmethod
-    def parks1_spring_010():
-        return f"""
-        spring_010.parks1
-        5
-        10a 10a 10d 10d 10d
-        10b 10c 10d 10d 10d
-        10b 10c 10c 10d 10e
-        10b 10c 10e 10e 10e
-        10b 10e 10e 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_011():
-        return f"""
-        spring_011.parks1
-        5
-        10a 10e 10e 10e 10e
-        10a 10e 10e 10e 10e
-        10a 10b 10b 10d 10e
-        10b 10b 10c 10d 10d
-        10b 10b 10c 10d 10d
-        """
-
-    @staticmethod
-    def parks1_spring_012():
-        return f"""
-        spring_012.parks1
-        5
-        10a 10a 10c 10c 10c
-        10a 10b 10c 10d 10e
-        10a 10b 10c 10d 10e
-        10a 10d 10d 10d 10e
-        10d 10d 10d 10d 10e
-        """
-
-    @staticmethod
-    def parks1_spring_013():
-        return f"""
-        spring_013.parks1
-        5
-        10a 10a 10d 10d 10e
-        10a 10a 10b 10d 10e
-        10b 10b 10b 10d 10d
-        10b 10b 10b 10b 10b
-        10c 10c 10c 10c 10b
-        """
-
-    @staticmethod
-    def parks1_spring_014():
-        return f"""
-        spring_014.parks1
-        5
-        10a 10c 10c 10c 10c
-        10a 10c 10c 10c 10c
-        10b 10b 10c 10d 10e
-        10b 10b 10d 10d 10e
-        10b 10b 10b 10b 10e
-        """
-
-    @staticmethod
-    def parks1_spring_015():
-        return f"""
-        spring_015.parks1
-        5
-        10a 10a 10d 10e 10e
-        10a 10a 10d 10e 10e
-        10a 10a 10b 10c 10c
-        10b 10b 10b 10c 10c
-        10b 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_016():
-        return f"""
-        spring_016.parks1
-        5
-        10a 10a 10a 10b 10b
-        10a 10a 10a 10b 10b
-        10c 10d 10d 10d 10c
-        10c 10c 10c 10c 10c
-        10e 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_017():
-        return f"""
-        spring_017.parks1
-        5
-        10a 10d 10d 10d 10d
-        10a 10d 10d 10d 10e
-        10a 10a 10b 10e 10e
-        10b 10b 10b 10e 10e
-        10c 10c 10c 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_018():
-        return f"""
-        spring_018.parks1
-        5
-        10a 10d 10d 10d 10e
-        10a 10c 10c 10e 10e
-        10a 10a 10c 10c 10e
-        10b 10a 10b 10e 10e
-        10b 10b 10b 10b 10b
-        """
-
-    @staticmethod
-    def parks1_spring_019():
-        return f"""
-        spring_019.parks1
-        5
-        10a 10a 10a 10a 10c
-        10a 10a 10c 10c 10c
-        10a 10a 10c 10e 10e
-        10b 10c 10c 10d 10e
-        10b 10b 10d 10d 10d
-        """
-
-    @staticmethod
-    def parks1_spring_020():
-        return f"""
-        spring_020.parks1
-        5
-        10a 10a 10a 10e 10e
-        10a 10a 10e 10e 10e
-        10a 10a 10e 10d 10e
-        10b 10b 10c 10d 10d
-        10b 10b 10c 10d 10d
-        """
-
-    @staticmethod
-    def parks1_spring_021():
-        return f"""
-        spring_021.parks1
-        5
-        10a 10a 10a 10d 10e
-        10a 10b 10a 10d 10e
-        10a 10b 10a 10d 10e
-        10b 10b 10c 10e 10e
-        10b 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_022():
-        return f"""
-        spring_022.parks1
-        5
-        10b 10d 10d 10e 10e
-        10b 10b 10d 10e 10e
-        10a 10b 10c 10c 10e
-        10a 10b 10c 10c 10c
-        10a 10a 10a 10a 10c
-        """
-
-    @staticmethod
-    def parks1_spring_023():
-        return f"""
-        spring_023.parks1
-        5
-        10a 10d 10d 10d 10d
-        10a 10d 10d 10d 10d
-        10a 10a 10c 10e 10e
-        10b 10c 10c 10e 10e
-        10b 10b 10c 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_024():
-        return f"""
-        spring_024.parks1
-        5
-        10a 10a 10a 10e 10e
-        10a 10a 10a 10e 10e
-        10a 10a 10a 10d 10e
-        10b 10c 10c 10d 10e
-        10b 10b 10c 10d 10d
-        """
-
-    @staticmethod
-    def parks1_spring_025():
-        return f"""
-        spring_025.parks1
-        5
-        10c 10c 10e 10e 10e
-        10b 10c 10c 10c 10e
-        10b 10b 10d 10d 10e
-        10a 10b 10b 10d 10d
-        10a 10a 10a 10a 10d
-        """
-
-    @staticmethod
-    def parks1_spring_026():
-        return f"""
-        spring_026.parks1
-        5
-        10a 10a 10a 10a 10e
-        10a 10b 10b 10e 10e
-        10a 10b 10b 10d 10d
-        10b 10b 10b 10c 10d
-        10b 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_027():
-        return f"""
-        spring_027.parks1
-        5
-        10a 10a 10a 10d 10d
-        10b 10b 10a 10d 10d
-        10c 10b 10c 10d 10e
-        10c 10b 10c 10d 10e
-        10c 10c 10c 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_028():
-        return f"""
-        spring_028.parks1
-        5
-        10a 10a 10b 10b 10d
-        10a 10b 10b 10d 10d
-        10a 10b 10e 10e 10e
-        10c 10b 10b 10c 10e
-        10c 10c 10c 10c 10e
-        """
-
-    @staticmethod
-    def parks1_spring_029():
-        return f"""
-        spring_029.parks1
-        5
-        10a 10a 10a 10a 10d
-        10a 10c 10c 10d 10d
-        10a 10c 10d 10d 10e
-        10b 10c 10c 10d 10e
-        10b 10b 10b 10e 10e
-        """
-
-    @staticmethod
-    def parks1_spring_030():
-        return f"""
-        spring_030.parks1
-        6
-        10a 10a 10a 10a 10f 10f
-        10a 10a 10a 10d 10f 10f
-        10a 10a 10a 10e 10e 10f
-        10a 10a 10a 10e 10e 10e
-        10b 10e 10e 10e 10e 10e
-        10c 10c 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_spring_031():
-        return f"""
-        spring_031.parks1
-        6
-        10a 10a 10a 10e 10e 10e
-        10a 10a 10a 10e 10f 10e
-        10b 10b 10b 10d 10f 10f
-        10c 10b 10c 10d 10d 10d
-        10c 10c 10c 10c 10c 10d
-        10c 10c 10c 10c 10c 10d
-        """
-
-    @staticmethod
-    def parks1_spring_032():
-        return f"""
-        spring_032.parks1
-        6
-        10a 10a 10a 10a 10e 10e
-        10b 10b 10b 10a 10a 10e
-        10b 10b 10c 10c 10e 10e
-        10b 10b 10c 10c 10e 10f
-        10c 10c 10c 10d 10d 10f
-        10c 10d 10d 10d 10f 10f
-        """
-
-    @staticmethod
-    def parks1_spring_033():
-        return f"""
-        spring_033.parks1
-        6
-        10a 10a 10a 10e 10e 10e
-        10a 10b 10a 10a 10e 10e
-        10a 10b 10a 10e 10e 10f
-        10b 10b 10c 10c 10e 10f
-        10b 10c 10c 10d 10d 10f
-        10b 10d 10d 10d 10f 10f
-        """
-
-    @staticmethod
-    def parks1_spring_034():
-        return f"""
-        spring_034.parks1
-        5
-        10c 10c 10e 10e 10e
-        10b 10c 10c 10c 10e
-        10b 10b 10d 10d 10e
-        10a 10b 10b 10d 10d
-        10a 10a 10a 10a 10d
-        """
-
-    @staticmethod
-    def parks1_spring_039():
-        return f"""
-        spring_039.parks1
-        7
-        10a 10b 10b 10e 10e 10e 10e
-        10a 10b 10c 10e 10e 10e 10e
-        10c 10c 10c 10e 10e 10e 10f
-        10c 10c 10c 10d 10g 10g 10f
-        10c 10d 10c 10d 10d 10g 10f
-        10d 10d 10d 10d 10d 10d 10f
-        10d 10d 10d 10d 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_spring_045():
-        return f"""
-        spring_045.parks1
-        7
-        10a 10a 10a 10a 10a 10f 10f
-        10a 10f 10f 10f 10f 10f 10g
-        10a 10a 10e 10e 10e 10f 10g
-        10a 10a 10e 10d 10e 10g 10g
-        10c 10c 10c 10d 10d 10g 10g
-        10b 10b 10c 10c 10c 10g 10g
-        10b 10b 10g 10g 10g 10g 10g
-        """
-
-    @staticmethod
-    def parks1_spring_046():
-        return f"""
-        spring_046.parks1
-        7
-        10a 10d 10d 10d 10d 10d 10d
-        10a 10a 10a 10d 10e 10e 10d
-        10b 10b 10d 10d 10e 10d 10d
-        10b 10d 10d 10f 10f 10d 10d
-        10d 10c 10d 10d 10g 10g 10d
-        10d 10c 10c 10d 10g 10g 10d
-        10d 10d 10d 10d 10d 10g 10g
-        """
-
-    @staticmethod
-    def parks1_spring_047():
-        return f"""
-        spring_047.parks1
-        7
-        10a 10a 10a 10a 10a 10f 10f
-        10a 10f 10f 10f 10f 10f 10g
-        10a 10a 10e 10e 10e 10f 10g
-        10a 10a 10e 10d 10e 10g 10g
-        10c 10c 10c 10d 10d 10g 10g
-        10b 10b 10c 10c 10c 10g 10g
-        10b 10b 10g 10g 10g 10g 10g
-        """
-
-    @staticmethod
-    def parks1_spring_051():
-        return f"""
-        spring_051.parks1
-        8
-        10a 10a 10a 10b 10b 10b 10e 10e
-        10a 10b 10a 10b 10b 10b 10e 10e
-        10b 10b 10b 10b 10b 10e 10e 10h
-        10b 10b 10b 10b 10b 10b 10h 10h
-        10c 10c 10c 10b 10b 10f 10h 10h
-        10c 10c 10c 10b 10f 10f 10g 10g
-        10d 10c 10c 10d 10d 10f 10f 10g
-        10d 10d 10d 10d 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_spring_062():
-        return f"""
-        spring_062.parks1
-        8
-        10a 10a 10c 10c 10h 10h 10h 10h
-        10a 10a 10a 10a 10h 10h 10h 10h
-        10a 10a 10b 10a 10h 10h 10h 10h
-        10d 10d 10e 10e 10e 10h 10h 10h
-        10d 10d 10e 10g 10g 10g 10h 10h
-        10d 10d 10e 10f 10f 10g 10f 10f
-        10d 10d 10d 10f 10f 10f 10f 10f
-        10d 10d 10d 10d 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_winter_037():
-        return f"""
-        winter_037.parks1
-        7
-        10a 10b 10c 10c 10c 10d 10d
-        10a 10b 10a 10a 10c 10d 10d
-        10a 10a 10a 10a 10a 10d 10g
-        10a 10e 10e 10e 10g 10d 10g
-        10e 10e 10g 10g 10g 10g 10g
-        10e 10e 10g 10e 10f 10f 10g
-        10e 10e 10e 10e 10e 10f 10g
-        """
-
-    @staticmethod
-    def parks1_winter_038():
-        return f"""
-        winter_038.parks1
-        7
-        10a 10a 10a 10a 10a 10a 10e
-        10a 10b 10b 10d 10d 10e 10e
-        10b 10b 10b 10f 10d 10f 10f
-        10b 10b 10b 10f 10d 10f 10g
-        10c 10c 10b 10f 10f 10f 10g
-        10c 10b 10b 10b 10b 10g 10g
-        10c 10b 10b 10b 10b 10b 10g
-        """
-
-    @staticmethod
-    def parks1_winter_039():
-        return f"""
-        winter_039.parks1
-        7
-        10a 10e 10e 10e 10f 10g 10g
-        10a 10a 10e 10e 10f 10g 10g
-        10a 10a 10c 10e 10f 10f 10g
-        10a 10a 10c 10c 10c 10d 10d
-        10a 10b 10c 10c 10c 10c 10c
-        10b 10b 10c 10c 10c 10c 10c
-        10b 10b 10c 10c 10c 10c 10c
-        """
-
-    @staticmethod
-    def parks1_winter_040():
-        return f"""
-        winter_040.parks1
-        7
-        10a 10a 10b 10b 10b 10b 10b
-        10a 10a 10a 10a 10a 10b 10a
-        10a 10a 10d 10d 10a 10a 10a
-        10a 10d 10d 10e 10g 10g 10a
-        10a 10a 10d 10e 10g 10g 10g
-        10c 10c 10e 10e 10f 10f 10g
-        10c 10c 10f 10f 10f 10g 10g
-        """
-
-    @staticmethod
-    def parks1_winter_041():
-        return f"""
-        winter_041.parks1
-        7
-        10g 10g 10g 10d 10a 10a 10a
-        10g 10c 10c 10d 10d 10d 10a
-        10b 10b 10c 10e 10d 10d 10a
-        10b 10b 10e 10e 10a 10a 10a
-        10a 10b 10a 10e 10a 10a 10h
-        10a 10a 10a 10a 10a 10h 10h
-        10a 10h 10h 10h 10h 10h 10h
-        """
-
-    @staticmethod
-    def parks1_winter_042():
-        return f"""
-        winter_042.parks1
-        7
-        10a 10d 10d 10d 10e 10e 10e
-        10a 10a 10d 10d 10d 10d 10e
-        10a 10a 10d 10d 10d 10d 10f
-        10a 10c 10c 10c 10d 10d 10f
-        10a 10c 10c 10c 10f 10f 10f
-        10b 10c 10c 10c 10f 10f 10f
-        10b 10b 10b 10c 10f 10g 10g
-        """
-
-    @staticmethod
-    def parks1_winter_044():
-        return f"""
-        winter_044.parks1
-        7
-        10a 10a 10c 10c 10e 10e 10e
-        10a 10c 10c 10c 10d 10e 10e
-        10a 10c 10c 10c 10d 10d 10d
-        10c 10c 10c 10c 10c 10g 10g
-        10b 10c 10c 10c 10c 10c 10g
-        10b 10c 10b 10c 10c 10g 10g
-        10b 10b 10b 10h 10h 10h 10h
-        """
-
-    @staticmethod
-    def parks1_winter_045():
-        return f"""
-        winter_045.parks1
-        7
-        10a 10a 10a 10e 10e 10f 10f
-        10a 10e 10e 10e 10f 10f 10f
-        10a 10b 10b 10c 10f 10g 10g
-        10b 10b 10b 10c 10f 10g 10g
-        10c 10c 10c 10c 10f 10g 10g
-        10c 10d 10d 10d 10d 10d 10g
-        10c 10d 10d 10d 10d 10d 10g
-        """
-
-    @staticmethod
-    def parks1_winter_046():
-        return f"""
-        winter_046.parks1
-        8
-        10a 10a 10a 10a 10g 10g 10g 10g
-        10b 10a 10a 10a 10g 10g 10g 10h
-        10b 10c 10c 10a 10g 10g 10g 10h
-        10c 10c 10c 10f 10f 10f 10f 10h
-        10c 10c 10d 10d 10f 10f 10f 10h
-        10e 10e 10e 10e 10f 10f 10f 10h
-        10e 10e 10e 10e 10f 10f 10f 10h
-        10e 10e 10e 10e 10e 10e 10f 10h
-        """
-
-    @staticmethod
-    def parks1_winter_047():
-        return f"""
-        winter_047.parks1
-        8
-        10a 10a 10a 10a 10e 10e 10h 10h
-        10b 10a 10a 10e 10e 10e 10g 10h
-        10b 10a 10e 10e 10e 10e 10g 10g
-        10b 10a 10e 10e 10e 10g 10g 10g
-        10a 10a 10e 10e 10e 10f 10f 10f
-        10a 10a 10e 10e 10e 10f 10f 10f
-        10c 10c 10c 10e 10e 10f 10f 10f
-        10d 10d 10d 10d 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_winter_048():
-        return f"""
-        winter_048.parks1
-        8
-        10a 10a 10a 10a 10a 10a 10c 10c
-        10a 10d 10b 10b 10a 10a 10a 10c
-        10a 10d 10d 10b 10a 10a 10a 10h
-        10d 10d 10e 10g 10g 10g 10g 10h
-        10d 10d 10e 10f 10f 10f 10g 10h
-        10e 10d 10e 10f 10f 10f 10f 10f
-        10e 10e 10e 10f 10f 10f 10f 10f
-        10e 10e 10f 10f 10f 10f 10f 10f
-        """
-
-    @staticmethod
-    def parks1_winter_049():
-        return f"""
-        winter_049.parks1
-        8
-        10a 10d 10d 10e 10e 10f 10h 10h
-        10a 10d 10d 10d 10f 10f 10h 10h
-        10a 10a 10d 10f 10f 10f 10h 10h
-        10a 10a 10f 10f 10f 10g 10h 10h
-        10a 10a 10a 10a 10f 10g 10g 10g
-        10a 10b 10c 10g 10g 10g 10g 10g
-        10a 10c 10c 10g 10g 10g 10g 10g
-        10c 10c 10c 10c 10g 10g 10g 10g
-        """
-
-    @staticmethod
-    def parks1_winter_050():
-        return f"""
-        winter_050.parks1
-        8
-        10a 10a 10d 10d 10h 10h 10h 10h
-        10a 10b 10d 10d 10h 10h 10h 10h
-        10a 10b 10d 10d 10h 10h 10h 10h
-        10a 10b 10d 10d 10h 10h 10g 10h
-        10b 10b 10b 10d 10d 10d 10g 10g
-        10c 10c 10c 10f 10f 10f 10f 10g
-        10c 10c 10c 10f 10f 10f 10f 10g
-        10e 10e 10e 10e 10f 10f 10g 10g
-        """
-
-    @staticmethod
-    def parks1_winter_051():
-        return f"""
-        winter_051.parks1
-        8
-        10a 10a 10a 10b 10b 10b 10g 10g
-        10a 10b 10a 10b 10b 10b 10g 10g
-        10b 10b 10b 10b 10b 10g 10g 10h
-        10b 10b 10b 10b 10b 10b 10h 10h
-        10c 10c 10c 10b 10b 10e 10h 10h
-        10c 10c 10c 10b 10e 10e 10f 10f
-        10d 10c 10c 10d 10d 10e 10e 10f
-        10d 10d 10d 10d 10e 10e 10e 10e
-        """
-
-    @staticmethod
     def futoshiki_001():
         return f"""
         001.futoshiki
@@ -25179,6 +24187,97 @@ class Constants:
         """
 
     @staticmethod
+    def hidden_stars_002():
+        return f"""
+        002.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_003():
+        return f"""
+        003.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_004():
+        return f"""
+        004.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_005():
+        return f"""
+        005.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_006():
+        return f"""
+        006.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_007():
+        return f"""
+        007.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_008():
+        return f"""
+        008.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_009():
+        return f"""
+        009.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_010():
+        return f"""
+        010.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_011():
+        return f"""
+        011.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_012():
+        return f"""
+        012.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_013():
+        return f"""
+        013.hidden_stars
+        4        
+        """
+
+    @staticmethod
+    def hidden_stars_014():
+        return f"""
+        014.hidden_stars
+        4        
+        """
+
+    @staticmethod
     def tenner_001():
         return f"""
         001.tenner
@@ -26311,3 +25410,1055 @@ class Constants:
             ....WW.... .. ....WW.... .. .......... .. .......... .. .......... .. .......... .. .......... .. .......... .. ....WW....
             _2345678_$ WW _2345678_$ .. 123456789$ .. 123456789$ .. 123456789$ .. 123456789$ .. 123456789$ .. 12_456789$ WW _2345678_$
             """
+
+    @staticmethod
+    def parks1_001():
+        return f"""
+        001.parks1
+        5
+        10a 10a 10b 10e 10d
+        10a 10a 10b 10b 10d
+        10c 10a 10b 10d 10d
+        10c 10c 10c 10d 10d
+        10c 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_002():
+        return f"""
+        002.parks1
+        5
+        10a 10a 10a 10a 10a
+        10b 10a 10a 10a 10e
+        10a 10a 10a 10d 10e
+        10a 10c 10d 10d 10e
+        10a 10c 10d 10d 10d
+        """
+
+    @staticmethod
+    def parks1_003():
+        return f"""
+        003.parks1
+        5
+        10a 10a 10d 10d 10d
+        10a 10a 10d 10d 10d
+        10b 10d 10d 10d 10d
+        10b 10c 10c 10e 10e
+        10b 10b 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_004():
+        return f"""
+        004.parks1
+        5
+        10a 10a 10e 10e 10e
+        10a 10a 10b 10e 10e
+        10b 10b 10b 10d 10e
+        10b 10c 10c 10d 10e
+        10b 10c 10d 10d 10e
+        """
+
+    @staticmethod
+    def parks1_005():
+        return f"""
+        005.parks1
+        5
+        10a 10a 10a 10b 10b
+        10a 10b 10b 10b 10e
+        10a 10c 10c 10e 10e
+        10c 10c 10e 10e 10d
+        10c 10d 10d 10d 10d
+        """
+
+    @staticmethod
+    def parks1_006():
+        return f"""
+        006.parks1
+        5
+        10a 10a 10a 10d 10d
+        10a 10b 10d 10d 10d
+        10b 10b 10d 10d 10d
+        10c 10c 10d 10e 10e
+        10c 10e 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_007():
+        return f"""
+        007.parks1
+        6
+        10a 10a 10f 10f 10f 10f
+        10a 10a 10f 10f 10f 10f
+        10a 10a 10d 10d 10f 10f
+        10a 10d 10d 10d 10e 10f
+        10b 10d 10d 10d 10e 10f
+        10b 10b 10b 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_008():
+        return f"""
+        008.parks1
+        6
+        10a 10a 10b 10d 10d 10d
+        10a 10a 10d 10d 10d 10d
+        10a 10a 10c 10c 10d 10f
+        10a 10f 10f 10f 10f 10f
+        10a 10f 10f 10f 10e 10f
+        10f 10f 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_009():
+        return f"""
+        009.parks1
+        6
+        10a 10b 10b 10b 10f 10f
+        10a 10b 10b 10b 10f 10f
+        10a 10a 10a 10f 10f 10f
+        10a 10c 10d 10f 10f 10f
+        10c 10c 10d 10f 10f 10e
+        10c 10c 10f 10f 10e 10e
+        """
+
+    @staticmethod
+    def parks1_010():
+        return f"""
+        010.parks1
+        6
+        10a 10a 10c 10c 10c 10c
+        10a 10c 10c 10f 10d 10c
+        10a 10c 10c 10f 10d 10d
+        10b 10b 10f 10f 10e 10d
+        10b 10f 10f 10e 10e 10d
+        10b 10b 10b 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_011():
+        return f"""
+        011.parks1
+        6
+        10c 10c 10c 10e 10e 10e
+        10c 10c 10c 10e 10e 10e
+        10c 10d 10d 10f 10e 10e
+        10f 10f 10f 10f 10f 10f
+        10f 10f 10a 10a 10f 10f
+        10a 10a 10a 10b 10b 10f
+        """
+
+    @staticmethod
+    def parks1_012():
+        return f"""
+        012.parks1
+        6
+        10a 10a 10a 10a 10e 10e
+        10a 10a 10b 10e 10e 10e
+        10a 10a 10f 10f 10f 10e
+        10a 10f 10f 10c 10c 10d
+        10f 10f 10f 10f 10c 10c
+        10f 10f 10f 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_013():
+        return f"""
+        013.parks1
+        6
+        10b 10c 10c 10c 10d 10a
+        10b 10c 10a 10c 10d 10a
+        10b 10a 10a 10a 10a 10a
+        10a 10a 10a 10a 10a 10a
+        10e 10f 10f 10a 10f 10f
+        10e 10e 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_014():
+        return f"""
+        014.parks1
+        7
+        10g 10g 10g 10g 10b 10b 10b
+        10g 10g 10e 10g 10c 10c 10b
+        10g 10f 10e 10d 10d 10c 10b
+        10g 10f 10e 10e 10d 10c 10c
+        10g 10f 10f 10e 10d 10a 10a
+        10g 10g 10a 10a 10a 10a 10a
+        10a 10a 10a 10a 10a 10a 10a
+        """
+
+    @staticmethod
+    def parks1_beach_001():
+        return f"""
+        beach_001.parks1
+        5
+        10a 10a 10a 10a 10a
+        10b 10a 10a 10a 10a
+        10b 10c 10d 10e 10e
+        10c 10c 10c 10e 10e
+        10c 10c 10c 10e 10e
+        """
+
+    @staticmethod
+    def parks1_beach_002():
+        return f"""
+        beach_002.parks1
+        5
+        10a 10a 10a 10c 10c
+        10a 10a 10c 10d 10c
+        10b 10a 10c 10c 10c
+        10b 10b 10c 10e 10e
+        10b 10b 10b 10b 10e
+        """
+
+    @staticmethod
+    def parks1_beach_003():
+        return f"""
+        beach_003.parks1
+        5
+        10a 10d 10d 10d 10e
+        10a 10d 10d 10d 10e
+        10a 10a 10d 10d 10e
+        10a 10a 10c 10c 10e
+        10b 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_beach_004():
+        return f"""
+        beach_004.parks1
+        5
+        10a 10a 10a 10a 10a
+        10a 10a 10a 10e 10e
+        10a 10c 10c 10c 10e
+        10b 10c 10c 10d 10c
+        10b 10b 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_maui_001():
+        return f"""
+        maui_001.parks1
+        12
+        10a 10a 10a 10a 10a 10a 10a 10i 10i 10i 10i 10i
+        10a 10a 10a 10a 10a 10a 10a 10a 10a 10i 10i 10i
+        10a 10b 10b 10d 10d 10a 10a 10a 10a 10i 10i 10l
+        10c 10e 10e 10d 10d 10h 10a 10h 10i 10i 10i 10l
+        10c 10d 10e 10d 10d 10h 10h 10h 10h 10i 10i 10l
+        10c 10d 10d 10d 10d 10h 10h 10h 10h 10i 10i 10l
+        10f 10f 10f 10f 10h 10h 10h 10h 10k 10k 10k 10l
+        10f 10f 10f 10f 10g 10g 10h 10h 10k 10k 10k 10k
+        10f 10f 10f 10f 10g 10g 10j 10j 10k 10k 10k 10k
+        10f 10f 10f 10f 10j 10j 10j 10j 10k 10k 10k 10k
+        10f 10f 10f 10j 10j 10j 10j 10j 10k 10k 10k 10k
+        10f 10f 10f 10j 10j 10j 10k 10k 10k 10k 10k 10k
+        """
+
+    @staticmethod
+    def parks1_spring_001():
+        return f"""
+        spring_001.parks1
+        5
+        10a 10e 10e 10e 10e
+        10a 10a 10e 10e 10e
+        10a 10b 10c 10e 10e
+        10a 10c 10c 10c 10d
+        10c 10c 10c 10d 10d
+        """
+
+    @staticmethod
+    def parks1_spring_002():
+        return f"""
+        spring_002.parks1
+        5
+        10a 10a 10a 10a 10a
+        10b 10a 10a 10a 10a
+        10b 10b 10a 10d 10d
+        10b 10c 10c 10d 10e
+        10b 10b 10c 10c 10e
+        """
+
+    @staticmethod
+    def parks1_spring_003():
+        return f"""
+        spring_003.parks1
+        5
+        10a 10a 10b 10d 10d
+        10a 10b 10b 10c 10c
+        10b 10b 10b 10c 10c
+        10b 10b 10b 10c 10e
+        10b 10c 10c 10c 10e
+        """
+
+    @staticmethod
+    def parks1_spring_004():
+        return f"""
+        spring_004.parks1
+        5
+        10a 10a 10a 10d 10d
+        10a 10a 10a 10d 10d
+        10a 10a 10a 10d 10e
+        10b 10b 10b 10d 10e
+        10b 10b 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_005():
+        return f"""
+        spring_005.parks1
+        5
+        10a 10a 10d 10d 10e
+        10a 10a 10a 10e 10e
+        10a 10a 10a 10e 10e
+        10a 10b 10e 10e 10e
+        10b 10b 10c 10c 10e
+        """
+
+    @staticmethod
+    def parks1_spring_006():
+        return f"""
+        spring_006.parks1
+        5
+        10a 10a 10a 10a 10a
+        10b 10a 10a 10a 10e
+        10b 10c 10a 10a 10a
+        10b 10c 10c 10d 10a
+        10c 10c 10c 10d 10a
+        """
+
+    @staticmethod
+    def parks1_spring_007():
+        return f"""
+        spring_007.parks1
+        5
+        10a 10a 10a 10d 10d
+        10a 10a 10c 10d 10d
+        10a 10a 10c 10d 10d
+        10a 10a 10c 10d 10e
+        10b 10b 10b 10b 10b
+        """
+
+    @staticmethod
+    def parks1_spring_008():
+        return f"""
+        spring_008.parks1
+        5
+        10a 10a 10b 10b 10b
+        10a 10a 10b 10b 10b
+        10b 10b 10b 10d 10e
+        10b 10c 10e 10e 10e
+        10c 10c 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_009():
+        return f"""
+        spring_009.parks1
+        5
+        10a 10c 10c 10c 10c
+        10a 10c 10c 10c 10c
+        10a 10c 10d 10d 10d
+        10a 10a 10d 10e 10e
+        10b 10b 10b 10b 10e
+        """
+
+    @staticmethod
+    def parks1_spring_010():
+        return f"""
+        spring_010.parks1
+        5
+        10a 10a 10d 10d 10d
+        10b 10c 10d 10d 10d
+        10b 10c 10c 10d 10e
+        10b 10c 10e 10e 10e
+        10b 10e 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_011():
+        return f"""
+        spring_011.parks1
+        5
+        10a 10e 10e 10e 10e
+        10a 10e 10e 10e 10e
+        10a 10b 10b 10d 10e
+        10b 10b 10c 10d 10d
+        10b 10b 10c 10d 10d
+        """
+
+    @staticmethod
+    def parks1_spring_012():
+        return f"""
+        spring_012.parks1
+        5
+        10a 10a 10c 10c 10c
+        10a 10b 10c 10d 10e
+        10a 10b 10c 10d 10e
+        10a 10d 10d 10d 10e
+        10d 10d 10d 10d 10e
+        """
+
+    @staticmethod
+    def parks1_spring_013():
+        return f"""
+        spring_013.parks1
+        5
+        10a 10a 10d 10d 10e
+        10a 10a 10b 10d 10e
+        10b 10b 10b 10d 10d
+        10b 10b 10b 10b 10b
+        10c 10c 10c 10c 10b
+        """
+
+    @staticmethod
+    def parks1_spring_014():
+        return f"""
+        spring_014.parks1
+        5
+        10a 10c 10c 10c 10c
+        10a 10c 10c 10c 10c
+        10b 10b 10c 10d 10e
+        10b 10b 10d 10d 10e
+        10b 10b 10b 10b 10e
+        """
+
+    @staticmethod
+    def parks1_spring_015():
+        return f"""
+        spring_015.parks1
+        5
+        10a 10a 10d 10e 10e
+        10a 10a 10d 10e 10e
+        10a 10a 10b 10c 10c
+        10b 10b 10b 10c 10c
+        10b 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_016():
+        return f"""
+        spring_016.parks1
+        5
+        10a 10a 10a 10b 10b
+        10a 10a 10a 10b 10b
+        10c 10d 10d 10d 10c
+        10c 10c 10c 10c 10c
+        10e 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_017():
+        return f"""
+        spring_017.parks1
+        5
+        10a 10d 10d 10d 10d
+        10a 10d 10d 10d 10e
+        10a 10a 10b 10e 10e
+        10b 10b 10b 10e 10e
+        10c 10c 10c 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_018():
+        return f"""
+        spring_018.parks1
+        5
+        10a 10d 10d 10d 10e
+        10a 10c 10c 10e 10e
+        10a 10a 10c 10c 10e
+        10b 10a 10b 10e 10e
+        10b 10b 10b 10b 10b
+        """
+
+    @staticmethod
+    def parks1_spring_019():
+        return f"""
+        spring_019.parks1
+        5
+        10a 10a 10a 10a 10c
+        10a 10a 10c 10c 10c
+        10a 10a 10c 10e 10e
+        10b 10c 10c 10d 10e
+        10b 10b 10d 10d 10d
+        """
+
+    @staticmethod
+    def parks1_spring_020():
+        return f"""
+        spring_020.parks1
+        5
+        10a 10a 10a 10e 10e
+        10a 10a 10e 10e 10e
+        10a 10a 10e 10d 10e
+        10b 10b 10c 10d 10d
+        10b 10b 10c 10d 10d
+        """
+
+    @staticmethod
+    def parks1_spring_021():
+        return f"""
+        spring_021.parks1
+        5
+        10a 10a 10a 10d 10e
+        10a 10b 10a 10d 10e
+        10a 10b 10a 10d 10e
+        10b 10b 10c 10e 10e
+        10b 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_022():
+        return f"""
+        spring_022.parks1
+        5
+        10b 10d 10d 10e 10e
+        10b 10b 10d 10e 10e
+        10a 10b 10c 10c 10e
+        10a 10b 10c 10c 10c
+        10a 10a 10a 10a 10c
+        """
+
+    @staticmethod
+    def parks1_spring_023():
+        return f"""
+        spring_023.parks1
+        5
+        10a 10d 10d 10d 10d
+        10a 10d 10d 10d 10d
+        10a 10a 10c 10e 10e
+        10b 10c 10c 10e 10e
+        10b 10b 10c 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_024():
+        return f"""
+        spring_024.parks1
+        5
+        10a 10a 10a 10e 10e
+        10a 10a 10a 10e 10e
+        10a 10a 10a 10d 10e
+        10b 10c 10c 10d 10e
+        10b 10b 10c 10d 10d
+        """
+
+    @staticmethod
+    def parks1_spring_025():
+        return f"""
+        spring_025.parks1
+        5
+        10c 10c 10e 10e 10e
+        10b 10c 10c 10c 10e
+        10b 10b 10d 10d 10e
+        10a 10b 10b 10d 10d
+        10a 10a 10a 10a 10d
+        """
+
+    @staticmethod
+    def parks1_spring_026():
+        return f"""
+        spring_026.parks1
+        5
+        10a 10a 10a 10a 10e
+        10a 10b 10b 10e 10e
+        10a 10b 10b 10d 10d
+        10b 10b 10b 10c 10d
+        10b 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_027():
+        return f"""
+        spring_027.parks1
+        5
+        10a 10a 10a 10d 10d
+        10b 10b 10a 10d 10d
+        10c 10b 10c 10d 10e
+        10c 10b 10c 10d 10e
+        10c 10c 10c 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_028():
+        return f"""
+        spring_028.parks1
+        5
+        10a 10a 10b 10b 10d
+        10a 10b 10b 10d 10d
+        10a 10b 10e 10e 10e
+        10c 10b 10b 10c 10e
+        10c 10c 10c 10c 10e
+        """
+
+    @staticmethod
+    def parks1_spring_029():
+        return f"""
+        spring_029.parks1
+        5
+        10a 10a 10a 10a 10d
+        10a 10c 10c 10d 10d
+        10a 10c 10d 10d 10e
+        10b 10c 10c 10d 10e
+        10b 10b 10b 10e 10e
+        """
+
+    @staticmethod
+    def parks1_spring_030():
+        return f"""
+        spring_030.parks1
+        6
+        10a 10a 10a 10a 10f 10f
+        10a 10a 10a 10d 10f 10f
+        10a 10a 10a 10e 10e 10f
+        10a 10a 10a 10e 10e 10e
+        10b 10e 10e 10e 10e 10e
+        10c 10c 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_spring_031():
+        return f"""
+        spring_031.parks1
+        6
+        10a 10a 10a 10e 10e 10e
+        10a 10a 10a 10e 10f 10e
+        10b 10b 10b 10d 10f 10f
+        10c 10b 10c 10d 10d 10d
+        10c 10c 10c 10c 10c 10d
+        10c 10c 10c 10c 10c 10d
+        """
+
+    @staticmethod
+    def parks1_spring_032():
+        return f"""
+        spring_032.parks1
+        6
+        10a 10a 10a 10a 10e 10e
+        10b 10b 10b 10a 10a 10e
+        10b 10b 10c 10c 10e 10e
+        10b 10b 10c 10c 10e 10f
+        10c 10c 10c 10d 10d 10f
+        10c 10d 10d 10d 10f 10f
+        """
+
+    @staticmethod
+    def parks1_spring_033():
+        return f"""
+        spring_033.parks1
+        6
+        10a 10a 10a 10e 10e 10e
+        10a 10b 10a 10a 10e 10e
+        10a 10b 10a 10e 10e 10f
+        10b 10b 10c 10c 10e 10f
+        10b 10c 10c 10d 10d 10f
+        10b 10d 10d 10d 10f 10f
+        """
+
+    @staticmethod
+    def parks1_spring_034():
+        return f"""
+        spring_034.parks1
+        5
+        10c 10c 10e 10e 10e
+        10b 10c 10c 10c 10e
+        10b 10b 10d 10d 10e
+        10a 10b 10b 10d 10d
+        10a 10a 10a 10a 10d
+        """
+
+    @staticmethod
+    def parks1_spring_039():
+        return f"""
+        spring_039.parks1
+        7
+        10a 10b 10b 10e 10e 10e 10e
+        10a 10b 10c 10e 10e 10e 10e
+        10c 10c 10c 10e 10e 10e 10f
+        10c 10c 10c 10d 10g 10g 10f
+        10c 10d 10c 10d 10d 10g 10f
+        10d 10d 10d 10d 10d 10d 10f
+        10d 10d 10d 10d 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_spring_045():
+        return f"""
+        spring_045.parks1
+        7
+        10a 10a 10a 10a 10a 10f 10f
+        10a 10f 10f 10f 10f 10f 10g
+        10a 10a 10e 10e 10e 10f 10g
+        10a 10a 10e 10d 10e 10g 10g
+        10c 10c 10c 10d 10d 10g 10g
+        10b 10b 10c 10c 10c 10g 10g
+        10b 10b 10g 10g 10g 10g 10g
+        """
+
+    @staticmethod
+    def parks1_spring_046():
+        return f"""
+        spring_046.parks1
+        7
+        10a 10d 10d 10d 10d 10d 10d
+        10a 10a 10a 10d 10e 10e 10d
+        10b 10b 10d 10d 10e 10d 10d
+        10b 10d 10d 10f 10f 10d 10d
+        10d 10c 10d 10d 10g 10g 10d
+        10d 10c 10c 10d 10g 10g 10d
+        10d 10d 10d 10d 10d 10g 10g
+        """
+
+    @staticmethod
+    def parks1_spring_047():
+        return f"""
+        spring_047.parks1
+        7
+        10a 10a 10a 10a 10a 10f 10f
+        10a 10f 10f 10f 10f 10f 10g
+        10a 10a 10e 10e 10e 10f 10g
+        10a 10a 10e 10d 10e 10g 10g
+        10c 10c 10c 10d 10d 10g 10g
+        10b 10b 10c 10c 10c 10g 10g
+        10b 10b 10g 10g 10g 10g 10g
+        """
+
+    @staticmethod
+    def parks1_spring_051():
+        return f"""
+        spring_051.parks1
+        8
+        10a 10a 10a 10b 10b 10b 10e 10e
+        10a 10b 10a 10b 10b 10b 10e 10e
+        10b 10b 10b 10b 10b 10e 10e 10h
+        10b 10b 10b 10b 10b 10b 10h 10h
+        10c 10c 10c 10b 10b 10f 10h 10h
+        10c 10c 10c 10b 10f 10f 10g 10g
+        10d 10c 10c 10d 10d 10f 10f 10g
+        10d 10d 10d 10d 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_spring_062():
+        return f"""
+        spring_062.parks1
+        8
+        10a 10a 10c 10c 10h 10h 10h 10h
+        10a 10a 10a 10a 10h 10h 10h 10h
+        10a 10a 10b 10a 10h 10h 10h 10h
+        10d 10d 10e 10e 10e 10h 10h 10h
+        10d 10d 10e 10g 10g 10g 10h 10h
+        10d 10d 10e 10f 10f 10g 10f 10f
+        10d 10d 10d 10f 10f 10f 10f 10f
+        10d 10d 10d 10d 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_winter_037():
+        return f"""
+        winter_037.parks1
+        7
+        10a 10b 10c 10c 10c 10d 10d
+        10a 10b 10a 10a 10c 10d 10d
+        10a 10a 10a 10a 10a 10d 10g
+        10a 10e 10e 10e 10g 10d 10g
+        10e 10e 10g 10g 10g 10g 10g
+        10e 10e 10g 10e 10f 10f 10g
+        10e 10e 10e 10e 10e 10f 10g
+        """
+
+    @staticmethod
+    def parks1_winter_038():
+        return f"""
+        winter_038.parks1
+        7
+        10a 10a 10a 10a 10a 10a 10e
+        10a 10b 10b 10d 10d 10e 10e
+        10b 10b 10b 10f 10d 10f 10f
+        10b 10b 10b 10f 10d 10f 10g
+        10c 10c 10b 10f 10f 10f 10g
+        10c 10b 10b 10b 10b 10g 10g
+        10c 10b 10b 10b 10b 10b 10g
+        """
+
+    @staticmethod
+    def parks1_winter_039():
+        return f"""
+        winter_039.parks1
+        7
+        10a 10e 10e 10e 10f 10g 10g
+        10a 10a 10e 10e 10f 10g 10g
+        10a 10a 10c 10e 10f 10f 10g
+        10a 10a 10c 10c 10c 10d 10d
+        10a 10b 10c 10c 10c 10c 10c
+        10b 10b 10c 10c 10c 10c 10c
+        10b 10b 10c 10c 10c 10c 10c
+        """
+
+    @staticmethod
+    def parks1_winter_040():
+        return f"""
+        winter_040.parks1
+        7
+        10a 10a 10b 10b 10b 10b 10b
+        10a 10a 10a 10a 10a 10b 10a
+        10a 10a 10d 10d 10a 10a 10a
+        10a 10d 10d 10e 10g 10g 10a
+        10a 10a 10d 10e 10g 10g 10g
+        10c 10c 10e 10e 10f 10f 10g
+        10c 10c 10f 10f 10f 10g 10g
+        """
+
+    @staticmethod
+    def parks1_winter_041():
+        return f"""
+        winter_041.parks1
+        7
+        10g 10g 10g 10d 10a 10a 10a
+        10g 10c 10c 10d 10d 10d 10a
+        10b 10b 10c 10e 10d 10d 10a
+        10b 10b 10e 10e 10a 10a 10a
+        10a 10b 10a 10e 10a 10a 10h
+        10a 10a 10a 10a 10a 10h 10h
+        10a 10h 10h 10h 10h 10h 10h
+        """
+
+    @staticmethod
+    def parks1_winter_042():
+        return f"""
+        winter_042.parks1
+        7
+        10a 10d 10d 10d 10e 10e 10e
+        10a 10a 10d 10d 10d 10d 10e
+        10a 10a 10d 10d 10d 10d 10f
+        10a 10c 10c 10c 10d 10d 10f
+        10a 10c 10c 10c 10f 10f 10f
+        10b 10c 10c 10c 10f 10f 10f
+        10b 10b 10b 10c 10f 10g 10g
+        """
+
+    @staticmethod
+    def parks1_winter_044():
+        return f"""
+        winter_044.parks1
+        7
+        10a 10a 10c 10c 10e 10e 10e
+        10a 10c 10c 10c 10d 10e 10e
+        10a 10c 10c 10c 10d 10d 10d
+        10c 10c 10c 10c 10c 10g 10g
+        10b 10c 10c 10c 10c 10c 10g
+        10b 10c 10b 10c 10c 10g 10g
+        10b 10b 10b 10h 10h 10h 10h
+        """
+
+    @staticmethod
+    def parks1_winter_045():
+        return f"""
+        winter_045.parks1
+        7
+        10a 10a 10a 10e 10e 10f 10f
+        10a 10e 10e 10e 10f 10f 10f
+        10a 10b 10b 10c 10f 10g 10g
+        10b 10b 10b 10c 10f 10g 10g
+        10c 10c 10c 10c 10f 10g 10g
+        10c 10d 10d 10d 10d 10d 10g
+        10c 10d 10d 10d 10d 10d 10g
+        """
+
+    @staticmethod
+    def parks1_winter_046():
+        return f"""
+        winter_046.parks1
+        8
+        10a 10a 10a 10a 10g 10g 10g 10g
+        10b 10a 10a 10a 10g 10g 10g 10h
+        10b 10c 10c 10a 10g 10g 10g 10h
+        10c 10c 10c 10f 10f 10f 10f 10h
+        10c 10c 10d 10d 10f 10f 10f 10h
+        10e 10e 10e 10e 10f 10f 10f 10h
+        10e 10e 10e 10e 10f 10f 10f 10h
+        10e 10e 10e 10e 10e 10e 10f 10h
+        """
+
+    @staticmethod
+    def parks1_winter_047():
+        return f"""
+        winter_047.parks1
+        8
+        10a 10a 10a 10a 10e 10e 10h 10h
+        10b 10a 10a 10e 10e 10e 10g 10h
+        10b 10a 10e 10e 10e 10e 10g 10g
+        10b 10a 10e 10e 10e 10g 10g 10g
+        10a 10a 10e 10e 10e 10f 10f 10f
+        10a 10a 10e 10e 10e 10f 10f 10f
+        10c 10c 10c 10e 10e 10f 10f 10f
+        10d 10d 10d 10d 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_winter_048():
+        return f"""
+        winter_048.parks1
+        8
+        10a 10a 10a 10a 10a 10a 10c 10c
+        10a 10d 10b 10b 10a 10a 10a 10c
+        10a 10d 10d 10b 10a 10a 10a 10h
+        10d 10d 10e 10g 10g 10g 10g 10h
+        10d 10d 10e 10f 10f 10f 10g 10h
+        10e 10d 10e 10f 10f 10f 10f 10f
+        10e 10e 10e 10f 10f 10f 10f 10f
+        10e 10e 10f 10f 10f 10f 10f 10f
+        """
+
+    @staticmethod
+    def parks1_winter_049():
+        return f"""
+        winter_049.parks1
+        8
+        10a 10d 10d 10e 10e 10f 10h 10h
+        10a 10d 10d 10d 10f 10f 10h 10h
+        10a 10a 10d 10f 10f 10f 10h 10h
+        10a 10a 10f 10f 10f 10g 10h 10h
+        10a 10a 10a 10a 10f 10g 10g 10g
+        10a 10b 10c 10g 10g 10g 10g 10g
+        10a 10c 10c 10g 10g 10g 10g 10g
+        10c 10c 10c 10c 10g 10g 10g 10g
+        """
+
+    @staticmethod
+    def parks1_winter_050():
+        return f"""
+        winter_050.parks1
+        8
+        10a 10a 10d 10d 10h 10h 10h 10h
+        10a 10b 10d 10d 10h 10h 10h 10h
+        10a 10b 10d 10d 10h 10h 10h 10h
+        10a 10b 10d 10d 10h 10h 10g 10h
+        10b 10b 10b 10d 10d 10d 10g 10g
+        10c 10c 10c 10f 10f 10f 10f 10g
+        10c 10c 10c 10f 10f 10f 10f 10g
+        10e 10e 10e 10e 10f 10f 10g 10g
+        """
+
+    @staticmethod
+    def parks1_winter_051():
+        return f"""
+        winter_051.parks1
+        8
+        10a 10a 10a 10b 10b 10b 10g 10g
+        10a 10b 10a 10b 10b 10b 10g 10g
+        10b 10b 10b 10b 10b 10g 10g 10h
+        10b 10b 10b 10b 10b 10b 10h 10h
+        10c 10c 10c 10b 10b 10e 10h 10h
+        10c 10c 10c 10b 10e 10e 10f 10f
+        10d 10c 10c 10d 10d 10e 10e 10f
+        10d 10d 10d 10d 10e 10e 10e 10e
+        """
+
+    @staticmethod
+    def parks1_explicit_cross_hatch_actual():
+        return f"""
+        parks1_explicit_cross_hatch_actual.parks1        
+        5         
+        1.a 1.a 1.c 1.d 1.e
+        1.a 1.a 1.c 1.c 1.e
+        1.b 1_a 1.c 1.e 1.e
+        1.b 1.b 1.b 1.e 1.e
+        1.b 1.b 1.b 1.b 1.b
+        """
+
+    @staticmethod
+    def parks1_explicit_cross_hatch_expected():
+        return f"""
+        parks1_explicit_cross_hatch_expected.parks1    
+        5
+        _0a _0a 10c 10d 10e
+        _0a _0a _0c 10c 10e
+        _0b 1_a _0c _0e _0e
+        _0b _0b _0b 10e 10e
+        10b _0b 10b 10b 10b    
+        """
+
+    @staticmethod
+    def parks1_explicit_hidden_single_actual():
+        return f"""
+        parks1_explicit_hidden_single_actual.parks1      
+        5
+        _0a _0a _0c _0d 10e
+        _0a 10a 10c _0c 10e
+        10b _0a 10c _0e 10e
+        10b 10b 10b 10e 10e
+        10b 10b 10b _0b 10b  
+        """
+
+    @staticmethod
+    def parks1_explicit_hidden_single_expected():
+        return f"""
+        parks1_explicit_hidden_single_expected.parks1    
+        5
+        _0a _0a _0c _0d 1_e
+        _0a 1_a 10c _0c 10e
+        10b _0a 10c _0e 10e
+        10b 10b 10b 1_e 10e
+        10b 10b 10b _0b 10b   
+        """
+
+    # @staticmethod
+    # def parks1_explicit_00_01_rows_actual():
+    #     return f"""
+    #     parks1_explicit_00_01_rows_actual.parks
+    #     5
+    #     _0a _0a 10a 10a _0a
+    #     10a 10a 10a 10a 10a
+    #     10a 10a 10a 10a 10a
+    #     10a 10a 10a 10a 10a
+    #     10a 10a 10a 10a 10a
+    #     """
+    #
+    # @staticmethod
+    # def parks1_explicit_00_01_rows_expected():
+    #     return f"""
+    #         parks1_explicit_00_01_rows_expected.parks
+    #         5
+    #         _0a _0a 10a 10a _0a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         """
+
+    # @staticmethod
+    # def parks1_explicit_00_01_cols_actual():
+    #     return f"""
+    #         parks1_explicit_00_01_cols_actual.parks
+    #         5
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         """
+    #
+    # @staticmethod
+    # def parks1_explicit_00_02_rows_actual():
+    #     return f"""
+    #         parks1_explicit_00_02_rows_actual.parks
+    #         5
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         10a 10a 10a 10a 10a
+    #         """
+    #
+    # @staticmethod
+    # def parks1_explicit_00_02_cols_actual():
+    #     return f"""
+    #             parks1_explicit_00_02_cols_actual.parks
+    #             5
+    #             10a 10a 10a 10a 10a
+    #             10a 10a 10a 10a 10a
+    #             10a 10a 10a 10a 10a
+    #             10a 10a 10a 10a 10a
+    #             10a 10a 10a 10a 10a
+    #             """
