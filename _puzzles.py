@@ -110,6 +110,11 @@ class Puzzle:
 
     @property
     def has_fences(self) -> bool:
+        # temp = type(self.grid[0][0])
+
+
+        # print(temp)
+
         return any([s.isalpha() for s in self.grid[0][0]])
 
     def houses_rows_cols(self) -> list[list[Loc]]:
@@ -136,6 +141,10 @@ class Sumscrapers(Puzzle):
         super().__init__(puzzle, 2, 2)
 
     def is_solved(self) -> bool:
+        return False
+
+    @property
+    def has_fences(self) -> bool:
         return False
 
     def __scaper_or_none(self, loc: Loc):

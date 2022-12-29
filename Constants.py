@@ -26415,6 +26415,20 @@ class Constants:
         10b 10b 10b _0b 10b   
         """
 
+
+    # @staticmethod
+    # def sumscrapers_001():
+    #     return f"""
+    #     001.sumscrapers
+    #     4
+    #     1234 1234 1234 1234 04 10
+    #     1234 1234 1234 1234 07 04
+    #     1234 1234 1234 1234 06 07
+    #     1234 1234 1234 1234 05 09
+    #     04   07   06   05   $$ $$
+    #     10   04   07   09   $$ $$
+    #     """
+
     # @staticmethod
     # def parks1_explicit_00_01_rows_actual():
     #     return f"""

@@ -243,46 +243,25 @@ class Techs:
 
     class CrossHatch:
 
-        # @staticmethod
-        # def solve_cell_to_cell(puzzle: Sudoku, major: Loc, minor: Loc)->int:
-        #     pass
+        
 
-        @staticmethod
-        def solve_cell_to_cell(puzzle: list[list[str]], major: Loc, minor: Loc, candidate_getter) -> int:
-            major_string = puzzle[major.row][minor.col]
-            minor_string = puzzle[minor.row][minor.col]
-
-            major_candidates = candidate_getter(puzzle[major.row][major.col])
-            minor_candidates = candidate_getter(puzzle[minor.row][minor.col])
-
-            # major_candidates = ca
+    #   
 
         # @staticmethod
-        # def solve4(puzzle: Sudoku, cell: Loc) -> int:
-
-        @staticmethod
-        def solve0(puzzle: Sudoku) -> int:
+        def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
-
-            # for house in puzzle.houses_rows_cols_fences():
-            #     for i in range(len(house)):
-            #         for ii in range(len(house)):
-            #             loc0 = house[i]
-            #             loc1 = house[ii]
-
-            #             loc0_candidates = list(puzzle.cell_candidates(loc0))
-            #             loc1_candidates = list(puzzle.cell_candidates(loc1))
-
-            #             if len(loc0_candidates) == 1:
-            #                 edits += puzzle.rem(loc1, loc0_candidates)
-
-            #             if len(loc1_candidates) == 1:
-            #                 edits += puzzle.rem(loc0, loc1_candidates)
 
             for cell in list(puzzle.unsolved_cells()):
                 neighbors = set(
-                    puzzle.house_row(cell.row) + puzzle.house_col(cell.col) + puzzle.house_fence(
-                        puzzle.cell_fence(cell)))
+                    puzzle.house_row(cell.row) + puzzle.house_col(cell.col))
+                    #  + puzzle.house_fence(
+                    #     puzzle.cell_fence(cell)))
+
+                if puzzle.has_fences:
+                    for loc in puzzle.house_fence(puzzle.cell_fence(cell)):
+                        neighbors.add(loc)
+
+
                 neighbors.remove(cell)
                 for neighbor in neighbors:
                     if neighbor not in puzzle.unsolved_cells():
@@ -3123,6 +3102,37 @@ class Techs:
             edits = 0
             return edits
 
+    class CrossHatchSumscrapers(BasePuzzleTechnique):
+        def solve0(self, puzzle: Sumscrapers)->int:
+            edits = 0
+
+            houses = []
+
+            for index in range(puzzle.length):
+                houses.append(puzzle.house_row(index))
+                houses.append(puzzle.house_col(index))
+            for house in houses:
+                # print(house)
+                for index0 in range(len(house)):
+                    for index1 in range(len(house)):
+                        if index0 == index1:
+                            continue
+                        loc0 = house[index0]
+                        loc1 = house[index1]
+
+                        candidates0 = puzzle.cell_candidates(loc0)
+                        # candidates1 = puzzle.cell_candidates(loc1)
+
+                        if len(candidates0) == 1:
+                            edits += puzzle.rem([loc1], [candidates0[0]])
+
+
+
+
+
+            # edits += puzzle.rem([Loc(1,1)], [3])
+            return edits
+
     class SumscrapersTech(BasePuzzleTechnique):
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
@@ -3156,14 +3166,26 @@ class Techs:
                         expected.remove(min0)
                         current = current.north()
 
-                # if east == total:
+                # if north == total:
                 #     expected = set(puzzle.expected_candidates())
-                #     current = Loc(index, puzzle.length - 1)
+                #     current = Loc(0, index)
                 #     while len(expected) > 0:
                 #         min0 = min(expected)
                 #         edits += puzzle.rem([current], set(puzzle.expected_candidates()).difference([min0]))
                 #         expected.remove(min0)
-                #         current = current.west()
+                #         current = current.south()
+
+                if east == total:
+                    expected = set(puzzle.expected_candidates())
+                    current = Loc(0, puzzle.length - 1)
+                    while len(expected) > 0:
+                        min0 = min(expected)
+                        # print(min0)
+                        edits += puzzle.rem([current], set(puzzle.expected_candidates()).difference([min0]))
+                        expected.remove(min0)
+                        current = current.west()
+
+
 
 
 
@@ -3271,7 +3293,7 @@ class Solving:
 
     @staticmethod
     def sumscrapers_techniques() -> list:
-        return [Techs.SumscrapersTech()]
+        return [Techs.SumscrapersTech(), Techs.CrossHatchSumscrapers() ]
 
     @staticmethod
     def skyscrapers_techniques() -> list:
