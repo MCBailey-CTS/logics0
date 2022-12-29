@@ -1,24 +1,18 @@
 from abc import abstractmethod
 from turtle import pu, st
 from Loc import Loc
-from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, AbstractPainting, Clouds, Futoshiki, Mathrax
-
+from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, \
+    AbstractPainting, Clouds, Futoshiki, Mathrax, Sumscrapers
 
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
 
 
-
-
-
 class Techs:
     class BasePuzzleTechnique:
         def __repr__(self) -> str:
             return f'{self.__class__.__name__}()'
-
-
-   
 
     class MinesweeperSolver:  # (BasePuzzleTechnique):
 
@@ -63,7 +57,6 @@ class Techs:
         def solve0(self):
             pass
 
-    
     class SkyscrapersHiddenSingle:
         def solve0(self):
             pass
@@ -80,8 +73,6 @@ class Techs:
         def solve0(self, puzzle: Sudoku) -> int:
             raise NotImplementedError()
 
-
-
     class BaseMagnetsTechnique:
         @abstractmethod
         def solve0(self, puzzle: Magnets) -> int:
@@ -91,8 +82,6 @@ class Techs:
         @abstractmethod
         def solve0(self, puzzle: Kropki) -> int:
             raise NotImplementedError()
-
-
 
     class HiddenQuad(BaseSudokuTechnique):
         def solve0(self, puzzle: Sudoku) -> int:
@@ -2314,10 +2303,6 @@ class Techs:
             edits = 0
             return edits
 
-
-
-
-
     class MagnetsZero(BaseMagnetsTechnique):
         def solve0(self, puzzle: Magnets) -> int:
             edits = 0
@@ -2418,7 +2403,6 @@ class Techs:
 
             return edits
 
-
     class KropkiDiamondEbww(BaseKropkiTechnique):
         edits = 0
 
@@ -2500,8 +2484,6 @@ class Techs:
                         edits += puzzle.rem([empty.north().west(2), empty.south().west(2)], [1, 9])
 
             return edits
-
-
 
     class TennerCrossHatch(BasePuzzleTechnique):
         # def __repr__(self)->str:
@@ -2939,6 +2921,7 @@ class Techs:
 
             return edits
 
+
     class Parks1Shape_00_01(BasePuzzleTechnique):
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -3044,9 +3027,6 @@ class Techs:
 
             return edits
 
-
-
-
     class PowerGridTech:
         def solve0(self, puzzle: PowerGrid) -> int:
             edits = 0
@@ -3137,12 +3117,60 @@ class Techs:
             edits = 0
             return edits
 
-
     class MathraxHiddenSingle:
 
         def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
             return edits
+
+    class SumscrapersTech(BasePuzzleTechnique):
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+
+            for index in range(puzzle.length):
+                north = puzzle.north_scraper(index)
+                south = puzzle.south_scraper(index)
+                east = puzzle.east_scraper(index)
+                west = puzzle.west_scraper(index)
+
+                if north == puzzle.length:
+                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+
+                if south == puzzle.length:
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+
+                if east == puzzle.length:
+                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+
+                if west == puzzle.length:
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+
+                total = sum(puzzle.expected_candidates())
+
+                if south == total:
+                    expected = set(puzzle.expected_candidates())
+                    current = Loc(puzzle.length - 1, index)
+                    while len(expected) > 0:
+                        min0 = min(expected)
+                        edits += puzzle.rem([current], set(puzzle.expected_candidates()).difference([min0]))
+                        expected.remove(min0)
+                        current = current.north()
+
+                # if east == total:
+                #     expected = set(puzzle.expected_candidates())
+                #     current = Loc(index, puzzle.length - 1)
+                #     while len(expected) > 0:
+                #         min0 = min(expected)
+                #         edits += puzzle.rem([current], set(puzzle.expected_candidates()).difference([min0]))
+                #         expected.remove(min0)
+                #         current = current.west()
+
+
+
+
+
+            return edits
+
 
 class Solving:
     @staticmethod
@@ -3171,9 +3199,6 @@ class Solving:
         ]
 
     @staticmethod
-    
-
-
     def kropki_techniques() -> list:
         return [
             Techs.KropkiBlack(),
@@ -3183,12 +3208,10 @@ class Solving:
         ]
 
     @staticmethod
-    
     def robot_fences_techniques() -> list:
         return [Techs.CrossHatchRobotFences(), Techs.HiddenSingleRobotFences()]
 
     @staticmethod
-
     def parks1_techniques() -> list:
         return [
             Techs.Parks1CrossHatch(),
@@ -3201,13 +3224,10 @@ class Solving:
         ]
 
     @staticmethod
-    
     def parks2_techniques() -> list:
         return []
 
     @staticmethod
-
-
     def tenner_techniques() -> list:
         return [Techs.TennerCrossHatch(),
                 Techs.TennerNakedPair(),
@@ -3218,85 +3238,77 @@ class Solving:
                 Techs.TennerNakedPairColumn()]
 
     @staticmethod
-    
     def futoshiki_techniques() -> list:
         return []
 
     @staticmethod
-    
     def clouds_techniques() -> list:
         return []
-    @staticmethod
 
-        
+    @staticmethod
     def knightoku_techniques() -> list:
         return [Techs.CrossHatchKnightoku()] + Solving.sudoku_techniques()
+
     @staticmethod
-    
     def kakuro_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def lighthouses_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def walls_techniques() -> list:
         return []
+
     @staticmethod
-        
     def tents_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def mathrax_techniques() -> list:
         return []
 
     @staticmethod
-
     def sumscrapers_techniques() -> list:
-        return []
+        return [Techs.SumscrapersTech()]
 
     @staticmethod
-
     def skyscrapers_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def minesweeper_techniques():
         return [Techs.MinesweeperSolver()]
-    @staticmethod
 
+    @staticmethod
     def snail3_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def mine_ships_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def sentinels_techniques() -> list:
         return []
 
     @staticmethod
-
     def nurikabe_techniques() -> list:
         return []
-    @staticmethod
 
+    @staticmethod
     def robot_crosswords_techniques() -> list:
         return [Techs.RobotCrosswordsHouses()]
 
-
     @staticmethod
-
     def power_grid_techniques() -> list:
         return [Techs.PowerGridTech()]
 
-    
     @staticmethod
     def abstractpainting_techniques() -> list:
         return []
+
     @staticmethod
     def battle_ships_techniques() -> list:
         return []
@@ -3309,13 +3321,8 @@ class Solving:
     def magnets_techniques() -> list:
         return []
 
-    
     @staticmethod
-
-
     def lightenup_techniques() -> list:
         return []
-
-
 
 # 2865

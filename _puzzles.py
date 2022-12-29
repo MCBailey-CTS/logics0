@@ -11,7 +11,8 @@ EMPTY = "."
 
 
 class Puzzle:
-    def __init__(self, puzzle: str) -> None:
+    def __init__(self, puzzle: str, row_offset: int = 0, col_offset: int = 0) -> None:
+        self.grid = []
         array = []
         for line in puzzle.split("\n"):
             temp = line.strip()
@@ -20,11 +21,48 @@ class Puzzle:
             array.append(temp)
         self.__id = array[0]
         self.__length = int(array[1])
-        self.grid = []
+        array.pop(0)
+        array.pop(0)
+
+        for line in array:
+            self.grid.append(
+                line.replace("  ", " ", -1)
+                .replace("  ", " ", -1)
+                .replace("  ", " ", -1)
+                .replace("  ", " ", -1)
+                .strip()
+                .split(" "))
+
+        if row_offset is None:
+            self.__row_length = self.__length
+        else:
+            self.__row_length = row_offset + self.__length
+
+        if col_offset is None:
+            self.__col_length = self.__length
+        else:
+            self.__col_length = col_offset + self.__length
 
     @property
     def length(self) -> int:
         return self.__length
+
+    @property
+    def row_length(self) -> int:
+        return self.__row_length
+
+    def unsolved_cells(self) -> list[Loc]:
+        unsolved = []
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                if len(self.cell_candidates(loc)) == 1:
+                    unsolved.append(loc)
+        return unsolved
+
+    @property
+    def col_length(self) -> int:
+        return self.__col_length
 
     def id(self) -> str:
         return self.__id
@@ -39,11 +77,10 @@ class Puzzle:
     def is_cell_solved(self, loc: Loc) -> bool:
         return len(self.cell_candidates(loc)) == 1
 
-    @abstractmethod
     def expected_candidates(self) -> list:
-        raise NotImplementedError()
+        return [candidate for candidate in range(1, self.length + 1)]
 
-    def rem(self, locs: list[Loc], candidates: list[int]) -> int:
+    def rem(self, locs: list[Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             locs = [locs]
@@ -83,6 +120,41 @@ class Puzzle:
 
     def houses_cols(self) -> list[list[Loc]]:
         return [self.house_col(i) for i in range(self.length)]
+
+    def __str__(self):
+        string = f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.row_length):
+            for c in range(self.col_length):
+                string += f'{self.grid[r][c].ljust(self.length)} '
+            string += '\n'
+        return string
+
+
+class Sumscrapers(Puzzle):
+    def __init__(self, puzzle: str):
+        super().__init__(puzzle, 2, 2)
+
+    def is_solved(self) -> bool:
+        return False
+
+    def __scaper_or_none(self, loc: Loc):
+        string = self.grid[loc.row][loc.col]
+        if string.isnumeric():
+            return int(string)
+        return None
+
+    def north_scraper(self, col: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(self.length, col))
+
+    def south_scraper(self, col: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(self.length + 1, col))
+
+    def east_scraper(self, row: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(row, self.length))
+
+    def west_scraper(self, row: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(row, self.length + 1))
 
 
 class Sudoku(Puzzle):
@@ -1003,12 +1075,12 @@ class Tenner(Puzzle):
         return None
 
 
-
 class Knightoku:  # (Sudoku):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
 
-class RobotCrosswords (Puzzle):
+
+class RobotCrosswords(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
         array = []
@@ -1055,7 +1127,6 @@ class RobotCrosswords (Puzzle):
 
     def is_solved(self) -> bool:
         return False
-
 
 
 class Minesweeper:  # (Puzzle):
@@ -1105,12 +1176,7 @@ class Minesweeper:  # (Puzzle):
         return edits
 
 
-
 class Snail3:
-    pass
-
-
-class Sumscrapers:
     pass
 
 
@@ -1118,11 +1184,13 @@ class Walls:
     pass
 
 
-class Parks2:    
+class Parks2:
     pass
+
 
 class AbstractPainting:
     pass
+
 
 class BattleShips:
     pass
@@ -1130,7 +1198,6 @@ class BattleShips:
 
 class Clouds:
     pass
-
 
 
 class PowerGrid:
@@ -1280,9 +1347,9 @@ class PowerGrid:
     def require_power(self, locs: list[Loc]) -> int:
         return self.require_power2(locs) + self.require_power3(locs)
 
+
 class Sentinels:
     pass
-
 
 
 class Skyscrapers:
@@ -1291,6 +1358,7 @@ class Skyscrapers:
 
 class Tents:
     pass
+
 
 class Futoshiki:
     def __init__(self, puzzle: str) -> None:
@@ -1351,8 +1419,6 @@ class Futoshiki:
                 string += f'{self.Constantsgrid[r][c]} '
             string += '\n'
         return string
-
-
 
 
 class HiddenStars:
@@ -1510,7 +1576,6 @@ class LightenUp:  # (Sudoku):
         return None
 
 
-
 class Lighthouses:
     pass
 
@@ -1522,6 +1587,7 @@ class Mathrax:
     def solve0(self):
         pass
 
+
 class Nurikabe:
     pass
 
@@ -1530,3 +1596,7 @@ class MineShips:
     pass
 
 
+class Nurikabe:
+    pass
+
+# 1537
