@@ -17631,9 +17631,9 @@ class Constants:
         """
 
     @staticmethod
-    def magnets_04():
+    def magnets_043():
         return f"""
-        04.magnets
+        043.magnets
         8
         a h h i i l m m 4 3
         a j j k k l q r 3 3

@@ -1082,7 +1082,7 @@ class Minesweeper:  # (Puzzle):
     def is_mine_cell(self, loc: Loc) -> bool:
         return not self.is_number_cell(loc)
 
-    def ConstantsstrConstants(self):
+    def __str__(self):
         string = f'{self.id()}\n'
         string += f'{self.length}\n'
         for r in range(self.length):
@@ -1134,7 +1134,7 @@ class Clouds:
 
 
 class PowerGrid:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
+    def __init__(self, puzzle: str) -> None:
         array = []
         for line in puzzle.split("\n"):
             temp = line.strip()
@@ -1176,7 +1176,7 @@ class PowerGrid:
     def is_cell_solved_as_empty(self, loc: Loc) -> bool:
         return '+' not in self.Constantsgrid[loc.row][loc.col]
 
-    def ConstantsstrConstants(self) -> str:
+    def __str__(self) -> str:
         string = f'{self.Constantsid}\n'
         string += f'{self.Constantslength}\n'
         for r in range(self.grid_length):
@@ -1293,7 +1293,7 @@ class Tents:
     pass
 
 class Futoshiki:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
+    def __init__(self, puzzle: str) -> None:
         array = []
         for line in puzzle.split("\n"):
             temp = line.strip()
@@ -1342,7 +1342,7 @@ class Futoshiki:
 
         return edits
 
-    def ConstantsstrConstants(self):
+    def __str__(self):
         string = f'{self.Constantsid}\n'
         string += f'{self.Constantslength}\n'
 
@@ -1364,7 +1364,7 @@ class Kakuro:
 
 
 class LightenUp:  # (Sudoku):
-    def ConstantsinitConstants(self, puzzle: str) -> None:
+    def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
         self.Constantsgrid = []
         array = []
@@ -1465,7 +1465,7 @@ class LightenUp:  # (Sudoku):
     def expected_candidates(self) -> list:
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    def ConstantsstrConstants(self):
+    def __str__(self):
         string = f'{self.id()}\n'
         string += f'{self.length}\n'
         for r in range(self.length + 1):
@@ -1516,8 +1516,17 @@ class Lighthouses:
 
 
 class Mathrax:
-    def ConstantsinitConstants(self, puzzle: str) -> None:
+    def __init__(self, puzzle: str) -> None:
         pass
 
     def solve0(self):
         pass
+
+class Nurikabe:
+    pass
+
+
+class MineShips:
+    pass
+
+

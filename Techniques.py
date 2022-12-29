@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from turtle import pu
+from turtle import pu, st
 from Loc import Loc
 from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, AbstractPainting, Clouds, Futoshiki, Mathrax
 
@@ -7,6 +7,9 @@ from _puzzles import Sudoku, Magnets,    Kropki, Parks1,    Tenner, RobotFences,
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
+
+
+
 
 
 class Techs:
@@ -3044,103 +3047,274 @@ class Techs:
 
 
 
-class PowerGridTech:
-    def solve0(self, puzzle: PowerGrid) -> int:
-        edits = 0
+    class PowerGridTech:
+        def solve0(self, puzzle: PowerGrid) -> int:
+            edits = 0
 
-        for group in puzzle.house_rows_cols_edges():
-            house, edge = group
+            for group in puzzle.house_rows_cols_edges():
+                house, edge = group
 
-            if edge < 1:
-                continue
-
-            if puzzle.length == 9 and edge == 6:
-                next_to0 = [house.pop(0), house.pop(0)]
-                next_to1 = [house.pop(len(house) - 1), house.pop(len(house) - 1)]
-                edits += puzzle.rem(house, ["+"])
-                edits += puzzle.required_power(next_to0)
-                edits += puzzle.required_power(next_to1)
-
-        #
-        #     print(house)
-        #     print(edge)
-
-        # for index in range(puzzle.length):
-
-        return edits
-
-class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
-    def solve0(self, puzzle: Futoshiki) -> int:
-        edits = 0
-
-        for r in range(puzzle.length * 2 - 1):
-            for c in range(puzzle.length * 2 - 1):
-
-                even_row = r % 2 == 0
-                even_col = c % 2 == 0
-
-                if even_row and even_col:
+                if edge < 1:
                     continue
 
-                if not even_row and not even_col:
-                    continue
+                if puzzle.length == 9 and edge == 6:
+                    next_to0 = [house.pop(0), house.pop(0)]
+                    next_to1 = [house.pop(len(house) - 1), house.pop(len(house) - 1)]
+                    edits += puzzle.rem(house, ["+"])
+                    edits += puzzle.required_power(next_to0)
+                    edits += puzzle.required_power(next_to1)
 
-                if even_row:
-                    loc = Loc(r, c)
-                    string = puzzle.cell_string(loc)
+            #
+            #     print(house)
+            #     print(edge)
 
-                    if string == '>':
-                        edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
+            # for index in range(puzzle.length):
 
-                    # print(puzzle.cell_string(loc))
-        # for row_house in puzzle.house_row_cells()
+            return edits
 
-        return edits
+    class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
+        def solve0(self, puzzle: Futoshiki) -> int:
+            edits = 0
 
-    def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
-        edits = 0
-        lesser_candidates = puzzle.cell_candidates(lesser)
-        greater_candidates = puzzle.cell_candidates(greater)
+            for r in range(puzzle.length * 2 - 1):
+                for c in range(puzzle.length * 2 - 1):
 
-        min_greater = min(greater_candidates)
-        max_lesser = max(lesser_candidates)
+                    even_row = r % 2 == 0
+                    even_col = c % 2 == 0
 
-        print(min_greater)
-        print(max_lesser)
+                    if even_row and even_col:
+                        continue
 
-        for candidate in lesser_candidates:
-            if candidate >= min_greater:
-                print(f'removing {candidate} from {lesser}')
-                edits += puzzle.rem([lesser], [str(candidate)])
+                    if not even_row and not even_col:
+                        continue
 
-        # print(lesser_candidates)
-        # print(greater_candidates)
+                    if even_row:
+                        loc = Loc(r, c)
+                        string = puzzle.cell_string(loc)
 
-        return edits
+                        if string == '>':
+                            edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
+
+                        # print(puzzle.cell_string(loc))
+            # for row_house in puzzle.house_row_cells()
+
+            return edits
+
+        def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
+            edits = 0
+            lesser_candidates = puzzle.cell_candidates(lesser)
+            greater_candidates = puzzle.cell_candidates(greater)
+
+            min_greater = min(greater_candidates)
+            max_lesser = max(lesser_candidates)
+
+            print(min_greater)
+            print(max_lesser)
+
+            for candidate in lesser_candidates:
+                if candidate >= min_greater:
+                    print(f'removing {candidate} from {lesser}')
+                    edits += puzzle.rem([lesser], [str(candidate)])
+
+            # print(lesser_candidates)
+            # print(greater_candidates)
+
+            return edits
+
+    class FutoshikiCrossHatch:  # (BaseFutoshikiTechnique):
+        def solve0(self, puzzle: Futoshiki) -> int:
+            edits = 0
+            return edits
+
+    class FutoshikiHiddenSingle:  # (BaseFutoshikiTechnique):
+        def solve0(self, puzzle: Futoshiki) -> int:
+            edits = 0
+            return edits
+
+    class MathraxCrossHatch:
+
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+            return edits
 
 
+    class MathraxHiddenSingle:
 
-class MathraxCrossHatch:
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+            return edits
 
-    def solve0(self, puzzle: Mathrax) -> int:
-        edits = 0
-        return edits
+class Solving:
+    @staticmethod
+    def sudoku_techniques() -> list:
+        return [
+            Techs.CrossHatch(),
+            Techs.HiddenSingle(),
+            Techs.NakedPair(),
+            Techs.LockedCandidatesPointing(),
+            Techs.LockedCandidatesClaiming(),
+            Techs.HiddenSingle(),
+            # Techs.UniqueRectangleType1(),
+            # Techs.UniqueRectangleType2(),
+            # Techs.UniqueRectangleType4(),
+            # Techs.XWing(),
+            # Techs.Bug(),
+            # Techs.NakedTriple(),
+            # Techs.WWing(),
+            # Techs.ShashimiXWingPlus1(),
+            # Techs.XyWing(),
+            # Techs.FinnedXWing(),
+            # Techs.AvoidableRectangleType1(),
+            # Techs.WxyzWing(),
+            # Techs.SwordFish(),
+            # Techs.JellyFish(),
+        ]
+
+    @staticmethod
+    
 
 
-class MathraxHiddenSingle:
+    def kropki_techniques() -> list:
+        return [
+            Techs.KropkiBlack(),
+            Techs.KropkiWhite(),
+            Techs.KropkiEmpty(),
+            Techs.KropkiNakedPair(),
+        ]
 
-    def solve0(self, puzzle: Mathrax) -> int:
-        edits = 0
-        return edits
+    @staticmethod
+    
+    def robot_fences_techniques() -> list:
+        return [Techs.CrossHatchRobotFences(), Techs.HiddenSingleRobotFences()]
+
+    @staticmethod
+
+    def parks1_techniques() -> list:
+        return [
+            Techs.Parks1CrossHatch(),
+            Techs.Parks1HiddenSingle(),
+            Techs.Parks1CrossHatchTouching(),
+            Techs.Parks1LockedCandidatesPointing(),
+            # Techs.Parks1LockedCandidatesClaiming(),
+            Techs.Parks1Bent3(),
+            Techs.Parks1Shape_00_01()
+        ]
+
+    @staticmethod
+    
+    def parks2_techniques() -> list:
+        return []
+
+    @staticmethod
 
 
-class MineShips:
-    pass
+    def tenner_techniques() -> list:
+        return [Techs.TennerCrossHatch(),
+                Techs.TennerNakedPair(),
+                Techs.TennerHiddenPair(),
+                Techs.TennerHiddenSingle(),
+                Techs.TennerTotalHiddenSingle(),
+                Techs.TennerPowerSetTotals(),
+                Techs.TennerNakedPairColumn()]
+
+    @staticmethod
+    
+    def futoshiki_techniques() -> list:
+        return []
+
+    @staticmethod
+    
+    def clouds_techniques() -> list:
+        return []
+    @staticmethod
+
+        
+    def knightoku_techniques() -> list:
+        return [Techs.CrossHatchKnightoku()] + Solving.sudoku_techniques()
+    @staticmethod
+    
+    def kakuro_techniques() -> list:
+        return []
+    @staticmethod
+
+    def lighthouses_techniques() -> list:
+        return []
+    @staticmethod
+
+    def walls_techniques() -> list:
+        return []
+    @staticmethod
+        
+    def tents_techniques() -> list:
+        return []
+    @staticmethod
+
+    def mathrax_techniques() -> list:
+        return []
+
+    @staticmethod
+
+    def sumscrapers_techniques() -> list:
+        return []
+
+    @staticmethod
+
+    def skyscrapers_techniques() -> list:
+        return []
+    @staticmethod
+
+    def minesweeper_techniques():
+        return [Techs.MinesweeperSolver()]
+    @staticmethod
+
+    def snail3_techniques() -> list:
+        return []
+    @staticmethod
+
+    def mine_ships_techniques() -> list:
+        return []
+    @staticmethod
+
+    def sentinels_techniques() -> list:
+        return []
+
+    @staticmethod
+
+    def nurikabe_techniques() -> list:
+        return []
+    @staticmethod
+
+    def robot_crosswords_techniques() -> list:
+        return [Techs.RobotCrosswordsHouses()]
 
 
+    @staticmethod
 
-class Nurikabe:
-    pass
+    def power_grid_techniques() -> list:
+        return [Techs.PowerGridTech()]
+
+    
+    @staticmethod
+    def abstractpainting_techniques() -> list:
+        return []
+    @staticmethod
+    def battle_ships_techniques() -> list:
+        return []
+
+    @staticmethod
+    def hidden_stars_techniques() -> list:
+        return []
+
+    @staticmethod
+    def magnets_techniques() -> list:
+        return []
+
+    
+    @staticmethod
+
+
+    def lightenup_techniques() -> list:
+        return []
 
 
 

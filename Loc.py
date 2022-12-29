@@ -161,8 +161,8 @@ class Loc:
 
         return houses
 
-    @staticmethod
-    def shape()
+    # @staticmethod
+    # def shape()
 
 
 # loc0 = Loc(1, 6)
