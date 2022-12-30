@@ -121,7 +121,35 @@ class Loc:
             return True
 
         return False
+    
+    @staticmethod
 
+    def row_chute(loc) -> int:
+        if self.length != 9:
+            raise Exception("Can only ask for row chute of 9x9 sudoku")
+        if loc.row < 0:
+            raise Exception(f'Invalid loc to ask row chute for {loc}')
+        if loc.row < 3:
+            return 0
+        elif loc.row < 6:
+            return 1
+        elif loc.row < 9:
+            return 2
+        raise Exception(f'Invalid loc to ask row chute for {loc}')
+    @staticmethod
+
+    def col_chute(loc) -> int:
+        if self.length != 9:
+            raise Exception("Can only ask for col chute of 9x9 sudoku")
+        if loc.col < 0:
+            raise Exception(f'Invalid loc to ask col chute for {loc}')
+        if loc.col < 3:
+            return 0
+        elif loc.col < 6:
+            return 1
+        elif loc.col < 9:
+            return 2
+        raise Exception(f'Invalid loc to ask col chute for {loc}')
     @staticmethod
     def kropki_row_locs(length: int):
         pass

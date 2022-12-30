@@ -47,6 +47,37 @@ class Puzzle:
     def length(self) -> int:
         return self.__length
 
+    def fences(self) -> set[str]:
+        house = set()
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                house.add(other)
+
+        return house
+
+    def houses_fences(self) -> list[list[Loc]]:
+        return [self.house_fence(fence) for fence in self.fences()]
+
+    def house_fence(self, fence: str) -> list[Loc]:
+        house = []
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                if other == fence:
+                    house.append(loc)
+
+        return house
+    def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
+        if loc is None:
+            return self.houses_rows_cols() + self.houses_fences()
+        fence = self.cell_fence(loc)
+        return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
+
     @property
     def row_length(self) -> int:
         return self.__row_length
@@ -112,12 +143,8 @@ class Puzzle:
     def has_fences(self) -> bool:
         return any([s.isalpha() for s in self.grid[0][0]])
 
-
     def cell_fence(self, loc: Loc) -> str:
-        # print(self.grid[loc.row][loc.col])
-
-
-        return "".join([s for s in self.grid[loc.row][loc.col] if s.isalpha() ])
+        return "".join([s for s in self.grid[loc.row][loc.col] if s.isalpha()])
 
     def houses_rows_cols(self) -> list[list[Loc]]:
         return self.houses_rows() + self.houses_cols()
@@ -303,10 +330,6 @@ class Sudoku(Puzzle):
 
                     self.grid[r][c] = new_string
 
-
-
-
-
         # array = []
         # for line in puzzle.split("\n"):
         #     temp = line.strip()
@@ -314,8 +337,6 @@ class Sudoku(Puzzle):
         #         continue
         #     print(temp)
         #     array.append(temp)
-
-
 
     # def rem(self, loc: Loc, candidates0) -> int:
     #     edits = 0
@@ -445,8 +466,8 @@ class Sudoku(Puzzle):
                 unsolved.add(loc)
         return unsolved
 
-    def expected_candidates(self) -> list[int]:
-        return [i + 1 for i in range(self.length)]
+    # def expected_candidates(self) -> list[int]:
+    #     return [i + 1 for i in range(self.length)]
 
     def any_cell_is_solved(self, locs) -> bool:
         return [len(self.cell_candidates(loc)) == 1 for loc in locs] > 0
@@ -458,60 +479,7 @@ class Sudoku(Puzzle):
                 locs.append(Loc(r, c))
         return locs
 
-    def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
-        if loc is None:
-            return self.houses_rows_cols() + self.houses_fences()
-        fence = self.cell_fence(loc)
-        return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
 
-    def houses_fences(self) -> list[list[Loc]]:
-        return [self.house_fence(fence) for fence in self.fences()]
-
-
-
-    def house_fence(self, fence: str) -> list[Loc]:
-        house = []
-
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                other = self.cell_fence(loc)
-                if other == fence:
-                    house.append(loc)
-
-        return house
-
-    def fences(self) -> set[str]:
-        house = set()
-
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                other = self.cell_fence(loc)
-                house.add(other)
-
-        return house
-
-    def solved_candidate(self, loc: Loc) -> int:
-        temp = list(self.grid[loc.row][loc.col])
-        if len(temp) != 1:
-            raise ValueError("cell isn't solved")
-        return temp[0]
-
-    # def cell_fence(self, loc: Loc) -> str:
-    #     return self.__fences[loc.row][loc.col]
-
-    def fence_dict(self, locs: Union[list[Loc], set[Loc]]) -> dict:
-        d = {}
-        for loc in locs:
-            fence = self.cell_fence(loc)
-            if fence not in d:
-                d[fence] = []
-            d[fence].append(loc)
-        return d
-
-    # def cell_candidates(self, loc: Loc) -> set[int]:
-    #     return self.grid[loc.row][loc.col]
 
     def is_solved(self) -> bool:
         for house in self.houses_rows_cols_fences():
