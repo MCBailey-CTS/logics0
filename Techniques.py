@@ -1,5 +1,7 @@
 from abc import abstractmethod
 from turtle import pu, st
+from typing import Optional
+
 from Loc import Loc
 from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, \
     AbstractPainting, Clouds, Futoshiki, Mathrax, Sumscrapers
@@ -9,10 +11,169 @@ MINUS = "-"
 EMPTY = "."
 
 
+class Solving:
+    @staticmethod
+    def sudoku_techniques() -> list:
+        return [
+            Techs.CrossHatch(),
+            Techs.HiddenSingle(),
+            Techs.NakedPair(),
+            Techs.LockedCandidatesPointing(),
+            Techs.LockedCandidatesClaiming(),
+            Techs.HiddenSingle(),
+            # Techs.UniqueRectangleType1(),
+            # Techs.UniqueRectangleType2(),
+            # Techs.UniqueRectangleType4(),
+            # Techs.XWing(),
+            # Techs.Bug(),
+            # Techs.NakedTriple(),
+            # Techs.WWing(),
+            # Techs.ShashimiXWingPlus1(),
+            # Techs.XyWing(),
+            # Techs.FinnedXWing(),
+            # Techs.AvoidableRectangleType1(),
+            # Techs.WxyzWing(),
+            # Techs.SwordFish(),
+            # Techs.JellyFish(),
+        ]
+
+    @staticmethod
+    def kropki_techniques() -> list:
+        return [
+            Techs.KropkiBlack(),
+            Techs.KropkiWhite(),
+            Techs.KropkiEmpty(),
+            Techs.KropkiNakedPair(),
+        ]
+
+    @staticmethod
+    def robot_fences_techniques() -> list:
+        return [Techs.CrossHatchRobotFences(), Techs.HiddenSingleRobotFences()]
+
+    @staticmethod
+    def parks1_techniques() -> list:
+        return [
+            Techs.Parks1CrossHatch(),
+            Techs.Parks1HiddenSingle(),
+            Techs.Parks1CrossHatchTouching(),
+            Techs.Parks1LockedCandidatesPointing(),
+            # Techs.Parks1LockedCandidatesClaiming(),
+            Techs.Parks1Bent3(),
+            Techs.Parks1Shape_00_01()
+        ]
+
+    @staticmethod
+    def parks2_techniques() -> list:
+        return []
+
+    @staticmethod
+    def tenner_techniques() -> list:
+        return [Techs.TennerCrossHatch(),
+                Techs.TennerNakedPair(),
+                Techs.TennerHiddenPair(),
+                Techs.TennerHiddenSingle(),
+                Techs.TennerTotalHiddenSingle(),
+                Techs.TennerPowerSetTotals(),
+                Techs.TennerNakedPairColumn()]
+
+    @staticmethod
+    def futoshiki_techniques() -> list:
+        return []
+
+    @staticmethod
+    def clouds_techniques() -> list:
+        return []
+
+    @staticmethod
+    def knightoku_techniques() -> list:
+        return [Techs.CrossHatchKnightoku()] + Solving.sudoku_techniques()
+
+    @staticmethod
+    def kakuro_techniques() -> list:
+        return []
+
+    @staticmethod
+    def lighthouses_techniques() -> list:
+        return []
+
+    @staticmethod
+    def walls_techniques() -> list:
+        return []
+
+    @staticmethod
+    def tents_techniques() -> list:
+        return []
+
+    @staticmethod
+    def mathrax_techniques() -> list:
+        return []
+
+    @staticmethod
+    def sumscrapers_techniques() -> list:
+        return [Techs.SumscrapersTech(), Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(),
+                Techs.SumscrapersSecondInLine(),Techs.SumscrapersLastIsMax(), Techs.SumscrapersNextToScraper()]
+
+    @staticmethod
+    def skyscrapers_techniques() -> list:
+        return []
+
+    @staticmethod
+    def minesweeper_techniques():
+        return [Techs.MinesweeperSolver()]
+
+    @staticmethod
+    def snail3_techniques() -> list:
+        return []
+
+    @staticmethod
+    def mine_ships_techniques() -> list:
+        return []
+
+    @staticmethod
+    def sentinels_techniques() -> list:
+        return []
+
+    @staticmethod
+    def nurikabe_techniques() -> list:
+        return []
+
+    @staticmethod
+    def robot_crosswords_techniques() -> list:
+        return [Techs.RobotCrosswordsHouses()]
+
+    @staticmethod
+    def power_grid_techniques() -> list:
+        return [Techs.PowerGridTech()]
+
+    @staticmethod
+    def abstractpainting_techniques() -> list:
+        return []
+
+    @staticmethod
+    def battle_ships_techniques() -> list:
+        return []
+
+    @staticmethod
+    def hidden_stars_techniques() -> list:
+        return []
+
+    @staticmethod
+    def magnets_techniques() -> list:
+        return []
+
+    @staticmethod
+    def lightenup_techniques() -> list:
+        return []
+
+
 class Techs:
     class BasePuzzleTechnique:
         def __repr__(self) -> str:
             return f'{self.__class__.__name__}()'
+
+        @abstractmethod
+        def solve0(self, puzzle) -> int:
+            raise NotImplementedError()
 
     class MinesweeperSolver:  # (BasePuzzleTechnique):
 
@@ -243,9 +404,7 @@ class Techs:
 
     class CrossHatch:
 
-        
-
-    #   
+        #
 
         # @staticmethod
         def solve0(self, puzzle: Sudoku) -> int:
@@ -254,13 +413,12 @@ class Techs:
             for cell in list(puzzle.unsolved_cells()):
                 neighbors = set(
                     puzzle.house_row(cell.row) + puzzle.house_col(cell.col))
-                    #  + puzzle.house_fence(
-                    #     puzzle.cell_fence(cell)))
+                #  + puzzle.house_fence(
+                #     puzzle.cell_fence(cell)))
 
                 if puzzle.has_fences:
                     for loc in puzzle.house_fence(puzzle.cell_fence(cell)):
                         neighbors.add(loc)
-
 
                 neighbors.remove(cell)
                 for neighbor in neighbors:
@@ -2900,7 +3058,6 @@ class Techs:
 
             return edits
 
-
     class Parks1Shape_00_01(BasePuzzleTechnique):
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -3103,34 +3260,159 @@ class Techs:
             return edits
 
     class CrossHatchSumscrapers(BasePuzzleTechnique):
-        def solve0(self, puzzle: Sumscrapers)->int:
+        def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
-
             houses = []
-
             for index in range(puzzle.length):
                 houses.append(puzzle.house_row(index))
                 houses.append(puzzle.house_col(index))
             for house in houses:
-                # print(house)
                 for index0 in range(len(house)):
                     for index1 in range(len(house)):
                         if index0 == index1:
                             continue
                         loc0 = house[index0]
                         loc1 = house[index1]
-
                         candidates0 = puzzle.cell_candidates(loc0)
-                        # candidates1 = puzzle.cell_candidates(loc1)
-
                         if len(candidates0) == 1:
                             edits += puzzle.rem([loc1], [candidates0[0]])
+            return edits
 
+    class HiddenSingleSumscrapers(BasePuzzleTechnique):
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+            houses = []
+            for index in range(puzzle.length):
+                houses.append(puzzle.house_row(index))
+                houses.append(puzzle.house_col(index))
 
+            for house in houses:
+                candidate_dict = {}
+                for index in range(puzzle.length):
+                    for candidate in puzzle.cell_candidates(house[index]):
+                        if candidate not in candidate_dict:
+                            candidate_dict[candidate] = []
+                        candidate_dict[candidate].append(house[index])
+                for candidate in candidate_dict.keys():
+                    locs = candidate_dict[candidate]
 
+                    if len(locs) == 1:
+                        edits += puzzle.rem(candidate_dict[candidate],
+                                            set(puzzle.expected_candidates()).difference([candidate]))
 
+            return edits
 
-            # edits += puzzle.rem([Loc(1,1)], [3])
+    class SumscrapersLastIsMax(BasePuzzleTechnique):
+
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+
+            tuples: list[tuple[Optional[int], list[Loc]]] = []
+
+            for index in range(puzzle.length):
+                house = puzzle.house_row(index)
+                tuples.append((puzzle.west_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.east_scraper(index), house))
+                house = puzzle.house_col(index)
+                tuples.append((puzzle.north_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.south_scraper(index), house))
+
+            for tuple0 in tuples:
+                scraper, house = tuple0
+                if scraper is None:
+                    continue
+
+                candidates_n = puzzle.cell_candidates(house[puzzle.length - 1])
+
+                if len(candidates_n) != 1:
+                    continue
+                if candidates_n[0] != puzzle.length:
+                    continue
+
+                difference = scraper - puzzle.length
+
+                expected = set(puzzle.expected_candidates())
+
+                expected.remove(puzzle.length)
+
+                max0 = max(expected)
+
+                if scraper == max0 + puzzle.length:
+                    edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([max0]))
+                else:
+                    edits += puzzle.rem([house[0]], [max0])
+                # print(scraper)
+                # print(house)
+            return edits
+
+    class SumscrapersNextToScraper(BasePuzzleTechnique):
+
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+
+            tuples: list[tuple[Optional[int], list[Loc]]] = []
+
+            for index in range(puzzle.length):
+                house = puzzle.house_row(index)
+                tuples.append((puzzle.west_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.east_scraper(index), house))
+                house = puzzle.house_col(index)
+                tuples.append((puzzle.north_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.south_scraper(index), house))
+
+            for tuple0 in tuples:
+                scraper, house = tuple0
+                if scraper is None:
+                    continue
+
+                if scraper > puzzle.length:
+                    edits += puzzle.rem([house[0]], [puzzle.length])
+
+            return edits
+    class SumscrapersSecondInLine(BasePuzzleTechnique):
+
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+
+            tuples: list[tuple[Optional[int], list[Loc]]] = []
+
+            for index in range(puzzle.length):
+                house = puzzle.house_row(index)
+                tuples.append((puzzle.west_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.east_scraper(index), house))
+                house = puzzle.house_col(index)
+                tuples.append((puzzle.north_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.south_scraper(index), house))
+
+            for tuple0 in tuples:
+                scraper, house = tuple0
+                if scraper is None:
+                    continue
+
+                candidates1 = puzzle.cell_candidates(house[1])
+
+                if len(candidates1) != 1:
+                    continue
+                if candidates1[0] != puzzle.length:
+                    continue
+                difference = scraper - puzzle.length
+
+                edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
+
+                print(scraper)
+                print(house)
             return edits
 
     class SumscrapersTech(BasePuzzleTechnique):
@@ -3147,13 +3429,16 @@ class Techs:
                     edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([puzzle.length]))
 
                 if south == puzzle.length:
-                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)],
+                                        set(puzzle.expected_candidates()).difference([puzzle.length]))
 
                 if east == puzzle.length:
-                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([puzzle.length]))
-
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)],
+                                        set(puzzle.expected_candidates()).difference([puzzle.length]))
+                #
                 if west == puzzle.length:
-                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([puzzle.length]))
+                    edits += puzzle.rem([Loc(index, 0)],
+                                        set(puzzle.expected_candidates()).difference([puzzle.length]))
 
                 total = sum(puzzle.expected_candidates())
 
@@ -3185,166 +3470,6 @@ class Techs:
                         expected.remove(min0)
                         current = current.west()
 
-
-
-
-
-
-
             return edits
-
-
-class Solving:
-    @staticmethod
-    def sudoku_techniques() -> list:
-        return [
-            Techs.CrossHatch(),
-            Techs.HiddenSingle(),
-            Techs.NakedPair(),
-            Techs.LockedCandidatesPointing(),
-            Techs.LockedCandidatesClaiming(),
-            Techs.HiddenSingle(),
-            # Techs.UniqueRectangleType1(),
-            # Techs.UniqueRectangleType2(),
-            # Techs.UniqueRectangleType4(),
-            # Techs.XWing(),
-            # Techs.Bug(),
-            # Techs.NakedTriple(),
-            # Techs.WWing(),
-            # Techs.ShashimiXWingPlus1(),
-            # Techs.XyWing(),
-            # Techs.FinnedXWing(),
-            # Techs.AvoidableRectangleType1(),
-            # Techs.WxyzWing(),
-            # Techs.SwordFish(),
-            # Techs.JellyFish(),
-        ]
-
-    @staticmethod
-    def kropki_techniques() -> list:
-        return [
-            Techs.KropkiBlack(),
-            Techs.KropkiWhite(),
-            Techs.KropkiEmpty(),
-            Techs.KropkiNakedPair(),
-        ]
-
-    @staticmethod
-    def robot_fences_techniques() -> list:
-        return [Techs.CrossHatchRobotFences(), Techs.HiddenSingleRobotFences()]
-
-    @staticmethod
-    def parks1_techniques() -> list:
-        return [
-            Techs.Parks1CrossHatch(),
-            Techs.Parks1HiddenSingle(),
-            Techs.Parks1CrossHatchTouching(),
-            Techs.Parks1LockedCandidatesPointing(),
-            # Techs.Parks1LockedCandidatesClaiming(),
-            Techs.Parks1Bent3(),
-            Techs.Parks1Shape_00_01()
-        ]
-
-    @staticmethod
-    def parks2_techniques() -> list:
-        return []
-
-    @staticmethod
-    def tenner_techniques() -> list:
-        return [Techs.TennerCrossHatch(),
-                Techs.TennerNakedPair(),
-                Techs.TennerHiddenPair(),
-                Techs.TennerHiddenSingle(),
-                Techs.TennerTotalHiddenSingle(),
-                Techs.TennerPowerSetTotals(),
-                Techs.TennerNakedPairColumn()]
-
-    @staticmethod
-    def futoshiki_techniques() -> list:
-        return []
-
-    @staticmethod
-    def clouds_techniques() -> list:
-        return []
-
-    @staticmethod
-    def knightoku_techniques() -> list:
-        return [Techs.CrossHatchKnightoku()] + Solving.sudoku_techniques()
-
-    @staticmethod
-    def kakuro_techniques() -> list:
-        return []
-
-    @staticmethod
-    def lighthouses_techniques() -> list:
-        return []
-
-    @staticmethod
-    def walls_techniques() -> list:
-        return []
-
-    @staticmethod
-    def tents_techniques() -> list:
-        return []
-
-    @staticmethod
-    def mathrax_techniques() -> list:
-        return []
-
-    @staticmethod
-    def sumscrapers_techniques() -> list:
-        return [Techs.SumscrapersTech(), Techs.CrossHatchSumscrapers() ]
-
-    @staticmethod
-    def skyscrapers_techniques() -> list:
-        return []
-
-    @staticmethod
-    def minesweeper_techniques():
-        return [Techs.MinesweeperSolver()]
-
-    @staticmethod
-    def snail3_techniques() -> list:
-        return []
-
-    @staticmethod
-    def mine_ships_techniques() -> list:
-        return []
-
-    @staticmethod
-    def sentinels_techniques() -> list:
-        return []
-
-    @staticmethod
-    def nurikabe_techniques() -> list:
-        return []
-
-    @staticmethod
-    def robot_crosswords_techniques() -> list:
-        return [Techs.RobotCrosswordsHouses()]
-
-    @staticmethod
-    def power_grid_techniques() -> list:
-        return [Techs.PowerGridTech()]
-
-    @staticmethod
-    def abstractpainting_techniques() -> list:
-        return []
-
-    @staticmethod
-    def battle_ships_techniques() -> list:
-        return []
-
-    @staticmethod
-    def hidden_stars_techniques() -> list:
-        return []
-
-    @staticmethod
-    def magnets_techniques() -> list:
-        return []
-
-    @staticmethod
-    def lightenup_techniques() -> list:
-        return []
 
 # 2865
