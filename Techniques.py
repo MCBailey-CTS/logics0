@@ -307,12 +307,12 @@ class Techs:
                               loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
 
                 for row_loc in row_locs:
-                    row_difference = puzzle.cell_candidates(row_loc).difference(pivot_candidates)
+                    row_difference = set(puzzle.cell_candidates(row_loc)).difference(pivot_candidates)
                     row_fence = puzzle.cell_fence(row_loc)
                     if len(row_difference) != 1:
                         continue
                     for col_loc in col_locs:
-                        col_difference = puzzle.cell_candidates(col_loc).difference(pivot_candidates)
+                        col_difference = set(puzzle.cell_candidates(col_loc)).difference(pivot_candidates)
                         col_fence = puzzle.cell_fence(col_loc)
                         if col_fence == row_fence:
                             continue
@@ -1387,7 +1387,7 @@ class Techs:
         @staticmethod
         def get_required_candidates(puzzle: RobotFences, house: list[Loc]) -> list[int]:
             length = puzzle.length
-            solved_candidates = [puzzle.solved_candidate(loc) for loc in house if len(puzzle.cell_candidates(loc)) == 1]
+            solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in house if len(puzzle.cell_candidates(loc)) == 1]
 
             minimum = min(solved_candidates)
             maximum = max(solved_candidates)
@@ -1417,7 +1417,7 @@ class Techs:
                     continue
 
                 #  get the solve candidates in the fence_house
-                solved_candidates = [puzzle.solved_candidate(loc) for loc in fence_house if
+                solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in fence_house if
                                      len(puzzle.cell_candidates(loc)) == 1]
 
                 if len(solved_candidates) == 0:

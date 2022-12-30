@@ -97,7 +97,7 @@ class Puzzle:
         return edits
 
     def house_row(self, row: int, candidate=None) -> list[Loc]:
-        if candidate == None:
+        if candidate is None:
             return [Loc(row, c) for c in range(self.length)]
         return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
 
@@ -110,11 +110,14 @@ class Puzzle:
 
     @property
     def has_fences(self) -> bool:
-        # temp = type(self.grid[0][0])
-
-        # print(temp)
-
         return any([s.isalpha() for s in self.grid[0][0]])
+
+
+    def cell_fence(self, loc: Loc) -> str:
+        # print(self.grid[loc.row][loc.col])
+
+
+        return "".join([s for s in self.grid[loc.row][loc.col] if s.isalpha() ])
 
     def houses_rows_cols(self) -> list[list[Loc]]:
         return self.houses_rows() + self.houses_cols()
@@ -270,175 +273,167 @@ class Sudoku(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
 
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-
-        __, __, _grid = Sudoku.unpack_sudoku_id_length_grid(puzzle)
-
-        self.__fence_dict = dict()
-
-        self.__fences: list[list[str]] = []
-        self.grid = []
-
-        # self.__un_solved_locs: set[Loc] = set()
-
-        fence_grid = Sudoku.default_sudoku_fence_grid()
-
-        for r in range(self.length):
-            self.grid.append([])
-            self.__fences.append([])
-            for c in range(self.length):
-                loc = Loc(r, c)
-
-                candidates_string = "".join([loc for loc in _grid[r][c] if not loc.isalpha()])
-
-                _candidates = None
-
-                if candidates_string == "." or candidates_string == "_" or candidates_string == "0":
-                    _candidates = list(self.expected_candidates())
-                else:
-                    _candidates = [int(c) for c in _grid[loc.row][loc.col] if c.isnumeric()]
-
-                # if len(_candidates) == 1:
-                #     pass
-                #     # self.__solved_locs.add(loc)
-                # else:
-                #     self.__un_solved_locs.add(loc)
-
-                fences = [loc for loc in _grid[r][c] if loc.isalpha()]
-
-                if len(fences) == 1:
-                    self.__fences[r].append(fences[0])
-                else:
-                    self.__fences[r].append(fence_grid[r][c])
-
-                self.grid[r].append(set(_candidates))
-
-                if self.__fences[r][c] not in self.__fence_dict:
-                    self.__fence_dict[self.__fences[r][c]] = list()
-                self.__fence_dict[self.__fences[r][c]].append(loc)
-
-    def rem(self, loc: Loc, candidates0) -> int:
-        edits = 0
-        for c in candidates0:
-            cell = self.cell_candidates(loc)
-            if c not in cell:
-                continue
-            cell.remove(c)
-            # if len(cell) == 1:
-            #     self.__un_solved_locs.remove(loc)
-            edits += 1
-        return edits
-
-    @staticmethod
-    def default_sudoku_fence_grid():
-        a = "a"
-        b = "b"
-        c = "c"
-        d = "d"
-        e = "e"
-        f = "f"
-        g = "g"
-        h = "h"
-        i = "i"
-        return [
-            [a, a, a, b, b, b, c, c, c],
-            [a, a, a, b, b, b, c, c, c],
-            [a, a, a, b, b, b, c, c, c],
-            [d, d, d, e, e, e, f, f, f],
-            [d, d, d, e, e, e, f, f, f],
-            [d, d, d, e, e, e, f, f, f],
-            [g, g, g, h, h, h, i, i, i],
-            [g, g, g, h, h, h, i, i, i],
-            [g, g, g, h, h, h, i, i, i],
-        ]
-
-    @staticmethod
-    def unpack_sudoku_id_length_grid(grid: str) -> tuple[str, int, list[list[str]]]:
-        if "|" in grid:
-
-            temp_array: list[str] = grid.replace("|", "", -1).replace("\t", " ", -1).replace("\r", " ", -1).replace("+",
-                                                                                                                    "",
-                                                                                                                    -1).replace(
-                "-", "", -1).split('\n')
-
-            array: list[str] = []
-
-            for i in range(len(temp_array)):
-                temp = temp_array[i].replace(" ", "", -1)
-                if len(temp) != 0:
-                    array.append(temp)
-
-            # print(array)
-
-            _id: str = array[0]
-            _length: int = int(array[1])
-
-            array.pop(0)
-            array.pop(0)
-
-            _grid = []
-
-            index = 0
-
-            while index < _length:
-
-                string = array[index].replace(" ", "", -1)
-
-                if len(string) != _length:
-                    array.pop(index)
-                    continue
-
-                _grid.append([s for s in string])
-
-                index += 1
-            return _id, _length, _grid
-
-        else:
-
-            array: list[str] = grid.replace("\n", " ").replace("\t", " ").replace("\r", " ").replace(
-                "  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ",
-                                                                                                               " ").lstrip().rstrip().split(
-                " ")
-            _id: str = array[0]
-            _length: int = int(array[1])
-
-            _grid = []
-            index = 0
-            for row in range(_length):
-                _grid.append([])
-                for col in range(_length):
-                    _grid[row].append([])
-                    _grid[row][col] = array[index + 2]
-                    index += 1
-            return _id, _length, _grid
-
-    def __str__(self) -> str:
-        string = f'{self.id()}\n'
-        string += f'{self.length}\n'
         for r in range(self.length):
             for c in range(self.length):
                 loc = Loc(r, c)
+
                 candidates = self.cell_candidates(loc)
 
-                for candidate in self.expected_candidates():
-                    if candidate in candidates:
-                        string += f'{candidate}'
-                    else:
-                        string += "_"
+                if len(candidates) == 0 or len(candidates) == 1 and candidates[0] == 0:
+                    new_string = ""
 
-                if len(self.houses_fences()) > 0:
-                    fence = self.cell_fence(loc)
-                    string += fence
+                    for candidate in self.expected_candidates():
+                        new_string += f'{candidate}'
 
-                string += " "
+                    if self.has_fences:
+                        new_string += f'{self.cell_fence(loc)}'
 
-            string += '\n'
-        return string
+                    self.grid[r][c] = new_string
+                else:
+                    new_string = ""
+
+                    for candidate in self.expected_candidates():
+                        if candidate in candidates:
+                            new_string += f'{candidate}'
+                        else:
+                            new_string += '_'
+
+                    if self.has_fences:
+                        new_string += f'{self.cell_fence(loc)}'
+
+                    self.grid[r][c] = new_string
+
+
+
+
+
+        # array = []
+        # for line in puzzle.split("\n"):
+        #     temp = line.strip()
+        #     if len(temp) == 0:
+        #         continue
+        #     print(temp)
+        #     array.append(temp)
+
+
+
+    # def rem(self, loc: Loc, candidates0) -> int:
+    #     edits = 0
+    #     for c in candidates0:
+    #         cell = self.cell_candidates(loc)
+    #         if c not in cell:
+    #             continue
+    #         cell.remove(c)
+    #         # if len(cell) == 1:
+    #         #     self.__un_solved_locs.remove(loc)
+    #         edits += 1
+    #     return edits
+    #
+    # @staticmethod
+    # def default_sudoku_fence_grid():
+    #     a = "a"
+    #     b = "b"
+    #     c = "c"
+    #     d = "d"
+    #     e = "e"
+    #     f = "f"
+    #     g = "g"
+    #     h = "h"
+    #     i = "i"
+    #     return [
+    #         [a, a, a, b, b, b, c, c, c],
+    #         [a, a, a, b, b, b, c, c, c],
+    #         [a, a, a, b, b, b, c, c, c],
+    #         [d, d, d, e, e, e, f, f, f],
+    #         [d, d, d, e, e, e, f, f, f],
+    #         [d, d, d, e, e, e, f, f, f],
+    #         [g, g, g, h, h, h, i, i, i],
+    #         [g, g, g, h, h, h, i, i, i],
+    #         [g, g, g, h, h, h, i, i, i],
+    #     ]
+    #
+    # @staticmethod
+    # def unpack_sudoku_id_length_grid(grid: str) -> tuple[str, int, list[list[str]]]:
+    #     if "|" in grid:
+    #
+    #         temp_array: list[str] = grid.replace("|", "", -1).replace("\t", " ", -1).replace("\r", " ", -1).replace("+",
+    #                                                                                                                 "",
+    #                                                                                                                 -1).replace(
+    #             "-", "", -1).split('\n')
+    #
+    #         array: list[str] = []
+    #
+    #         for i in range(len(temp_array)):
+    #             temp = temp_array[i].replace(" ", "", -1)
+    #             if len(temp) != 0:
+    #                 array.append(temp)
+    #
+    #         # print(array)
+    #
+    #         _id: str = array[0]
+    #         _length: int = int(array[1])
+    #
+    #         array.pop(0)
+    #         array.pop(0)
+    #
+    #         _grid = []
+    #
+    #         index = 0
+    #
+    #         while index < _length:
+    #
+    #             string = array[index].replace(" ", "", -1)
+    #
+    #             if len(string) != _length:
+    #                 array.pop(index)
+    #                 continue
+    #
+    #             _grid.append([s for s in string])
+    #
+    #             index += 1
+    #         return _id, _length, _grid
+    #
+    #     else:
+    #
+    #         array: list[str] = grid.replace("\n", " ").replace("\t", " ").replace("\r", " ").replace(
+    #             "  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ",
+    #                                                                                                            " ").lstrip().rstrip().split(
+    #             " ")
+    #         _id: str = array[0]
+    #         _length: int = int(array[1])
+    #
+    #         _grid = []
+    #         index = 0
+    #         for row in range(_length):
+    #             _grid.append([])
+    #             for col in range(_length):
+    #                 _grid[row].append([])
+    #                 _grid[row][col] = array[index + 2]
+    #                 index += 1
+    #         return _id, _length, _grid
+
+    # def __str__(self) -> str:
+    #     string = f'{self.id()}\n'
+    #     string += f'{self.length}\n'
+    #     for r in range(self.length):
+    #         for c in range(self.length):
+    #             loc = Loc(r, c)
+    #             candidates = self.cell_candidates(loc)
+    #
+    #             for candidate in self.expected_candidates():
+    #                 if candidate in candidates:
+    #                     string += f'{candidate}'
+    #                 else:
+    #                     string += "_"
+    #
+    #             if len(self.houses_fences()) > 0:
+    #                 fence = self.cell_fence(loc)
+    #                 string += fence
+    #
+    #             string += " "
+    #
+    #         string += '\n'
+    #     return string
 
     def unsolved_cells(self) -> set[Loc]:
         unsolved = set()
@@ -466,14 +461,36 @@ class Sudoku(Puzzle):
     def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
         if loc is None:
             return self.houses_rows_cols() + self.houses_fences()
-        fence = self.__fences[loc.row][loc.col]
+        fence = self.cell_fence(loc)
         return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
 
     def houses_fences(self) -> list[list[Loc]]:
-        return [self.house_fence(fence) for fence in self.__fence_dict]
+        return [self.house_fence(fence) for fence in self.fences()]
+
+
 
     def house_fence(self, fence: str) -> list[Loc]:
-        return self.__fence_dict[fence]
+        house = []
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                if other == fence:
+                    house.append(loc)
+
+        return house
+
+    def fences(self) -> set[str]:
+        house = set()
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                house.add(other)
+
+        return house
 
     def solved_candidate(self, loc: Loc) -> int:
         temp = list(self.grid[loc.row][loc.col])
@@ -481,8 +498,8 @@ class Sudoku(Puzzle):
             raise ValueError("cell isn't solved")
         return temp[0]
 
-    def cell_fence(self, loc: Loc) -> str:
-        return self.__fences[loc.row][loc.col]
+    # def cell_fence(self, loc: Loc) -> str:
+    #     return self.__fences[loc.row][loc.col]
 
     def fence_dict(self, locs: Union[list[Loc], set[Loc]]) -> dict:
         d = {}
@@ -493,8 +510,8 @@ class Sudoku(Puzzle):
             d[fence].append(loc)
         return d
 
-    def cell_candidates(self, loc: Loc) -> set[int]:
-        return self.grid[loc.row][loc.col]
+    # def cell_candidates(self, loc: Loc) -> set[int]:
+    #     return self.grid[loc.row][loc.col]
 
     def is_solved(self) -> bool:
         for house in self.houses_rows_cols_fences():
