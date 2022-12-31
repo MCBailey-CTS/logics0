@@ -20098,13 +20098,13 @@ class Constants:
         return f"""
         011.abc
         5
-        ..bcbc.
-        .......
-        c......
-        c.....b
-        b.....a
-        b.....a
-        ...aca.
+        . . . . . . .
+        c . . . . . .
+        c . . . . . b
+        b . . . . . a
+        b . . . . . a
+        . . b c b c .
+        . . . a c a .
         """
 
     @staticmethod
@@ -20112,13 +20112,13 @@ class Constants:
         return f"""
         012.abc
         5
-        .cbc.a.
-        ......a
-        a......
-        ......c
-        a......
-        b......
-        .bab...
+        . . . . . . a
+        a . . . . . .
+        . . . . . . c
+        a . . . . . .
+        b . . . . . .
+        . c b c . a .
+        . b a b . . .
         """
 
     @staticmethod
@@ -20126,12 +20126,12 @@ class Constants:
         return f"""
         013.abc
         5
-        . a c . c . .
         . . . . . . .
         c . . . . . a
         . . . . . . b
         c . . . . . a
         . . . . . . c
+        . a c . c . .
         . . a b a c .
         """
 
@@ -20140,12 +20140,12 @@ class Constants:
         return f"""
         014.abc
         5
-        . . c . . b .
         . . . . . . b
         a . . . . . c
         a . . . . . c
         . . . . . . .
         c . . . . . b
+        . . c . . b .
         . . . b b a .
         """
 
@@ -20154,13 +20154,13 @@ class Constants:
         return f"""
         015.abc
         5
-        .caa.b.
-        a.....b
-        .......
-        ......b
-        a.....c
-        b......
-        .bcba..
+        a . . . . . b
+        . . . . . . .
+        . . . . . . b
+        a . . . . . c
+        b . . . . . .
+        . c a a . b .
+        . b c b a . .
         """
 
     @staticmethod
@@ -20168,13 +20168,13 @@ class Constants:
         return f"""
         016.abc
         6
-        . C C A B A A .
         C . . . . . . A
         B . . . . . . C
         B . . . . . . C
         A . . . . . . B
         B . . . . . . C
         A . . . . . . B
+        . C C A B A A .
         . A A C A B B .
         """
 
@@ -20183,14 +20183,14 @@ class Constants:
         return f"""
         017.abc
         6
-        .b..b...
-        a.......
-        ........
-        ........
-        b.......
-        a.......
-        .......c
-        ..a.a.a.
+        a . . . . . . .
+        . . . . . . . .
+        . . . . . . . .
+        b . . . . . . .
+        a . . . . . . .
+        . . . . . . . c
+        . b . . b . . .
+        . . a . a . a .
         """
 
     @staticmethod
@@ -20198,13 +20198,13 @@ class Constants:
         return f"""
         018.abc
         6
-        . b b a c a a .
         b . . . . . . c
         b . . . . . . a
         a . . . . . . b
         b . . . . . . a
         c . . . . . . b
         a . . . . . . c
+        . b b a c a a .
         . a a b a c c .
         """
 
@@ -20213,13 +20213,13 @@ class Constants:
         return f"""
         019.abc
         6
-        . a c . . c . .
         . . . . . . . c
         a . . . . . . .
         c . . . . . . .
         . . . . . . . .
         a . . . . . . .
         . . . . . . . .
+        . a c . . c . .
         . . . a b . b .
         """
 
@@ -20228,13 +20228,13 @@ class Constants:
         return f"""
         020.abcd
         6
-        . c a b a d d .
         c . . . . . . d
         a . . . . . . b
         a . . . . . . c
         d . . . . . . b
         b . . . . . . a
         d . . . . . . a
+        . c a b a d d .
         . d c a b c a .
         """
 
@@ -20243,14 +20243,14 @@ class Constants:
         return f"""
         021.abcd
         6
-        ..bd.b..
-        .......d
-        c......d
-        ........
-        .......c
-        c.......
-        ........
-        ...cbc..
+        . . . . . . . d
+        c . . . . . . d
+        . . . . . . . .
+        . . . . . . . c
+        c . . . . . . .
+        . . . . . . . .
+        . . b d . b . .
+        . . . c b c . .
         """
 
     @staticmethod
@@ -20258,13 +20258,13 @@ class Constants:
         return f"""
         022.abcd
         6
-        . . d . d . d .
         . . . . . . . .
         . . . . . . . a
         c . . . . . . .
         c . . . . . . a
         . . . . . . . .
         . . . . . . . a
+        . . d . d . d .
         . . . . . b . .
         """
 
@@ -20273,13 +20273,13 @@ class Constants:
         return f"""
         023.abcd
         6
-        . c . c . b d .
         a . . . . . . .
-        b . . . . . .c
+        b . . . . . . c
         . . . . . . . d
         a . . . . . . .
         . . . . . . . c
         . . . . . . . .
+        . c . c . b d .
         . d . b d . . .
         """
 
@@ -20288,13 +20288,13 @@ class Constants:
         return f"""
         024.abcd
         6
-        . b a . . a . .
         . . . . . . . b
         . . . . . . . .
         . . . . . . . c
         . . . . . . . a
         . . . . . . . c
         . . . . . . . .
+        . b a . . a . .
         . . d c . d d .
         """
 
@@ -20303,13 +20303,13 @@ class Constants:
         return f"""
         025.abcde
         6
-        . e b . a b . .
         e . . . . . . .
         a . . . . . . d
         a . . . . . . .
         c . . . . . . b
         d . . . . . . c
         . . . . . . . .
+        . e b . a b . .
         . . . b . . a .
         """
 
@@ -20318,14 +20318,14 @@ class Constants:
         return f"""
         026.abcde
         6
-        .d..ed..
-        ........
-        a......d
-        e.......
-        .......a
-        e......b
-        .......e
-        .cedba..
+        . . . . . . . .
+        a . . . . . . d
+        e . . . . . . . 
+        . . . . . . . a
+        e . . . . . . b
+        . . . . . . . e
+        . d . . e d . .
+        . c e d b a . .
         """
 
     @staticmethod
@@ -20333,29 +20333,29 @@ class Constants:
         return f"""
         027.abcde
         6
-        ..d.cee.
-        b.......
-        a......b
-        d.......
-        b......d
-        ........
-        e......a
-        .e.b.ca.
+        b . . . . . . .
+        a . . . . . . b
+        d . . . . . . .
+        b . . . . . . d
+        . . . . . . . .
+        e . . . . . . a
+        . . d . c e e .
+        . e . b . c a .
         """
 
     @staticmethod
     def abcde_028():
         return f"""
         028.abcde
-        6
-        .ebc..a.
-        ........
-        .......e
-        e......b
-        b......c
-        .......b
-        .......d
-        ..d..a..
+         6
+        . . . . . . . .
+        . . . . . . . e
+        e . . . . . . b
+        b . . . . . . c
+        . . . . . . . b
+        . . . . . . . d
+        . e b c . . a .
+        . . d . . a . .
         """
 
     @staticmethod
@@ -20363,14 +20363,14 @@ class Constants:
         return f"""
         029.abcd
         6
-        .b.d..a.
-        c.......
-        a......b
-        .......c
-        ........
-        d......b
-        .......a
-        .cd.b...
+        c . . . . . . .
+        a . . . . . . b
+        . . . . . . . c
+        . . . . . . . .
+        d . . . . . . b
+        . . . . . . . a
+        . b . d . . a .
+        . c d . b . . .
         """
 
     @staticmethod
@@ -20378,13 +20378,13 @@ class Constants:
         return f"""
         030.abcd
         6
-        .c..d.a.
         ........
         ........
         d......a
         d.......
         d......b
         a......c
+        .c..d.a.
         ..adb.c.
         """
 
@@ -20393,13 +20393,13 @@ class Constants:
         return f"""
         031.abcd
         6
-        .a.b.da.
         a.......
         d......a
         ........
         .......c
         d......b
         ........
+        .a.b.da.
         .d.acac.
         """
 
@@ -20408,13 +20408,13 @@ class Constants:
         return f"""
         032.abcd
         6
-        .a.b.ac.
         a.......
         .......a
         b......d
         b......d
         .......b
         d......b
+        .a.b.ac.
         .d.cd..b
         """
 
@@ -20423,13 +20423,13 @@ class Constants:
         return f"""
         033.abc
         6
-        .b.ccc..
         b......c
         c......b
         a.......
         a.......
         c.......
         b.......
+        .b.ccc..
         .a.bbac.
         """
 
@@ -20438,13 +20438,13 @@ class Constants:
         return f"""
         034.abc
         6
-        .b.bcbc.
         b.......
         c.......
         ........
         a......c
         .......a
         a......b
+        .b.bcbc.
         .ac.ba..
         """
 
@@ -20501,15 +20501,15 @@ class Constants:
         return f"""
         038.abcdef
         7
-        ..d.ab...
-        f........
-        ........a
-        c.......e
-        b.......c
-        a........
-        e.......c
-        .........
-        .a..bdd..
+        . . d . a b . ..
+        f . . . . . . . .
+        . . . . . . . . a
+        c . . . . . . . e
+        b . . . . . . . c
+        a . . . . . . . .
+        e . . . . . . . c
+        . . . . . . . . .
+        . a . . b d d . .
         """
 
     @staticmethod
@@ -20728,16 +20728,16 @@ class Constants:
         return f"""
         052.abcdef
         8
-        .aeead.fc.
-        e.........
-        a.c.d....f
-        f.f.eb....
-        f.......ee
-        .....f...b
-        c...f..a.d
-        e.b......c
-        b........e
-        ..dfc.a...
+        . a e e a d . f c .
+        e . . . . . . . . .
+        a . c . d . . . . f
+        f . f . e b . . . .
+        f . . . . . . . e e
+        . . . . . f . . . b
+        c . . . f . . a . d
+        e . b . . . . . . c
+        b . . . . . . .   e
+        . . d f c . a . . .
         """
 
     @staticmethod
@@ -20745,16 +20745,16 @@ class Constants:
         return f"""
         056.abcde
         8
-        .ddc.edcb.
-        d.........
-        e..e.....a
-        d.b.c.....
-        ......a..a
-        b.........
-        a.....e...
-        a..a.....e
-        e.........
-        ..ad.d.ec.
+        d . . . . . . . . .
+        e . . e . . . . . a
+        d . b . c . . . . .
+        . . . . . . a . . a
+        b . . . . . . . . .
+        a . . . . . e . . .
+        a . . a . . . . . e
+        e . . . . . . . . .
+        . d d c . e d c b .
+        . . a d . d . e c . 
         """
 
     @staticmethod
@@ -20762,16 +20762,16 @@ class Constants:
         return f"""
         057.abcde
         8
-        ..aae.deb.
-        c........b
-        ...dc....e
-        e.d.......
-        .........e
-        bb...c...e
-        e.e...a..d
-        b........a
-        a........d
-        .abcbdeda.
+        c . . . . . . . . b
+        . . . d c . . . . e
+        e . d . . . . . . .
+        . . . . . . . . . e
+        b b . . . c . . . e
+        e . e . . . a . . d
+        b . . . . . . . . a
+        a . . . . . . . . d
+        . . a a e . d e b .
+        . a b c b d e d a .
         """
 
     @staticmethod
