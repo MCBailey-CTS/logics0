@@ -101,7 +101,14 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.tenner_006(), Tenner, Solving.tenner_techniques()),
     (Constants.tenner_008(), Tenner, Solving.tenner_techniques()),
     (Constants.tenner_009(), Tenner, Solving.tenner_techniques()),
-
+    (Constants.skyscrapers_001(), Skyscrapers, Solving.skyscrapers_techniques()),
+    (Constants.skyscrapers_002(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_003(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_004(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_005(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_006(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_007(), Skyscrapers, Solving.skyscrapers_techniques()),
+    # (Constants.skyscrapers_008(), Skyscrapers, Solving.skyscrapers_techniques()),
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     assert default_test_puzzle(puzzle_string, constructor, techniques)

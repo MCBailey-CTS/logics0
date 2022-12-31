@@ -115,7 +115,11 @@ class Solving:
 
     @staticmethod
     def skyscrapers_techniques() -> list:
-        return []
+        return [
+            Techs.SkyscrapersN(),
+            Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(),
+                # Techs.SumscrapersSecondInLine(), Techs.SumscrapersLastIsMax(), Techs.SumscrapersNextToScraper()
+                ]
 
     @staticmethod
     def minesweeper_techniques():
@@ -3471,5 +3475,47 @@ class Techs:
                         current = current.west()
 
             return edits
+
+
+    class SkyscrapersN(BasePuzzleTechnique):
+        def solve0(self, puzzle: Sumscrapers) -> int:
+            edits = 0
+
+            for index in range(puzzle.length):
+                north = puzzle.north_scraper(index)
+                south = puzzle.south_scraper(index)
+                east = puzzle.east_scraper(index)
+                west = puzzle.west_scraper(index)
+
+                if north == puzzle.length:
+                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
+
+                if north == 1:
+                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+
+                if south == puzzle.length:
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
+
+                if south == 1:
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+
+                if west == puzzle.length:
+                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
+
+                if west == 1:
+                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+
+                if east == puzzle.length:
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
+
+                if east == 1:
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+
+
+
+
+            return edits
+
+
 
 # 2865

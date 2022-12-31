@@ -169,6 +169,19 @@ class Sumscrapers(Puzzle):
     def __init__(self, puzzle: str):
         super().__init__(puzzle, 2, 2)
 
+        for r in range(self.length):
+            for c in range(self.length):
+                if self.grid[r][c] == '_':
+                    string = ""
+                    for candidate in self.expected_candidates():
+                        string += f'{candidate}'
+
+
+                    self.grid[r][c] = string
+                    # print(string)
+
+
+
     def is_solved(self) -> bool:
         return False
 
@@ -1445,8 +1458,9 @@ class Sentinels:
     pass
 
 
-class Skyscrapers:
-    pass
+class Skyscrapers(Sumscrapers):
+    def __init__(self, puzzle: str):
+        super().__init__(puzzle)
 
 
 class Tents:
