@@ -4,7 +4,7 @@ from typing import Optional
 
 from Loc import Loc
 from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, \
-    AbstractPainting, Clouds, Futoshiki, Mathrax, Sumscrapers
+    AbstractPainting, Clouds, Futoshiki, Mathrax, Sumscrapers, Skyscrapers
 
 PLUS = "+"
 MINUS = "-"
@@ -111,15 +111,15 @@ class Solving:
     @staticmethod
     def sumscrapers_techniques() -> list:
         return [Techs.SumscrapersTech(), Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(),
-                Techs.SumscrapersSecondInLine(),Techs.SumscrapersLastIsMax(), Techs.SumscrapersNextToScraper()]
+                Techs.SumscrapersSecondInLine(), Techs.SumscrapersLastIsMax(), Techs.SumscrapersNextToScraper()]
 
     @staticmethod
     def skyscrapers_techniques() -> list:
         return [
             Techs.SkyscrapersN(),
-            Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(),
-                # Techs.SumscrapersSecondInLine(), Techs.SumscrapersLastIsMax(), Techs.SumscrapersNextToScraper()
-                ]
+            Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(), Techs.SkyscrapersN(), Techs.Skyscrapers1(),
+            Techs.SkyscrapersRange()
+        ]
 
     @staticmethod
     def minesweeper_techniques():
@@ -147,7 +147,10 @@ class Solving:
 
     @staticmethod
     def power_grid_techniques() -> list:
-        return [Techs.PowerGridTech()]
+        return [
+            Techs.PowerGridTech(),
+            Techs.PowerGridHiddenPower()
+        ]
 
     @staticmethod
     def abstractpainting_techniques() -> list:
@@ -1391,7 +1394,8 @@ class Techs:
         @staticmethod
         def get_required_candidates(puzzle: RobotFences, house: list[Loc]) -> list[int]:
             length = puzzle.length
-            solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in house if len(puzzle.cell_candidates(loc)) == 1]
+            solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in house if
+                                 len(puzzle.cell_candidates(loc)) == 1]
 
             minimum = min(solved_candidates)
             maximum = max(solved_candidates)
@@ -3171,24 +3175,115 @@ class Techs:
         def solve0(self, puzzle: PowerGrid) -> int:
             edits = 0
 
-            for group in puzzle.house_rows_cols_edges():
-                house, edge = group
+            for index in range(puzzle.length):
+                row_house = puzzle.house_row(index)
+                row_scraper = puzzle.east_scraper(index)
+                if row_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, row_scraper, row_house)
+                col_house = puzzle.house_col(index)
+                col_scraper = puzzle.south_scraper(index)
+                if col_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, col_scraper, col_house)
+            return edits
 
-                if edge < 1:
+        def solve1(self, puzzle: PowerGrid, power: int, house: list[Loc]) -> int:
+            edits = 0
+
+            POWER = 1
+            EMPTY = 0
+
+            for index in range(puzzle.length):
+                left_index = index - power - 1
+                right_index = index + power + 1
+
+                # valid_left =
+
+                if left_index < 0 and right_index >= puzzle.length:
+                    edits += puzzle.rem([house[index]], [POWER])
+
+                if left_index < 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(
+                        house[right_index]):
+                    edits += puzzle.rem([house[index]], [POWER])
+
+                if left_index >= 0 and right_index >= puzzle.length and POWER not in puzzle.cell_candidates(
+                        house[left_index]):
+                    edits += puzzle.rem([house[index]], [POWER])
+
+                if left_index >= 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(
+                        house[left_index]) and POWER not in puzzle.cell_candidates(house[right_index]):
+                    edits += puzzle.rem([house[index]], [POWER])
+
+            return edits
+
+    class PowerGridHiddenPower:
+        def solve0(self, puzzle: PowerGrid) -> int:
+            edits = 0
+
+            for index in range(puzzle.length):
+                row_house = puzzle.house_row(index)
+                row_scraper = puzzle.east_scraper(index)
+                if row_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, row_scraper, row_house)
+                col_house = puzzle.house_col(index)
+                col_scraper = puzzle.south_scraper(index)
+                if col_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, col_scraper, col_house)
+            return edits
+
+        def solve1(self, puzzle: PowerGrid, power: int, house: list[Loc]) -> int:
+            edits = 0
+
+            POWER = 1
+            EMPTY = 0
+
+            solved_power = []
+            solved_empty = []
+            unsolved = []
+
+            # for index
+
+            for index in range(len(house)):
+                candidates = puzzle.cell_candidates(house[index])
+
+                if len(candidates) > 1:
+                    unsolved.append(house[index])
                     continue
 
-                if puzzle.length == 9 and edge == 6:
-                    next_to0 = [house.pop(0), house.pop(0)]
-                    next_to1 = [house.pop(len(house) - 1), house.pop(len(house) - 1)]
-                    edits += puzzle.rem(house, ["+"])
-                    edits += puzzle.required_power(next_to0)
-                    edits += puzzle.required_power(next_to1)
+                if POWER in candidates:
+                    solved_power.append(house[index])
 
+                if EMPTY in candidates:
+                    solved_empty.append(house[index])
+
+            if len(solved_power) == 2:
+                edits += puzzle.rem(unsolved, [POWER])
+
+            if len(solved_power) == 0 and len(unsolved) == 2:
+                edits += puzzle.rem(unsolved, [EMPTY])
+
+            if len(solved_power) == 1 and len(unsolved) == 1:
+                edits += puzzle.rem(unsolved, [EMPTY])
+
+            #     left_index = index - power - 1
+            #     right_index = index + power + 1
             #
-            #     print(house)
-            #     print(edge)
-
-            # for index in range(puzzle.length):
+            #     # valid_left =
+            #
+            #     if left_index < 0 and right_index >= puzzle.length:
+            #         edits += puzzle.rem([house[index]], [POWER])
+            #
+            #     if left_index < 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(house[right_index]):
+            #         edits += puzzle.rem([house[index]], [POWER])
+            #
+            #     if left_index >= 0 and right_index >= puzzle.length and POWER not in puzzle.cell_candidates(house[left_index]):
+            #         edits += puzzle.rem([house[index]], [POWER])
+            #
+            #     if left_index >= 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(house[left_index]) and POWER not in puzzle.cell_candidates(house[right_index]):
+            #         edits += puzzle.rem([house[index]], [POWER])
 
             return edits
 
@@ -3381,6 +3476,7 @@ class Techs:
                     edits += puzzle.rem([house[0]], [puzzle.length])
 
             return edits
+
     class SumscrapersSecondInLine(BasePuzzleTechnique):
 
         def solve0(self, puzzle: Sumscrapers) -> int:
@@ -3476,9 +3572,8 @@ class Techs:
 
             return edits
 
-
     class SkyscrapersN(BasePuzzleTechnique):
-        def solve0(self, puzzle: Sumscrapers) -> int:
+        def solve0(self, puzzle: Skyscrapers) -> int:
             edits = 0
 
             for index in range(puzzle.length):
@@ -3488,34 +3583,96 @@ class Techs:
                 west = puzzle.west_scraper(index)
 
                 if north == puzzle.length:
-                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
-
-                if north == 1:
-                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference(
+                        [min(puzzle.expected_candidates())]))
 
                 if south == puzzle.length:
-                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
-
-                if south == 1:
-                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference(
+                        [min(puzzle.expected_candidates())]))
 
                 if west == puzzle.length:
-                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
-
-                if west == 1:
-                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
+                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference(
+                        [min(puzzle.expected_candidates())]))
 
                 if east == puzzle.length:
-                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([min(puzzle.expected_candidates())]))
-
-                if east == 1:
-                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference([max(puzzle.expected_candidates())]))
-
-
-
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference(
+                        [min(puzzle.expected_candidates())]))
 
             return edits
 
+    class Skyscrapers1(BasePuzzleTechnique):
+        def solve0(self, puzzle: Skyscrapers) -> int:
+            edits = 0
 
+            for index in range(puzzle.length):
+                north = puzzle.north_scraper(index)
+                south = puzzle.south_scraper(index)
+                east = puzzle.east_scraper(index)
+                west = puzzle.west_scraper(index)
 
+                if north == 1:
+                    edits += puzzle.rem([Loc(0, index)], set(puzzle.expected_candidates()).difference(
+                        [max(puzzle.expected_candidates())]))
+
+                if south == 1:
+                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference(
+                        [max(puzzle.expected_candidates())]))
+
+                if west == 1:
+                    edits += puzzle.rem([Loc(index, 0)], set(puzzle.expected_candidates()).difference(
+                        [max(puzzle.expected_candidates())]))
+
+                if east == 1:
+                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference(
+                        [max(puzzle.expected_candidates())]))
+
+            return edits
+
+    class SkyscrapersRange(BasePuzzleTechnique):
+        def solve0(self, puzzle: Skyscrapers) -> int:
+            edits = 0
+            tuples: list[tuple[Optional[int], list[Loc]]] = []
+
+            for index in range(puzzle.length):
+                house = puzzle.house_row(index)
+                tuples.append((puzzle.west_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.east_scraper(index), house))
+                house = puzzle.house_col(index)
+                tuples.append((puzzle.north_scraper(index), house))
+                house = list(house)
+                house.reverse()
+                tuples.append((puzzle.south_scraper(index), house))
+
+            for tuple0 in tuples:
+                scraper, house = tuple0
+                if scraper is None:
+                    continue
+
+                # house_candidates = [puzzle.cell_candidates(loc) for loc in house]
+                # for index in range(puzzle.length):
+                #     candidates = house_candidates[index]
+                #     if len(candidates) != 1:
+                #         continue
+                #     solved_candidate = candidates[0]
+                #     if solved_candidate != puzzle.length:
+                #         continue
+                #     if index == 0 or index == puzzle.length - 1:
+                #         continue
+                #
+                #
+                #     print("her111r")
+
+                # candidates1 = puzzle.cell_candidates(house[1])
+                #
+                # if len(candidates1) != 1:
+                #     continue
+                # if candidates1[0] != puzzle.length:
+                #     continue
+                # difference = scraper - puzzle.length
+                #
+                # edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
+
+            return edits
 # 2865

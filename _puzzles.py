@@ -72,6 +72,7 @@ class Puzzle:
                     house.append(loc)
 
         return house
+
     def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
         if loc is None:
             return self.houses_rows_cols() + self.houses_fences()
@@ -166,8 +167,8 @@ class Puzzle:
 
 
 class Sumscrapers(Puzzle):
-    def __init__(self, puzzle: str):
-        super().__init__(puzzle, 2, 2)
+    def __init__(self, puzzle: str, row_length: int = 2, col_length: int = 2):
+        super().__init__(puzzle, row_length, col_length)
 
         for r in range(self.length):
             for c in range(self.length):
@@ -176,11 +177,8 @@ class Sumscrapers(Puzzle):
                     for candidate in self.expected_candidates():
                         string += f'{candidate}'
 
-
                     self.grid[r][c] = string
                     # print(string)
-
-
 
     def is_solved(self) -> bool:
         return False
@@ -492,8 +490,6 @@ class Sudoku(Puzzle):
                 locs.append(Loc(r, c))
         return locs
 
-
-
     def is_solved(self) -> bool:
         for house in self.houses_rows_cols_fences():
             solved_candidates = [list(self.cell_candidates(loc))[0] for loc in house if
@@ -731,6 +727,9 @@ class Magnets:
             line = array[0].strip().replace("  ", " ", -1).split(" ")
             self.__grid.append(line)
             array.pop(0)
+
+    def is_solved(self):
+        return False
 
     def rem(self, locs: list[Loc], candidates: list) -> int:
         edits = 0
@@ -1303,155 +1302,39 @@ class BattleShips:
 
 
 class Clouds:
-    pass
+    def is_solved(self):
+        return False
 
 
-class PowerGrid:
+class PowerGrid(Puzzle):
+
     def __init__(self, puzzle: str) -> None:
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        self.Constantsid = array[0]
-        self.Constantslength = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        self.Constantsgrid = []
-        for _ in range(self.Constantslength + 1):
-            line = array[0].strip().replace("  ", " ", -1).split(" ")
-            temp = []
-            for l in line:
-                if len(l) == 0:
-                    continue
-                temp.append(l)
-            self.Constantsgrid.append(temp)
-            array.pop(0)
-
-    def id(self) -> str:
-        return self.Constantsid
-
-    @property
-    def length(self) -> int:
-        return self.Constantslength
-
-    @property
-    def grid_length(self):
-        return self.length + 1
-
-    def grid(self, loc: Loc) -> str:
-        return self.Constantsgrid[loc.row][loc.col]
-
-    def is_cell_solved_as_power(self, loc: Loc) -> bool:
-        return '-' not in self.Constantsgrid[loc.row][loc.col]
-
-    def is_cell_solved_as_empty(self, loc: Loc) -> bool:
-        return '+' not in self.Constantsgrid[loc.row][loc.col]
-
-    def __str__(self) -> str:
-        string = f'{self.Constantsid}\n'
-        string += f'{self.Constantslength}\n'
-        for r in range(self.grid_length):
-            for c in range(self.grid_length):
-                string += f'{self.grid(Loc(r, c))} '
-            string += '\n'
-        return string
+        super().__init__(puzzle, 1, 1)
 
     def is_solved(self) -> bool:
         return False
 
-    def house_row_edge(self, row: int) -> int:
-        string: str = self.Constantsgrid[row][self.length]
+    def east_scraper(self, row: int) -> Optional[int]:
+        string = self.grid[row][self.length]
         if string.isnumeric():
             return int(string)
-        return -1
+        return None
 
-    def house_row_cells(self, row: int) -> list[Loc]:
-        house = []
-        for index in range(self.length):
-            house.append(Loc(row, index))
-        return house
-
-    def house_col_edge(self, col: int) -> int:
-        string: str = self.Constantsgrid[self.length][col]
+    def south_scraper(self, col: int) -> Optional[int]:
+        string = self.grid[self.length][col]
         if string.isnumeric():
             return int(string)
-        return -1
+        return None
 
-    def house_col_cells(self, col: int) -> list[Loc]:
-        house = []
-        for index in range(self.length):
-            house.append(Loc(index, col))
-        return house
-
-    def house_rows_cols_edges(self) -> list[tuple[list[Loc], int]]:
-        house_edges = []
-        for index in range(self.length):
-            row_house = self.house_row_cells(index)
-            row_edge = self.house_row_edge(index)
-            col_house = self.house_col_cells(index)
-            col_edge = self.house_col_edge(index)
-            house_edges.append((row_house, row_edge))
-            house_edges.append((col_house, col_edge))
-        return house_edges
-
-    def cell_candidates(self, loc: Loc) -> list[str]:
-        return [candidate for candidate in self.Constantsgrid[loc.row][loc.col]]
-
-    def rem(self, locs: list[Loc], _candidates: list[int]) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in _candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
-                edits += 1
-
-        return edits
-
-    def require_power2(self, locs: list[Loc]) -> int:
-        edits = 0
-
-        if len(locs) == 2:
-
-            # return 0
-            if not locs[0].is_next_to(locs[1]):
-                return edits
-
-            row_set = set([loc.row for loc in locs])
-            col_set = set([loc.col for loc in locs])
-
-            cells_to_remove = []
-
-            if len(row_set) == 1:
-                cells_to_remove.append(locs[0].north())
-                cells_to_remove.append(locs[1].north())
-                cells_to_remove.append(locs[0].south())
-                cells_to_remove.append(locs[1].south())
-
-            if len(col_set) == 1:
-                cells_to_remove.append(locs[0].east())
-                cells_to_remove.append(locs[1].east())
-                cells_to_remove.append(locs[0].west())
-                cells_to_remove.append(locs[1].west())
-
-        cells_to_remove = [loc for loc in cells_to_remove if loc.is_valid_sudoku(self.length)]
-
-        # edits
-
-        return self.rem(cells_to_remove, ['+'])
-
-    def require_power3(self, locs: list[Loc]) -> int:
-        return 0
-
-    def require_power(self, locs: list[Loc]) -> int:
-        return self.require_power2(locs) + self.require_power3(locs)
-
-    def require_power(self, locs: list[Loc]) -> int:
-        return self.require_power2(locs) + self.require_power3(locs)
+    def __str__(self):
+        return super().__str__()\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("10", "__", -1)\
+            .replace("1_", "PP", -1)\
+            .replace("_0", "..", -1)
 
 
 class Sentinels:
@@ -1529,7 +1412,9 @@ class Futoshiki:
 
 
 class HiddenStars:
-    pass
+
+    def is_solved(self):
+        return False
 
 
 class Kakuro:
