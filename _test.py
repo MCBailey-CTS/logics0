@@ -115,7 +115,7 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.power_grid_003(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_004(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_005(), PowerGrid, Solving.power_grid_techniques()),
-    # (Constants.power_grid_006(), PowerGrid, Solving.power_grid_techniques()),
+    (Constants.power_grid_006(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.power_grid_007(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.power_grid_008(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.power_grid_009(), PowerGrid, Solving.power_grid_techniques()),

@@ -149,6 +149,7 @@ class Solving:
     def power_grid_techniques() -> list:
         return [
             Techs.PowerGridTech(),
+            Techs.PowerGridCrossHatch(),
             Techs.PowerGridHiddenPower()
         ]
 
@@ -3171,6 +3172,35 @@ class Techs:
 
             return edits
 
+    class PowerGridCrossHatch:
+        def solve0(self, puzzle: PowerGrid) -> int:
+            edits = 0
+            POWER = 1
+            EMPTY = 0
+            for r in range(puzzle.length):
+                for c in range(puzzle.length):
+                    loc = Loc(r, c)
+                    candidates = puzzle.cell_candidates(loc)
+                    if len(candidates) > 1:
+                        continue
+                    if POWER in candidates:
+                        directions = [
+                            loc.west(),
+                            loc.north(),
+                            loc.east(),
+                            loc.south(),
+                            loc.north().west(),
+                            loc.north().west(),
+                            loc.south().west(),
+                            loc.south().west(),
+                        ]
+
+                        for direction in directions:
+                            if direction.is_valid_sudoku(puzzle.length):
+                                edits += puzzle.rem([direction], [POWER])
+
+            return edits
+
     class PowerGridTech:
         def solve0(self, puzzle: PowerGrid) -> int:
             edits = 0
@@ -3268,22 +3298,7 @@ class Techs:
             if len(solved_power) == 1 and len(unsolved) == 1:
                 edits += puzzle.rem(unsolved, [EMPTY])
 
-            #     left_index = index - power - 1
-            #     right_index = index + power + 1
-            #
-            #     # valid_left =
-            #
-            #     if left_index < 0 and right_index >= puzzle.length:
-            #         edits += puzzle.rem([house[index]], [POWER])
-            #
-            #     if left_index < 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(house[right_index]):
-            #         edits += puzzle.rem([house[index]], [POWER])
-            #
-            #     if left_index >= 0 and right_index >= puzzle.length and POWER not in puzzle.cell_candidates(house[left_index]):
-            #         edits += puzzle.rem([house[index]], [POWER])
-            #
-            #     if left_index >= 0 and right_index < puzzle.length and POWER not in puzzle.cell_candidates(house[left_index]) and POWER not in puzzle.cell_candidates(house[right_index]):
-            #         edits += puzzle.rem([house[index]], [POWER])
+
 
             return edits
 
