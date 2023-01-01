@@ -24,6 +24,7 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.sudoku_easy_as_pie_0(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_first_lesson(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_hidden_single_0(), Sudoku, Solving.sudoku_techniques()),
+        # return Fa
     (Constants.sudoku_hidden_single_1(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_hidden_single_2(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_intricate_0(), Sudoku, Solving.sudoku_techniques()),
@@ -101,9 +102,9 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.tenner_006(), Tenner, Solving.tenner_techniques()),
     (Constants.tenner_008(), Tenner, Solving.tenner_techniques()),
     (Constants.tenner_009(), Tenner, Solving.tenner_techniques()),
-    # (Constants.skyscrapers_001(), Skyscrapers, Solving.skyscrapers_techniques()),
-    # (Constants.skyscrapers_002(), Skyscrapers, Solving.skyscrapers_techniques()),
-    # (Constants.skyscrapers_003(), Skyscrapers, Solving.skyscrapers_techniques()),
+    (Constants.skyscrapers_001(), Skyscrapers, Solving.skyscrapers_techniques()),
+    (Constants.skyscrapers_002(), Skyscrapers, Solving.skyscrapers_techniques()),
+    (Constants.skyscrapers_003(), Skyscrapers, Solving.skyscrapers_techniques()),
     # (Constants.skyscrapers_004(), Skyscrapers, Solving.skyscrapers_techniques()),
     # (Constants.skyscrapers_005(), Skyscrapers, Solving.skyscrapers_techniques()),
     # (Constants.skyscrapers_006(), Skyscrapers, Solving.skyscrapers_techniques()),
@@ -116,16 +117,13 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.power_grid_004(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_005(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_006(), PowerGrid, Solving.power_grid_techniques()),
-    # (Constants.power_grid_007(), PowerGrid, Solving.power_grid_techniques()),
-    # (Constants.power_grid_008(), PowerGrid, Solving.power_grid_techniques()),
-    # (Constants.power_grid_009(), PowerGrid, Solving.power_grid_techniques()),
+    
     # (Constants.tents_001(), Tents, Solving.tents_techniques()),
     # (Constants.hidden_stars_001(), HiddenStars, Solving.hidden_stars_techniques()),
     # (Constants.knightoku_001(), Knightoku, Solving.knightoku_techniques()),
     # (Constants.clouds_001(), Clouds, Solving.clouds_techniques()),
     # (Constants.magnets_001(), Magnets, Solving.magnets_techniques()),
 
-    # (Constants.power_grid_002(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.abstractpainting_002(), AbstractPainting, Solving.abstractpainting_techniques()),
     # (Constants.abstractpainting_003(), AbstractPainting, Solving.abstractpainting_techniques()),
 ])

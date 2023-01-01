@@ -166,6 +166,8 @@ class Puzzle:
         return string
 
 
+
+
 class Sumscrapers(Puzzle):
     def __init__(self, puzzle: str, row_length: int = 2, col_length: int = 2):
         super().__init__(puzzle, row_length, col_length)
@@ -180,8 +182,8 @@ class Sumscrapers(Puzzle):
                     self.grid[r][c] = string
                     # print(string)
 
-    def is_solved(self) -> bool:
-        return False
+    # def is_solved(self) -> bool:
+    #     return False
 
     @property
     def has_fences(self) -> bool:
@@ -251,7 +253,7 @@ class Sumscrapers(Puzzle):
 
         return string
 
-    def __is_sumscraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
+    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
         solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
         if len(solved_candidates) != self.length:
             return False
@@ -285,26 +287,49 @@ class Sumscrapers(Puzzle):
         for index in range(self.length):
             house = self.house_row(index)
 
-            if not self.__is_sumscraper_solved(self.west_scraper(index), house):
+            if not self._is_scraper_solved(self.west_scraper(index), house):
                 return False
 
             house.reverse()
 
-            if not self.__is_sumscraper_solved(self.east_scraper(index), house):
+            if not self._is_scraper_solved(self.east_scraper(index), house):
                 return False
 
             house = self.house_col(index)
 
-            if not self.__is_sumscraper_solved(self.north_scraper(index), house):
+            if not self._is_scraper_solved(self.north_scraper(index), house):
                 return False
 
             house.reverse()
 
-            if not self.__is_sumscraper_solved(self.south_scraper(index), house):
+            if not self._is_scraper_solved(self.south_scraper(index), house):
                 return False
 
         return True
 
+
+
+class Skyscrapers(Sumscrapers):
+    def __init__(self, puzzle: str):
+        super().__init__(puzzle)
+
+    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
+        solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
+        if len(solved_candidates) != self.length:
+            return False
+        if sumscraper is None:
+            return True
+
+        current = 0
+        max0 = 0
+
+        for candidate in solved_candidates:
+            if candidate < max0:
+                continue
+            current += 1
+            max0 = candidate
+
+        return sumscraper == current
 
 class Sudoku(Puzzle):
 
@@ -1333,11 +1358,6 @@ class PowerGrid(Puzzle):
         if len(solved_power_indexes) != 2:
             return False
 
-
-
-
-        # solved_power = []
-        # solved_empty = []
         # unsolved = []
 
         # # for index
@@ -1405,10 +1425,6 @@ class PowerGrid(Puzzle):
 class Sentinels:
     pass
 
-
-class Skyscrapers(Sumscrapers):
-    def __init__(self, puzzle: str):
-        super().__init__(puzzle)
 
 
 class Tents:
@@ -1644,9 +1660,6 @@ class Mathrax:
     def solve0(self):
         pass
 
-
-class Nurikabe:
-    pass
 
 
 class MineShips:

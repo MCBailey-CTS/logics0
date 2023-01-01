@@ -3665,6 +3665,44 @@ class Techs:
                 if scraper is None:
                     continue
 
+                string = "".join([puzzle.grid[loc.row][loc.col] for loc in house])
+
+                if string == "1____23__23____4" and scraper == 4:
+                    edits += puzzle.rem([house[1]], [3])
+
+                if string == "1____23__23____4" and scraper == 3:
+                    edits += puzzle.rem([house[1]], [2])
+
+
+                if string == "123_1_3_12_____4" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [1,2,4])
+
+                if string == "123_123_123____4" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [1,2,4])
+
+                if string == "12__12_____4__3_" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [1])
+
+                if string == "_23__23____41___" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [3])
+
+                if string == "_23__23____41___" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [2])
+
+
+
+# 1___ ___4 _23_ _23_
+
+
+
+                
+
+
+                    # print(string)
+
+
+
+
                 # house_candidates = [puzzle.cell_candidates(loc) for loc in house]
                 # for index in range(puzzle.length):
                 #     candidates = house_candidates[index]

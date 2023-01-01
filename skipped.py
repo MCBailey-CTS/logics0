@@ -728,7 +728,9 @@
     # (Constants.sentinels_006(), Sentinels, Solving.sentinels_techniques()),
     # (Constants.sentinels_003(), Sentinels, Solving.sentinels_techniques()),
     # (Constants.sentinels_007(), Sentinels, Solving.sentinels_techniques()),
-    
+    # (Constants.power_grid_007(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.power_grid_008(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.power_grid_009(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.skyscrapers_009(), Skyscrapers, Solving.skyscrapers_techniques()),
     # (Constants.skyscrapers_010(), Skyscrapers, Solving.skyscrapers_techniques()),
     # (Constants.skyscrapers_011(), Skyscrapers, Solving.skyscrapers_techniques()),
