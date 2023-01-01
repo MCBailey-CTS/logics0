@@ -3689,6 +3689,26 @@ class Techs:
                 if string == "_23__23____41___" and scraper == 2:
                     edits += puzzle.rem([house[0]], [2])
 
+                if string == "123_123_123____4" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [3])
+
+                if string == "123_123_12341234" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [3])
+
+                if string == "12__12____3____4" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [1])
+
+                if string == "_2_4_2_41_____3_" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [4])
+
+                if string == "1_3__2_____41_3_" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [1])
+
+                if string == "1234123412341234" and scraper == 3:
+                    edits += puzzle.rem([house[0]], [4])
+
+                if string == "1234123412341234" and scraper == 2:
+                    edits += puzzle.rem([house[0]], [4])
 
 
 # 1___ ___4 _23_ _23_
