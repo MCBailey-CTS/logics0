@@ -106,8 +106,12 @@ class Puzzle:
     def cell_candidates(self, loc: Loc) -> list:
         return [int(char) for char in self.grid[loc.row][loc.col] if char.isnumeric()]
 
-    def is_cell_solved(self, loc: Loc) -> bool:
-        return len(self.cell_candidates(loc)) == 1
+    def is_cell_solved(self, loc: Loc, solved_with_candidate = None) -> bool:
+        candidates = self.cell_candidates(loc)
+        if solved_with_candidate is None:
+            return len(candidates) == 1
+        return candidates[0] == solved_with_candidate
+
 
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
@@ -1318,8 +1322,7 @@ class Parks2:
     pass
 
 
-class AbstractPainting:
-    pass
+
 
 
 class BattleShips:
@@ -1669,4 +1672,39 @@ class MineShips:
 class Nurikabe:
     pass
 
-# 1537
+class AbstractPainting(PowerGrid):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+
+    def __is_solved0(self, house: list[Loc], power: Optional[int]) -> bool:
+        ABSTRACT = 1
+        EMPTY = 0
+
+        candidates_array = [self.cell_candidates(loc) for loc in house]
+
+        all_cells_solved = [len(candidates_array[index]) == 1 for index in range(len(candidates_array))]
+
+        if not all(all_cells_solved):
+            return False
+
+        solved_abstract_locs = [loc for loc in house if self.is_cell_solved(loc, ABSTRACT)]
+
+        return power is None or  power == len(solved_abstract_locs)
+
+
+    def is_solved(self) -> bool:
+        for index in range(self.length):
+            if not self.__is_solved0(self.house_row(index), self.east_scraper(index)):
+                return False
+            if not self.__is_solved0(self.house_col(index), self.south_scraper(index)):
+                return False
+        return True
+
+    def __str__(self):
+        string = f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.row_length):
+            for c in range(self.col_length):
+                string += f'{self.grid[r][c].ljust(self.length)} '
+            string += '\n'
+        return string

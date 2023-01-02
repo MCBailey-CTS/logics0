@@ -109,13 +109,24 @@ EXPLICITLY = "EXPLICITLY"
 
     (Constants.skyscrapers_tc_001(), Skyscrapers, Solving.skyscrapers_techniques()),
     (Constants.skyscrapers_tc_002(), Skyscrapers, Solving.skyscrapers_techniques()),
-    # (Constants.abstractpainting_001(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_001(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_002(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_003(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_004(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_005(), AbstractPainting, Solving.abstractpainting_techniques()),
+    (Constants.abstractpainting_006(), AbstractPainting, Solving.abstractpainting_techniques()),
+    
     (Constants.power_grid_001(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_002(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_003(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_004(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_005(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_006(), PowerGrid, Solving.power_grid_techniques()),
+    
+    (Constants.power_grid_011(), PowerGrid, Solving.power_grid_techniques()),
+    (Constants.power_grid_012(), PowerGrid, Solving.power_grid_techniques()),
+    (Constants.power_grid_013(), PowerGrid, Solving.power_grid_techniques()),
+    (Constants.power_grid_014(), PowerGrid, Solving.power_grid_techniques()),
     
     # (Constants.tents_001(), Tents, Solving.tents_techniques()),
     # (Constants.hidden_stars_001(), HiddenStars, Solving.hidden_stars_techniques()),

@@ -155,7 +155,7 @@ class Solving:
 
     @staticmethod
     def abstractpainting_techniques() -> list:
-        return []
+        return [Techs.AbstractPaintingTech()]
 
     @staticmethod
     def battle_ships_techniques() -> list:
@@ -3189,9 +3189,9 @@ class Techs:
                             loc.north(),
                             loc.east(),
                             loc.south(),
+                            loc.north().east(),
                             loc.north().west(),
-                            loc.north().west(),
-                            loc.south().west(),
+                            loc.south().east(),
                             loc.south().west(),
                         ]
 
@@ -3247,6 +3247,7 @@ class Techs:
 
             return edits
 
+
     class PowerGridHiddenPower:
         def solve0(self, puzzle: PowerGrid) -> int:
             edits = 0
@@ -3254,13 +3255,13 @@ class Techs:
             for index in range(puzzle.length):
                 row_house = puzzle.house_row(index)
                 row_scraper = puzzle.east_scraper(index)
-                if row_scraper is None:
-                    continue
+                # if row_scraper is None:
+                #     continue
                 edits += self.solve1(puzzle, row_scraper, row_house)
                 col_house = puzzle.house_col(index)
                 col_scraper = puzzle.south_scraper(index)
-                if col_scraper is None:
-                    continue
+                # if col_scraper is None:
+                #     continue
                 edits += self.solve1(puzzle, col_scraper, col_house)
             return edits
 
@@ -3748,4 +3749,50 @@ class Techs:
                 # edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
 
             return edits
+
+
+
+    class AbstractPaintingTech:
+        def solve0(self, puzzle: AbstractPainting) -> int:
+            edits = 0
+            for index in range(puzzle.length):
+                row_house = puzzle.house_row(index)
+                row_scraper = puzzle.east_scraper(index)
+                edits += self.solve1(puzzle, row_scraper, row_house)
+                col_house = puzzle.house_col(index)
+                col_scraper = puzzle.south_scraper(index)
+                edits += self.solve1(puzzle, col_scraper, col_house)
+            for r in range(puzzle.length):
+                for c in range(puzzle.length):
+                    loc = Loc(r, c)
+                    candidates = puzzle.cell_candidates(loc)
+                    if len(candidates) != 1:
+                        continue
+                    fence = puzzle.cell_fence(loc)
+                    if 1 in candidates:
+                        edits += puzzle.rem(puzzle.house_fence(fence), [0])
+                    if 0 in candidates:
+                        edits += puzzle.rem(puzzle.house_fence(fence), [1])
+            return edits
+        def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc])->int:
+            edits = 0
+            solved_abstract = []
+            solved_empty = []
+            unsolved = []
+            for index in range(len(house)):
+                candidates = puzzle.cell_candidates(house[index])
+                if len(candidates) > 1:
+                    unsolved.append(house[index])
+                    continue
+                if 1 in candidates:
+                    solved_abstract.append(house[index])
+                if 0 in candidates:
+                    solved_empty.append(house[index])
+            # full house
+            if scraper == len(house):
+                edits += puzzle.rem(house, [0])
+            if scraper == len(solved_abstract):
+                edits += puzzle.rem(unsolved, [1])
+            return edits
+
 # 2865

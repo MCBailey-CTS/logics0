@@ -731,7 +731,12 @@
     # (Constants.power_grid_007(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.power_grid_008(), PowerGrid, Solving.power_grid_techniques()),
     # (Constants.power_grid_009(), PowerGrid, Solving.power_grid_techniques()),
-    
+    # (Constants.power_grid_010(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.power_grid_015(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.power_grid_016(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.power_grid_017(), PowerGrid, Solving.power_grid_techniques()),
+    # (Constants.abstractpainting_007(), AbstractPainting, Solving.abstractpainting_techniques()),
+    # (Constants.abstractpainting_008(), AbstractPainting, Solving.abstractpainting_techniques()),
     # (Constants.snail3_004(), Snail3, Solving.snail3_techniques()),
     # (Constants.snail3_005(), Snail3, Solving.snail3_techniques()),
     # (Constants.snail3_006(), Snail3, Solving.snail3_techniques()),
