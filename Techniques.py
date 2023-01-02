@@ -60,7 +60,7 @@ class Solving:
             # Techs.Parks1LockedCandidatesClaiming(),
             Techs.Parks1Bent3(),
             Techs.Parks1Shape_00_01(),
-            # Techs.Parks1Shapes(),
+            Techs.Parks1Shapes(),
 
         ]
 
@@ -3816,16 +3816,37 @@ class Techs:
 
                     # print(unsolved)
 
-            for fence in puzzle.fences():
-                house = set(puzzle.house_fence(fence))
-                solved_parks = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
-                if len(solved_parks) > 1:
-                    raise Exception("Found a park fence that is solved with more than one fence")
-                if len(solved_parks) == 1:
-                    continue
-                unsolved = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
+            # for fence in puzzle.fences():
+            #     house = set(puzzle.house_fence(fence))
+            #     solved_parks = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
+            #     if len(solved_parks) > 1:
+            #         raise Exception("Found a park fence that is solved with more than one fence")
+            #     if len(solved_parks) == 1:
+            #         continue
+            #     unsolved = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
                 
 
+
+            return edits
+
+    class Parks1Shapes(BasePuzzleTechnique):
+        def solve0(self, puzzle: Parks1)->int:
+            edits = 0
+            for fence in puzzle.fences():
+                house = puzzle.house_fence(fence)
+                edits += self.solve1(puzzle, house)
+            return edits
+
+        def solve1(self, puzzle: Parks1, house: list[Loc])->int:
+            edits = 0
+            # print("hello111")
+            for fence in puzzle.fences():
+                house = puzzle.house_fence(fence)
+
+                if len(house) == 3:
+                    print("here")
+
+            # unsolved = [loc for loc in house if puzzl]
 
             return edits
 # 2865

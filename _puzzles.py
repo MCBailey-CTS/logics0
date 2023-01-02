@@ -929,10 +929,12 @@ class Parks1(Puzzle):
             'c': Fore.GREEN,
             'd': Fore.LIGHTBLUE_EX,
             'e': Fore.LIGHTMAGENTA_EX,
-            # 'h':Fore.LIGHTYELLOW_EX,
-            # 'i':Fore.LIGHTRED_EX,
-            # 'j':Fore.YELLOW,
-            # 'k':Fore.RED
+            'f': Fore.LIGHTGREEN_EX,
+            'g': Fore.LIGHTWHITE_EX,
+            'h':Fore.LIGHTYELLOW_EX,
+            'i':Fore.LIGHTRED_EX,
+            'j':Fore.YELLOW,
+            'k':Fore.RED
         }
         array = []
         for line in puzzle.split("\n"):
