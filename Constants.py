@@ -15429,17 +15429,7 @@ class Constants:
         1___ . __3_ < 1234 . 1234
         """
 
-    @staticmethod
-    def lighthouses_001():
-        return f"""
-        001.lighthouses
-        5
-        +- +- +- +- +-
-        03 +- +- +- +-
-        +- +- +- +- +-
-        +- +- 02 +- +-
-        +- +- +- +- 01
-        """
+    
 
     @staticmethod
     def magnets_001():
@@ -15477,18 +15467,6 @@ class Constants:
         ___4 ... ____ ... ____ ... ____
         .... ... .... 01- .... ... ....
         __3_ ... ____ ... ____ ... ____
-        """
-
-    @staticmethod
-    def lighthouses_002():
-        return f"""
-        002.lighthouses
-        5
-        02 +- +- +- +-
-        +- +- +- +- +-
-        +- +- 00 +- 01
-        +- +- +- +- +-
-        +- +- 00 +- 01
         """
 
     @staticmethod
@@ -15543,18 +15521,6 @@ class Constants:
         """
 
     @staticmethod
-    def lighthouses_003():
-        return f"""
-        003.lighthouses
-        5
-        +- +- +- +- 02
-        +- +- +- +- +-
-        +- +- 00 +- +-
-        +- +- +- +- +-
-        02 +- 01 +- +-
-        """
-
-    @staticmethod
     def magnets_003():
         return f"""
         003.magnets
@@ -15594,17 +15560,6 @@ class Constants:
         +- 02 01 +- +-
         """
 
-    @staticmethod
-    def lighthouses_004():
-        return f"""
-        004.lighthouses
-        5
-        +- +- 01 +- +-
-        02 +- +- +- +-
-        +- +- 01 +- +-
-        +- +- +- +- +-
-        +- +- +- +- 03
-        """
 
     @staticmethod
     def magnets_004():
@@ -15670,18 +15625,6 @@ class Constants:
         123456789 . 123456789 w 123456789 . 123456789 . 123456789 w 123456789 b 123456789 w 123456789 w 123456789
         """
 
-    @staticmethod
-    def lighthouses_005():
-        return f"""
-        005.lighthouses
-        6
-        +- +- +- +- +- +-
-        01 +- +- +- +- 01
-        +- +- +- +- +- +-
-        02 +- +- +- 01 +-
-        +- +- +- +- +- +-
-        +- +- 04 +- +- +-
-        """
 
     @staticmethod
     def magnets_005():
@@ -15750,6 +15693,67 @@ class Constants:
         123456789 . 123456789 w 123456789 . 123456789 . 123456789 . 123456789 . 123456789 . 123456789 w 123456789
         """
 
+
+
+    @staticmethod
+    def lighthouses_001():
+        return f"""
+        001.lighthouses
+        5
+        +- +- +- +- +-
+        03 +- +- +- +-
+        +- +- +- +- +-
+        +- +- 02 +- +-
+        +- +- +- +- 01
+        """
+    @staticmethod
+    def lighthouses_002():
+        return f"""
+        002.lighthouses
+        5
+        02 +- +- +- +-
+        +- +- +- +- +-
+        +- +- 00 +- 01
+        +- +- +- +- +-
+        +- +- 00 +- 01
+        """
+
+    @staticmethod
+    def lighthouses_003():
+        return f"""
+        003.lighthouses
+        5
+        +- +- +- +- 02
+        +- +- +- +- +-
+        +- +- 00 +- +-
+        +- +- +- +- +-
+        02 +- 01 +- +-
+        """
+
+    @staticmethod
+    def lighthouses_004():
+        return f"""
+        004.lighthouses
+        5
+        +- +- 01 +- +-
+        02 +- +- +- +-
+        +- +- 01 +- +-
+        +- +- +- +- +-
+        +- +- +- +- 03
+        """
+
+    @staticmethod
+    def lighthouses_005():
+        return f"""
+        005.lighthouses
+        6
+        +- +- +- +- +- +-
+        01 +- +- +- +- 01
+        +- +- +- +- +- +-
+        02 +- +- +- 01 +-
+        +- +- +- +- +- +-
+        +- +- 04 +- +- +-
+        """
     @staticmethod
     def lighthouses_006():
         return f"""

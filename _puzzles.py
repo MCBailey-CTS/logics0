@@ -1505,155 +1505,7 @@ class Kakuro:
     pass
 
 
-class LightenUp:  # (Sudoku):
-    def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
-        self.Constantsgrid = []
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        array.pop(0)
-        array.pop(0)
 
-        # for r in range(self.length):
-        #     for c in range(self.length):
-        #         loc = Loc(r, c)
-
-        for temp in array:
-            print(temp)
-
-        # for row in range(self.length + 1):
-        #     temp = []
-        #     split = array[row].replace("\r", " ", -1).replace("\t", " ", -1).replace("  ", " ", -1).strip().split(' ')
-        #     for t in split:
-        #         if len(t) == 0:
-        #             continue
-        #         temp.append(t)
-        #     self.Constantsgrid.append(temp)
-
-    @property
-    def col_length(self) -> int:
-        return 10
-
-    def is_row_house_solved(self, row: int) -> bool:
-        solved_candidates = set(
-            [self.cell_candidates(loc)[0] for loc in self.house_row_cell_locs(row) if self.is_cell_solved(loc)])
-        return solved_candidates.issuperset(self.expected_candidates()) and solved_candidates.issubset(
-            self.expected_candidates())
-
-    def is_col_house_solved(self, col: int) -> bool:
-        solved_candidates = [
-            self.cell_candidates(loc)[0]
-            for loc in self.house_col_cell_locs(col)
-            if self.is_cell_solved(loc)
-        ]
-        if len(solved_candidates) != self.length:
-            return False
-        total = self.total(col)
-        if total is None:
-            return True
-        return sum(solved_candidates) == total
-
-    def is_solved(self) -> bool:
-        return False
-        for row in range(self.length):
-            if not self.is_row_house_solved(row):
-                print(f'print bad row: {row}')
-
-                return False
-
-        for col in range(self.col_length):
-            if not self.is_col_house_solved(col):
-                print(f'print bad col: {col}')
-                return False
-
-        for r in range(self.length):
-            for c in range(self.col_length):
-                cell = Loc(r, c)
-                if not self.is_cell_solved(cell):
-                    # print(f'{self.Constantsgrid[r][c]}///////////////////////////')
-                    return False
-                solved_candidate = self.cell_candidates(cell)[0]
-                directions = [
-                    cell.north(),
-                    cell.east(),
-                    cell.south(),
-                    cell.west(),
-                    cell.north().east(),
-                    cell.north().west(),
-                    cell.south().east(),
-                    cell.south().west()
-                ]
-                for direction in directions:
-                    if direction.row < 0 or direction.col < 0:
-                        continue
-                    if direction.row >= self.length or direction.col >= 10:
-                        continue
-
-                    if not self.is_cell_solved(direction):
-                        return False
-
-                    other = self.cell_candidates(direction)[0]
-
-                    if other == solved_candidate:
-                        print(f'{cell} {direction}')
-                        return False
-
-        return True
-
-    def expected_candidates(self) -> list:
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    def __str__(self):
-        string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length + 1):
-            for c in range(self.col_length):
-                string += f'{self.Constantsgrid[r][c].ljust(self.col_length)} '
-            string += '\n'
-        return string
-
-    def house_row_cell_locs(self, loc_row: Union[int, Loc]) -> list[Loc]:
-        if isinstance(loc_row, Loc):
-            return self.house_row_cell_locs(loc_row.row)
-        return [Loc(loc_row, col) for col in range(self.col_length)]
-
-    def house_col_cell_locs(self, loc_col: Union[int, Loc]) -> list[Loc]:
-        if isinstance(loc_col, Loc):
-            return self.house_col_cell_locs(loc_col.col)
-        return [Loc(row, loc_col) for row in range(self.length)]
-
-    def cell_candidates(self, loc: Loc):
-        return [int(s) for s in self.Constantsgrid[loc.row][loc.col] if s.isnumeric()]
-
-    def rem(self, locs: list[Loc], candidates: list[int]) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.Constantsgrid[loc.row][loc.col] = self.Constantsgrid[loc.row][loc.col].replace(str(candidate), "_")
-                edits += 1
-
-        return edits
-
-    def is_cell_solved(self, loc: Loc) -> bool:
-        return len(self.cell_candidates(loc)) == 1
-
-    def total(self, col: int) -> Union[int, None]:
-        string = self.Constantsgrid[self.length][col]
-        if string.isnumeric():
-            return int(string)
-        return None
-
-
-class Lighthouses:
-    pass
 
 
 class Mathrax:
@@ -1708,3 +1560,21 @@ class AbstractPainting(PowerGrid):
                 string += f'{self.grid[r][c].ljust(self.length)} '
             string += '\n'
         return string
+
+
+class Lighthouses(Puzzle):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+
+    def is_solved(self)->bool:
+        return False
+
+
+
+class LightenUp:  # (Sudoku):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+        
+    def is_solved(self)->bool:
+        return False
+
