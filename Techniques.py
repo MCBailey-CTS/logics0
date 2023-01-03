@@ -1,10 +1,10 @@
 from abc import abstractmethod
 from turtle import pu, st
 from typing import Optional
-
 from Loc import Loc
 from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, RobotCrosswords, Minesweeper, PowerGrid, \
     AbstractPainting, Clouds, Futoshiki, Mathrax, Sumscrapers, Skyscrapers, LightenUp
+from techniques0 import CrossHatch, HiddenSingle, AbstractPaintingTech, SkyscrapersRange,Parks1Shape_00_01,Parks1Shapes,Parks1DominateFence
 
 PLUS = "+"
 MINUS = "-"
@@ -15,26 +15,12 @@ class Solving:
     @staticmethod
     def sudoku_techniques() -> list:
         return [
-            Techs.CrossHatch(),
-            Techs.HiddenSingle(),
+            CrossHatch(),
+
+            HiddenSingle(),
             Techs.NakedPair(),
             Techs.LockedCandidatesPointing(),
             Techs.LockedCandidatesClaiming(),
-            Techs.HiddenSingle(),
-            # Techs.UniqueRectangleType1(),
-            # Techs.UniqueRectangleType2(),
-            # Techs.UniqueRectangleType4(),
-            # Techs.XWing(),
-            # Techs.Bug(),
-            # Techs.NakedTriple(),
-            # Techs.WWing(),
-            # Techs.ShashimiXWingPlus1(),
-            # Techs.XyWing(),
-            # Techs.FinnedXWing(),
-            # Techs.AvoidableRectangleType1(),
-            # Techs.WxyzWing(),
-            # Techs.SwordFish(),
-            # Techs.JellyFish(),
         ]
 
     @staticmethod
@@ -57,11 +43,10 @@ class Solving:
             Techs.Parks1HiddenSingle(),
             Techs.Parks1CrossHatchTouching(),
             Techs.Parks1LockedCandidatesPointing(),
-            # Techs.Parks1LockedCandidatesClaiming(),
             Techs.Parks1Bent3(),
-            Techs.Parks1Shape_00_01(),
-            Techs.Parks1Shapes(),
-            Techs.Parks1DominateFence(),
+            Parks1Shape_00_01(),
+            Parks1Shapes(),
+            Parks1DominateFence(),
         ]
 
     @staticmethod
@@ -96,7 +81,7 @@ class Solving:
 
     @staticmethod
     def lighthouses_techniques() -> list:
-        return [Techs.LightenUpTech()]
+        return []
 
     @staticmethod
     def walls_techniques() -> list:
@@ -120,7 +105,7 @@ class Solving:
         return [
             Techs.SkyscrapersN(),
             Techs.CrossHatchSumscrapers(), Techs.HiddenSingleSumscrapers(), Techs.SkyscrapersN(), Techs.Skyscrapers1(),
-            Techs.SkyscrapersRange()
+            SkyscrapersRange()
         ]
 
     @staticmethod
@@ -157,7 +142,9 @@ class Solving:
 
     @staticmethod
     def abstractpainting_techniques() -> list:
-        return [Techs.AbstractPaintingTech()]
+        return [
+            AbstractPaintingTech()
+            ]
 
     @staticmethod
     def battle_ships_techniques() -> list:
@@ -173,19 +160,21 @@ class Solving:
 
     @staticmethod
     def lightenup_techniques() -> list:
-        return [Techs.LightenUpTech()]
+        return [
+            # Techs.LightenUpTech()
+            ]
 
 
 class Techs:
-    class BasePuzzleTechnique:
-        def __repr__(self) -> str:
-            return f'{self.__class__.__name__}()'
+    # class BasePuzzleTechnique:
+    #     def __repr__(self) -> str:
+    #         return f'{self.__class__.__name__}()'
 
-        @abstractmethod
-        def solve0(self, puzzle) -> int:
-            raise NotImplementedError()
+    #     @abstractmethod
+    #     def solve0(self, puzzle) -> int:
+    #         raise NotImplementedError()
 
-    class MinesweeperSolver:  # (BasePuzzleTechnique):
+    class MinesweeperSolver:  # :
 
         @staticmethod
         def surrounding(puzzle, loc: Loc) -> list[Loc]:
@@ -412,32 +401,6 @@ class Techs:
         # 
         #     return edits
 
-    class CrossHatch:
-
-        #
-
-        # @staticmethod
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-
-            for cell in list(puzzle.unsolved_cells()):
-                neighbors = set(
-                    puzzle.house_row(cell.row) + puzzle.house_col(cell.col))
-                #  + puzzle.house_fence(
-                #     puzzle.cell_fence(cell)))
-
-                if puzzle.has_fences:
-                    for loc in puzzle.house_fence(puzzle.cell_fence(cell)):
-                        neighbors.add(loc)
-
-                neighbors.remove(cell)
-                for neighbor in neighbors:
-                    if neighbor not in puzzle.unsolved_cells():
-                        _candidates = puzzle.cell_candidates(neighbor)
-                        if len(_candidates) == 1:
-                            edits += puzzle.rem(cell, [list(_candidates)[0]])
-            return edits
-
     class CrossHatchRobotFences:
         @staticmethod
         def solve0(puzzle: Sudoku) -> int:
@@ -452,82 +415,7 @@ class Techs:
                             edits += puzzle.rem(cell, [list(_candidates)[0]])
             return edits
 
-    class HiddenSingle:
-        @staticmethod
-        def solve0(puzzle: Sudoku) -> int:
-            edits = 0
-            for house in puzzle.houses_rows_cols_fences():
-                edits += Techs.HiddenSingle.solve1(puzzle, house)
-            return edits
-
-        @staticmethod
-        def solve1(puzzle: Sudoku, house: list[Loc]) -> int:
-            edits = 0
-            # print(house)
-            for cand in puzzle.expected_candidates():
-                locs_with_candidate = []
-                locs_without_candidate = []
-                for loc in house:
-                    if cand in puzzle.cell_candidates(loc):
-                        locs_with_candidate.append(loc)
-                    else:
-                        locs_without_candidate.append(loc)
-
-                if len(locs_with_candidate) != 1:
-                    continue
-
-                candidates_to_remove = set(puzzle.expected_candidates())
-
-                candidates_to_remove.remove(cand)
-                # print(candidates_to_remove)
-                edits += puzzle.rem(locs_with_candidate[0], candidates_to_remove)
-
-            return edits
-
-    class Bug(BaseSudokuTechnique):
-
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-
-            length_1: list[Loc] = list()
-            length_2: list[Loc] = list()
-            length_3: list[Loc] = list()
-
-            for loc in puzzle.list_all_cell_locs():
-                _candidates = puzzle.cell_candidates(loc)
-
-                if len(_candidates) == 1:
-                    length_1.append(loc)
-                    continue
-                if len(_candidates) == 2:
-                    length_2.append(loc)
-                    continue
-
-                if len(_candidates) == 3:
-                    length_3.append(loc)
-                    continue
-
-                return edits
-
-            total = puzzle.length * puzzle.length
-
-            if len(length_3) != 1 or total != len(length_3) + len(length_2) + len(length_1):
-                return edits
-
-            row_house, col_house, fence_house = puzzle.houses_rows_cols_fences(length_3[0])
-
-            for candidate in list(puzzle.cell_candidates(length_3[0])):
-                row_count = [l for l in row_house if candidate in puzzle.cell_candidates(l)]
-                col_count = [l for l in col_house if candidate in puzzle.cell_candidates(l)]
-                fence_count = [l for l in fence_house if candidate in puzzle.cell_candidates(l)]
-
-                if len(row_count) == 3 and len(col_count) == 3 and len(fence_count) == 3:
-                    for c in list(puzzle.cell_candidates(length_3[0])):
-                        if c == candidate:
-                            continue
-                        edits += puzzle.rem(length_3[0], [c])
-
-            return edits
+    
 
     class HiddenPair(BaseSudokuTechnique):
 
@@ -1424,7 +1312,7 @@ class Techs:
             for fence_house in puzzle.houses_fences():
 
                 if len(fence_house) == puzzle.length:
-                    edits += Techs.HiddenSingle.solve1(puzzle, fence_house)
+                    edits += HiddenSingle.solve1(puzzle, fence_house)
                     continue
 
                 #  get the solve candidates in the fence_house
@@ -1660,21 +1548,21 @@ class Techs:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
             for house in puzzle.houses_rows():
-                edits += Techs.HiddenSingle.solve1(puzzle, house)
+                edits += HiddenSingle.solve1(puzzle, house)
             return edits
 
     class HiddenSingleCols(BaseSudokuTechnique):
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
             for house in puzzle.houses_cols():
-                edits += Techs.HiddenSingle.solve1(puzzle, house)
+                edits += HiddenSingle.solve1(puzzle, house)
             return edits
 
     class HiddenSingleFences(BaseSudokuTechnique):
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
             for house in puzzle.houses_fences():
-                edits += Techs.HiddenSingle.solve1(puzzle, house)
+                edits += HiddenSingle.solve1(puzzle, house)
             return edits
 
     class NakedPair:
@@ -2058,7 +1946,7 @@ class Techs:
             edits = 0
             return edits
 
-    class KropkiBlack(BasePuzzleTechnique):
+    class KropkiBlack:
         def solve0(self, puzzle: Kropki) -> int:
             edits = 0
             for r in range(puzzle.length):
@@ -2093,7 +1981,7 @@ class Techs:
                 edits += puzzle.rem([loc0], [candidate])
             return edits
 
-    class KropkiWhite(BasePuzzleTechnique):
+    class KropkiWhite:
 
         def solve0(self, puzzle: Kropki) -> int:
             edits = 0
@@ -2129,7 +2017,7 @@ class Techs:
                 edits += puzzle.rem([loc0], [candidate])
             return edits
 
-    class KropkiEmpty(BasePuzzleTechnique):
+    class KropkiEmpty:
 
         def solve0(self, puzzle: Kropki) -> int:
             # print("in here")
@@ -2628,7 +2516,7 @@ class Techs:
 
             return edits
 
-    class TennerCrossHatch(BasePuzzleTechnique):
+    class TennerCrossHatch:
         # def __repr__(self)->str:
         #     return f'{self.__class__.__name__}()'
 
@@ -2665,7 +2553,7 @@ class Techs:
                         edits += puzzle.rem([direction], [solved_candidate])
             return edits
 
-    class TennerTotalHiddenSingle(BasePuzzleTechnique):
+    class TennerTotalHiddenSingle:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             for col in range(puzzle.col_length):
@@ -2689,15 +2577,15 @@ class Techs:
 
             return edits
 
-    class TennerHiddenSingle(BasePuzzleTechnique):
+    class TennerHiddenSingle:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             for row in range(puzzle.length):
                 house = puzzle.house_row_cell_locs(row)
-                edits += Techs.HiddenSingle.solve1(puzzle, house)
+                edits += HiddenSingle.solve1(puzzle, house)
             return edits
 
-    class TennerNakedPair(BasePuzzleTechnique):
+    class TennerNakedPair:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             for row in range(puzzle.length):
@@ -2705,7 +2593,7 @@ class Techs:
                 edits += Techs.NakedPair.solve1(puzzle, house)
             return edits
 
-    class TennerHiddenPair(BasePuzzleTechnique):
+    class TennerHiddenPair:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             for index in range(puzzle.length):
@@ -2735,7 +2623,7 @@ class Techs:
                             edits += puzzle.rem(temp_locs[1], [k])
             return edits
 
-    class TennerNakedPairColumn(BasePuzzleTechnique):
+    class TennerNakedPairColumn:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             for col in range(puzzle.col_length):
@@ -2769,7 +2657,7 @@ class Techs:
 
             return edits
 
-    class TennerPowerSetTotals(BasePuzzleTechnique):
+    class TennerPowerSetTotals:
         def solve0(self, puzzle: Tenner) -> int:
             edits = 0
             edits = self.solve3(puzzle)
@@ -2778,7 +2666,7 @@ class Techs:
             edits += self.solve6(puzzle)
             return edits
 
-        # class TennerPowerSetTotals3(BasePuzzleTechnique):
+        # class TennerPowerSetTotals3:
         def solve3(self, puzzle: Tenner) -> int:
             edits = 0
             TOTAL = 3
@@ -2818,7 +2706,7 @@ class Techs:
                 edits += self.end(puzzle, valid_candidates_dict, house)
             return edits
 
-        # class TennerPowerSetTotals5(BasePuzzleTechnique):
+        # class TennerPowerSetTotals5:
         def solve5(self, puzzle: Tenner) -> int:
             edits = 0
             TOTAL = 5
@@ -2840,7 +2728,7 @@ class Techs:
                 edits += self.end(puzzle, valid_candidates_dict, house)
             return edits
 
-        # class TennerPowerSetTotals6(BasePuzzleTechnique):
+        # class TennerPowerSetTotals6:
         def solve6(self, puzzle: Tenner) -> int:
             edits = 0
             TOTAL = 6
@@ -2883,7 +2771,7 @@ class Techs:
                                         valid_candidates_dict[house[index]])))
             return edits
 
-    class Parks1CrossHatchTouching(BasePuzzleTechnique):
+    class Parks1CrossHatchTouching:
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -2909,7 +2797,7 @@ class Techs:
 
             return edits
 
-    class Parks1CrossHatch(BasePuzzleTechnique):
+    class Parks1CrossHatch:
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -2948,7 +2836,7 @@ class Techs:
                             edits += puzzle.rem([house[ii]], [1])
             return edits
 
-    class Parks1HiddenSingle(BasePuzzleTechnique):
+    class Parks1HiddenSingle:
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -2978,7 +2866,7 @@ class Techs:
 
             return edits
 
-    class Parks1LockedCandidatesPointing(BasePuzzleTechnique):
+    class Parks1LockedCandidatesPointing:
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -3013,7 +2901,7 @@ class Techs:
                         edits += puzzle.rem(list(temp), [1])
             return edits
 
-    class Parks1Bent3(BasePuzzleTechnique):
+    class Parks1Bent3:
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -3064,7 +2952,7 @@ class Techs:
 
             return edits
 
-    class RobotCrosswordsHouses:  # (BasePuzzleTechnique):
+    class RobotCrosswordsHouses:  # :
         def solve0(self, puzzle: RobotCrosswords) -> int:
             edits = 0
 
@@ -3258,55 +3146,6 @@ class Techs:
 
             return edits
 
-    class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
-        def solve0(self, puzzle: Futoshiki) -> int:
-            edits = 0
-
-            for r in range(puzzle.length * 2 - 1):
-                for c in range(puzzle.length * 2 - 1):
-
-                    even_row = r % 2 == 0
-                    even_col = c % 2 == 0
-
-                    if even_row and even_col:
-                        continue
-
-                    if not even_row and not even_col:
-                        continue
-
-                    if even_row:
-                        loc = Loc(r, c)
-                        string = puzzle.cell_string(loc)
-
-                        if string == '>':
-                            edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
-
-                        # print(puzzle.cell_string(loc))
-            # for row_house in puzzle.house_row_cells()
-
-            return edits
-
-        def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
-            edits = 0
-            lesser_candidates = puzzle.cell_candidates(lesser)
-            greater_candidates = puzzle.cell_candidates(greater)
-
-            min_greater = min(greater_candidates)
-            max_lesser = max(lesser_candidates)
-
-            print(min_greater)
-            print(max_lesser)
-
-            for candidate in lesser_candidates:
-                if candidate >= min_greater:
-                    print(f'removing {candidate} from {lesser}')
-                    edits += puzzle.rem([lesser], [str(candidate)])
-
-            # print(lesser_candidates)
-            # print(greater_candidates)
-
-            return edits
-
     class FutoshikiCrossHatch:  # (BaseFutoshikiTechnique):
         def solve0(self, puzzle: Futoshiki) -> int:
             edits = 0
@@ -3329,7 +3168,7 @@ class Techs:
             edits = 0
             return edits
 
-    class CrossHatchSumscrapers(BasePuzzleTechnique):
+    class CrossHatchSumscrapers:
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
             houses = []
@@ -3348,7 +3187,7 @@ class Techs:
                             edits += puzzle.rem([loc1], [candidates0[0]])
             return edits
 
-    class HiddenSingleSumscrapers(BasePuzzleTechnique):
+    class HiddenSingleSumscrapers:
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
             houses = []
@@ -3372,7 +3211,7 @@ class Techs:
 
             return edits
 
-    class SumscrapersLastIsMax(BasePuzzleTechnique):
+    class SumscrapersLastIsMax:
 
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
@@ -3419,7 +3258,7 @@ class Techs:
                 # print(house)
             return edits
 
-    class SumscrapersNextToScraper(BasePuzzleTechnique):
+    class SumscrapersNextToScraper:
 
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
@@ -3448,7 +3287,7 @@ class Techs:
 
             return edits
 
-    class SumscrapersSecondInLine(BasePuzzleTechnique):
+    class SumscrapersSecondInLine:
 
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
@@ -3486,7 +3325,7 @@ class Techs:
                 print(house)
             return edits
 
-    class SumscrapersTech(BasePuzzleTechnique):
+    class SumscrapersTech:
         def solve0(self, puzzle: Sumscrapers) -> int:
             edits = 0
 
@@ -3543,7 +3382,7 @@ class Techs:
 
             return edits
 
-    class SkyscrapersN(BasePuzzleTechnique):
+    class SkyscrapersN:
         def solve0(self, puzzle: Skyscrapers) -> int:
             edits = 0
 
@@ -3571,7 +3410,7 @@ class Techs:
 
             return edits
 
-    class Skyscrapers1(BasePuzzleTechnique):
+    class Skyscrapers1:
         def solve0(self, puzzle: Skyscrapers) -> int:
             edits = 0
 
@@ -3599,378 +3438,5 @@ class Techs:
 
             return edits
 
-    class SkyscrapersRange(BasePuzzleTechnique):
-        def solve0(self, puzzle: Skyscrapers) -> int:
-            edits = 0
-            tuples: list[tuple[Optional[int], list[Loc]]] = []
 
-            for index in range(puzzle.length):
-                house = puzzle.house_row(index)
-                tuples.append((puzzle.west_scraper(index), house))
-                house = list(house)
-                house.reverse()
-                tuples.append((puzzle.east_scraper(index), house))
-                house = puzzle.house_col(index)
-                tuples.append((puzzle.north_scraper(index), house))
-                house = list(house)
-                house.reverse()
-                tuples.append((puzzle.south_scraper(index), house))
-
-            for tuple0 in tuples:
-                scraper, house = tuple0
-                if scraper is None:
-                    continue
-
-                string = "".join([puzzle.grid[loc.row][loc.col] for loc in house])
-
-                if string == "1____23__23____4" and scraper == 4:
-                    edits += puzzle.rem([house[1]], [3])
-
-                if string == "1____23__23____4" and scraper == 3:
-                    edits += puzzle.rem([house[1]], [2])
-
-                if string == "123_1_3_12_____4" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [1, 2, 4])
-
-                if string == "123_123_123____4" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [1, 2, 4])
-
-                if string == "12__12_____4__3_" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [1])
-
-                if string == "_23__23____41___" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [3])
-
-                if string == "_23__23____41___" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [2])
-
-                if string == "123_123_123____4" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [3])
-
-                if string == "123_123_12341234" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [3])
-
-                if string == "12__12____3____4" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [1])
-
-                if string == "_2_4_2_41_____3_" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [4])
-
-                if string == "1_3__2_____41_3_" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [1])
-
-                if string == "1234123412341234" and scraper == 3:
-                    edits += puzzle.rem([house[0]], [4])
-
-                if string == "1234123412341234" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [4])
-
-            # 1___ ___4 _23_ _23_
-
-            # print(string)
-
-            # house_candidates = [puzzle.cell_candidates(loc) for loc in house]
-            # for index in range(puzzle.length):
-            #     candidates = house_candidates[index]
-            #     if len(candidates) != 1:
-            #         continue
-            #     solved_candidate = candidates[0]
-            #     if solved_candidate != puzzle.length:
-            #         continue
-            #     if index == 0 or index == puzzle.length - 1:
-            #         continue
-            #
-            #
-            #     print("her111r")
-
-            # candidates1 = puzzle.cell_candidates(house[1])
-            #
-            # if len(candidates1) != 1:
-            #     continue
-            # if candidates1[0] != puzzle.length:
-            #     continue
-            # difference = scraper - puzzle.length
-            #
-            # edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
-
-            return edits
-
-    class AbstractPaintingTech:
-        def solve0(self, puzzle: AbstractPainting) -> int:
-            edits = 0
-            for index in range(puzzle.length):
-                row_house = puzzle.house_row(index)
-                row_scraper = puzzle.east_scraper(index)
-                edits += self.solve1(puzzle, row_scraper, row_house)
-                col_house = puzzle.house_col(index)
-                col_scraper = puzzle.south_scraper(index)
-                edits += self.solve1(puzzle, col_scraper, col_house)
-            for r in range(puzzle.length):
-                for c in range(puzzle.length):
-                    loc = Loc(r, c)
-                    candidates = puzzle.cell_candidates(loc)
-                    if len(candidates) != 1:
-                        continue
-                    fence = puzzle.cell_fence(loc)
-                    if 1 in candidates:
-                        edits += puzzle.rem(puzzle.house_fence(fence), [0])
-                    if 0 in candidates:
-                        edits += puzzle.rem(puzzle.house_fence(fence), [1])
-            return edits
-
-        def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
-            edits = 0
-            solved_abstract = []
-            solved_empty = []
-            unsolved = []
-            for index in range(len(house)):
-                candidates = puzzle.cell_candidates(house[index])
-                if len(candidates) > 1:
-                    unsolved.append(house[index])
-                    continue
-                if 1 in candidates:
-                    solved_abstract.append(house[index])
-                if 0 in candidates:
-                    solved_empty.append(house[index])
-            # full house
-            if scraper == len(house):
-                edits += puzzle.rem(house, [0])
-            if scraper == len(solved_abstract):
-                edits += puzzle.rem(unsolved, [1])
-            return edits
-
-    class LightenUpTech(BasePuzzleTechnique):
-        def solve0(self, puzzle: LightenUp) -> int:
-            edits = 0
-            for r in range(puzzle.length):
-                for c in range(puzzle.length):
-                    loc = Loc(r, c)
-                    # print(puzzle.grid[r][c])
-
-                    if puzzle.grid[r][c].isnumeric():
-                        # print(puzzle.grid[r][c])
-
-                        number = int(puzzle.grid[r][c])
-
-
-
-                        # print(number)
-                        directions = [
-                            loc.north(),
-                            loc.east(),
-                            loc.south(),
-                            loc.west()
-                        ]
-
-                        # valid_locs = [loc for loc in directions if loc.is_valid_parks(puzzle.grid)]
-                        #
-                        # if number == 0:
-                        #
-                        # if len(valid_locs) == int(puzzle.grid[r][c]):
-
-                        if number == 4:
-                            print("here")
-                            edits += puzzle.rem(directions, ["-"])
-
-
-
-                        # surrounding = Techs.MinesweeperSolver.surrounding(puzzle, loc)
-
-                        # surrounding_numbers = []
-
-
-
-
-
-
-
-            return edits
-
-    class Parks1Shape_00_01(BasePuzzleTechnique):
-
-        def shape_w_south_east(self, center: Loc) -> tuple[list[Loc], list[Loc]]:
-            return ([
-                        center.north(),
-                        center.north().east(),
-                        center,
-                        center.west(),
-                        center.west().south(),
-                    ], [center.north().west()])
-
-        def solve0(self, puzzle: Parks1) -> int:
-            edits = 0
-
-            for house in puzzle.houses_rows() + puzzle.houses_cols():
-                solved_empty = [loc for loc in house if
-                                len(puzzle.cell_candidates(loc)) == 1 and puzzle.cell_candidates(loc)[0] == 0]
-                solved_tree = [loc for loc in house if
-                               len(puzzle.cell_candidates(loc)) == 1 and puzzle.cell_candidates(loc)[0] == 1]
-                unsolved = list(set(house).difference(solved_tree + solved_empty))
-                if len(solved_tree) == 1:
-                    continue
-                if len(unsolved) == 2:
-                    loc0, loc1 = unsolved
-                    if loc0.is_next_to(loc1):
-                        if loc0.col == loc1.col:
-                            if loc0.east().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc0.east()], [1])
-                            if loc0.west().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc0.west()], [1])
-                            if loc1.east().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc1.east()], [1])
-                            if loc1.west().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc1.west()], [1])
-
-                        if loc0.row == loc1.row:
-                            if loc0.north().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc0.north()], [1])
-                            if loc0.south().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc0.south()], [1])
-                            if loc1.north().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc1.north()], [1])
-                            if loc1.south().is_valid_parks(puzzle.grid):
-                                edits += puzzle.rem([loc1.south()], [1])
-
-                    # print(unsolved)
-
-            # for fence in puzzle.fences():
-            #     house = set(puzzle.house_fence(fence))
-            #     solved_parks = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
-            #     if len(solved_parks) > 1:
-            #         raise Exception("Found a park fence that is solved with more than one fence")
-            #     if len(solved_parks) == 1:
-            #         continue
-            #     unsolved = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
-
-            return edits
-
-    # class Parks1Shapes(BasePuzzleTechnique):
-    #     def solve0(self, puzzle: Parks1) -> int:
-    #         edits = 0
-    #         for fence in puzzle.fences():
-    #             # house = puzzle.house_fence(fence)
-    #
-    #             solved_parks1 = []
-    #
-    #             unsolved = []
-    #
-    #             for loc in house:
-    #                 candidates = puzzle.cell_candidates(loc)
-    #                 if len(candidates) == 2:
-    #                     unsolved.append(loc)
-    #                     continue
-    #                 if 1 in candidates:
-    #                     solved_parks1.append(loc)
-    #
-    #             if len(solved_parks1) == 1:
-    #                 continue
-    #
-    #             surrounding = set(Techs.MinesweeperSolver.surrounding(puzzle, house[0]))
-    #
-    #             rows = set(puzzle.house_row(house[0].row))
-    #
-    #             cols = set(puzzle.house_col(house[0].col))
-    #
-    #             for index in range(1, len(house)):
-    #                 surrounding = surrounding.intersection(Techs.MinesweeperSolver.surrounding(puzzle, house[index]))
-    #
-    #                 rows = rows.intersection(puzzle.house_row(house[index].row))
-    #
-    #                 cols = cols.intersection(puzzle.house_col(house[index].col))
-    #
-    #             surrounding = surrounding.difference(house)
-    #             rows = rows.difference(house)
-    #             cols = cols.difference(house)
-    #
-    #             edits += puzzle.rem(surrounding, [1])
-    #             edits += puzzle.rem(rows, [1])
-    #             edits += puzzle.rem(cols, [1])
-    #
-    #         return edits
-
-    class Parks1Shapes(BasePuzzleTechnique):
-        def solve0(self, puzzle: Parks1) -> int:
-            edits = 0
-            for fence in puzzle.fences():
-                house = puzzle.house_fence(fence)
-
-                solved_parks1 = []
-
-                unsolved = []
-
-                for loc in house:
-                    candidates = puzzle.cell_candidates(loc)
-                    if len(candidates) == 2:
-                        unsolved.append(loc)
-                        continue
-                    if 1 in candidates:
-                        solved_parks1.append(loc)
-
-                if len(solved_parks1) == 1:
-                    continue
-
-                surrounding = set(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[0]))
-
-                rows = set(puzzle.house_row(unsolved[0].row))
-
-                cols = set(puzzle.house_col(unsolved[0].col))
-
-                for index in range(1, len(unsolved)):
-                    surrounding = surrounding.intersection(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[index]))
-
-                    rows = rows.intersection(puzzle.house_row(unsolved[index].row))
-
-                    cols = cols.intersection(puzzle.house_col(unsolved[index].col))
-
-                surrounding = surrounding.difference(unsolved)
-                rows = rows.difference(unsolved)
-                cols = cols.difference(unsolved)
-
-                edits += puzzle.rem(surrounding, [1])
-                edits += puzzle.rem(rows, [1])
-                edits += puzzle.rem(cols, [1])
-
-            return edits
-
-    class Parks1DominateFence(BasePuzzleTechnique):
-        def solve0(self, puzzle: Parks1) -> int:
-            edits = 0
-            for fence in puzzle.fences():
-                # if fence != "b":
-                #     continue
-                house = puzzle.house_fence(fence)
-
-                surrounding_cells = set()
-
-                for loc in house:
-                    for surrounding in Techs.MinesweeperSolver.surrounding(puzzle, loc):
-                        if fence == puzzle.cell_fence(surrounding):
-                            continue
-                        surrounding_cells.add(surrounding)
-
-                for edge_cell in surrounding_cells:
-
-                    candidates = puzzle.cell_candidates(edge_cell)
-
-                    if len(candidates) == 1 and 1 in candidates:
-                        continue
-
-                    fence_house = set(house)
-
-                    while len(fence_house) > 0:
-                        first = list(fence_house)[0]
-
-                        if edge_cell.row == first.row or edge_cell.col == first.col:
-                            fence_house.remove(first)
-                            continue
-
-                        if first in Techs.MinesweeperSolver.surrounding(puzzle, edge_cell):
-                            fence_house.remove(first)
-                            continue
-                        break
-
-                    if len(fence_house) == 0:
-                        edits += puzzle.rem([edge_cell], [1])
-
-            return edits
 # 2865
