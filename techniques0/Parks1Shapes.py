@@ -1,6 +1,7 @@
-# from Techniques import  Techs
-from Loc import Loc
 from _puzzles import Parks1
+from techniques0 import MinesweeperSolver
+
+
 class Parks1Shapes:
     def solve0(self, puzzle: Parks1) -> int:
         edits = 0
@@ -22,16 +23,16 @@ class Parks1Shapes:
             if len(solved_parks1) == 1:
                 continue
 
-            from Techniques import Techs
+            temp = puzzle.surrounding( unsolved[0])
 
-            surrounding = set(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[0]))
+            surrounding = set(temp)
 
             rows = set(puzzle.house_row(unsolved[0].row))
 
             cols = set(puzzle.house_col(unsolved[0].col))
 
             for index in range(1, len(unsolved)):
-                surrounding = surrounding.intersection(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[index]))
+                surrounding = surrounding.intersection(puzzle.surrounding( unsolved[index]))
 
                 rows = rows.intersection(puzzle.house_row(unsolved[index].row))
 

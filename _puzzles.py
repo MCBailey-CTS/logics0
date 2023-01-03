@@ -43,6 +43,25 @@ class Puzzle:
         else:
             self.__col_length = col_offset + self.__length
 
+    def surrounding(self, loc: Loc) -> list[Loc]:
+        valid = []
+        directions = [
+            loc.north(),
+            loc.east(),
+            loc.south(),
+            loc.west(),
+            loc.north().east(),
+            loc.north().west(),
+            loc.south().east(),
+            loc.south().west(),
+        ]
+
+        for temp in directions:
+            if temp.is_valid_parks(self.grid):
+                valid.append(temp)
+
+        return valid
+
     @property
     def length(self) -> int:
         return self.__length
