@@ -115,7 +115,7 @@ class Puzzle:
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
 
-    def rem(self, locs: Union[list[Loc], set[Loc]], candidates: iter) -> int:
+    def rem(self, locs: Union[list[Loc], set[Loc], Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             locs = [locs]
@@ -1554,9 +1554,19 @@ class Lighthouses(Puzzle):
         return False
 
 
-class LightenUp:  # (Sudoku):
+
+
+class LightenUp(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
+
+    # def __str__(self):
+    #     return super().__str__()\
+    #         .replace("  ", " ", -1)\
+    #         .replace("  ", " ", -1)\
+    #         .replace("  ", " ", -1)\
+    #         .replace("  ", " ", -1)\
+    #         .replace("+-", "__", -1)
 
     def is_solved(self) -> bool:
         return False

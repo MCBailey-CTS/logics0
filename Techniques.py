@@ -173,7 +173,7 @@ class Solving:
 
     @staticmethod
     def lightenup_techniques() -> list:
-        return []
+        return [Techs.LightenUpTech()]
 
 
 class Techs:
@@ -1052,19 +1052,19 @@ class Techs:
             corner_set = set(corners)
 
             if len(corner_set) != 4:
-                raise ValueError(f'cannot make uniqe rectangle from {len(corner_set)} corner(s)')
+                raise ValueError(f'cannot make unique rectangle from {len(corner_set)} corner(s)')
 
             rows = set([loc.row for loc in corner_set])
             if len(rows) != 2:
-                raise ValueError(f'cannot make uniqe rectangle from {len(rows)} row(s)')
+                raise ValueError(f'cannot make unique rectangle from {len(rows)} row(s)')
 
             cols = set([loc.col for loc in corner_set])
             if len(cols) != 2:
-                raise ValueError(f'cannot make uniqe rectangle from {len(cols)} col(s)')
+                raise ValueError(f'cannot make unique rectangle from {len(cols)} col(s)')
 
             fences = set([puzzle.cell_fence(loc) for loc in corner_set])
             if len(fences) != 2:
-                raise ValueError(f'cannot make uniqe rectangle from {len(fences)} fence(s)')
+                raise ValueError(f'cannot make unique rectangle from {len(fences)} fence(s)')
 
             two_candidates = [loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 2]
             three_candidates = [loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 3]
@@ -1163,7 +1163,7 @@ class Techs:
 
                     temp_opposite = list(opposite_corners)
 
-                    opposite_candidates0 = puzzle.cell_candidates(temp_opposite[0])
+                    opposite_candidates0 = set(puzzle.cell_candidates(temp_opposite[0]))
                     opposite_candidates1 = puzzle.cell_candidates(temp_opposite[1])
 
                     if len(opposite_candidates0) != 1 or len(opposite_candidates1) != 1:
@@ -1459,8 +1459,8 @@ class Techs:
         def solve1(self, puzzle: Sudoku, left: Loc, right: Loc) -> int:
             edits = 0
 
-            left_candidate_set = puzzle.cell_candidates(left)
-            right_candidate_set = puzzle.cell_candidates(right)
+            left_candidate_set = set(puzzle.cell_candidates(left))
+            right_candidate_set = set(puzzle.cell_candidates(right))
 
             if len(left_candidate_set) != 2 or len(right_candidate_set) != 2 or not left_candidate_set.issubset(
                     right_candidate_set):
@@ -1538,22 +1538,17 @@ class Techs:
             for r0 in range(puzzle.length):
                 for c0 in range(puzzle.length):
                     loc0 = Loc(r0, c0)
-                    candidates0 = puzzle.cell_candidates(loc0)
-
+                    candidates0 = set(puzzle.cell_candidates(loc0))
                     if len(candidates0) != 2:
                         continue
-
                     for r1 in range(puzzle.length):
                         for c1 in range(puzzle.length):
                             loc1 = Loc(r1, c1)
-
                             if loc0 == loc1:
                                 continue
                             candidates1 = puzzle.cell_candidates(loc1)
-
                             if len(candidates1) != 2:
                                 continue
-
                             if not candidates0.issubset(candidates1):
                                 continue
 
@@ -3747,6 +3742,47 @@ class Techs:
     class LightenUpTech(BasePuzzleTechnique):
         def solve0(self, puzzle: LightenUp) -> int:
             edits = 0
+            for r in range(puzzle.length):
+                for c in range(puzzle.length):
+                    loc = Loc(r, c)
+                    # print(puzzle.grid[r][c])
+
+                    if puzzle.grid[r][c].isnumeric():
+                        # print(puzzle.grid[r][c])
+
+                        number = int(puzzle.grid[r][c])
+
+
+
+                        # print(number)
+                        directions = [
+                            loc.north(),
+                            loc.east(),
+                            loc.south(),
+                            loc.west()
+                        ]
+
+                        # valid_locs = [loc for loc in directions if loc.is_valid_parks(puzzle.grid)]
+                        #
+                        # if number == 0:
+                        #
+                        # if len(valid_locs) == int(puzzle.grid[r][c]):
+
+                        if number == 4:
+                            print("here")
+                            edits += puzzle.rem(directions, ["-"])
+
+
+
+                        # surrounding = Techs.MinesweeperSolver.surrounding(puzzle, loc)
+
+                        # surrounding_numbers = []
+
+
+
+
+
+
 
             return edits
 
