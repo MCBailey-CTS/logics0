@@ -61,7 +61,7 @@ class Solving:
             Techs.Parks1Bent3(),
             Techs.Parks1Shape_00_01(),
             Techs.Parks1Shapes(),
-
+            Techs.Parks1DominateFence(),
         ]
 
     @staticmethod
@@ -188,7 +188,7 @@ class Techs:
     class MinesweeperSolver:  # (BasePuzzleTechnique):
 
         @staticmethod
-        def surrounding(puzzle: Minesweeper, loc: Loc) -> list[Loc]:
+        def surrounding(puzzle, loc: Loc) -> list[Loc]:
             valid = []
             directions = [
                 loc.north(),
@@ -619,7 +619,7 @@ class Techs:
                         l0 = house[i]
                         l1 = house[ii]
 
-                        candidates0 = puzzle.cell_candidates(l0)
+                        candidates0 = set(puzzle.cell_candidates(l0))
                         candidates1 = puzzle.cell_candidates(l1)
 
                         if len(candidates0) != 2 or len(candidates1) != 2:
@@ -640,8 +640,8 @@ class Techs:
                             if len(loc_set) != 4:
                                 continue
 
-                            corner0_candidates = puzzle.cell_candidates(corner0)
-                            corner1_candidates = puzzle.cell_candidates(corner1)
+                            corner0_candidates = set(puzzle.cell_candidates(corner0))
+                            corner1_candidates = set(puzzle.cell_candidates(corner1))
 
                             if not corner0_candidates.issuperset(candidates0) or not corner1_candidates.issuperset(
                                     candidates1):
@@ -708,8 +708,8 @@ class Techs:
                             if len(loc_set) != 4:
                                 continue
 
-                            corner0_candidates = puzzle.cell_candidates(corner0)
-                            corner1_candidates = puzzle.cell_candidates(corner1)
+                            corner0_candidates = set(puzzle.cell_candidates(corner0))
+                            corner1_candidates = set(puzzle.cell_candidates(corner1))
 
                             if not corner0_candidates.issuperset(candidates0) or not corner1_candidates.issuperset(
                                     candidates1):
@@ -1012,8 +1012,8 @@ class Techs:
                     if len(length_2) != 2 or len(length_3) != 2:
                         continue
 
-                    length_2_candidates = [puzzle.cell_candidates(loc) for loc in length_2]
-                    length_3_candidates = [puzzle.cell_candidates(loc) for loc in length_3]
+                    length_2_candidates = set([puzzle.cell_candidates(loc) for loc in length_2])
+                    length_3_candidates = set([puzzle.cell_candidates(loc) for loc in length_3])
 
                     if not length_2_candidates[0].issubset(length_2_candidates[1]) or not length_2_candidates[
                         0].issuperset(length_2_candidates[1]):
@@ -1952,7 +1952,7 @@ class Techs:
             edits = 0
 
             for pivot in puzzle.unsolved_cells():
-                pivot_candidates = puzzle.cell_candidates(pivot)
+                pivot_candidates = set(puzzle.cell_candidates(pivot))
 
                 if len(pivot_candidates) != 3:
                     continue
@@ -3069,7 +3069,6 @@ class Techs:
 
             return edits
 
-
     class RobotCrosswordsHouses:  # (BasePuzzleTechnique):
         def solve0(self, puzzle: RobotCrosswords) -> int:
             edits = 0
@@ -3211,7 +3210,6 @@ class Techs:
 
             return edits
 
-
     class PowerGridHiddenPower:
         def solve0(self, puzzle: PowerGrid) -> int:
             edits = 0
@@ -3262,8 +3260,6 @@ class Techs:
 
             if len(solved_power) == 1 and len(unsolved) == 1:
                 edits += puzzle.rem(unsolved, [EMPTY])
-
-
 
             return edits
 
@@ -3638,12 +3634,11 @@ class Techs:
                 if string == "1____23__23____4" and scraper == 3:
                     edits += puzzle.rem([house[1]], [2])
 
-
                 if string == "123_1_3_12_____4" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [1,2,4])
+                    edits += puzzle.rem([house[0]], [1, 2, 4])
 
                 if string == "123_123_123____4" and scraper == 2:
-                    edits += puzzle.rem([house[0]], [1,2,4])
+                    edits += puzzle.rem([house[0]], [1, 2, 4])
 
                 if string == "12__12_____4__3_" and scraper == 3:
                     edits += puzzle.rem([house[0]], [1])
@@ -3675,46 +3670,35 @@ class Techs:
                 if string == "1234123412341234" and scraper == 2:
                     edits += puzzle.rem([house[0]], [4])
 
+            # 1___ ___4 _23_ _23_
 
-# 1___ ___4 _23_ _23_
+            # print(string)
 
+            # house_candidates = [puzzle.cell_candidates(loc) for loc in house]
+            # for index in range(puzzle.length):
+            #     candidates = house_candidates[index]
+            #     if len(candidates) != 1:
+            #         continue
+            #     solved_candidate = candidates[0]
+            #     if solved_candidate != puzzle.length:
+            #         continue
+            #     if index == 0 or index == puzzle.length - 1:
+            #         continue
+            #
+            #
+            #     print("her111r")
 
-
-                
-
-
-                    # print(string)
-
-
-
-
-                # house_candidates = [puzzle.cell_candidates(loc) for loc in house]
-                # for index in range(puzzle.length):
-                #     candidates = house_candidates[index]
-                #     if len(candidates) != 1:
-                #         continue
-                #     solved_candidate = candidates[0]
-                #     if solved_candidate != puzzle.length:
-                #         continue
-                #     if index == 0 or index == puzzle.length - 1:
-                #         continue
-                #
-                #
-                #     print("her111r")
-
-                # candidates1 = puzzle.cell_candidates(house[1])
-                #
-                # if len(candidates1) != 1:
-                #     continue
-                # if candidates1[0] != puzzle.length:
-                #     continue
-                # difference = scraper - puzzle.length
-                #
-                # edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
+            # candidates1 = puzzle.cell_candidates(house[1])
+            #
+            # if len(candidates1) != 1:
+            #     continue
+            # if candidates1[0] != puzzle.length:
+            #     continue
+            # difference = scraper - puzzle.length
+            #
+            # edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
 
             return edits
-
-
 
     class AbstractPaintingTech:
         def solve0(self, puzzle: AbstractPainting) -> int:
@@ -3738,7 +3722,8 @@ class Techs:
                     if 0 in candidates:
                         edits += puzzle.rem(puzzle.house_fence(fence), [1])
             return edits
-        def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc])->int:
+
+        def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
             edits = 0
             solved_abstract = []
             solved_empty = []
@@ -3760,25 +3745,21 @@ class Techs:
             return edits
 
     class LightenUpTech(BasePuzzleTechnique):
-        def solve0(self, puzzle: LightenUp)->int:
+        def solve0(self, puzzle: LightenUp) -> int:
             edits = 0
 
             return edits
 
     class Parks1Shape_00_01(BasePuzzleTechnique):
 
-
-        def shape_w_south_east(self, center: Loc)->tuple[list[Loc],list[Loc]]:
+        def shape_w_south_east(self, center: Loc) -> tuple[list[Loc], list[Loc]]:
             return ([
-                center.north(),
-                center.north().east(),
-                center,
-                center.west(),
-                center.west().south(),
-            ], [center.north().west()])
-
-
-
+                        center.north(),
+                        center.north().east(),
+                        center,
+                        center.west(),
+                        center.west().south(),
+                    ], [center.north().west()])
 
         def solve0(self, puzzle: Parks1) -> int:
             edits = 0
@@ -3824,29 +3805,136 @@ class Techs:
             #     if len(solved_parks) == 1:
             #         continue
             #     unsolved = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
-                
-
 
             return edits
+
+    # class Parks1Shapes(BasePuzzleTechnique):
+    #     def solve0(self, puzzle: Parks1) -> int:
+    #         edits = 0
+    #         for fence in puzzle.fences():
+    #             # house = puzzle.house_fence(fence)
+    #
+    #             solved_parks1 = []
+    #
+    #             unsolved = []
+    #
+    #             for loc in house:
+    #                 candidates = puzzle.cell_candidates(loc)
+    #                 if len(candidates) == 2:
+    #                     unsolved.append(loc)
+    #                     continue
+    #                 if 1 in candidates:
+    #                     solved_parks1.append(loc)
+    #
+    #             if len(solved_parks1) == 1:
+    #                 continue
+    #
+    #             surrounding = set(Techs.MinesweeperSolver.surrounding(puzzle, house[0]))
+    #
+    #             rows = set(puzzle.house_row(house[0].row))
+    #
+    #             cols = set(puzzle.house_col(house[0].col))
+    #
+    #             for index in range(1, len(house)):
+    #                 surrounding = surrounding.intersection(Techs.MinesweeperSolver.surrounding(puzzle, house[index]))
+    #
+    #                 rows = rows.intersection(puzzle.house_row(house[index].row))
+    #
+    #                 cols = cols.intersection(puzzle.house_col(house[index].col))
+    #
+    #             surrounding = surrounding.difference(house)
+    #             rows = rows.difference(house)
+    #             cols = cols.difference(house)
+    #
+    #             edits += puzzle.rem(surrounding, [1])
+    #             edits += puzzle.rem(rows, [1])
+    #             edits += puzzle.rem(cols, [1])
+    #
+    #         return edits
 
     class Parks1Shapes(BasePuzzleTechnique):
-        def solve0(self, puzzle: Parks1)->int:
+        def solve0(self, puzzle: Parks1) -> int:
             edits = 0
             for fence in puzzle.fences():
                 house = puzzle.house_fence(fence)
-                edits += self.solve1(puzzle, house)
+
+                solved_parks1 = []
+
+                unsolved = []
+
+                for loc in house:
+                    candidates = puzzle.cell_candidates(loc)
+                    if len(candidates) == 2:
+                        unsolved.append(loc)
+                        continue
+                    if 1 in candidates:
+                        solved_parks1.append(loc)
+
+                if len(solved_parks1) == 1:
+                    continue
+
+                surrounding = set(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[0]))
+
+                rows = set(puzzle.house_row(unsolved[0].row))
+
+                cols = set(puzzle.house_col(unsolved[0].col))
+
+                for index in range(1, len(unsolved)):
+                    surrounding = surrounding.intersection(Techs.MinesweeperSolver.surrounding(puzzle, unsolved[index]))
+
+                    rows = rows.intersection(puzzle.house_row(unsolved[index].row))
+
+                    cols = cols.intersection(puzzle.house_col(unsolved[index].col))
+
+                surrounding = surrounding.difference(unsolved)
+                rows = rows.difference(unsolved)
+                cols = cols.difference(unsolved)
+
+                edits += puzzle.rem(surrounding, [1])
+                edits += puzzle.rem(rows, [1])
+                edits += puzzle.rem(cols, [1])
+
             return edits
 
-        def solve1(self, puzzle: Parks1, house: list[Loc])->int:
+    class Parks1DominateFence(BasePuzzleTechnique):
+        def solve0(self, puzzle: Parks1) -> int:
             edits = 0
-            # print("hello111")
             for fence in puzzle.fences():
+                # if fence != "b":
+                #     continue
                 house = puzzle.house_fence(fence)
 
-                if len(house) == 3:
-                    print("here")
+                surrounding_cells = set()
 
-            # unsolved = [loc for loc in house if puzzl]
+                for loc in house:
+                    for surrounding in Techs.MinesweeperSolver.surrounding(puzzle, loc):
+                        if fence == puzzle.cell_fence(surrounding):
+                            continue
+                        surrounding_cells.add(surrounding)
+
+                for edge_cell in surrounding_cells:
+
+                    candidates = puzzle.cell_candidates(edge_cell)
+
+                    if len(candidates) == 1 and 1 in candidates:
+                        continue
+
+                    fence_house = set(house)
+
+                    while len(fence_house) > 0:
+                        first = list(fence_house)[0]
+
+                        if edge_cell.row == first.row or edge_cell.col == first.col:
+                            fence_house.remove(first)
+                            continue
+
+                        if first in Techs.MinesweeperSolver.surrounding(puzzle, edge_cell):
+                            fence_house.remove(first)
+                            continue
+                        break
+
+                    if len(fence_house) == 0:
+                        edits += puzzle.rem([edge_cell], [1])
 
             return edits
 # 2865

@@ -106,17 +106,16 @@ class Puzzle:
     def cell_candidates(self, loc: Loc) -> list:
         return [int(char) for char in self.grid[loc.row][loc.col] if char.isnumeric()]
 
-    def is_cell_solved(self, loc: Loc, solved_with_candidate = None) -> bool:
+    def is_cell_solved(self, loc: Loc, solved_with_candidate=None) -> bool:
         candidates = self.cell_candidates(loc)
         if solved_with_candidate is None:
             return len(candidates) == 1
         return candidates[0] == solved_with_candidate
 
-
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
 
-    def rem(self, locs: list[Loc], candidates: iter) -> int:
+    def rem(self, locs: Union[list[Loc], set[Loc]], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             locs = [locs]
@@ -168,8 +167,6 @@ class Puzzle:
                 string += f'{self.grid[r][c].ljust(self.length)} '
             string += '\n'
         return string
-
-
 
 
 class Sumscrapers(Puzzle):
@@ -312,7 +309,6 @@ class Sumscrapers(Puzzle):
         return True
 
 
-
 class Skyscrapers(Sumscrapers):
     def __init__(self, puzzle: str):
         super().__init__(puzzle)
@@ -334,6 +330,7 @@ class Skyscrapers(Sumscrapers):
             max0 = candidate
 
         return sumscraper == current
+
 
 class Sudoku(Puzzle):
 
@@ -931,10 +928,10 @@ class Parks1(Puzzle):
             'e': Fore.LIGHTMAGENTA_EX,
             'f': Fore.LIGHTGREEN_EX,
             'g': Fore.LIGHTWHITE_EX,
-            'h':Fore.LIGHTYELLOW_EX,
-            'i':Fore.LIGHTRED_EX,
-            'j':Fore.YELLOW,
-            'k':Fore.RED
+            'h': Fore.LIGHTYELLOW_EX,
+            'i': Fore.LIGHTRED_EX,
+            'j': Fore.YELLOW,
+            'k': Fore.RED
         }
         array = []
         for line in puzzle.split("\n"):
@@ -1265,23 +1262,23 @@ class RobotCrosswords(Puzzle):
         return False
 
 
-class Minesweeper:  # (Puzzle):
+class Minesweeper(Puzzle):
     def is_solved(self) -> bool:
         return False
 
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-        array = []
-        self.grid = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        array.pop(0)
-        array.pop(0)
-        for line in array:
-            self.grid.append(line.split(' '))
+        # array = []
+        # self.grid = []
+        # for line in puzzle.split("\n"):
+        #     temp = line.strip()
+        #     if len(temp) == 0:
+        #         continue
+        #     array.append(temp)
+        # array.pop(0)
+        # array.pop(0)
+        # for line in array:
+        #     self.grid.append(line.split(' '))
 
     def is_number_cell(self, loc: Loc) -> bool:
         return self.grid[loc.row][loc.col].isalnum()
@@ -1324,9 +1321,6 @@ class Parks2:
     pass
 
 
-
-
-
 class BattleShips:
     pass
 
@@ -1341,9 +1335,7 @@ class PowerGrid(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle, 1, 1)
 
-    
-
-    def __is_solved0(self,  house: list[Loc], power: Optional[int])->bool:
+    def __is_solved0(self, house: list[Loc], power: Optional[int]) -> bool:
         POWER = 1
         EMPTY = 0
 
@@ -1359,7 +1351,6 @@ class PowerGrid(Puzzle):
         if len(solved_power_indexes) > 2:
             raise Exception("Found power grid house with more than 2 solved power cells")
 
-        
         if len(solved_power_indexes) != 2:
             return False
 
@@ -1390,11 +1381,7 @@ class PowerGrid(Puzzle):
         #     edits += puzzle.rem(unsolved, [EMPTY])
         # for index in range(len(house)):
 
-
-
-
         return True
-
 
     def is_solved(self) -> bool:
         for index in range(self.length):
@@ -1417,19 +1404,18 @@ class PowerGrid(Puzzle):
         return None
 
     def __str__(self):
-        return super().__str__()\
-            .replace("  ", " ", -1)\
-            .replace("  ", " ", -1)\
-            .replace("  ", " ", -1)\
-            .replace("  ", " ", -1)\
-            .replace("10", "__", -1)\
-            .replace("1_", "PP", -1)\
+        return super().__str__() \
+            .replace("  ", " ", -1) \
+            .replace("  ", " ", -1) \
+            .replace("  ", " ", -1) \
+            .replace("  ", " ", -1) \
+            .replace("10", "__", -1) \
+            .replace("1_", "PP", -1) \
             .replace("_0", "..", -1)
 
 
 class Sentinels:
     pass
-
 
 
 class Tents:
@@ -1507,9 +1493,6 @@ class Kakuro:
     pass
 
 
-
-
-
 class Mathrax:
     def __init__(self, puzzle: str) -> None:
         pass
@@ -1518,13 +1501,13 @@ class Mathrax:
         pass
 
 
-
 class MineShips:
     pass
 
 
 class Nurikabe:
     pass
+
 
 class AbstractPainting(PowerGrid):
     def __init__(self, puzzle: str) -> None:
@@ -1543,8 +1526,7 @@ class AbstractPainting(PowerGrid):
 
         solved_abstract_locs = [loc for loc in house if self.is_cell_solved(loc, ABSTRACT)]
 
-        return power is None or  power == len(solved_abstract_locs)
-
+        return power is None or power == len(solved_abstract_locs)
 
     def is_solved(self) -> bool:
         for index in range(self.length):
@@ -1568,15 +1550,13 @@ class Lighthouses(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
 
-    def is_solved(self)->bool:
+    def is_solved(self) -> bool:
         return False
-
 
 
 class LightenUp:  # (Sudoku):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-        
-    def is_solved(self)->bool:
-        return False
 
+    def is_solved(self) -> bool:
+        return False
