@@ -1021,22 +1021,22 @@ class Parks1(Puzzle):
 
         return self.__color_fence_dict[self.cell_fence(loc)]
 
-    def __str__(self) -> str:
-        string = f'{Fore.LIGHTCYAN_EX}########################\n'
-        string += f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                grid_string = self.grid[r][c]
-                candidates = "".join([char for char in grid_string if not char.isalpha()])
-                # fence = [char for char in grid_string if char.isalpha()][0]
-                # string += f'{self.color_fence(loc)}{candidates}{fence}{Style.RESET_ALL} '
-                # fence = [char for char in grid_string if char.isalpha()][0]
-                string += f'{self.color_fence(loc)}{candidates}{Style.RESET_ALL} '
-            string += '\n'
-        string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
-        return string
+    # def __str__(self) -> str:
+    #     string = f'{Fore.LIGHTCYAN_EX}########################\n'
+    #     string += f'{self.id()}\n'
+    #     string += f'{self.length}\n'
+    #     for r in range(self.length):
+    #         for c in range(self.length):
+    #             loc = Loc(r, c)
+    #             grid_string = self.grid[r][c]
+    #             candidates = "".join([char for char in grid_string if not char.isalpha()])
+    #             # fence = [char for char in grid_string if char.isalpha()][0]
+    #             # string += f'{self.color_fence(loc)}{candidates}{fence}{Style.RESET_ALL} '
+    #             # fence = [char for char in grid_string if char.isalpha()][0]
+    #             string += f'{self.color_fence(loc)}{candidates}{Style.RESET_ALL} '
+    #         string += '\n'
+    #     string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
+    #     return string
 
     def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
         if loc is None:
@@ -1512,12 +1512,13 @@ class Kakuro:
     pass
 
 
-class Mathrax:
+class Mathrax(Puzzle):
     def __init__(self, puzzle: str) -> None:
-        pass
+        super().__init__(puzzle)
 
-    def solve0(self):
-        pass
+
+    def is_solved(self) -> bool:
+        return False
 
 
 class MineShips:
@@ -1571,8 +1572,6 @@ class Lighthouses(Puzzle):
 
     def is_solved(self) -> bool:
         return False
-
-
 
 
 class LightenUp(Puzzle):

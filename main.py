@@ -1,45 +1,17 @@
 import os
 
-class temp:
-
-
-
-
-    @staticmethod
-    def power_grid_010():
-        return f"""
-            010.power_grid
-            9
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-        
-            """
-
-    @staticmethod
-    def power_grid_00():
-        return f"""
-            .power_grid
-            9
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-
-            +- +- +- +- +- +- +- +- +-        
-            """
+from Constants import Constants
 
 if __name__ == "__main__":
-    temp = "hello"
-    # print(temp=)
+    for d in dir(Constants):
+        if "__" in d:
+            continue
+        # if "difficult" not in d:
+        #     continue
+
+        temp = getattr(Constants, d)
+        result = temp()
+        print(result)
 
 
 

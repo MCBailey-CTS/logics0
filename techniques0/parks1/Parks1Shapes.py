@@ -1,5 +1,4 @@
 from _puzzles import Parks1
-from techniques0 import MinesweeperSolver
 
 
 class Parks1Shapes:

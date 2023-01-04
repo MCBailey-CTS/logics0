@@ -26,15 +26,14 @@ class UniqueRectangleType2:
                 if len(length_2) != 2 or len(length_3) != 2:
                     continue
 
-                length_2_candidates = set([puzzle.cell_candidates(loc) for loc in length_2])
-                length_3_candidates = set([puzzle.cell_candidates(loc) for loc in length_3])
+                length_2_candidates = [puzzle.cell_candidates(loc) for loc in length_2]
+                length_3_candidates = [puzzle.cell_candidates(loc) for loc in length_3]
 
-                if not length_2_candidates[0].issubset(length_2_candidates[1]) or not length_2_candidates[
-                    0].issuperset(length_2_candidates[1]):
+                if not set(length_2_candidates[0]).issubset(length_2_candidates[1]) or \
+                        not set(length_2_candidates[0]).issuperset(length_2_candidates[1]):
                     continue
 
-                if not length_3_candidates[0].issubset(length_3_candidates[1]) or not length_3_candidates[
-                    0].issuperset(length_3_candidates[1]):
+                if not set(length_3_candidates[0]).issubset(length_3_candidates[1]) or not set(length_3_candidates[0]).issuperset(length_3_candidates[1]):
                     continue
 
                 candidate_to_remove = list(set(length_3_candidates[0]).difference(length_2_candidates[0]))[0]

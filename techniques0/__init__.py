@@ -1,47 +1,46 @@
-from .CrossHatch import CrossHatch
-from .HiddenSingle import HiddenSingle
-from .Parks1Shape_00_01 import Parks1Shape_00_01
-from .Parks1DominateFence import Parks1DominateFence
-from .Parks1Shapes import Parks1Shapes
-from .AbstractPaintingTech import AbstractPaintingTech
-from .SkyscrapersRange import SkyscrapersRange
-from .MinesweeperSolver import MinesweeperSolver
-from .NakedPair import NakedPair
-from .SkyscrapersN import SkyscrapersN
-from .Skyscrapers1 import Skyscrapers1
-from .SumscrapersSecondInLine import SumscrapersSecondInLine
-from .SumscrapersTech import SumscrapersTech
-from .LockedCandidatesPointing import LockedCandidatesPointing
-from .LockedCandidatesClaiming import LockedCandidatesClaiming
-from .Parks1CrossHatch import Parks1CrossHatch
-from .Parks1HiddenSingle import Parks1HiddenSingle
-from .Parks1CrossHatchTouching import Parks1CrossHatchTouching
-from .Parks1LockedCandidatesPointing import Parks1LockedCandidatesPointing
-from .Parks1Bent3 import Parks1Bent3
-from .CrossHatchRobotFences import CrossHatchRobotFences
-from .HiddenSingleRobotFences import HiddenSingleRobotFences
-from .TennerCrossHatch import TennerCrossHatch
-from .TennerNakedPair import TennerNakedPair
-from .TennerHiddenPair import TennerHiddenPair
-from .TennerHiddenSingle import TennerHiddenSingle
-from .TennerTotalHiddenSingle import TennerTotalHiddenSingle
-from .TennerPowerSetTotals import TennerPowerSetTotals
-from .TennerNakedPairColumn import TennerNakedPairColumn
-from .CrossHatchKnightoku import CrossHatchKnightoku
-from .CrossHatchSumscrapers import CrossHatchSumscrapers
-from .HiddenSingleSumscrapers import HiddenSingleSumscrapers
-from .SumscrapersLastIsMax import SumscrapersLastIsMax
-from .SumscrapersNextToScraper import SumscrapersNextToScraper
-from .RobotCrosswordsHouses import RobotCrosswordsHouses
-from .PowerGridTech import PowerGridTech
-from .PowerGridCrossHatch import PowerGridCrossHatch
-from .PowerGridHiddenPower import PowerGridHiddenPower
-from .KropkiBlack import KropkiBlack
-from .KropkiWhite import KropkiWhite
-from .KropkiEmpty import KropkiEmpty
-from .MagnetsFullHouse import MagnetsFullHouse
-from .MagnetsPair import MagnetsPair
-from .MagnetsZero import MagnetsZero
+from techniques0.kropki.KropkiBlack import KropkiBlack
+from techniques0.kropki.KropkiWhite import KropkiWhite
+from techniques0.magnets.MagnetsFullHouse import MagnetsFullHouse
+from techniques0.magnets.MagnetsZero import MagnetsZero
+from techniques0.parks1.Parks1Bent3 import Parks1Bent3
+from techniques0.parks1.Parks1CrossHatch import Parks1CrossHatch
+from techniques0.parks1.Parks1CrossHatchTouching import Parks1CrossHatchTouching
+from techniques0.parks1.Parks1HiddenSingle import Parks1HiddenSingle
+from techniques0.parks1.Parks1LockedCandidatesPointing import Parks1LockedCandidatesPointing
+from techniques0.parks1.Parks1Shape_00_01 import Parks1Shape_00_01
+from techniques0.parks1.Parks1Shapes import Parks1Shapes
+from techniques0.power_grid.PowerGridCrossHatch import PowerGridCrossHatch
+from techniques0.power_grid.PowerGridTech import PowerGridTech
+from techniques0.skyscrapers.Skyscrapers1 import Skyscrapers1
+from techniques0.skyscrapers.SkyscrapersN import SkyscrapersN
+from techniques0.sudoku.CrossHatch import CrossHatch
+from techniques0.sudoku.HiddenSingle import HiddenSingle
+from techniques0.parks1.Parks1DominateFence import Parks1DominateFence
+from techniques0.abstract_painting.AbstractPaintingTech import AbstractPaintingTech
+from techniques0.skyscrapers.SkyscrapersRange import SkyscrapersRange
+from techniques0.minesweeper.MinesweeperSolver import MinesweeperSolver
+from techniques0.sudoku.LockedCandidatesPointing import LockedCandidatesPointing
+from techniques0.sudoku.NakedPair import NakedPair
+from techniques0.sumscrapers.SumscrapersLastIsMax import SumscrapersLastIsMax
+from techniques0.sumscrapers.SumscrapersNextToScraper import SumscrapersNextToScraper
+from techniques0.sumscrapers.SumscrapersSecondInLine import SumscrapersSecondInLine
+from techniques0.sumscrapers.SumscrapersTech import SumscrapersTech
+from techniques0.sudoku.LockedCandidatesClaiming import LockedCandidatesClaiming
+from techniques0.robot_fences.CrossHatchRobotFences import CrossHatchRobotFences
+from techniques0.robot_fences.HiddenSingleRobotFences import HiddenSingleRobotFences
+from techniques0.tenner.TennerCrossHatch import TennerCrossHatch
+from techniques0.sumscrapers.CrossHatchSumscrapers import CrossHatchSumscrapers
+from techniques0.sumscrapers.HiddenSingleSumscrapers import HiddenSingleSumscrapers
+from techniques0.robot_crosswords.RobotCrosswordsHouses import RobotCrosswordsHouses
+from techniques0.power_grid.PowerGridHiddenPower import PowerGridHiddenPower
+from techniques0.kropki.KropkiEmpty import KropkiEmpty
+from techniques0.magnets.MagnetsPair import MagnetsPair
+from techniques0.tenner.TennerHiddenPair import TennerHiddenPair
+from techniques0.tenner.TennerHiddenSingle import TennerHiddenSingle
+from techniques0.tenner.TennerNakedPair import TennerNakedPair
+from techniques0.tenner.TennerNakedPairColumn import TennerNakedPairColumn
+from techniques0.tenner.TennerPowerSetTotals import TennerPowerSetTotals
+from techniques0.tenner.TennerTotalHiddenSingle import TennerTotalHiddenSingle
 
 __all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingTech", "SkyscrapersRange", "MagnetsFullHouse", "MagnetsPair",
            "MagnetsZero",
@@ -55,7 +54,7 @@ __all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingT
            "Parks1Bent3",
            "KropkiBlack",
            "KropkiWhite",
-           "KropkiEmpty",
+           'KropkiEmpty',
            "CrossHatchRobotFences",
            "HiddenSingleRobotFences",
            "TennerCrossHatch",
@@ -65,7 +64,6 @@ __all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingT
            "TennerTotalHiddenSingle",
            "TennerPowerSetTotals",
            "TennerNakedPairColumn",
-           "CrossHatchKnightoku",
            "CrossHatchSumscrapers",
            "HiddenSingleSumscrapers",
            "SumscrapersLastIsMax",
@@ -75,3 +73,5 @@ __all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingT
            "PowerGridCrossHatch",
            "PowerGridHiddenPower"
            ]
+
+

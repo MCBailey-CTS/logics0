@@ -1,21 +1,30 @@
 import pytest
+
 from Constants import Constants
-from Techniques import Solving
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
-from _puzzles import Sudoku, Magnets, Kropki, Parks1, Tenner, RobotFences, Skyscrapers, Sumscrapers, AbstractPainting, \
+from _puzzles import Sudoku, Kropki, Parks1, Tenner, RobotFences, Skyscrapers, Sumscrapers, AbstractPainting, \
     PowerGrid
-from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty
-from techniques0.JellyFish import JellyFish
-from techniques0.KropkiBb import KropkiBb
-from techniques0.KropkiBw import KropkiBw
-from techniques0.KropkiDiamondWwwe import KropkiDiamondWwwe
-from techniques0.KropkiDominatingEmpty import KropkiDominatingEmpty
-from techniques0.MagnetsFullHouse import MagnetsFullHouse
-from techniques0.MagnetsPair import MagnetsPair
-from techniques0.MagnetsZero import MagnetsZero
-from techniques0.SwordFish import SwordFish
-from techniques0.UniqueRectangleType1 import UniqueRectangleType1
-from techniques0.XyWing import XyWing
+from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty, NakedPair, LockedCandidatesPointing, \
+    LockedCandidatesClaiming
+from techniques0.kropki.KropkiBb import KropkiBb
+from techniques0.kropki.KropkiBw import KropkiBw
+from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
+from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
+from techniques0.solver_groups import Solving
+from techniques0.sudoku.AvoidableRectangleType1 import AvoidableRectangleType1
+from techniques0.sudoku.CrossHatch import CrossHatch
+from techniques0.sudoku.HiddenPair import HiddenPair
+from techniques0.sudoku.HiddenSingle import HiddenSingle
+from techniques0.sudoku.HiddenUniqueRectangle import HiddenUniqueRectangle
+from techniques0.sudoku.JellyFish import JellyFish
+from techniques0.sudoku.NakedTriple import NakedTriple
+from techniques0.sudoku.SwordFish import SwordFish
+from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
+from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
+from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
+from techniques0.sudoku.WWing import WWing
+from techniques0.sudoku.XWing import XWing
+from techniques0.sudoku.XyWing import XyWing
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -133,7 +142,7 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.power_grid_012(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_013(), PowerGrid, Solving.power_grid_techniques()),
     (Constants.power_grid_014(), PowerGrid, Solving.power_grid_techniques()),
-
+    # (Constants.sudoku_unique_rectangle_type4_south_cols(), Sudoku, Solving.sudoku_techniques()),
 
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
@@ -141,7 +150,130 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
 
 
 @pytest.mark.parametrize("constructor, technique, actual, expected", [
-
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_type1_north_east_row_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_type1_north_east_row_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_row_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_row_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_col_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_col_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_east_col_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_north_east_col_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_col_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_col_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_west_col_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_west_col_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_row_chute_actual(),
+     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_row_chute_expected()),
+    (Sudoku,
+     HiddenUniqueRectangle(),
+     Constants.hidden_unique_rectangle_default_actual(),
+     Constants.hidden_unique_rectangle_default_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_north_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_north_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_east_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_east_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_south_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_south_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_west_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_normal_west_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_west_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_west_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_north_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_north_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_east_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_east_expected()),
+    (Sudoku,
+     UniqueRectangleType4(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_south_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type4_goofy_south_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_east_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_east_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_north_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_north_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_west_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_west_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_west_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_west_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_east_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_east_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_south_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_goofy_south_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_south_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_south_expected()),
+    (Sudoku,
+     HiddenPair(),
+     Constants.sudoku_explicit_hidden_pair_fences_actual(),
+     Constants.sudoku_explicit_hidden_pair_fences_expected()),
+    (Sudoku,
+     HiddenPair(),
+     Constants.sudoku_explicit_hidden_pair_rows_actual(),
+     Constants.sudoku_explicit_hidden_pair_rows_expected()),
+    (Sudoku,
+     HiddenPair(),
+     Constants.sudoku_explicit_hidden_pair_cols_actual(),
+     Constants.sudoku_explicit_hidden_pair_cols_expected()),
+    (Sudoku,
+     LockedCandidatesPointing(),
+     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_cols_actual(),
+     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_cols_expected()),
+    (Sudoku,
+     LockedCandidatesClaiming(),
+     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_rows_actual(),
+     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_rows_expected()),
+    (Sudoku,
+     LockedCandidatesClaiming(),
+     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_rows_actual(),
+     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_rows_expected()),
+    (Sudoku,
+     LockedCandidatesClaiming(),
+     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_cols_actual(),
+     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_cols_expected()),
+    (Sudoku,
+     LockedCandidatesClaiming(),
+     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_cols_actual(),
+     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_cols_expected()),
     (Sudoku,
      JellyFish(),
      Constants.sudoku_explicit_jelly_fish_cols_actual(),
@@ -194,7 +326,6 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      XyWing(),
      Constants.sudoku_explicit_xy_wing_south_west_actual(),
      Constants.sudoku_explicit_xy_wing_south_west_expected()),
-
     (Kropki,
      KropkiBw(),
      Constants.kropki_explicit_bw_actual(),
@@ -251,6 +382,112 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      KropkiDiamondWwwe(),
      Constants.kropki_explicit_diamond_wwwe_actual(),
      Constants.kropki_explicit_diamond_wwwe_expected()),
+    (Sudoku,
+     NakedPair(),
+     Constants.sudoku_explicit_naked_pair_rows_actual(),
+     Constants.sudoku_explicit_naked_pair_rows_expected()),
+    (Sudoku,
+     NakedPair(),
+     Constants.sudoku_explicit_naked_pair_cols_actual(),
+     Constants.sudoku_explicit_naked_pair_cols_expected()),
+    (Sudoku,
+     NakedPair(),
+     Constants.sudoku_explicit_naked_pair_fences_actual(),
+     Constants.sudoku_explicit_naked_pair_fences_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_col_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_col_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_col_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_col_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_row_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_row_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_col_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_col_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_row_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_row_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_row_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_row_chute_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_row_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_row_chute_expected()),
+    (Sudoku,
+     NakedTriple(),
+     Constants.sudoku_explicit_naked_triple_cols_actual(),
+     Constants.sudoku_explicit_naked_triple_cols_expected()),
+    (Sudoku,
+     NakedTriple(),
+     Constants.sudoku_explicit_naked_triple_rows_actual(),
+     Constants.sudoku_explicit_naked_triple_rows_expected()),
+    (Sudoku,
+     NakedTriple(),
+     Constants.sudoku_explicit_naked_triple_fences_actual(),
+     Constants.sudoku_explicit_naked_triple_fences_expected()),
+    (Sudoku,
+     AvoidableRectangleType1(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_col_chute_actual(),
+     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_col_chute_expected()),
+    (Sudoku,
+     CrossHatch(),
+     Constants.sudoku_explicit_cross_hatch_actual(),
+     Constants.sudoku_explicit_cross_hatch_expected()),
+
+    (Sudoku,
+     HiddenSingle(),
+     Constants.sudoku_explicit_hidden_single_rows_actual(),
+     Constants.sudoku_explicit_hidden_single_rows_expected()),
+    (Sudoku,
+     HiddenSingle(),
+     Constants.sudoku_explicit_hidden_single_cols_actual(),
+     Constants.sudoku_explicit_hidden_single_cols_expected()),
+    (Sudoku,
+     HiddenSingle(),
+     Constants.sudoku_explicit_hidden_single_fences_actual(),
+     Constants.sudoku_explicit_hidden_single_fences_expected()),
+    (Sudoku,
+     LockedCandidatesPointing(),
+     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_rows_actual(),
+     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_rows_expected()),
+    (Sudoku,
+     LockedCandidatesPointing(),
+     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_cols_actual(),
+     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_cols_expected()),
+    (Sudoku,
+     LockedCandidatesPointing(),
+     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_rows_actual(),
+     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_rows_expected()),
+    (Sudoku,
+     XWing(),
+     Constants.sudoku_explicit_x_wing_row_actual(),
+     Constants.sudoku_explicit_x_wing_row_expected()),
+    (Sudoku,
+     WWing(),
+     Constants.sudoku_explicit_w_wing_rows_actual(),
+     Constants.sudoku_explicit_w_wing_rows_expected()),
+    (Sudoku,
+     WWing(),
+     Constants.sudoku_explicit_w_wing_cols_actual(),
+     Constants.sudoku_explicit_w_wing_cols_expected()),
+    (Sudoku,
+     XyWing(),
+     Constants.sudoku_explicit_xy_wing_north_west_actual(),
+     Constants.sudoku_explicit_xy_wing_north_west_expected()),
+    (Sudoku,
+     XyWing(),
+     Constants.sudoku_explicit_xy_wing_south_east_actual(),
+     Constants.sudoku_explicit_xy_wing_south_east_expected()),
+
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     assert default_test_explicit_actual_expected(constructor, technique, actual, expected)

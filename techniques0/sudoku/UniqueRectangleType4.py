@@ -92,7 +92,7 @@ class UniqueRectangleType4:
                     if len(candidates0) != 2 or len(candidates1) != 2:
                         continue
 
-                    if not candidates0.issubset(candidates1):
+                    if not set(candidates0).issubset(candidates1):
                         continue
 
                     row0 = puzzle.house_row(l0.row)

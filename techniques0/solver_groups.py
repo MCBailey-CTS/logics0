@@ -1,5 +1,11 @@
 from techniques0 import *
-
+from techniques0.sudoku.Bug import Bug
+from techniques0.sudoku.HiddenPair import HiddenPair
+from techniques0.sudoku.NakedTriple import NakedTriple
+from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
+from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
+from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
+from techniques0.sudoku.XWing import XWing
 
 PLUS = "+"
 MINUS = "-"
@@ -11,11 +17,17 @@ class Solving:
     def sudoku_techniques() -> list:
         return [
             CrossHatch(),
-
             HiddenSingle(),
             NakedPair(),
             LockedCandidatesPointing(),
             LockedCandidatesClaiming(),
+            UniqueRectangleType1(),
+            # UniqueRectangleType2(),
+            UniqueRectangleType4(),
+            Bug(),
+            HiddenPair(),
+            NakedTriple(),
+            XWing(),
         ]
 
     @staticmethod
@@ -68,8 +80,8 @@ class Solving:
 
     @staticmethod
     def knightoku_techniques() -> list:
-        return [CrossHatchKnightoku()] + Solving.sudoku_techniques()
-
+        # return [CrossHatchKnightoku()] + Solving.sudoku_techniques()
+        return Solving.sudoku_techniques()
     @staticmethod
     def kakuro_techniques() -> list:
         return []
