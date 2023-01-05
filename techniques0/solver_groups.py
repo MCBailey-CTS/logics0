@@ -24,10 +24,10 @@ class Solving:
             UniqueRectangleType1(),
             # UniqueRectangleType2(),
             UniqueRectangleType4(),
-            Bug(),
-            HiddenPair(),
+            # Bug(),
+            # HiddenPair(),
             NakedTriple(),
-            XWing(),
+            # XWing(),
         ]
 
     @staticmethod

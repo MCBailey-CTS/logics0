@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 from Constants import Constants
 
@@ -9,6 +10,8 @@ sudoku_fences = [
     ['d', 'd', 'd', 'e', 'e', 'e', 'f', 'f', 'f'],
     ['d', 'd', 'd', 'e', 'e', 'e', 'f', 'f', 'f'],
     ['d', 'd', 'd', 'e', 'e', 'e', 'f', 'f', 'f'],
+    ['g', 'g', 'g', 'h', 'h', 'h', 'i', 'i', 'i'],
+    ['g', 'g', 'g', 'h', 'h', 'h', 'i', 'i', 'i'],
     ['g', 'g', 'g', 'h', 'h', 'h', 'i', 'i', 'i'],
 ]
 
@@ -37,11 +40,103 @@ if __name__ == "__main__":
         more = "".join(string_array).replace("0", ".", -1).replace("_", ".", -1)
         more = more[slice(81)]
         total_length = length * length
-        string = f'{length}\n'
+        # string = f'{length}\n'
+        string = ''
         for index in range(length * length):
             if index % length == 0 and index != 0:
                 string += '\n'
             string += f'{more[index]}'
+
+        string = string.replace("\n", "", -1).strip()
+
+        array_temp = []
+
+        for char in string:
+            if char == '.':
+                array_temp.append('123456789')
+            elif char == '1':
+                array_temp.append('1________')
+            elif char == '2':
+                array_temp.append('_2_______')
+            elif char == '3':
+                array_temp.append('__3______')
+            elif char == '4':
+                array_temp.append('___4_____')
+            elif char == '5':
+                array_temp.append('____5____')
+            elif char == '6':
+                array_temp.append('_____6___')
+            elif char == '7':
+                array_temp.append('______7__')
+            elif char == '8':
+                array_temp.append('_______8_')
+            elif char == '9':
+                array_temp.append('________9')
+            else:
+                raise Exception("bad sudoku char")
+
+            # elif(char == )
+
+        # for t in array_temp:
+        #     print(t)
+
+        temper = []
+
+        count = 0
+
+        print('///////////')
+        print('///////////')
+        print('///////////')
+        print('///////////')
+        # for t in array_temp:
+        #     print(t)
+
+        # x = np.array(array_temp)
+
+        x = np.reshape(array_temp, (length, length))
+
+        grid = []
+        for t in x:
+            k: list = t.tolist()
+            grid.append(k)
+
+        string = f'{length}\n'
+        for r in range(length):
+            for c in range(length):
+                string += f'{grid[r][c]}{sudoku_fences[r][c]} '
+            string = string.strip()
+            string += '\n'
+
+        print(string)
+
+
+
+
+
+        #
+        #
+        # print(x)
+
+        # print(_id)
+        # print(_id)
+        # # print(str(type(length)) + " " + str(length))
+        # for index in range(length * length):
+        #     print(array_temp[index], end=" ")
+        #     if index % length == 0 and index != 0:
+        #         print()
+
+
+
+            # cell = array_temp[index]
+            # temper.append(cell)
+            #
+            # if index  % length == 0:
+            #     # string += '\n'
+            #     print(temper)
+            #     temper = []
+            # string += f'{more[index]}'
+
+        # print(char)
 
         # print(_id)
         #
