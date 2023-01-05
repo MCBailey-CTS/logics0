@@ -17,6 +17,9 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     return False
 
 
+# constants_dict = dict()
+
+
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     puzzle = constructor(puzzle_string)
     edits = 0
