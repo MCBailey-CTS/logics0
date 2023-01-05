@@ -4,6 +4,7 @@ from typing import Optional, Union
 from colorama import Fore, Style
 
 from Loc import Loc
+from functools import cache
 
 PLUS = "+"
 MINUS = "-"
@@ -24,6 +25,9 @@ class Puzzle:
         array.pop(0)
         array.pop(0)
 
+        self.__row_loc_dict = {}
+        self.__col_loc_dict = {}
+
         for line in array:
             self.grid.append(
                 line.replace("  ", " ", -1)
@@ -32,6 +36,8 @@ class Puzzle:
                 .replace("  ", " ", -1)
                 .strip()
                 .split(" "))
+
+        self.__fences = None
 
         if row_offset is None:
             self.__row_length = self.__length
@@ -43,6 +49,7 @@ class Puzzle:
         else:
             self.__col_length = col_offset + self.__length
 
+    # @cache
     def surrounding(self, loc: Loc) -> list[Loc]:
         valid = []
         directions = [
@@ -66,20 +73,22 @@ class Puzzle:
     def length(self) -> int:
         return self.__length
 
+    # @cache
     def fences(self) -> set[str]:
-        house = set()
+        if self.__fences is None:
+            self.__fences = set()
+            for r in range(self.length):
+                for c in range(self.length):
+                    loc = Loc(r, c)
+                    other = self.cell_fence(loc)
+                    self.__fences.add(other)
+        return self.__fences
 
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                other = self.cell_fence(loc)
-                house.add(other)
-
-        return house
-
+    # @cache
     def houses_fences(self) -> list[list[Loc]]:
         return [self.house_fence(fence) for fence in self.fences()]
 
+    # @cache
     def house_fence(self, fence: str) -> list[Loc]:
         house = []
 
@@ -92,6 +101,7 @@ class Puzzle:
 
         return house
 
+    # @cache
     def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
         if loc is None:
             return self.houses_rows_cols() + self.houses_fences()
@@ -131,6 +141,7 @@ class Puzzle:
             return len(candidates) == 1
         return candidates[0] == solved_with_candidate
 
+    # @cache
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
 
@@ -150,13 +161,19 @@ class Puzzle:
 
         return edits
 
+    # @cache
     def house_row(self, row: int, candidate=None) -> list[Loc]:
         if candidate is None:
             return [Loc(row, c) for c in range(self.length)]
         return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
 
+    # @cache
     def house_col(self, col: int) -> list[Loc]:
-        return [Loc(r, col) for r in range(self.length)]
+        if col not in self.__col_loc_dict:
+            self.__col_loc_dict[col] = [Loc(r, col) for r in range(self.length)]
+        return self.__col_loc_dict[col]
+
+        # return [Loc(r, col) for r in range(self.length)]
 
     @property
     def grid_length(self):
@@ -166,15 +183,19 @@ class Puzzle:
     def has_fences(self) -> bool:
         return any([s.isalpha() for s in self.grid[0][0]])
 
+    # @cache
     def cell_fence(self, loc: Loc) -> str:
         return "".join([s for s in self.grid[loc.row][loc.col] if s.isalpha()])
 
+    # @cache
     def houses_rows_cols(self) -> list[list[Loc]]:
         return self.houses_rows() + self.houses_cols()
 
+    # @cache
     def houses_rows(self) -> list[list[Loc]]:
         return [self.house_row(i) for i in range(self.length)]
 
+    # @cache
     def houses_cols(self) -> list[list[Loc]]:
         return [self.house_col(i) for i in range(self.length)]
 
@@ -393,124 +414,6 @@ class Sudoku(Puzzle):
         #         continue
         #     print(temp)
         #     array.append(temp)
-
-    # def rem(self, loc: Loc, candidates0) -> int:
-    #     edits = 0
-    #     for c in candidates0:
-    #         cell = self.cell_candidates(loc)
-    #         if c not in cell:
-    #             continue
-    #         cell.remove(c)
-    #         # if len(cell) == 1:
-    #         #     self.__un_solved_locs.remove(loc)
-    #         edits += 1
-    #     return edits
-    #
-    # @staticmethod
-    # def default_sudoku_fence_grid():
-    #     a = "a"
-    #     b = "b"
-    #     c = "c"
-    #     d = "d"
-    #     e = "e"
-    #     f = "f"
-    #     g = "g"
-    #     h = "h"
-    #     i = "i"
-    #     return [
-    #         [a, a, a, b, b, b, c, c, c],
-    #         [a, a, a, b, b, b, c, c, c],
-    #         [a, a, a, b, b, b, c, c, c],
-    #         [d, d, d, e, e, e, f, f, f],
-    #         [d, d, d, e, e, e, f, f, f],
-    #         [d, d, d, e, e, e, f, f, f],
-    #         [g, g, g, h, h, h, i, i, i],
-    #         [g, g, g, h, h, h, i, i, i],
-    #         [g, g, g, h, h, h, i, i, i],
-    #     ]
-    #
-    # @staticmethod
-    # def unpack_sudoku_id_length_grid(grid: str) -> tuple[str, int, list[list[str]]]:
-    #     if "|" in grid:
-    #
-    #         temp_array: list[str] = grid.replace("|", "", -1).replace("\t", " ", -1).replace("\r", " ", -1).replace("+",
-    #                                                                                                                 "",
-    #                                                                                                                 -1).replace(
-    #             "-", "", -1).split('\n')
-    #
-    #         array: list[str] = []
-    #
-    #         for i in range(len(temp_array)):
-    #             temp = temp_array[i].replace(" ", "", -1)
-    #             if len(temp) != 0:
-    #                 array.append(temp)
-    #
-    #         # print(array)
-    #
-    #         _id: str = array[0]
-    #         _length: int = int(array[1])
-    #
-    #         array.pop(0)
-    #         array.pop(0)
-    #
-    #         _grid = []
-    #
-    #         index = 0
-    #
-    #         while index < _length:
-    #
-    #             string = array[index].replace(" ", "", -1)
-    #
-    #             if len(string) != _length:
-    #                 array.pop(index)
-    #                 continue
-    #
-    #             _grid.append([s for s in string])
-    #
-    #             index += 1
-    #         return _id, _length, _grid
-    #
-    #     else:
-    #
-    #         array: list[str] = grid.replace("\n", " ").replace("\t", " ").replace("\r", " ").replace(
-    #             "  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ",
-    #                                                                                                            " ").lstrip().rstrip().split(
-    #             " ")
-    #         _id: str = array[0]
-    #         _length: int = int(array[1])
-    #
-    #         _grid = []
-    #         index = 0
-    #         for row in range(_length):
-    #             _grid.append([])
-    #             for col in range(_length):
-    #                 _grid[row].append([])
-    #                 _grid[row][col] = array[index + 2]
-    #                 index += 1
-    #         return _id, _length, _grid
-
-    # def __str__(self) -> str:
-    #     string = f'{self.id()}\n'
-    #     string += f'{self.length}\n'
-    #     for r in range(self.length):
-    #         for c in range(self.length):
-    #             loc = Loc(r, c)
-    #             candidates = self.cell_candidates(loc)
-    #
-    #             for candidate in self.expected_candidates():
-    #                 if candidate in candidates:
-    #                     string += f'{candidate}'
-    #                 else:
-    #                     string += "_"
-    #
-    #             if len(self.houses_fences()) > 0:
-    #                 fence = self.cell_fence(loc)
-    #                 string += fence
-    #
-    #             string += " "
-    #
-    #         string += '\n'
-    #     return string
 
     def unsolved_cells(self) -> set[Loc]:
         unsolved = set()
@@ -1515,7 +1418,6 @@ class Kakuro:
 class Mathrax(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-
 
     def is_solved(self) -> bool:
         return False
