@@ -4,7 +4,6 @@ from typing import Optional, Union
 from colorama import Fore, Style
 
 from Loc import Loc
-from functools import cache
 
 PLUS = "+"
 MINUS = "-"
@@ -25,11 +24,6 @@ class Puzzle:
         array.pop(0)
         array.pop(0)
 
-        self.__row_loc_dict = {}
-        self.__col_loc_dict = {}
-        self.__unsolved = None
-
-
         for line in array:
             self.grid.append(
                 line.replace("  ", " ", -1)
@@ -38,8 +32,6 @@ class Puzzle:
                 .replace("  ", " ", -1)
                 .strip()
                 .split(" "))
-
-        self.__fences = None
 
         if row_offset is None:
             self.__row_length = self.__length
@@ -51,7 +43,56 @@ class Puzzle:
         else:
             self.__col_length = col_offset + self.__length
 
-    @cache
+    @property
+    def length(self) -> int:
+        return self.__length
+
+    def fences(self) -> set[str]:
+        house = set()
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                house.add(other)
+
+        return house
+
+    def houses_fences(self) -> list[list[Loc]]:
+        return [self.house_fence(fence) for fence in self.fences()]
+
+    def house_fence(self, fence: str) -> list[Loc]:
+        house = []
+
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                other = self.cell_fence(loc)
+                if other == fence:
+                    house.append(loc)
+
+        return house
+
+    def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
+        if loc is None:
+            return self.houses_rows_cols() + self.houses_fences()
+        fence = self.cell_fence(loc)
+        return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
+
+    @property
+    def row_length(self) -> int:
+        return self.__row_length
+
+    def unsolved_cells(self) -> list[Loc]:
+        unsolved = []
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                if len(self.cell_candidates(loc)) == 1:
+                    unsolved.append(loc)
+        return unsolved
+
+    # @cache
     def surrounding(self, loc: Loc) -> list[Loc]:
         valid = []
         directions = [
@@ -72,58 +113,6 @@ class Puzzle:
         return valid
 
     @property
-    def length(self) -> int:
-        return self.__length
-
-    @cache
-    def fences(self) -> set[str]:
-        if self.__fences is None:
-            self.__fences = set()
-            for r in range(self.length):
-                for c in range(self.length):
-                    loc = Loc(r, c)
-                    other = self.cell_fence(loc)
-                    self.__fences.add(other)
-        return self.__fences
-
-    @cache
-    def houses_fences(self) -> list[list[Loc]]:
-        return [self.house_fence(fence) for fence in self.fences()]
-
-    @cache
-    def house_fence(self, fence: str) -> list[Loc]:
-        house = []
-
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                other = self.cell_fence(loc)
-                if other == fence:
-                    house.append(loc)
-
-        return house
-
-    @cache
-    def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
-        if loc is None:
-            return self.houses_rows_cols() + self.houses_fences()
-        fence = self.cell_fence(loc)
-        return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
-
-    @property
-    def row_length(self) -> int:
-        return self.__row_length
-
-    def unsolved_cells(self) -> list[Loc]:
-        unsolved = []
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                if len(self.cell_candidates(loc)) == 1:
-                    unsolved.append(loc)
-        return unsolved
-
-    @property
     def col_length(self) -> int:
         return self.__col_length
 
@@ -137,17 +126,17 @@ class Puzzle:
     def cell_candidates(self, loc: Loc) -> list:
         return [int(char) for char in self.grid[loc.row][loc.col] if char.isnumeric()]
 
-    def is_cell_solved(self, loc: Loc, solved_with_candidate=None) -> bool:
+    def is_cell_solved(self, loc: Loc, solved_with_candidate = None) -> bool:
         candidates = self.cell_candidates(loc)
         if solved_with_candidate is None:
             return len(candidates) == 1
         return candidates[0] == solved_with_candidate
 
-    @cache
+
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
 
-    def rem(self, locs: Union[list[Loc], set[Loc], Loc], candidates: iter) -> int:
+    def rem(self, locs: list[Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             locs = [locs]
@@ -163,19 +152,13 @@ class Puzzle:
 
         return edits
 
-    @cache
     def house_row(self, row: int, candidate=None) -> list[Loc]:
         if candidate is None:
             return [Loc(row, c) for c in range(self.length)]
         return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
 
-    @cache
     def house_col(self, col: int) -> list[Loc]:
-        if col not in self.__col_loc_dict:
-            self.__col_loc_dict[col] = [Loc(r, col) for r in range(self.length)]
-        return self.__col_loc_dict[col]
-
-        # return [Loc(r, col) for r in range(self.length)]
+        return [Loc(r, col) for r in range(self.length)]
 
     @property
     def grid_length(self):
@@ -185,19 +168,15 @@ class Puzzle:
     def has_fences(self) -> bool:
         return any([s.isalpha() for s in self.grid[0][0]])
 
-    @cache
     def cell_fence(self, loc: Loc) -> str:
         return "".join([s for s in self.grid[loc.row][loc.col] if s.isalpha()])
 
-    @cache
     def houses_rows_cols(self) -> list[list[Loc]]:
         return self.houses_rows() + self.houses_cols()
 
-    @cache
     def houses_rows(self) -> list[list[Loc]]:
         return [self.house_row(i) for i in range(self.length)]
 
-    @cache
     def houses_cols(self) -> list[list[Loc]]:
         return [self.house_col(i) for i in range(self.length)]
 
@@ -211,12 +190,170 @@ class Puzzle:
         return string
 
 
+
+
+class Sumscrapers(Puzzle):
+    def __init__(self, puzzle: str, row_length: int = 2, col_length: int = 2):
+        super().__init__(puzzle, row_length, col_length)
+
+        for r in range(self.length):
+            for c in range(self.length):
+                if self.grid[r][c] == '_':
+                    string = ""
+                    for candidate in self.expected_candidates():
+                        string += f'{candidate}'
+                    self.grid[r][c] = string
+
+    @property
+    def has_fences(self) -> bool:
+        return False
+
+    def __scaper_or_none(self, loc: Loc):
+        string = self.grid[loc.row][loc.col]
+        if string.isnumeric():
+            return int(string)
+        return None
+
+    def north_scraper(self, col: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(self.length, col))
+
+    def south_scraper(self, col: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(self.length + 1, col))
+
+    def east_scraper(self, row: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(row, self.length + 1))
+
+    def west_scraper(self, row: int) -> Optional[int]:
+        return self.__scaper_or_none(Loc(row, self.length))
+
+    def __str__(self):
+        string = f'{super().__str__()}\n'
+
+        string += f'{"$$".ljust(self.length)} '
+
+        for index in range(self.length):
+            north = self.north_scraper(index)
+
+            if north is None:
+                string += f'{"??".ljust(self.length)} '
+            else:
+                string += f'{f"{north}".ljust(self.length)} '
+
+        string += "$$\n"
+
+        for row in range(self.length):
+            west = self.west_scraper(row)
+            if west is None:
+                string += f'{"??".ljust(self.length)} '
+            else:
+                string += f'{f"{west}".ljust(self.length)} '
+
+            for col in range(self.length):
+                string += f'{self.grid[row][col]} '
+
+            east = self.east_scraper(row)
+            if east is None:
+                string += f'{"??".ljust(self.length)} '
+            else:
+                string += f'{f"{east}".ljust(self.length)} '
+
+            string += '\n'
+
+        string += f'{"$$".ljust(self.length)} '
+
+        for index in range(self.length):
+            south = self.south_scraper(index)
+            if south is None:
+                string += f'{"??".ljust(self.length)} '
+            else:
+                string += f'{f"{south}".ljust(self.length)} '
+
+        string += "$$\n"
+
+        return string
+
+    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
+        solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
+        if len(solved_candidates) != self.length:
+            return False
+        if sumscraper is None:
+            return True
+
+        current = 0
+        max0 = 0
+
+        for candidate in solved_candidates:
+            if candidate < max0:
+                continue
+            current += candidate
+            max0 = candidate
+
+        return sumscraper == current
+
+    def is_solved(self) -> bool:
+        houses = []
+        for index in range(self.length):
+            houses.append(self.house_row(index))
+            houses.append(self.house_col(index))
+        for house in houses:
+            solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
+
+            expected = set(self.expected_candidates())
+
+            if not expected.issuperset(solved_candidates) or not expected.issubset(solved_candidates):
+                return False
+
+        for index in range(self.length):
+            house = self.house_row(index)
+
+            if not self._is_scraper_solved(self.west_scraper(index), house):
+                return False
+
+            house.reverse()
+
+            if not self._is_scraper_solved(self.east_scraper(index), house):
+                return False
+
+            house = self.house_col(index)
+
+            if not self._is_scraper_solved(self.north_scraper(index), house):
+                return False
+
+            house.reverse()
+
+            if not self._is_scraper_solved(self.south_scraper(index), house):
+                return False
+
+        return True
+
+
+
+class Skyscrapers(Sumscrapers):
+    def __init__(self, puzzle: str):
+        super().__init__(puzzle)
+
+    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
+        solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
+        if len(solved_candidates) != self.length:
+            return False
+        if sumscraper is None:
+            return True
+
+        current = 0
+        max0 = 0
+
+        for candidate in solved_candidates:
+            if candidate < max0:
+                continue
+            current += 1
+            max0 = candidate
+
+        return sumscraper == current
+
 class Sudoku(Puzzle):
 
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-
-        self.__unsolved = None
 
         for r in range(self.length):
             for c in range(self.length):
@@ -248,28 +385,16 @@ class Sudoku(Puzzle):
 
                     self.grid[r][c] = new_string
 
+
     def unsolved_cells(self) -> set[Loc]:
-        if self.__unsolved is None:
-            self.__unsolved = set()
-            for r in range(self.length):
-                for c in range(self.length):
-                    loc = Loc(r, c)
-                    if len(self.cell_candidates(loc)) == 1:
-                        continue
-                    self.__unsolved.add(loc)
-            return self.__unsolved
-
-        locs_to_remove = []
-
-        for loc in self.__unsolved:
-            if len(self.cell_candidates(loc)) == 1:
-                        locs_to_remove.append(loc)
-
-        for loc in locs_to_remove:
-            self.__unsolved.remove(loc)
-
-
-        return self.__unsolved
+        unsolved = set()
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                if len(self.cell_candidates(loc)) == 1:
+                    continue
+                unsolved.add(loc)
+        return unsolved
 
     def any_cell_is_solved(self, locs) -> bool:
         return [len(self.cell_candidates(loc)) == 1 for loc in locs] > 0
@@ -301,6 +426,8 @@ class Sudoku(Puzzle):
 
         return True
 
+
+    
     def row_chute(self, loc: Loc) -> int:
         if self.length != 9:
             raise Exception("Can only ask for row chute of 9x9 sudoku")
@@ -693,10 +820,10 @@ class Parks1(Puzzle):
             'e': Fore.LIGHTMAGENTA_EX,
             'f': Fore.LIGHTGREEN_EX,
             'g': Fore.LIGHTWHITE_EX,
-            'h': Fore.LIGHTYELLOW_EX,
-            'i': Fore.LIGHTRED_EX,
-            'j': Fore.YELLOW,
-            'k': Fore.RED
+            'h':Fore.LIGHTYELLOW_EX,
+            'i':Fore.LIGHTRED_EX,
+            'j':Fore.YELLOW,
+            'k':Fore.RED
         }
         array = []
         for line in puzzle.split("\n"):
@@ -767,22 +894,22 @@ class Parks1(Puzzle):
 
         return self.__color_fence_dict[self.cell_fence(loc)]
 
-    # def __str__(self) -> str:
-    #     string = f'{Fore.LIGHTCYAN_EX}########################\n'
-    #     string += f'{self.id()}\n'
-    #     string += f'{self.length}\n'
-    #     for r in range(self.length):
-    #         for c in range(self.length):
-    #             loc = Loc(r, c)
-    #             grid_string = self.grid[r][c]
-    #             candidates = "".join([char for char in grid_string if not char.isalpha()])
-    #             # fence = [char for char in grid_string if char.isalpha()][0]
-    #             # string += f'{self.color_fence(loc)}{candidates}{fence}{Style.RESET_ALL} '
-    #             # fence = [char for char in grid_string if char.isalpha()][0]
-    #             string += f'{self.color_fence(loc)}{candidates}{Style.RESET_ALL} '
-    #         string += '\n'
-    #     string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
-    #     return string
+    def __str__(self) -> str:
+        string = f'{Fore.LIGHTCYAN_EX}########################\n'
+        string += f'{self.id()}\n'
+        string += f'{self.length}\n'
+        for r in range(self.length):
+            for c in range(self.length):
+                loc = Loc(r, c)
+                grid_string = self.grid[r][c]
+                candidates = "".join([char for char in grid_string if not char.isalpha()])
+                # fence = [char for char in grid_string if char.isalpha()][0]
+                # string += f'{self.color_fence(loc)}{candidates}{fence}{Style.RESET_ALL} '
+                # fence = [char for char in grid_string if char.isalpha()][0]
+                string += f'{self.color_fence(loc)}{candidates}{Style.RESET_ALL} '
+            string += '\n'
+        string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
+        return string
 
     def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
         if loc is None:
@@ -1027,23 +1154,23 @@ class RobotCrosswords(Puzzle):
         return False
 
 
-class Minesweeper(Puzzle):
+class Minesweeper:  # (Puzzle):
     def is_solved(self) -> bool:
         return False
 
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-        # array = []
-        # self.grid = []
-        # for line in puzzle.split("\n"):
-        #     temp = line.strip()
-        #     if len(temp) == 0:
-        #         continue
-        #     array.append(temp)
-        # array.pop(0)
-        # array.pop(0)
-        # for line in array:
-        #     self.grid.append(line.split(' '))
+        array = []
+        self.grid = []
+        for line in puzzle.split("\n"):
+            temp = line.strip()
+            if len(temp) == 0:
+                continue
+            array.append(temp)
+        array.pop(0)
+        array.pop(0)
+        for line in array:
+            self.grid.append(line.split(' '))
 
     def is_number_cell(self, loc: Loc) -> bool:
         return self.grid[loc.row][loc.col].isalnum()
@@ -1086,6 +1213,9 @@ class Parks2:
     pass
 
 
+
+
+
 class BattleShips:
     pass
 
@@ -1100,7 +1230,9 @@ class PowerGrid(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle, 1, 1)
 
-    def __is_solved0(self, house: list[Loc], power: Optional[int]) -> bool:
+    
+
+    def __is_solved0(self,  house: list[Loc], power: Optional[int])->bool:
         POWER = 1
         EMPTY = 0
 
@@ -1116,6 +1248,7 @@ class PowerGrid(Puzzle):
         if len(solved_power_indexes) > 2:
             raise Exception("Found power grid house with more than 2 solved power cells")
 
+        
         if len(solved_power_indexes) != 2:
             return False
 
@@ -1146,7 +1279,11 @@ class PowerGrid(Puzzle):
         #     edits += puzzle.rem(unsolved, [EMPTY])
         # for index in range(len(house)):
 
+
+
+
         return True
+
 
     def is_solved(self) -> bool:
         for index in range(self.length):
@@ -1169,18 +1306,19 @@ class PowerGrid(Puzzle):
         return None
 
     def __str__(self):
-        return super().__str__() \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("10", "__", -1) \
-            .replace("1_", "PP", -1) \
+        return super().__str__()\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("  ", " ", -1)\
+            .replace("10", "__", -1)\
+            .replace("1_", "PP", -1)\
             .replace("_0", "..", -1)
 
 
 class Sentinels:
     pass
+
 
 
 class Tents:
@@ -1259,170 +1397,15 @@ class Kakuro:
 
 
 
-class Sumscrapers(Puzzle):
-    def __init__(self, puzzle: str, row_length: int = 2, col_length: int = 2):
-        super().__init__(puzzle, row_length, col_length)
-        for r in range(self.length):
-            for c in range(self.length):
-                if self.grid[r][c] == '_':
-                    string = ""
-                    for candidate in self.expected_candidates():
-                        string += f'{candidate}'
-                    self.grid[r][c] = string
-
-    @property
-    def has_fences(self) -> bool:
-        return False
-
-    def __scaper_or_none(self, loc: Loc):
-        string = self.grid[loc.row][loc.col]
-        if string.isnumeric():
-            return int(string)
-        return None
-
-    def north_scraper(self, col: int) -> Optional[int]:
-        return self.__scaper_or_none(Loc(self.length, col))
-
-    def south_scraper(self, col: int) -> Optional[int]:
-        return self.__scaper_or_none(Loc(self.length + 1, col))
-
-    def east_scraper(self, row: int) -> Optional[int]:
-        return self.__scaper_or_none(Loc(row, self.length + 1))
-
-    def west_scraper(self, row: int) -> Optional[int]:
-        return self.__scaper_or_none(Loc(row, self.length))
-
-    def __str__(self):
-        string = f'{super().__str__()}\n'
-
-        string += f'{"$$".ljust(self.length)} '
-
-        for index in range(self.length):
-            north = self.north_scraper(index)
-
-            if north is None:
-                string += f'{"??".ljust(self.length)} '
-            else:
-                string += f'{f"{north}".ljust(self.length)} '
-
-        string += "$$\n"
-
-        for row in range(self.length):
-            west = self.west_scraper(row)
-            if west is None:
-                string += f'{"??".ljust(self.length)} '
-            else:
-                string += f'{f"{west}".ljust(self.length)} '
-
-            for col in range(self.length):
-                string += f'{self.grid[row][col]} '
-
-            east = self.east_scraper(row)
-            if east is None:
-                string += f'{"??".ljust(self.length)} '
-            else:
-                string += f'{f"{east}".ljust(self.length)} '
-
-            string += '\n'
-
-        string += f'{"$$".ljust(self.length)} '
-
-        for index in range(self.length):
-            south = self.south_scraper(index)
-            if south is None:
-                string += f'{"??".ljust(self.length)} '
-            else:
-                string += f'{f"{south}".ljust(self.length)} '
-
-        string += "$$\n"
-
-        return string
-
-    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
-        solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
-        if len(solved_candidates) != self.length:
-            return False
-        if sumscraper is None:
-            return True
-
-        current = 0
-        max0 = 0
-
-        for candidate in solved_candidates:
-            if candidate < max0:
-                continue
-            current += candidate
-            max0 = candidate
-
-        return sumscraper == current
-
-    def is_solved(self) -> bool:
-        houses = []
-        for index in range(self.length):
-            houses.append(self.house_row(index))
-            houses.append(self.house_col(index))
-        for house in houses:
-            solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
-
-            expected = set(self.expected_candidates())
-
-            if not expected.issuperset(solved_candidates) or not expected.issubset(solved_candidates):
-                return False
-
-        for index in range(self.length):
-            house = self.house_row(index)
-
-            if not self._is_scraper_solved(self.west_scraper(index), house):
-                return False
-
-            house.reverse()
-
-            if not self._is_scraper_solved(self.east_scraper(index), house):
-                return False
-
-            house = self.house_col(index)
-
-            if not self._is_scraper_solved(self.north_scraper(index), house):
-                return False
-
-            house.reverse()
-
-            if not self._is_scraper_solved(self.south_scraper(index), house):
-                return False
-
-        return True
 
 
-class Skyscrapers(Sumscrapers):
-    def __init__(self, puzzle: str):
-        super().__init__(puzzle)
-
-    def _is_scraper_solved(self, sumscraper: Optional[int], house: list[Loc]) -> bool:
-        solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
-        if len(solved_candidates) != self.length:
-            return False
-        if sumscraper is None:
-            return True
-
-        current = 0
-        max0 = 0
-
-        for candidate in solved_candidates:
-            if candidate < max0:
-                continue
-            current += 1
-            max0 = candidate
-
-        return sumscraper == current
-
-
-
-class Mathrax(Puzzle):
+class Mathrax:
     def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
+        pass
 
-    def is_solved(self) -> bool:
-        return False
+    def solve0(self):
+        pass
+
 
 
 class MineShips:
@@ -1431,7 +1414,6 @@ class MineShips:
 
 class Nurikabe:
     pass
-
 
 class AbstractPainting(PowerGrid):
     def __init__(self, puzzle: str) -> None:
@@ -1450,7 +1432,8 @@ class AbstractPainting(PowerGrid):
 
         solved_abstract_locs = [loc for loc in house if self.is_cell_solved(loc, ABSTRACT)]
 
-        return power is None or power == len(solved_abstract_locs)
+        return power is None or  power == len(solved_abstract_locs)
+
 
     def is_solved(self) -> bool:
         for index in range(self.length):
@@ -1474,21 +1457,15 @@ class Lighthouses(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
 
-    def is_solved(self) -> bool:
+    def is_solved(self)->bool:
         return False
 
 
-class LightenUp(Puzzle):
+
+class LightenUp:  # (Sudoku):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
-
-    # def __str__(self):
-    #     return super().__str__()\
-    #         .replace("  ", " ", -1)\
-    #         .replace("  ", " ", -1)\
-    #         .replace("  ", " ", -1)\
-    #         .replace("  ", " ", -1)\
-    #         .replace("+-", "__", -1)
-
-    def is_solved(self) -> bool:
+        
+    def is_solved(self)->bool:
         return False
+
