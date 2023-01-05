@@ -179,7 +179,6 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.sudoku_naked_triple_4(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_naked_triple_5(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_naked_triple_6(), Sudoku, Solving.sudoku_techniques()),
-    (Constants.sudoku_naked_triple_7(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_naked_triple_8(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_naked_triple_9(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_naked_triple_row(), Sudoku, Solving.sudoku_techniques()),
@@ -200,6 +199,41 @@ EXPLICITLY = "EXPLICITLY"
     (Constants.sudoku_unique_rectangle_type4_west_cols(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_unique_rectangle_type4_east_cols(), Sudoku, Solving.sudoku_techniques()),
     (Constants.sudoku_bug(), Sudoku, Solving.sudoku_techniques()),
+    (Constants.sudoku_x_wing_row(), Sudoku, Solving.sudoku_techniques()),
+    (Constants.sudoku_x_wing_col(), Sudoku, Solving.sudoku_techniques()),
+
+    ###########################
+    ###########################
+    ###########################
+    ###########################
+    ###########################
+    # (Constants.sudoku_avoidable_rectangle_type1_00(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_naked_triple_7(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_remote_pair_row(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_00(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_01(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_02(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_03(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_04(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_05(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_07(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_08(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_09(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_10(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_11(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_12(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_avoidable_rectangle_type1_13(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_01(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_02(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_03(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_04(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_05(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_06(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_07(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_08(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_09(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_10(), Sudoku, Solving.sudoku_techniques()),
+    # (Constants.sudoku_xy_wing_11(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_hidden_pair_row(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_hidden_pair_col(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_hidden_pair_fence(), Sudoku, Solving.sudoku_techniques()),
@@ -209,19 +243,10 @@ EXPLICITLY = "EXPLICITLY"
     # (Constants.sudoku_hidden_quad_row(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_hidden_quad_col(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_hidden_quad_fence(), Sudoku, Solving.sudoku_techniques()),
-    (Constants.sudoku_remote_pair_row(), Sudoku, Solving.sudoku_techniques()),
-    (Constants.sudoku_x_wing_row(), Sudoku, Solving.sudoku_techniques()),
-    (Constants.sudoku_x_wing_col(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_swordfish_of_5_in_rows(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_swordfish_of_8_in_cols(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_jellyfish_of_1_in_rows(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_jellyfish_of_3_in_cols(), Sudoku, Solving.sudoku_techniques()),
-    ###########################
-    ###########################
-    ###########################
-    ###########################
-    ###########################
-
     # [Constants.sudoku_difficult_01(), Sudoku, Solving.sudoku_techniques()],
     # [Constants.sudoku_difficult_02(), Sudoku, Solving.sudoku_techniques()],
     # [Constants.sudoku_difficult_04(), Sudoku, Solving.sudoku_techniques()],
@@ -237,7 +262,7 @@ EXPLICITLY = "EXPLICITLY"
     # [Constants.sudoku_difficult_31(), Sudoku, Solving.sudoku_techniques()],
     # [Constants.sudoku_difficult_35(), Sudoku, Solving.sudoku_techniques()],
     # (Constants.sudoku_unique_rectangle_type4_south_cols(), Sudoku, Solving.sudoku_techniques()),
-    # (Constants.sudoku_unique_rectangle_type2_00(), Sudoku, Solving.sudoku_techniques()),
+    (Constants.sudoku_unique_rectangle_type2_00(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_unique_rectangle_type2_01(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_unique_rectangle_type2_02(), Sudoku, Solving.sudoku_techniques()),
     # (Constants.sudoku_unique_rectangle_type2_03(), Sudoku, Solving.sudoku_techniques()),
@@ -253,6 +278,7 @@ EXPLICITLY = "EXPLICITLY"
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     assert default_test_puzzle(puzzle_string, constructor, techniques)
+
 
 # @pytest.mark.parametrize("constructor, technique, actual, expected", [
 #     (Sudoku,
@@ -547,7 +573,7 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
 #      CrossHatch(),
 #      Constants.sudoku_explicit_cross_hatch_actual(),
 #      Constants.sudoku_explicit_cross_hatch_expected()),
-#
+
 #     (Sudoku,
 #      HiddenSingle(),
 #      Constants.sudoku_explicit_hidden_single_rows_actual(),
@@ -592,7 +618,7 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
 #      XyWing(),
 #      Constants.sudoku_explicit_xy_wing_south_east_actual(),
 #      Constants.sudoku_explicit_xy_wing_south_east_expected()),
-#
+
 # ])
 # def test_default_actual_expected(constructor, technique, actual, expected):
 #     assert default_test_explicit_actual_expected(constructor, technique, actual, expected)

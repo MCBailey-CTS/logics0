@@ -23,6 +23,13 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     while True:
         original_edits = edits
         for tech in techniques:
+
+            # unsolved = puzzle.unsolved_cells()
+
+            # if len(unsolved) == 0:
+            #     continue
+
+
             _edits = tech.solve0(puzzle)
             edits = edits + _edits
         if original_edits == edits:

@@ -6,6 +6,10 @@ class NakedPair:
     @staticmethod
     def solve1(puzzle: Sudoku, house: list[Loc]) -> int:
         edits = 0
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
         for i in range(puzzle.length):
             for ii in range(puzzle.length):
                 if i == ii:

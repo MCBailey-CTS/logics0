@@ -6,6 +6,11 @@ class Bug:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
 
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
+
         length_1: list[Loc] = list()
         length_2: list[Loc] = list()
         length_3: list[Loc] = list()

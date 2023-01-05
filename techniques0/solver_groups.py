@@ -1,11 +1,18 @@
-from techniques0 import *
+from techniques0 import CrossHatch, HiddenSingle, NakedPair, LockedCandidatesPointing, LockedCandidatesClaiming, \
+    KropkiBlack, KropkiWhite, KropkiEmpty, CrossHatchRobotFences, HiddenSingleRobotFences, Parks1CrossHatch, \
+    Parks1HiddenSingle, Parks1CrossHatchTouching, Parks1LockedCandidatesPointing, Parks1Bent3, Parks1Shape_00_01, \
+    Parks1Shapes, Parks1DominateFence, TennerCrossHatch, TennerNakedPair, TennerHiddenPair, TennerHiddenSingle, \
+    TennerTotalHiddenSingle, TennerPowerSetTotals, TennerNakedPairColumn, SumscrapersTech, SumscrapersSecondInLine, \
+    CrossHatchSumscrapers, HiddenSingleSumscrapers, SumscrapersNextToScraper, SumscrapersLastIsMax, SkyscrapersN, \
+    Skyscrapers1, SkyscrapersRange, MinesweeperSolver, RobotCrosswordsHouses, PowerGridTech, PowerGridCrossHatch, \
+    PowerGridHiddenPower, AbstractPaintingTech
 from techniques0.sudoku.Bug import Bug
 from techniques0.sudoku.HiddenPair import HiddenPair
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
-from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
 from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
 from techniques0.sudoku.XWing import XWing
+from techniques0.sudoku.XyWing import XyWing
 
 PLUS = "+"
 MINUS = "-"
@@ -24,10 +31,11 @@ class Solving:
             UniqueRectangleType1(),
             # UniqueRectangleType2(),
             UniqueRectangleType4(),
-            # Bug(),
-            # HiddenPair(),
+            Bug(),
+            HiddenPair(),
             NakedTriple(),
-            # XWing(),
+            XWing(),
+            XyWing(),
         ]
 
     @staticmethod

@@ -5,6 +5,10 @@ from _puzzles import Sudoku
 class XyWing:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
         for pivot in puzzle.unsolved_cells():
             pivot_candidates = puzzle.cell_candidates(pivot)
 

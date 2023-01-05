@@ -5,6 +5,10 @@ class UniqueRectangleType4:
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
 
         for r in range(puzzle.length):
 

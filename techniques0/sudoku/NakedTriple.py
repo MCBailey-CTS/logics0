@@ -4,6 +4,10 @@ from _puzzles import Sudoku
 class NakedTriple:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
         naked_count = 3
         for house in puzzle.houses_rows_cols_fences():
             for i in range(puzzle.length):

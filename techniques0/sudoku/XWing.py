@@ -6,6 +6,10 @@ class XWing:
     @staticmethod
     def solve1(puzzle: Sudoku, house0: list[Loc], house1: list[Loc]) -> int:
         edits = 0
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
         for candidate in puzzle.expected_candidates():
             locs0 = [loc for loc in house0 if candidate in puzzle.cell_candidates(loc)]
             locs1 = [loc for loc in house1 if candidate in puzzle.cell_candidates(loc)]

@@ -5,6 +5,14 @@ from _puzzles import Sudoku
 class CrossHatch:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
+
+        unsolved = puzzle.unsolved_cells()
+
+        if len(unsolved) == 0:
+            return edits
+
+
+        
         for cell in list(puzzle.unsolved_cells()):
             neighbors = set(
                 puzzle.house_row(cell.row) + puzzle.house_col(cell.col))
