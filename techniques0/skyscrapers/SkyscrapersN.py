@@ -1,5 +1,6 @@
 from Loc import Loc
-from _puzzles import Skyscrapers
+from puzzles import Skyscrapers
+
 
 
 class SkyscrapersN:

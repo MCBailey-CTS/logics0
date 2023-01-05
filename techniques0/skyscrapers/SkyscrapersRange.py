@@ -1,6 +1,7 @@
 
 from Loc import Loc
-from _puzzles import Skyscrapers
+from puzzles import Skyscrapers
+
 from typing import Optional
 class SkyscrapersRange:
     def solve0(self, puzzle: Skyscrapers) -> int:
