@@ -1,6 +1,7 @@
 from puzzles import Puzzle
 from Loc import Loc
 
+
 class Sudoku(Puzzle):
 
     def __init__(self, puzzle: str) -> None:
@@ -36,6 +37,20 @@ class Sudoku(Puzzle):
 
                     self.grid[r][c] = new_string
 
+    def rem(self, locs: list[Loc], candidates: iter) -> int:
+        edits = 0
+        if isinstance(locs, Loc):
+            return self.rem([locs], candidates)
+        for loc in locs:
+            for candidate in candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                if len(cell_candidates) == 1:
+                    raise Exception(f'Cannot remove final candidate {candidate} from Loc {loc}')
+                self.grid[loc.row][loc.col] = self.grid[loc.row][loc.col].replace(str(candidate), "_")
+                edits += 1
+        return edits
 
     def unsolved_cells(self) -> set[Loc]:
         unsolved = set()
@@ -77,8 +92,6 @@ class Sudoku(Puzzle):
 
         return True
 
-
-    
     def row_chute(self, loc: Loc) -> int:
         if self.length != 9:
             raise Exception("Can only ask for row chute of 9x9 sudoku")
@@ -139,5 +152,3 @@ class Sudoku(Puzzle):
             return self.cell_fence(Loc(6, 6))
 
         raise Exception(f'Invalid chute loc: {chute_loc}')
-
-

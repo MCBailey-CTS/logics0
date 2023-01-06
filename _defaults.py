@@ -1,3 +1,6 @@
+from puzzles import Puzzle
+
+
 EXPLICITLY = "explicitly"
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
@@ -16,28 +19,25 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     print(expected_puzzle)
     return False
 
-
-# constants_dict = dict()
-
-
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
-    puzzle = constructor(puzzle_string)
+    puzzle: Puzzle = constructor(puzzle_string)
     edits = 0
+    edit_dict = {}
     while True:
         original_edits = edits
         for tech in techniques:
-
-            # unsolved = puzzle.unsolved_cells()
-
-            # if len(unsolved) == 0:
-            #     continue
-
-
             _edits = tech.solve0(puzzle)
+            if tech.__class__.__name__ not in edit_dict:
+                edit_dict[tech.__class__.__name__] = 0
+            edit_dict[tech.__class__.__name__] += _edits
             edits = edits + _edits
         if original_edits == edits:
             break
     if puzzle.is_solved():
         return True
+    for tech in edit_dict:
+        if edit_dict[tech] == 0:
+            continue
+        print(f'{tech}: {edit_dict[tech]}')
     print(puzzle)
     return False

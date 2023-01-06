@@ -1,5 +1,3 @@
-
-
 class Loc:
     def __init__(self, r: int, c: int):
         self._row = r
@@ -36,22 +34,21 @@ class Loc:
             yield Loc(row, self._col)
 
     def is_valid_kropki(self, grid_length) -> bool:
-        return self._row > -1 and self._col > -1 and self._row < grid_length and self._col < grid_length
+        return -1 < self._row < grid_length and -1 < self._col < grid_length
 
-    def is_valid_sudoku(self, length:int):
-        return self._row > -1 and self._col > -1 and self._row < length and self._col < length
-
+    def is_valid_sudoku(self, length: int):
+        return -1 < self._row < length and -1 < self._col < length
 
     def is_valid_parks(self, grid: list[list[str]]) -> bool:
-        return self._row > -1 and self._col > -1 and self._row < len(grid) and self._col < len(grid)
+        return -1 < self._row < len(grid) and -1 < self._col < len(grid)
 
     def is_valid_tenner(self, grid: list[list[str]]) -> bool:
-        return self._row > -1 and self._col > -1 and self._row < len(grid) - 1 and self._col < len(grid) - 1
+        return -1 < self._row < len(grid) - 1 and -1 < self._col < len(grid) - 1
 
-    def fence_house_locs(self, length: int,  fence_grid: list):
+    def fence_house_locs(self, length: int, fence_grid: list):
         for row in range(0, length):
             for col in range(0, length):
-                if (fence_grid[row][col] == fence_grid[self._row][self._col]):
+                if fence_grid[row][col] == fence_grid[self._row][self._col]:
                     yield Loc(row, col)
 
     def __repr__(self) -> str:
@@ -70,6 +67,7 @@ class Loc:
             return chain[0].west()
 
         raise ValueError()
+
     # throw Error(`Cannot find intersection between ${loc0} and ${loc1}`);
 
     def north(self, offset: int = 1):
@@ -121,9 +119,8 @@ class Loc:
             return True
 
         return False
-    
-    @staticmethod
 
+    @staticmethod
     def row_chute(loc) -> int:
         if self.length != 9:
             raise Exception("Can only ask for row chute of 9x9 sudoku")
@@ -136,8 +133,8 @@ class Loc:
         elif loc.row < 9:
             return 2
         raise Exception(f'Invalid loc to ask row chute for {loc}')
-    @staticmethod
 
+    @staticmethod
     def col_chute(loc) -> int:
         if self.length != 9:
             raise Exception("Can only ask for col chute of 9x9 sudoku")
@@ -150,6 +147,7 @@ class Loc:
         elif loc.col < 9:
             return 2
         raise Exception(f'Invalid loc to ask col chute for {loc}')
+
     @staticmethod
     def kropki_row_locs(length: int):
         pass
@@ -392,8 +390,6 @@ def parks1_cell_locs_rows_cols(grid) -> list[list[Loc]]:
     for house in sudoku_cell_locs_cols(grid):
         houses.append(house)
     return houses
-
-
 
 
 def get_parks_east_south_locs(loc: Loc) -> list[Loc]:

@@ -1,7 +1,6 @@
-
 from abc import abstractmethod
 from typing import Optional
-
+from colorama import Fore, Style
 from Loc import Loc
 
 
@@ -121,12 +120,11 @@ class Puzzle:
     def cell_candidates(self, loc: Loc) -> list:
         return [int(char) for char in self.grid[loc.row][loc.col] if char.isnumeric()]
 
-    def is_cell_solved(self, loc: Loc, solved_with_candidate = None) -> bool:
+    def is_cell_solved(self, loc: Loc, solved_with_candidate=None) -> bool:
         candidates = self.cell_candidates(loc)
         if solved_with_candidate is None:
             return len(candidates) == 1
         return candidates[0] == solved_with_candidate
-
 
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, self.length + 1)]
@@ -180,7 +178,14 @@ class Puzzle:
         string += f'{self.length}\n'
         for r in range(self.row_length):
             for c in range(self.col_length):
-                string += f'{self.grid[r][c].ljust(self.length)} '
+                loc = Loc(r, c)
+
+                if loc == Loc(6, 2) or loc == Loc(8, 5)  or loc == Loc(6, 5)  or loc == Loc(8, 2):
+                    string += f'{Fore.RED}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
+                    continue
+                if len(self.cell_candidates(loc)) == 0:
+                    string += f'{Fore.GREEN}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
+                else:
+                    string += f'{self.grid[r][c].ljust(self.length)} '
             string += '\n'
         return string
-
