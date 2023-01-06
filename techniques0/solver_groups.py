@@ -39,8 +39,8 @@ class Solving:
             NakedTriple(),
             XWing(),
             XyWing(),
-            SwordFish(),
-            JellyFish(),
+            # SwordFish(),
+            # JellyFish(),
         ]
 
     @staticmethod

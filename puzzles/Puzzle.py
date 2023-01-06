@@ -150,8 +150,10 @@ class Puzzle:
             return [Loc(row, c) for c in range(self.length)]
         return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
 
-    def house_col(self, col: int) -> list[Loc]:
-        return [Loc(r, col) for r in range(self.length)]
+    def house_col(self, col: int, candidate=None) -> list[Loc]:
+        if candidate is None:
+            return [Loc(r, col) for r in range(self.length)]
+        return [loc for loc in self.house_col(col) if candidate in self.cell_candidates(loc)]
 
     @property
     def grid_length(self):
@@ -180,7 +182,7 @@ class Puzzle:
             for c in range(self.col_length):
                 loc = Loc(r, c)
 
-                if loc == Loc(6, 2) or loc == Loc(8, 5)  or loc == Loc(6, 5)  or loc == Loc(8, 2):
+                if loc == Loc(2, 1) or loc == Loc(4, 1) or loc == Loc(2, 3) or loc == Loc(4, 3) :
                     string += f'{Fore.RED}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
                     continue
                 if len(self.cell_candidates(loc)) == 0:

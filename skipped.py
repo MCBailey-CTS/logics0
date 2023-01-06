@@ -1160,10 +1160,7 @@
 #      Constants.sudoku_explicit_almost_locked_candidates_pointing_rows_actual(),
 #      Constants.sudoku_explicit_almost_locked_candidates_pointing_rows_expected()),
 
-#     (Sudoku,
-#      Techs.ShashimiXWing(),
-#      Constants.sudoku_explicit_shashimi_x_wing_2_fin_cols_actual(),
-#      Constants.sudoku_explicit_shashimi_x_wing_2_fin_cols_expected()),
+
 #     (Sudoku,
 #      Techs.AvoidableRectangleType2(),
 #      Constants.sudoku_explicit_avoidable_rectangle_type2_south_actual(),
