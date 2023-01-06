@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import Kropki
+from puzzles import Kropki
 
 
 class KropkiWhite:

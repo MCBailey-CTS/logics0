@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import RobotFences
+from puzzles import RobotFences
 from techniques0 import HiddenSingle
 
 

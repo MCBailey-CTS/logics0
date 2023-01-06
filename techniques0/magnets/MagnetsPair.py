@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import Magnets
+from puzzles import Magnets
 PLUS = 1
 MINUS = 0
 EMPTY = MINUS

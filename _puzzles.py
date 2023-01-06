@@ -15,319 +15,6 @@ EMPTY = "."
 
 
 
-class Kropki(Puzzle):
-
-    def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        self.__id = array[0]
-        self.__length = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        for r in range(self.__length * 2 - 1):
-            split = array[0].strip().replace("  ", " ", -1).split(" ")
-            temp = []
-            for line in split:
-                if len(line) == 0:
-                    continue
-                temp.append(line)
-            self.grid.append(temp)
-            array.pop(0)
-
-    def expected_candidates(self) -> list:
-        return [candidate for candidate in range(1, self.length + 1)]
-
-    def is_solved(self) -> bool:
-        return False
-
-    def iterate_locs(self) -> list[Loc]:
-        array = []
-        for r in range(self.grid_length):
-            for c in range(self.grid_length):
-                array.append(Loc(r, c))
-        return array
-
-    def iterate_cells(self) -> list[Loc]:
-        array = []
-        for r in range(self.__length):
-            for c in range(self.__length):
-                array.append(Loc(r * 2, c * 2))
-        return array
-
-    @property
-    def grid_length(self):
-        return self.__length * 2 - 1
-
-    @property
-    def has_fences(self) -> bool:
-        return any([s.isalpha() for s in self.grid[0][0]])
-
-    def cell_fence(self, loc: Loc) -> str:
-        if not self.has_fences:
-            raise Exception(f'Cell {loc} does not have a fence')
-        letters = [s for s in self.grid[loc.row][loc.col] if s.isalpha()]
-        if len(letters) != 1:
-            raise Exception(f'More or less than exactly one fence in cell {loc}')
-        return letters[0]
-
-    def house_fence_cell_locs(self, loc_fence: Union[Loc, str]):
-        if isinstance(loc_fence, Loc):
-            return self.house_fence_cell_locs(self.cell_fence(loc_fence))
-        house = []
-        for cell in self.iterate_cells():
-            if self.cell_fence(cell) == loc_fence:
-                house.append(cell)
-        return house
-
-    def __str__(self):
-        string = f'{self.__id}\n'
-        string += f'{self.__length}\n'
-
-        for r in range(self.grid_length):
-            for c in range(self.grid_length):
-                # if r % 2 == 0:
-                string += f'{self.grid[r][c].replace(".", " ", -1)} '
-                # elif c % 2 == 0:
-                #     string += f'{self.__grid[r][c]} '
-                # else:
-                #     string += f'{self.__grid[r][c].ljust(self.length)} '
-
-            string += '\n'
-
-        return string
-
-    def is_black(self, loc: Loc) -> bool:
-        return "BB" in self.grid[loc.row][loc.col]
-
-    def is_white(self, loc: Loc) -> bool:
-        return "WW" in self.grid[loc.row][loc.col]
-
-    def is_empty(self, loc: Loc) -> bool:
-        return all([s == "." for s in self.grid[loc.row][loc.col]])
-
-    def all_locs_are_valid(self, locs: list[Loc]) -> bool:
-        for loc in locs:
-            if not loc.is_valid_kropki(self.grid_length):
-                return False
-        return True
-
-    def house_row_locs(self, loc: Union[Loc, int]) -> list[Loc]:
-        if isinstance(loc, Loc):
-            return self.house_row_locs(loc.row)
-        locs = []
-        for i in range(self.grid_length):
-            locs.append(Loc(loc, i))
-        return locs
-
-    def house_row_cell_locs(self, loc: Union[Loc, int]) -> list[Loc]:
-        if isinstance(loc, Loc):
-            return self.house_row_cell_locs(loc.row)
-
-        locs = []
-        temp_locs = self.house_row_locs(loc)
-        for i in range(0, self.grid_length, 2):
-            locs.append(temp_locs[i])
-        return locs
-
-    def house_col_locs(self, loc: Union[Loc, int]) -> list[Loc]:
-        if isinstance(loc, Loc):
-            return self.house_col_locs(loc.col)
-        locs = []
-        for i in range(self.grid_length):
-            locs.append(Loc(i, loc))
-        return locs
-
-    def house_col_cell_locs(self, loc: Union[Loc, int]) -> list[Loc]:
-        if isinstance(loc, Loc):
-            return self.house_col_cell_locs(loc.col)
-
-        locs = []
-        temp_locs = self.house_col_locs(loc)
-        for i in range(0, self.grid_length, 2):
-            locs.append(temp_locs[i])
-        return locs
-
-class Magnets:
-    def __init__(self, puzzle: str) -> None:
-        array = []
-        for line in puzzle.split("\n"):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            array.append(temp)
-        self.__id = array[0]
-        self.__length = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        self.__grid = []
-        for r in range(self.__length + 2):
-            line = array[0].strip().replace("  ", " ", -1).split(" ")
-            self.__grid.append(line)
-            array.pop(0)
-
-    def is_solved(self):
-        return False
-
-    def rem(self, locs: list[Loc], candidates: list) -> int:
-        edits = 0
-
-        for loc in locs:
-            for candidate in candidates:
-                cell_candidates = self.cell_candidates(loc)
-                if candidate not in cell_candidates:
-                    continue
-                self.__grid[loc.row][loc.col] = self.__grid[loc.row][loc.col].replace(candidate, "_")
-                edits += 1
-
-        return edits
-
-    def cell_candidates(self, loc: Loc) -> list[str]:
-        string = self.__grid[loc.row][loc.col]
-        lst: list[str] = []
-        if PLUS in string:
-            lst.append(PLUS)
-        if MINUS in string:
-            lst.append(MINUS)
-        if EMPTY in string:
-            lst.append(EMPTY)
-        return lst
-
-    def __str__(self) -> str:
-        string = f'{self.__id}\n'
-        string += f'{self.__length}\n'
-        for r in range(self.__length + 2):
-            for c in range(self.__length + 2):
-                if r == 0 and c == 0:
-                    string += f'{Fore.RED}{self.__grid[r][c]}{Style.RESET_ALL} '
-                elif r == self.__length + 2 - 1 and c == self.__length + 2 - 1:
-                    string += f'{Fore.BLUE}{self.__grid[r][c]}{Style.RESET_ALL} '
-                else:
-                    string += f'{self.__grid[r][c]} '
-            string += '\n'
-        return string
-
-    # def unsolved_cells(self) -> set[Loc]:
-    #     return self.__un_solved_locs
-
-    # def solved_cells(self) -> set[Loc]:
-    #     return self.__solved_locs
-
-    def expected_candidates(self) -> list[int]:
-        return [i + 1 for i in range(self.__length)]
-
-    def id(self) -> str:
-        return self.__id
-
-    @property
-    def length(self) -> int:
-        return self.__length
-
-    def plus_row_value(self, row_index: int) -> int:
-        string: str = self.__grid[row_index + 1][0]
-        if not string.isnumeric():
-            return -1
-        return int(string)
-
-    def minus_row_value(self, row_index: int) -> int:
-        string: str = self.__grid[row_index + 1][self.__length + 1]
-        if not string.isnumeric():
-            return -1
-        return int(string)
-
-    def house_row(self, row_index: int) -> list[Loc]:
-        house = []
-        for i in range(0, self.__length):
-            house.append(Loc(row_index + 1, i + 1))
-        return house
-
-    def plus_col_value(self, col_index: int) -> int:
-        string: str = self.__grid[0][col_index + 1].replace(".", "", -1)
-        if not string.isnumeric():
-            return -1
-        return int(string)
-
-    def minus_col_value(self, col_index: int) -> int:
-        string: str = self.__grid[self.__length + 1][col_index + 1].replace(".", "", -1)
-        if not string.isnumeric():
-            return -1
-        return int(string)
-
-    def house_col(self, col_index: int) -> list[Loc]:
-        house = []
-        for i in range(0, self.__length):
-            house.append(Loc(i + 1, col_index + 1))
-        return house
-
-    def house_fence(self, loc: Loc) -> str:
-        fence = self.__grid[loc.row][loc.col] \
-            .replace(PLUS, "") \
-            .replace(MINUS, "") \
-            .replace(EMPTY, "") \
-            .replace("_", "")
-
-        if len(fence) != 1:
-            raise ValueError(f"could not find fence in magnets cell {loc}")
-
-        return fence
-
-    def house_fences(self) -> list[list[Loc]]:
-        dct = {}
-        for r in range(self.__length):
-            for c in range(self.__length):
-                loc = Loc(r + 1, c + 1)
-                print(loc)
-                fence = self.house_fence(loc)
-                if fence not in dct:
-                    dct[fence] = []
-                dct[fence].append(loc)
-
-        print(dct)
-
-        houses = []
-        for fence in dct:
-            houses.append(dct[fence])
-        return houses
-
-class RobotFences(Sudoku):
-    def __init__(self, puzzle: str) -> None:
-        Sudoku.__init__(self, puzzle)
-
-    def is_solved(self) -> bool:
-        for house in self.houses_rows_cols():
-            solved_candidates = [list(self.cell_candidates(loc))[0] for loc in house if
-                                 len(self.cell_candidates(loc)) == 1]
-
-            if len(solved_candidates) != self.length:
-                print("row or column wasn't completely solved")
-                return False
-
-            expected = set(self.expected_candidates())
-
-            if expected.issubset(solved_candidates) and expected.issuperset(solved_candidates):
-                continue
-
-            return False
-
-        for house in self.houses_fences():
-            solved_candidates = [list(self.cell_candidates(house[index]))[0] for index in range(len(house))]
-
-            solved_candidates.sort()
-
-            if len(solved_candidates) == 1:
-                continue
-            for index in range(len(house) - 1):
-                if solved_candidates[index] + 1 != solved_candidates[index + 1]:
-                    print("Fence house not solved")
-                    return False
-
-        return True
-
-
 class Parks1(Puzzle):
     def expected_candidates(self) -> list:
         return [0, 1]
@@ -623,9 +310,9 @@ class Tenner(Puzzle):
         return None
 
 
-class Knightoku:  
-    def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
+# class Knightoku:  
+#     def __init__(self, puzzle: str) -> None:
+#         super().__init__(puzzle)
 
 
 class RobotCrosswords(Puzzle):
@@ -724,28 +411,28 @@ class Minesweeper:
         return edits
 
 
-class Snail3:
-    pass
+# class Snail3:
+#     pass
 
 
-class Walls:
-    pass
+# class Walls:
+#     pass
 
 
-class Parks2:
-    pass
+# class Parks2:
+#     pass
 
 
 
 
 
-class BattleShips:
-    pass
+# class BattleShips:
+#     pass
 
 
-class Clouds:
-    def is_solved(self):
-        return False
+# class Clouds:
+#     def is_solved(self):
+#         return False
 
 
 class PowerGrid(Puzzle):
@@ -839,13 +526,13 @@ class PowerGrid(Puzzle):
             .replace("_0", "..", -1)
 
 
-class Sentinels:
-    pass
+# class Sentinels:
+#     pass
 
 
 
-class Tents:
-    pass
+# class Tents:
+#     pass
 
 
 class Futoshiki:
@@ -909,14 +596,14 @@ class Futoshiki:
         return string
 
 
-class HiddenStars:
+# class HiddenStars:
 
-    def is_solved(self):
-        return False
+#     def is_solved(self):
+#         return False
 
 
-class Kakuro:
-    pass
+# class Kakuro:
+#     pass
 
 
 
@@ -931,12 +618,12 @@ class Mathrax:
 
 
 
-class MineShips:
-    pass
+# class MineShips:
+#     pass
 
 
-class Nurikabe:
-    pass
+# class Nurikabe:
+#     pass
 
 class AbstractPainting(PowerGrid):
     def __init__(self, puzzle: str) -> None:

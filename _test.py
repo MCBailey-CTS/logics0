@@ -2,10 +2,11 @@ import pytest
 
 from Constants import Constants
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
-from _puzzles import Sudoku, Kropki, Parks1, Tenner, RobotFences, Sumscrapers, AbstractPainting, \
+from _puzzles import Sudoku,  Parks1, Tenner,  Sumscrapers, AbstractPainting, \
     PowerGrid
 from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty, NakedPair, LockedCandidatesPointing, \
     LockedCandidatesClaiming
+from puzzles import RobotFences
 from techniques0.kropki.KropkiBb import KropkiBb
 from techniques0.kropki.KropkiBw import KropkiBw
 from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
@@ -26,6 +27,7 @@ from techniques0.sudoku.WWing import WWing
 from techniques0.sudoku.XWing import XWing
 from techniques0.sudoku.XyWing import XyWing
 from puzzles import Skyscrapers
+from puzzles import Kropki
 
 EXPLICITLY = "EXPLICITLY"
 

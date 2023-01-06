@@ -1,4 +1,4 @@
-from _puzzles import Kropki
+from puzzles import Kropki
 
 
 class KropkiBb:

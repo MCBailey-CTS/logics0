@@ -1,4 +1,4 @@
-from _puzzles import Magnets
+from puzzles import Magnets
 
 EMPTY = 0
 
