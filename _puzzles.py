@@ -116,7 +116,7 @@ class Parks1(Puzzle):
                 # fence = [char for char in grid_string if char.isalpha()][0]
                 # string += f'{self.color_fence(loc)}{candidates}{fence}{Style.RESET_ALL} '
                 # fence = [char for char in grid_string if char.isalpha()][0]
-                string += f'{self.color_fence(loc)}{candidates}{Style.RESET_ALL} '
+                string += f'{self.color_fence(loc)}{candidates}{self.cell_fence(loc)}{Style.RESET_ALL} '
             string += '\n'
         string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
         return string
