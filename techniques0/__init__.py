@@ -21,6 +21,9 @@ from techniques0.skyscrapers.SkyscrapersRange import SkyscrapersRange
 from techniques0.minesweeper.MinesweeperSolver import MinesweeperSolver
 from techniques0.sudoku.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques0.sudoku.NakedPair import NakedPair
+from techniques0.sudoku.XyWing import XyWing
+from techniques0.sudoku.WWing import WWing
+from techniques0.sudoku.ShashimiXWing import ShashimiXWing
 from techniques0.sumscrapers.SumscrapersLastIsMax import SumscrapersLastIsMax
 from techniques0.sumscrapers.SumscrapersNextToScraper import SumscrapersNextToScraper
 from techniques0.sumscrapers.SumscrapersSecondInLine import SumscrapersSecondInLine
@@ -41,11 +44,30 @@ from techniques0.tenner.TennerNakedPair import TennerNakedPair
 from techniques0.tenner.TennerNakedPairColumn import TennerNakedPairColumn
 from techniques0.tenner.TennerPowerSetTotals import TennerPowerSetTotals
 from techniques0.tenner.TennerTotalHiddenSingle import TennerTotalHiddenSingle
-
-__all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingTech", "SkyscrapersRange", "MagnetsFullHouse", "MagnetsPair",
+from techniques0.sudoku.XWing import XWing
+from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
+from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
+from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
+from techniques0.sudoku.HiddenUniqueRectangle import HiddenUniqueRectangle
+__all__ = ["CrossHatch",
+"HiddenUniqueRectangle",
+           "XWing",
+           "HiddenSingle",
+           "Parks1Shape_00_01",
+           "AbstractPaintingTech",
+           "SkyscrapersRange",
+           "MagnetsFullHouse",
+           "MagnetsPair",
            "MagnetsZero",
-           "Parks1DominateFence", "Parks1Shapes", "MinesweeperSolver", "NakedPair", "SkyscrapersN",
-           "SumscrapersSecondInLine", "SumscrapersTech", "Skyscrapers1", "LockedCandidatesPointing",
+           "Parks1DominateFence",
+           "Parks1Shapes",
+           "MinesweeperSolver",
+           "NakedPair",
+           "SkyscrapersN",
+           "SumscrapersSecondInLine",
+           "SumscrapersTech",
+           "Skyscrapers1",
+           "LockedCandidatesPointing",
            "LockedCandidatesClaiming",
            "Parks1CrossHatch",
            "Parks1HiddenSingle",
@@ -71,7 +93,13 @@ __all__ = ["CrossHatch", "HiddenSingle", "Parks1Shape_00_01", "AbstractPaintingT
            "RobotCrosswordsHouses",
            "PowerGridTech",
            "PowerGridCrossHatch",
-           "PowerGridHiddenPower"
+           "PowerGridHiddenPower",
+           "UniqueRectangleType1",
+           "UniqueRectangleType2",
+           "UniqueRectangleType4",
+           "XyWing",
+           "WWing",
+           "ShashimiXWing"
            ]
 
 

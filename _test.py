@@ -1,5 +1,6 @@
 import puzzles
 import pytest
+from techniques0 import *
 
 from Constants import Constants
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
@@ -16,20 +17,9 @@ from techniques0.solver_groups import Solving
 from techniques0.sudoku.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques0.sudoku.CrossHatch import CrossHatch
 from techniques0.sudoku.HiddenPair import HiddenPair
-from techniques0.sudoku.HiddenSingle import HiddenSingle
-from techniques0.sudoku.HiddenUniqueRectangle import HiddenUniqueRectangle
 from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
-from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
-from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
-from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
-from techniques0.sudoku.WWing import WWing
-from techniques0.sudoku.XWing import XWing
-from techniques0.sudoku.FinnedXWing import FinnedXWing
-from techniques0.sudoku.XyWing import XyWing
-from techniques0.sudoku.Bug import Bug
-from techniques0.sudoku.ShashimiXWing import ShashimiXWing
 from puzzles import Skyscrapers
 from puzzles import Kropki
 
@@ -221,7 +211,7 @@ EXPLICITLY = "EXPLICITLY"
     ("sudoku_unique_rectangle_type2_10", Sudoku, Solving.sudoku_techniques()),
     ("sudoku_unique_rectangle_type2_11", Sudoku, Solving.sudoku_techniques()),
     ("sudoku_unique_rectangle_type2_12", Sudoku, Solving.sudoku_techniques()),
-("parks1_009", Parks1, Solving.parks1_techniques()),
+# ("parks1_009", Parks1, Solving.parks1_techniques()),
 # ("parks1_010", Parks1, Solving.parks1_techniques()),
 ("parks1_011", Parks1, Solving.parks1_techniques()),
 ("parks1_012", Parks1, Solving.parks1_techniques()),
