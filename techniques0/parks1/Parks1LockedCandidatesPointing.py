@@ -26,7 +26,7 @@ class Parks1LockedCandidatesPointing:
             unsolved = list(set(fence_locs).difference(solved_tree + solved_empty))
             if len(solved_tree) == 1:
                 continue
-            if len(unsolved) == 2:
+            if len(unsolved) >= 2:
                 rows = set([loc.row for loc in unsolved])
                 cols = set([loc.col for loc in unsolved])
                 if len(rows) == 1:
@@ -36,3 +36,6 @@ class Parks1LockedCandidatesPointing:
                     temp = set(puzzle.house_col(cols.pop())).difference(unsolved)
                     edits += puzzle.rem(list(temp), [1])
         return edits
+
+
+

@@ -121,33 +121,33 @@ class Parks1(Puzzle):
         string += f'{Fore.CYAN}########################\n{Style.RESET_ALL}'
         return string
 
-    def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
-        if loc is None:
-            return self.houses_rows_cols() + self.houses_fences()
-        fence = self.__fences[loc.row][loc.col]
-        return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
-
-    def cell_fence(self, loc: Loc) -> str:
-        return [char for char in self.grid[loc.row][loc.col] if char.isalpha()][0]
-
-        return [self.house_fence(fence) for fence in self.__fence_dict]
-
-    def house_fence(self, fence: str) -> list[Loc]:
-        locs = []
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                if self.cell_fence(loc) == fence:
-                    locs.append(loc)
-        return locs
-
-    def house_row(self, row: int, candidate=None) -> list[Loc]:
-        if candidate is None:
-            return [Loc(row, c) for c in range(self.length)]
-        return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
-
-    def house_col(self, col: int) -> list[Loc]:
-        return [Loc(r, col) for r in range(self.length)]
+    # def houses_rows_cols_fences(self, loc: Optional[Loc] = None) -> list[list[Loc]]:
+    #     if loc is None:
+    #         return self.houses_rows_cols() + self.houses_fences()
+    #     fence = self.__fences[loc.row][loc.col]
+    #     return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
+    #
+    # def cell_fence(self, loc: Loc) -> str:
+    #     return [char for char in self.grid[loc.row][loc.col] if char.isalpha()][0]
+    #
+    #     return [self.house_fence(fence) for fence in self.__fence_dict]
+    #
+    # def house_fence(self, fence: str) -> list[Loc]:
+    #     locs = []
+    #     for r in range(self.length):
+    #         for c in range(self.length):
+    #             loc = Loc(r, c)
+    #             if self.cell_fence(loc) == fence:
+    #                 locs.append(loc)
+    #     return locs
+    #
+    # def house_row(self, row: int, candidate=None) -> list[Loc]:
+    #     if candidate is None:
+    #         return [Loc(row, c) for c in range(self.length)]
+    #     return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
+    #
+    # def house_col(self, col: int) -> list[Loc]:
+    #     return [Loc(r, col) for r in range(self.length)]
 
 
 class Tenner(Puzzle):
