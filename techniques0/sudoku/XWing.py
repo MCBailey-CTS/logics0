@@ -3,56 +3,87 @@ from _puzzles import Sudoku
 
 
 class XWing:
-    @staticmethod
-    def solve1(puzzle: Sudoku, house0: list[Loc], house1: list[Loc]) -> int:
+
+    def solve_two_cell(self, puzzle: Sudoku, cell0: Loc, cell1: Loc, candidate: int) -> int:
         edits = 0
-        unsolved = puzzle.unsolved_cells()
+        # print(f'{cell0} {cell1} {candidate}')
 
-        if len(unsolved) == 0:
-            return edits
-        for candidate in puzzle.expected_candidates():
-            locs0 = [loc for loc in house0 if candidate in puzzle.cell_candidates(loc)]
-            locs1 = [loc for loc in house1 if candidate in puzzle.cell_candidates(loc)]
+        if cell0.row == cell1.row:
+            cell_xy = cell0
+            cell_xz = cell1
+            print("rows")
+            # need to look up and down
+            # pass
 
-            if len(locs0) != 2 or len(locs1) != 2:
-                continue
+        if cell0.col == cell1.col:
+            for col in range(puzzle.length):
+                if col == cell0.col:
+                    continue
+                other0 = Loc(cell0.row, col)
+                other1 = Loc(cell1.row, col)
 
-            rows = set([loc.row for loc in locs0 + locs1])
-            cols = set([loc.col for loc in locs0 + locs1])
+                other_candidates0 = puzzle.cell_candidates(other0)
+                other_candidates1 = puzzle.cell_candidates(other1)
 
-            loc_set = set(locs0 + locs1)
+                if len(other_candidates0) == 1 or \
+                        len(other_candidates1) == 1 or \
+                        candidate not in other_candidates0 or \
+                        candidate not in other_candidates1:
+                    continue
 
-            if len(cols) != 2 or len(rows) != 2:
-                continue
+                # check if other candidates row only contains the two locations
 
-            for row in rows:
-                for loc in puzzle.house_row(row):
-                    if loc not in loc_set:
-                        edits += puzzle.rem(loc, [candidate])
+                other_col_house = puzzle.house_col(other0.col, candidate)
 
-            for col in cols:
-                for loc in puzzle.house_col(col):
-                    if loc not in loc_set:
-                        edits += puzzle.rem(loc, [candidate])
+                if len(other_col_house) != 2:
+                    continue
+
+                if {other0, other1} != set(other_col_house):
+                    continue
+
+                locs_to_remove_from = puzzle.house_col(other0.col) + puzzle.house_col(other1.col)
+
+                print('1111')
+
+                # if
+
+                # print(f'{cell0} {cell1} {other0} {other1}')
+
+            # need to look left and right
+            # pass
+
+        return edits
+
+    def solve_one_cell(self, puzzle: Sudoku, cell0: Loc, candidate: int)->int:
+
+        edits = 0
+        # need to find the next cell to form a base
+
+        row_cells = set(puzzle.house_row(cell0.row, candidate))
+        col_cells = set(puzzle.house_col(cell0.col, candidate))
+
+        if len(row_cells) == 2:
+            row_cells.remove(cell0)
+            edits += self.solve_two_cell(puzzle, cell0, row_cells.pop(), candidate)
+
+        if len(col_cells) == 2:
+            col_cells.remove(cell0)
+            edits += self.solve_two_cell(puzzle, cell0, col_cells.pop(), candidate)
+
 
         return edits
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
-        for i in range(puzzle.length):
-            for ii in range(puzzle.length):
-                if i == ii:
+        for r in range(puzzle.length):
+            for c in range(puzzle.length):
+                loc = Loc(r, c)
+
+                if puzzle.is_cell_solved(loc):
                     continue
-                edits += self.solve1(
-                    puzzle,
-                    puzzle.house_row(i),
-                    puzzle.house_row(ii),
-                )
-                edits += self.solve1(
-                    puzzle,
-                    puzzle.house_col(i),
-                    puzzle.house_col(ii),
-                )
+
+                for candidate in puzzle.cell_candidates(loc):
+                    edits += self.solve_one_cell(puzzle, loc, candidate)
         return edits
 
 
