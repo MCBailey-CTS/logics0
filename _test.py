@@ -9,10 +9,7 @@ from _puzzles import Sudoku, Parks1, Tenner, Sumscrapers, AbstractPainting, \
 from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty, NakedPair, LockedCandidatesPointing, \
     LockedCandidatesClaiming
 from puzzles import RobotFences
-from techniques0.kropki.KropkiBb import KropkiBb
-from techniques0.kropki.KropkiBw import KropkiBw
-from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
-from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
+
 from techniques0.solver_groups import Solving
 from techniques0.sudoku.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques0.sudoku.CrossHatch import CrossHatch

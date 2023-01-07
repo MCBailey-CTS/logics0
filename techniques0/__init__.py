@@ -49,7 +49,16 @@ from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
 from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
 from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
 from techniques0.sudoku.HiddenUniqueRectangle import HiddenUniqueRectangle
+from techniques0.kropki.KropkiBb import KropkiBb
+from techniques0.kropki.KropkiBw import KropkiBw
+from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
+from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 __all__ = ["CrossHatch",
+"KropkiBb",
+"KropkiBw",
+"KropkiDiamondWwwe",
+"KropkiDominatingEmpty",
+
 "HiddenUniqueRectangle",
            "XWing",
            "HiddenSingle",
