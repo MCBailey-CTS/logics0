@@ -1,9 +1,20 @@
 from _puzzles import Tenner
 
 
+def powerset(seq):
+    """
+    Returns all the subsets of this set. This is a generator.
+    """
+    if len(seq) <= 1:
+        yield seq
+        yield []
+    else:
+        for item in powerset(seq[1:]):
+            yield [seq[0]]+item
+            yield item
+
 class TennerPowerSetTotals:
     def solve0(self, puzzle: Tenner) -> int:
-        edits = 0
         edits = self.solve3(puzzle)
         edits += self.solve4(puzzle)
         edits += self.solve5(puzzle)
@@ -13,6 +24,7 @@ class TennerPowerSetTotals:
     # class TennerPowerSetTotals3:
     def solve3(self, puzzle: Tenner) -> int:
         edits = 0
+        return edits
         TOTAL = 3
         if puzzle.length != TOTAL:
             return edits
@@ -22,9 +34,15 @@ class TennerPowerSetTotals:
             if total is None:
                 continue
             valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
+
+            # power set
             for candidate0 in puzzle.cell_candidates(house[0]):
                 for candidate1 in puzzle.cell_candidates(house[1]):
                     for candidate2 in puzzle.cell_candidates(house[2]):
+
+
+
+
                         candidates = [candidate0, candidate1, candidate2]
                         self.mid(puzzle, valid_candidates_dict, candidates, house, total)
             edits += self.end(puzzle, valid_candidates_dict, house)
