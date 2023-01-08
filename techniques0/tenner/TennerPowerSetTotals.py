@@ -1,121 +1,31 @@
+from typing import Optional
+
+from Loc import Loc
 from _puzzles import Tenner
+from techniques0 import *
 
 
-def powerset(seq):
-    """
-    Returns all the subsets of this set. This is a generator.
-    """
-    if len(seq) <= 1:
-        yield seq
-        yield []
-    else:
-        for item in powerset(seq[1:]):
-            yield [seq[0]]+item
-            yield item
-
-class TennerPowerSetTotals:
+class TennerPowerSetTotals(Technique):
     def solve0(self, puzzle: Tenner) -> int:
-        edits = self.solve3(puzzle)
-        edits += self.solve4(puzzle)
-        edits += self.solve5(puzzle)
-        edits += self.solve6(puzzle)
-        return edits
-
-    # class TennerPowerSetTotals3:
-    def solve3(self, puzzle: Tenner) -> int:
         edits = 0
-        return edits
-        TOTAL = 3
-        if puzzle.length != TOTAL:
-            return edits
         for col in range(puzzle.col_length):
             house = puzzle.house_col_cell_locs(col)
             total = puzzle.total(col)
-            if total is None:
-                continue
-            valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
-
-            # power set
-            for candidate0 in puzzle.cell_candidates(house[0]):
-                for candidate1 in puzzle.cell_candidates(house[1]):
-                    for candidate2 in puzzle.cell_candidates(house[2]):
-
-
-
-
-                        candidates = [candidate0, candidate1, candidate2]
-                        self.mid(puzzle, valid_candidates_dict, candidates, house, total)
-            edits += self.end(puzzle, valid_candidates_dict, house)
+            edits += self.solve1(puzzle, house, total)
         return edits
 
-    def solve4(self, puzzle: Tenner) -> int:
+    def solve1(self, puzzle: Tenner, house: list[Loc], total: Optional[int]) -> int:
         edits = 0
-        TOTAL = 4
-        if puzzle.length != TOTAL:
+        if total is None:
             return edits
-        for col in range(puzzle.col_length):
-            house = puzzle.house_col_cell_locs(col)
-            total = puzzle.total(col)
-            if total is None:
-                continue
-            valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
-            for candidate0 in puzzle.cell_candidates(house[0]):
-                for candidate1 in puzzle.cell_candidates(house[1]):
-                    for candidate2 in puzzle.cell_candidates(house[2]):
-                        for candidate3 in puzzle.cell_candidates(house[3]):
-                            candidates = [candidate0, candidate1, candidate2, candidate3]
-                            self.mid(puzzle, valid_candidates_dict, candidates, house, total)
-            edits += self.end(puzzle, valid_candidates_dict, house)
+        valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
+        for candidates in TennerPowerSetTotals.power_set_candidates(puzzle, house):
+            self.mid(puzzle, valid_candidates_dict, candidates, house, total)
+        edits += self.end(puzzle, valid_candidates_dict, house)
         return edits
 
-    # class TennerPowerSetTotals5:
-    def solve5(self, puzzle: Tenner) -> int:
-        edits = 0
-        TOTAL = 5
-        if puzzle.length != TOTAL:
-            return edits
-        for col in range(puzzle.col_length):
-            house = puzzle.house_col_cell_locs(col)
-            total = puzzle.total(col)
-            if total is None:
-                continue
-            valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
-            for candidate0 in puzzle.cell_candidates(house[0]):
-                for candidate1 in puzzle.cell_candidates(house[1]):
-                    for candidate2 in puzzle.cell_candidates(house[2]):
-                        for candidate3 in puzzle.cell_candidates(house[3]):
-                            for candidate4 in puzzle.cell_candidates(house[4]):
-                                candidates = [candidate0, candidate1, candidate2, candidate3, candidate4]
-                                self.mid(puzzle, valid_candidates_dict, candidates, house, total)
-            edits += self.end(puzzle, valid_candidates_dict, house)
-        return edits
-
-    # class TennerPowerSetTotals6:
-    def solve6(self, puzzle: Tenner) -> int:
-        edits = 0
-        TOTAL = 6
-        if puzzle.length != TOTAL:
-            return edits
-        for col in range(puzzle.col_length):
-            house = puzzle.house_col_cell_locs(col)
-            total = puzzle.total(col)
-            if total is None:
-                continue
-            valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
-            for candidate0 in puzzle.cell_candidates(house[0]):
-                for candidate1 in puzzle.cell_candidates(house[1]):
-                    for candidate2 in puzzle.cell_candidates(house[2]):
-                        for candidate3 in puzzle.cell_candidates(house[3]):
-                            for candidate4 in puzzle.cell_candidates(house[4]):
-                                for candidate5 in puzzle.cell_candidates(house[5]):
-                                    candidates = [candidate0, candidate1, candidate2, candidate3, candidate4,
-                                                  candidate5]
-                                    self.mid(puzzle, valid_candidates_dict, candidates, house, total)
-            edits += self.end(puzzle, valid_candidates_dict, house)
-
-        return edits
-
-    def mid(self, puzzle, valid_candidates_dict, candidates, house, total):
+    @staticmethod
+    def mid(puzzle, valid_candidates_dict, candidates, house, total):
         if sum(candidates) != total:
             return
         is_valid_column = [candidates[index] != candidates[index + 1] for index in
@@ -125,10 +35,41 @@ class TennerPowerSetTotals:
         for index in range(puzzle.length):
             valid_candidates_dict[house[index]].add(candidates[index])
 
-    def end(self, puzzle: Tenner, valid_candidates_dict, house) -> int:
+    @staticmethod
+    def end(puzzle: Tenner, valid_candidates_dict, house) -> int:
         edits = 0
         for index in range(puzzle.length):
             edits += puzzle.rem([house[index]],
                                 list(set(puzzle.expected_candidates()).difference(
                                     valid_candidates_dict[house[index]])))
         return edits
+
+    @staticmethod
+    def power_set_candidates(puzzle: Tenner, house: list[Loc]):
+        if len(house) == 3:
+            for candidate0 in puzzle.cell_candidates(house[0]):
+                for candidate1 in puzzle.cell_candidates(house[1]):
+                    for candidate2 in puzzle.cell_candidates(house[2]):
+                        yield [candidate0, candidate1, candidate2]
+        if len(house) == 4:
+            for candidate0 in puzzle.cell_candidates(house[0]):
+                for candidate1 in puzzle.cell_candidates(house[1]):
+                    for candidate2 in puzzle.cell_candidates(house[2]):
+                        for candidate3 in puzzle.cell_candidates(house[3]):
+                            yield [candidate0, candidate1, candidate2, candidate3]
+        if len(house) == 5:
+            for candidate0 in puzzle.cell_candidates(house[0]):
+                for candidate1 in puzzle.cell_candidates(house[1]):
+                    for candidate2 in puzzle.cell_candidates(house[2]):
+                        for candidate3 in puzzle.cell_candidates(house[3]):
+                            for candidate4 in puzzle.cell_candidates(house[4]):
+                                yield [candidate0, candidate1, candidate2, candidate3, candidate4]
+        if len(house) == 6:
+            for candidate0 in puzzle.cell_candidates(house[0]):
+                for candidate1 in puzzle.cell_candidates(house[1]):
+                    for candidate2 in puzzle.cell_candidates(house[2]):
+                        for candidate3 in puzzle.cell_candidates(house[3]):
+                            for candidate4 in puzzle.cell_candidates(house[4]):
+                                for candidate5 in puzzle.cell_candidates(house[5]):
+                                    yield [candidate0, candidate1, candidate2, candidate3, candidate4,
+                                           candidate5]

@@ -1,8 +1,10 @@
+from abc import abstractmethod
+from techniques0.Technique import Technique
 from Loc import Loc
 from _puzzles import Tenner
 
 
-class TennerCrossHatch:
+class TennerCrossHatch(Technique):
 
     def solve0(self, puzzle: Tenner) -> int:
         edits = 0
