@@ -1,6 +1,7 @@
 import os
-import numpy as np
-
+from typing import Iterable
+# import numpy as np
+# from py_linq import Enumarable
 from Constants import Constants
 
 sudoku_fences = [
@@ -155,8 +156,7 @@ def powerset(seq):
             yield [seq[0]] + item
             yield item
 
-
-if __name__ == "__main__":
+def powert_set_start():
     temp = [0, 1, 2, 6, 6, 7]
 
     array = [
@@ -169,9 +169,71 @@ if __name__ == "__main__":
     r.sort()
     print(r)
 
-    # temp0 = {1, 2, 3}
-    # temp1 = [6,7,8]
-    #
-    # print(temp0 + temp1)
 
-    # return
+
+# def where(function, iterable):
+#     return filter(function, iterable)
+
+# def is_even(x):
+#     return 
+
+
+
+class linq(list):
+    def __init__(self, __iterable: Iterable):
+        super().__init__(__iterable)
+        
+    def any(self, predicate)->bool:
+        return any(item for item in self if predicate(item))
+
+    def all(self, predicate)->bool:
+        return all(item for item in self if predicate(item))
+    def where(self, func):
+        return linq(item for item in self if func(item))        
+
+    def select(self, func):
+        return linq(func(item) for item in self)        
+
+    def __single(self):
+        if len(self) == 1:
+            return self[0]
+        if len(self) == 0:
+            raise Exception('empty sequence')
+        raise Exception('more than one element')
+
+    def __single_func(self, predicate):
+        return linq([item for item in self if predicate(item)]).__single()
+    def single(self, predicate=None):
+        return self.__single_func(predicate) if predicate is not None else self.__single()
+
+
+    def __single_or_none(self):
+        if len(self) != 1:
+            raise Exception('more than one element')
+        return self[0]
+
+    def __single_func_or_none(self, predicate):
+        return linq([item for item in self if predicate(item)]).__single_or_none()
+    def single_or_none(self, predicate=None):
+        return self.__single_func_or_none(predicate) if predicate is not None else self.__single_or_none()
+
+
+    def first 
+
+    # def to_set(self)->set:
+    #     return 
+
+    # def select(self, func=lambda x: x):
+    #     pass
+
+if __name__ == "__main__":
+    # from linq import linq
+    temp = linq([1,2,3,4,5])
+
+    print(temp.single(lambda x:x==2))
+
+
+
+    # temp.
+
+    # print(set(temp.where(lambda x :x % 2 == 0)))
