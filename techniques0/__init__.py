@@ -54,7 +54,9 @@ from techniques0.kropki.KropkiBb import KropkiBb
 from techniques0.kropki.KropkiBw import KropkiBw
 from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
 from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
+from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 __all__ = [
+        "BaseSudokuHouseTechnique",
         "Technique",    
         "CrossHatch",
         "KropkiBb",

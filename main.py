@@ -218,7 +218,7 @@ class linq(list):
         return self.__single_func_or_none(predicate) if predicate is not None else self.__single_or_none()
 
 
-    def first 
+    # def first
 
     # def to_set(self)->set:
     #     return 
