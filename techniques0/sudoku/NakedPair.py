@@ -1,9 +1,11 @@
+from turtle import pu
 from Loc import Loc
 from _puzzles import Sudoku
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 
 class NakedPair(BaseSudokuHouseTechnique):
-    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+    @staticmethod
+    def static_solve_house(puzzle: Sudoku, house: list[Loc]) -> int:
         edits = 0
         for i in range(0, puzzle.length - 1):
             for ii in range(i + 1, puzzle.length):
@@ -25,3 +27,6 @@ class NakedPair(BaseSudokuHouseTechnique):
                     if j not in index_set:
                         edits += puzzle.rem([house[j]], list(candidate_set))
         return edits
+
+    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+        return NakedPair.static_solve_house(puzzle, house)

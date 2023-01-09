@@ -18,6 +18,8 @@ class Puzzle:
         array.pop(0)
         array.pop(0)
 
+        self.__color_override = {}
+
         for line in array:
             self.grid.append(
                 line.replace("  ", " ", -1)
@@ -175,15 +177,18 @@ class Puzzle:
     def houses_cols(self) -> list[list[Loc]]:
         return [self.house_col(i) for i in range(self.length)]
 
+    def override_loc_color(self, locs: list[Loc], color):
+        for loc in locs:
+            self.__color_override[loc] = color
+
     def __str__(self):
         string = f'{self.id()}\n'
         string += f'{self.length}\n'
         for r in range(self.row_length):
             for c in range(self.col_length):
                 loc = Loc(r, c)
-
-                if loc == Loc(2, 1) or loc == Loc(4, 1) or loc == Loc(2, 3) or loc == Loc(4, 3) :
-                    string += f'{Fore.RED}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
+                if loc in self.__color_override:
+                    string += f'{self.__color_override[loc]}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
                     continue
                 if len(self.cell_candidates(loc)) == 0:
                     string += f'{Fore.GREEN}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '

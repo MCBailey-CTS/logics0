@@ -3,6 +3,8 @@ from abc import abstractmethod
 from Loc import Loc
 from _puzzles import Sudoku
 from techniques0 import *
+
+
 class BaseSudokuHouseTechnique(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
@@ -19,5 +21,5 @@ class BaseSudokuHouseTechnique(Technique):
         return edits
 
     @abstractmethod
-    def solve_house(self, puzzle: Sudoku, house: list[Loc])->int:
-        pass
+    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+        raise NotImplementedError()

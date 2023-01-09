@@ -2,13 +2,13 @@ from Loc import Loc
 from _puzzles import Sudoku
 from techniques0 import *
 
+
 class NakedTriple(BaseSudokuHouseTechnique):
 
-    def solve_house(self, puzzle: Sudoku, house: list[Loc])->int:
+    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
         edits = 0
 
         naked_count = 3
-
 
         for i in range(puzzle.length):
             for ii in range(puzzle.length):
@@ -44,4 +44,3 @@ class NakedTriple(BaseSudokuHouseTechnique):
                         if j not in indexes:
                             edits += puzzle.rem([house[j]], list(candidate_set))
         return edits
-

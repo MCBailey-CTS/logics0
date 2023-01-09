@@ -48,6 +48,7 @@ from techniques0.tenner.TennerTotalHiddenSingle import TennerTotalHiddenSingle
 from techniques0.sudoku.XWing import XWing
 from techniques0.sudoku.UniqueRectangleType1 import UniqueRectangleType1
 from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
+from techniques0.sudoku.UniqueRectangleType3 import UniqueRectangleType3
 from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
 from techniques0.sudoku.HiddenUniqueRectangle import HiddenUniqueRectangle
 from techniques0.kropki.KropkiBb import KropkiBb
@@ -56,6 +57,7 @@ from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
 from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 __all__ = [
+        "UniqueRectangleType3",
         "BaseSudokuHouseTechnique",
         "Technique",    
         "CrossHatch",

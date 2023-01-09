@@ -7,5 +7,5 @@ class TennerNakedPair:
         edits = 0
         for row in range(puzzle.length):
             house = puzzle.house_row_cell_locs(row)
-            edits += NakedPair.solve1(puzzle, house)
+            edits += NakedPair.static_solve_house(puzzle, house)
         return edits
