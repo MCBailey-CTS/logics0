@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import Sudoku
+from puzzles import Sudoku
 
 
 class AvoidableRectangleType1:

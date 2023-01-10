@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import Minesweeper
+from puzzles import Minesweeper
 
 
 class MinesweeperSolver:  # :

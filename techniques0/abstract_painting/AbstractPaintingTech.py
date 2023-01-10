@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import AbstractPainting
+from puzzles import AbstractPainting
 from typing import Optional
 
 

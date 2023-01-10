@@ -1,4 +1,4 @@
-from _puzzles import Tenner
+from puzzles import Tenner
 from techniques0 import HiddenSingle
 
 

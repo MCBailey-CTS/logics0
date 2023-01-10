@@ -1,5 +1,7 @@
-    class SimpleColoring:
+from puzzles import Sudoku
 
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-            return edits
+class SimpleColoring:
+
+    def solve0(self, puzzle: Sudoku) -> int:
+        edits = 0
+        return edits

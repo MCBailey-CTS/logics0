@@ -1,6 +1,6 @@
 from typing import Optional
 
-from _puzzles import Sumscrapers
+from puzzles import Sumscrapers
 
 
 class SumscrapersLastIsMax:

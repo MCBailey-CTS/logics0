@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import Parks1
+from puzzles import Parks1
 
 
 class Parks1Bent3:

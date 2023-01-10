@@ -1,5 +1,5 @@
 
-from _puzzles import Sudoku
+from puzzles import Sudoku
 
 
 class CrossHatch:

@@ -1,7 +1,7 @@
 from abc import abstractmethod
 
 from Loc import Loc
-from _puzzles import Sudoku
+from puzzles import Sudoku
 from techniques0 import *
 
 

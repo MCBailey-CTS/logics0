@@ -1,15 +1,11 @@
-import puzzles
 import pytest
 from techniques0 import *
-
 from Constants import Constants
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
-from _puzzles import Sudoku, Parks1, Tenner, Sumscrapers, AbstractPainting, \
-    PowerGrid
+
 from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty, NakedPair, LockedCandidatesPointing, \
     LockedCandidatesClaiming
 from puzzles import RobotFences
-
 from techniques0.solver_groups import Solving
 from techniques0.sudoku.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques0.sudoku.CrossHatch import CrossHatch
@@ -17,9 +13,7 @@ from techniques0.sudoku.HiddenPair import HiddenPair
 from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
-from puzzles import Skyscrapers
-from puzzles import Kropki
-
+from puzzles import Skyscrapers, Kropki, Parks1, Tenner, AbstractPainting, Sumscrapers, Sudoku, PowerGrid
 EXPLICITLY = "EXPLICITLY"
 
 

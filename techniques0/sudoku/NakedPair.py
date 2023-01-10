@@ -1,6 +1,5 @@
-from turtle import pu
 from Loc import Loc
-from _puzzles import Sudoku
+from puzzles import Sudoku
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 
 class NakedPair(BaseSudokuHouseTechnique):

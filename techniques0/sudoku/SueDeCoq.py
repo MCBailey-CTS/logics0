@@ -1,5 +1,8 @@
-    class SueDeCoq:
+from puzzles import Sudoku
 
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-            return edit
+
+class SueDeCoq:
+
+    def solve0(self, puzzle: Sudoku) -> int:
+        edits = 0
+        return edits

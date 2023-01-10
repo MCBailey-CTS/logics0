@@ -1,4 +1,4 @@
-from _puzzles import Sumscrapers
+from puzzles import Sumscrapers
 
 
 class HiddenSingleSumscrapers:

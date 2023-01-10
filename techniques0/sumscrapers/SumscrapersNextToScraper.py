@@ -1,7 +1,7 @@
 from typing import Optional
 
 from Loc import Loc
-from _puzzles import Sumscrapers
+from puzzles import Sumscrapers
 
 
 class SumscrapersNextToScraper:

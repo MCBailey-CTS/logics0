@@ -1,6 +1,7 @@
 from Loc import Loc
-from _puzzles import LightenUp
-class LightenUpTech(BasePuzzleTechnique):
+from puzzles import LightenUp
+
+class LightenUpTech:
     def solve0(self, puzzle: LightenUp) -> int:
         edits = 0
         for r in range(puzzle.length):

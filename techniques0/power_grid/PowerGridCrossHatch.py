@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import PowerGrid
+from puzzles import PowerGrid
 
 
 class PowerGridCrossHatch:

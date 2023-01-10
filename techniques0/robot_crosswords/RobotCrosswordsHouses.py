@@ -1,5 +1,5 @@
 from Loc import Loc
-from _puzzles import RobotCrosswords
+from puzzles import RobotCrosswords
 
 
 class RobotCrosswordsHouses:

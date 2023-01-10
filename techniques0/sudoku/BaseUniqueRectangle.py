@@ -1,7 +1,7 @@
-
 from abc import abstractmethod
 from puzzles import Sudoku
 from Loc import Loc
+
 
 class BaseUniqueRectangle:
 
@@ -46,6 +46,5 @@ class BaseUniqueRectangle:
                 if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
                     continue
 
-                edits += self.solve_rectangle(puzzle,list(corners))
+                edits += self.solve_rectangle(puzzle, list(corners))
         return edits
-

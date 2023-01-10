@@ -1,7 +1,7 @@
 from puzzles import Puzzle
 
-
 EXPLICITLY = "explicitly"
+
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
     actual_puzzle = constructor(actual)
@@ -18,6 +18,7 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     print(actual_puzzle)
     print(expected_puzzle)
     return False
+
 
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     puzzle: Puzzle = constructor(puzzle_string)

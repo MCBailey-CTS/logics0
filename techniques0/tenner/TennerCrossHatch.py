@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from techniques0.Technique import Technique
 from Loc import Loc
-from _puzzles import Tenner
+from puzzles import Tenner
 
 
 class TennerCrossHatch(Technique):
