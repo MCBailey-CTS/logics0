@@ -13,7 +13,9 @@ from techniques0.sudoku.HiddenPair import HiddenPair
 from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
+from techniques0.sudoku.XyzWing import XyzWing
 from puzzles import Skyscrapers, Kropki, Parks1, Tenner, AbstractPainting, Sumscrapers, Sudoku, PowerGrid
+
 EXPLICITLY = "EXPLICITLY"
 
 
@@ -344,7 +346,10 @@ EXPLICITLY = "EXPLICITLY"
     # ("sudoku_unique_rectangle_type4_south_cols", Sudoku, Solving.sudoku_techniques()),
 
     # ("sudoku_unique_rectangle_type2_07", Sudoku, Solving.sudoku_techniques()),
-
+    ('sudoku_x_wing_0', Sudoku, Solving.sudoku_techniques()),
+    # ('sudoku_x_wing_1', Sudoku, Solving.sudoku_techniques()),
+    ('sudoku_x_wing_2', Sudoku, Solving.sudoku_techniques()),
+    ('sudoku_x_wing_3', Sudoku, Solving.sudoku_techniques()),
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     if "\n" in puzzle_string:
@@ -741,6 +746,22 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      XyWing(),
      Constants.sudoku_explicit_xy_wing_south_east_actual(),
      Constants.sudoku_explicit_xy_wing_south_east_expected()),
+    (Sudoku,
+     XyzWing(),
+     Constants.sudoku_explicit_xyz_wing_rows_actual(),
+     Constants.sudoku_explicit_xyz_wing_rows_expected()),
+    (Sudoku,
+     XyzWing(),
+     Constants.sudoku_explicit_xyz_wing_cols_actual(),
+     Constants.sudoku_explicit_xyz_wing_cols_expected()),
+    (Sudoku,
+     XWing(),
+     Constants.sudoku_explicit_x_wing_col_actual(),
+     Constants.sudoku_explicit_x_wing_col_expected()),
+    (Sudoku,
+     UniqueRectangleType2(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual(),
+     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected()),
 
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):

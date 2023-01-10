@@ -14664,13 +14664,13 @@ ___4_____g _____6___g 1________g 123456789h 123456789h ________9h ______7__i 123
         return f"""
         x_wing_1.sudoku
         9
-        8a 7a 9a 0b 5b 0b 4c 0c 0c
-        2a 5a 0a 7b 0b 4b 0c 9c 8c
-        0a 1a 4a 9b 8b 2b 7c 5c 0c
+        _______8_a 7a 9a 0b 5b 0b 4c 0c 0c
+        2a 5a 0a 7b 0b 4b 0c 9c _______8_c
+        0a 1a 4a 9b _______8_b 2b 7c 5c 0c
         9d 4d 7d 5e 0e 0e 0f 0f 0f
-        1d 8d 5d 6e 2e 7e 3f 4f 9f
-        0d 0d 2d 4e 9e 8e 5f 1f 7f
-        4g 2g 1g 8h 7h 0h 0i 0i 5i
+        1d _______8_d 5d 6e 2e 7e 3f 4f 9f
+        0d 0d 2d 4e 9e _______8_e 5f 1f 7f
+        4g 2g 1g _______8_h 7h 0h 0i 0i 5i
         7g 9g 0g 2h 0h 5h 0i 0i 4i
         5g 0g 0g 0h 4h 0h 0i 7i 0i
         """

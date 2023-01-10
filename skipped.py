@@ -766,10 +766,7 @@
 # (Constants.sudoku_xy_chain_2(), Sudoku, Solving.sudoku_techniques()),
 
 # (Constants.sudoku_x_chain_0(), Sudoku, Solving.sudoku_techniques()),
-# (Constants.sudoku_x_wing_0(), Sudoku, Solving.sudoku_techniques()),
-# (Constants.sudoku_x_wing_1(), Sudoku, Solving.sudoku_techniques()),
-# (Constants.sudoku_x_wing_2(), Sudoku, Solving.sudoku_techniques()),
-# (Constants.sudoku_x_wing_3(), Sudoku, Solving.sudoku_techniques()),
+
 # (Constants.sudoku_finned_x_wing_05(), Sudoku, Solving.sudoku_techniques()),
 # (Constants.sudoku_finned_x_wing_06(), Sudoku, Solving.sudoku_techniques()),
 # (Constants.sudoku_finned_x_wing_07(), Sudoku, Solving.sudoku_techniques()),
@@ -837,14 +834,7 @@
 
 
 
-# (Sudoku,
-#  Techs.XyzWing(),
-#  Constants.sudoku_explicit_xyz_wing_rows_actual(),
-#  Constants.sudoku_explicit_xyz_wing_rows_expected()),
-# (Sudoku,
-#  Techs.XyzWing(),
-#  Constants.sudoku_explicit_xyz_wing_cols_actual(),
-#  Constants.sudoku_explicit_xyz_wing_cols_expected()),
+
 
 # (Sudoku,
 #  Techs.FinnedXWing(),
@@ -854,20 +844,14 @@
 #  Techs.FinnedXWing(),
 #  Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual(),
 #  Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
-# (Sudoku,
-#  Techs.UniqueRectangleType2(),
-#  Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual(),
-#  Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected()),
+
 
 
 # (Sudoku,
 #  Techs.FinnedXWing(),
 #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
 #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
-# (Sudoku,
-#  Techs.XWing(),
-#  Constants.sudoku_explicit_x_wing_col_actual(),
-#  Constants.sudoku_explicit_x_wing_col_expected()),
+
 
 # (Magnets,
 #  MagnetsZero(),

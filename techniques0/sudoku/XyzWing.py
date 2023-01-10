@@ -37,7 +37,7 @@ class XyzWing:
                     if not pivot_candidates.issuperset(loc_in_row_candidates):
                         continue
 
-                    if loc_in_row_candidates.issuperset(loc_in_fence_candidates):
+                    if set(loc_in_row_candidates).issuperset(loc_in_fence_candidates):
                         continue
 
                     if not pivot_candidates.issuperset(list(loc_in_row_candidates) + list(loc_in_fence_candidates)):
@@ -67,7 +67,7 @@ class XyzWing:
                     if not pivot_candidates.issuperset(loc_in_col_candidates):
                         continue
 
-                    if loc_in_col_candidates.issuperset(loc_in_fence_candidates):
+                    if set(loc_in_col_candidates).issuperset(loc_in_fence_candidates):
                         continue
 
                     if not pivot_candidates.issuperset(list(loc_in_col_candidates) + list(loc_in_fence_candidates)):
