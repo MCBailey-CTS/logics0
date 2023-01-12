@@ -394,10 +394,10 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
     #  FinnedXWing(),
     #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_actual(),
     #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_expected()),
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
+    (Sudoku,
+     FinnedXWing(),
+     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual(),
+     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
     #
     #
     (Sudoku,
@@ -775,10 +775,10 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      FinnedXWing(),
      Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual(),
      Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
+    (Sudoku,
+     FinnedXWing(),
+     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
+     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
 
 
 ])

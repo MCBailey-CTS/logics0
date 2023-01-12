@@ -43,72 +43,71 @@ class FinnedXWing(Technique):
                         continue
 
                     all_locs = house0 + house1
-
-
                     row_dict = {}
                     col_dict = {}
                     fence_dict = {}
-
-
-
                     rows = set()
                     cols = set()
                     fences = set()
-
                     row_chute = set()
                     col_chute = set()
-
-
                     for loc in all_locs:
                         rows.add(loc.row)
                         cols.add(loc.col)
                         fences.add(puzzle.cell_fence(loc))
                         row_chute.add(puzzle.row_chute(loc))
                         col_chute.add(puzzle.col_chute(loc))
-
-
                         fence = puzzle.cell_fence(loc)
                         if fence not in fence_dict:
                             fence_dict[fence] = []
                         fence_dict[fence].append(loc)
-
                         if loc.row not in row_dict:
                             row_dict[loc.row] = []
                         row_dict[loc.row].append(loc)
-
                         if loc.col not in col_dict:
                             col_dict[loc.col] = []
                         col_dict[loc.col].append(loc)
 
+
+
                     if len(rows) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(cols) < 5:
                         # rows
                         temp_fences = set(fences)
-
                         for fence in fences:
                             if len(fence_dict[fence]) == 1:
                                 temp_fences.remove(fence)
-
                         if len(temp_fences) != 1:
                             continue
-
                         single_fence = temp_fences.pop()
-
                         fin_locs = fence_dict[single_fence]
-
                         fence_locs = puzzle.house_fence(single_fence)
-
                         row_chute0 = puzzle.row_chute(fin_locs[0])
-
                         expected_col_chute = puzzle.col_chute(fin_locs[0])
-
                         # need to find the cell that is not in the {row_chute0} but is in the {expected_col_chute} in {all_locs}
-
                         temporary = [loc for loc in all_locs if expected_col_chute == puzzle.col_chute(loc) and row_chute0 != puzzle.row_chute(loc)]
-
                         if len(temporary) == 1:
                             col_locs = puzzle.house_col(temporary[0].col)
-
                             edits += puzzle.rem(list(set(fence_locs).intersection(col_locs).difference(all_locs)) , [candidate])
+
+
+                    if len(cols) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(rows) < 5:
+                        # cols
+                        temp_fences = set(fences)
+                        for fence in fences:
+                            if len(fence_dict[fence]) == 1:
+                                temp_fences.remove(fence)
+                        if len(temp_fences) != 1:
+                            continue
+                        single_fence = temp_fences.pop()
+                        fin_locs = fence_dict[single_fence]
+                        fence_locs = puzzle.house_fence(single_fence)
+                        col_chute0 = puzzle.col_chute(fin_locs[0])
+                        expected_row_chute = puzzle.row_chute(fin_locs[0])
+                        # need to find the cell that is not in the {col_chute0} but is in the {expected_row_chute} in {all_locs}
+                        temporary = [loc for loc in all_locs if expected_row_chute == puzzle.col_chute(loc) and col_chute0 != puzzle.col_chute(loc)]
+                        if len(temporary) == 1:
+                            row_locs = puzzle.house_row(temporary[0].row)
+                            edits += puzzle.rem(list(set(fence_locs).intersection(row_locs).difference(all_locs)) , [candidate])
 
         return edits
 
