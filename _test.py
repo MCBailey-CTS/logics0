@@ -151,7 +151,8 @@ EXPLICITLY = "EXPLICITLY"
     ('abstractpainting_005', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_006', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_007', AbstractPainting, Solving.abstractpainting_techniques()),
-    # ('abstractpainting_008', AbstractPainting, Solving.abstractpainting_techniques()),
+    
+    ('abstractpainting_008', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_009', AbstractPainting, Solving.abstractpainting_techniques()),
     # ('abstractpainting_010', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_011', AbstractPainting, Solving.abstractpainting_techniques()),
