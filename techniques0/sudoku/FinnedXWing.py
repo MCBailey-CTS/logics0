@@ -3,15 +3,6 @@ from puzzles import Sudoku
 from techniques0.Technique import Technique
 from colorama import Fore
 
-
-# class Color:
-#     @classmethod
-#     def
-
-
-
-
-
 class FinnedXWing(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

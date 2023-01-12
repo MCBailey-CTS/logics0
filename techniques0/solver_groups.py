@@ -6,7 +6,6 @@ from techniques0 import CrossHatch, HiddenSingle, NakedPair, LockedCandidatesPoi
     CrossHatchSumscrapers, HiddenSingleSumscrapers, SumscrapersNextToScraper, SumscrapersLastIsMax, SkyscrapersN, \
     Skyscrapers1, SkyscrapersRange, MinesweeperSolver, RobotCrosswordsHouses, PowerGridTech, PowerGridCrossHatch, \
     PowerGridHiddenPower, AbstractPaintingTech
-# from techniques0.parks1.Parks1DominateFence import Parks1DominateFenceAgain
 from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
 from techniques0.sudoku.Bug import Bug
 from techniques0.sudoku.HiddenPair import HiddenPair
@@ -19,7 +18,7 @@ from techniques0.parks1.Parks1XWing import Parks1XWing
 from techniques0.sudoku.SwordFish import SwordFish
 from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.parks1.Parks1LockedCandidatesClaiming import Parks1LockedCandidatesClaiming
-
+from techniques0.sudoku.FinnedXWing import FinnedXWing
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
@@ -37,6 +36,7 @@ class Solving:
             UniqueRectangleType1(),
             UniqueRectangleType2(),
             UniqueRectangleType4(),
+            # FinnedXWing(),
             Bug(),
             HiddenPair(),
             NakedTriple(),
