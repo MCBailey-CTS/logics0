@@ -18152,15 +18152,15 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         007.abstractpainting
         4
-        0 0 0 0 2
-        0 0 0 0 3
-        0 0 0 0 2
-        0 0 0 0 4
-        3 ? 3 2
-        a a e e
-        a a d e
-        b b d d
-        c c d d
+        10a 10a 10e 10e 2
+        10a 10a 10d 10e 3
+        10b 10b 10d 10d 2
+        10c 10c 10d 10d 4
+        3 ? 3 2             $$
+           
+           
+           
+           
         """
 
     @staticmethod
@@ -18193,15 +18193,11 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         008.abstractpainting
         4
-        0 0 0 0 4
-        0 0 0 0 4
-        0 0 0 0 1
-        0 0 0 0 ?
-        3 3 2 3
-        a a a e
-        a a a e
-        b b b e
-        c c d d
+        10a 10a 10a 10e 4
+        10a 10a 10a 10e 4
+        10b 10b 10b 10e 1
+        10c 10c 10d 10d ?
+        3 3 2 3          $
         """
 
     @staticmethod
@@ -18234,10 +18230,10 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         009.abstractpainting
         4
-        a e e e 1
-        a d d d 4
-        a a c c 4
-        b b c c ?
+        10a 10e 10e 10e 1
+        10a 10d 10d 10d 4
+        10a 10a 10c 10c 4
+        10b 10b 10c 10c ?
         3 2 3 3
         """
 
@@ -18271,15 +18267,11 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         010.abstractpainting
         4
-        0 0 0 0 2
-        0 0 0 0 3
-        0 0 0 0 2
-        0 0 0 0 2
-        ? 2 3 3
-        a a c c
-        b a a e
-        b b e e
-        d d e e
+        10a 10a 10c 10c 2
+        10b 10a 10a 10e 3
+        10b 10b 10e 10e 2
+        10d 10d 10e 10e 2
+        ? 2 3 3 $
         """
 
     @staticmethod
@@ -18312,11 +18304,11 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         011.abstractpainting
         5
-        a a g g g 5
-        b b g h h 1
-        b b b e e 2
-        c d e e f 4
-        c d e e f 4
+        10a 10a 10g 10g 10g 5
+        10b 10b 10g 10h 10h 1
+        10b 10b 10b 10e 10e 2
+        10c 10d 10e 10e 10f 4
+        10c 10d 10e 10e 10f 4
         1 3 4 4 ? $
         """
 
@@ -18350,17 +18342,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         012.abstractpainting
         5
-        0 0 0 0 0 5
-        0 0 0 0 0 5
-        0 0 0 0 0 1
-        0 0 0 0 0 2
-        0 0 0 0 0 2
-        4 4 2 2 ?
-        a a a g g
-        a a a g g
-        b b e e g
-        c c d e f
-        c c d e f
+        10a 10a 10a 10g 10g 5
+        10a 10a 10a 10g 10g 5
+        10b 10b 10e 10e 10g 1
+        10c 10c 10d 10e 10f 2
+        10c 10c 10d 10e 10f 2
+        4 4 2 2  ? $
         """
 
     @staticmethod
@@ -18393,17 +18380,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         013.abstractpainting
         5
-        0 0 0 0 0 4
-        0 0 0 0 0 4
-        0 0 0 0 0 5
-        0 0 0 0 0 1
-        0 0 0 0 0 ?
-        3 3 3 3 3
-        a c c c d
-        a a a c d
-        a a f f f
-        b b e e f
-        b b b e f
+        10a 10c 10c 10c 10d 4
+        10a 10a 10a 10c 10d 4
+        10a 10a 10f 10f 10f 5
+        10b 10b 10e 10e 10f 1
+        10b 10b 10b 10e 10f ?
+        3 3 3 3 3          $
         """
 
     @staticmethod
@@ -18436,17 +18418,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         014.abstractpainting
         5
-        0 0 0 0 0 5
-        0 0 0 0 0 5
-        0 0 0 0 0 3
-        0 0 0 0 0 2
-        0 0 0 0 0 2
-        5 4 ? 3 3
-        a a a g g
-        b a a g g
-        b e e f f
-        b b c d d
-        b b c c c
+        10a 10a 10a 10g 10g 5
+        10b 10a 10a 10g 10g 5
+        10b 10e 10e 10f 10f 3
+        10b 10b 10c 10d 10d 2
+        10b 10b 10c 10c 10c 2
+        5 4 ? 3 3 $
         """
 
     @staticmethod
@@ -18479,17 +18456,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         015.abstractpainting
         5
-        0 0 0 0 0 2
-        0 0 0 0 0 3
-        0 0 0 0 0 1
-        0 0 0 0 0 4
-        0 0 0 0 0 3
-        1 ? 3 2 2
-        a e e g g
-        a e e e f
-        a e f f f
-        a b b d d
-        b b c c d
+        10a 10e 10e 10g 10g 2
+        10a 10e 10e 10e 10f 3
+        10a 10e 10f 10f 10f 1
+        10a 10b 10b 10d 10d 4
+        10b 10b 10c 10c 10d 3
+        1 ? 3 2 2 $
         """
 
     @staticmethod
@@ -18523,17 +18495,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         016.abstractpainting
         5
-        0 0 0 0 0 2
-        0 0 0 0 0 ?
-        0 0 0 0 0 2
-        0 0 0 0 0 3
-        0 0 0 0 0 5
-        5 5 1 1 2
-        a a e e f
-        a a e e f
-        a b c c f
-        b b c c d
-        b b d d d
+        10a 10a 10e 10e 10f 2
+        10a 10a 10e 10e 10f ?
+        10a 10b 10c 10c 10f 2
+        10b 10b 10c 10c 10d 3
+        10b 10b 10d 10d 10d 5
+        5 5 1 1 2 $
         """
 
     @staticmethod
@@ -18554,17 +18521,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         017.abstractpainting
         5
-        0 0 0 0 0 2
-        0 0 0 0 0 ?
-        0 0 0 0 0 5
-        0 0 0 0 0 3
-        0 0 0 0 0 3
-        5 5 2 1 3
-        a a e e e
-        a a a e e
-        a b d d d
-        b b c c d
-        b b c c d
+        10a 10a 10e 10e 10e 2
+        10a 10a 10a 10e 10e ?
+        10a 10b 10d 10d 10d 5
+        10b 10b 10c 10c 10d 3
+        10b 10b 10c 10c 10d 3
+        5 5 2 1 3    $
         """
 
     @staticmethod
@@ -18585,17 +18547,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         018.abstractpainting
         5
-        0 0 0 0 0 4
-        0 0 0 0 0 4
-        0 0 0 0 0 2
-        0 0 0 0 0 ?
-        0 0 0 0 0 3
-        2 2 2 5 5
-        a a e f f
-        a a e f f
-        b b b f f
-        b b d d d
-        c c d d d
+        10a 10a 10e 10f 10f 4
+        10a 10a 10e 10f 10f 4
+        10b 10b 10b 10f 10f 2
+        10b 10b 10d 10d 10d ?
+        10c 10c 10d 10d 10d 3
+        2 2 2 5 5 $
         """
 
     @staticmethod
@@ -18603,17 +18560,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         019.abstractpainting
         5
-        0 0 0 0 0 5
-        0 0 0 0 0 2
-        0 0 0 0 0 ?
-        0 0 0 0 0 4
-        0 0 0 0 0 3
-        1 2 3 5 5
-        a a a a a
-        b b b f f
-        c c b f f
-        d e e f g
-        d d e g g
+        10a 10a 10a 10a 10a 5
+        10b 10b 10b 10f 10f 2
+        10c 10c 10b 10f 10f ?
+        10d 10e 10e 10f 10g 4
+        10d 10d 10e 10g 10g 3
+        1 2 3 5 5 $
         """
 
     @staticmethod
@@ -18621,17 +18573,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         025.abstractpainting
         5
-        0 0 0 0 0 2
-        0 0 0 0 0 ?
-        0 0 0 0 0 5
-        0 0 0 0 0 3
-        0 0 0 0 0 1
-        5 4 ? 2 1
-        a a f f f
-        b a d f f
-        b a d d d
-        b b c d e
-        b c c e e
+        10a 10a 10f 10f 10f 2
+        10b 10a 10d 10f 10f ?
+        10b 10a 10d 10d 10d 5
+        10b 10b 10c 10d 10e 3
+        10b 10c 10c 10e 10e 1
+        5 4 ? 2 1 $
         """
 
     @staticmethod
@@ -18639,17 +18586,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         027.abstractpainting
         5
-        0 0 0 0 0 3
-        0 0 0 0 0 4
-        0 0 0 0 0 4
-        0 0 0 0 0 ?
-        0 0 0 0 0 ?
-        3 2 2 5 3
-        a a d d d
-        a b d d d
-        b b c e e
-        b c c e f
-        b c c e f
+        10a 10a 10d 10d 10d 3
+        10a 10b 10d 10d 10d 4
+        10b 10b 10c 10e 10e 4
+        10b 10c 10c 10e 10f ?
+        10b 10c 10c 10e 10f ?
+        3 2 2 5 3 $
         """
 
     @staticmethod
@@ -18657,17 +18599,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         028.abstractpainting
         5
-        0 0 0 0 0 4
-        0 0 0 0 0 ?
-        0 0 0 0 0 3
-        0 0 0 0 0 4
-        0 0 0 0 0 4
-        2 3 4 5 ?
-        a a a e f
-        a b b e f
-        b b c e e
-        b c c e e
-        b c d d d
+        10a 10a 10a 10e 10f 4
+        10a 10b 10b 10e 10f ?
+        10b 10b 10c 10e 10e 3
+        10b 10c 10c 10e 10e 4
+        10b 10c 10d 10d 10d 4
+        2 3 4 5 ? $
         """
 
     @staticmethod
@@ -18675,17 +18612,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         029.abstractpainting
         5
-        0 0 0 0 0 4
-        0 0 0 0 0 2
-        0 0 0 0 0 1
-        0 0 0 0 0 ?
-        0 0 0 0 0 5
-        ? 3 3 3 1
-        a a a a c
-        b b a a c
-        d f f f g
-        d d f f g
-        d e e e e
+        10a 10a 10a 10a 10c 4
+        10b 10b 10a 10a 10c 2
+        10d 10f 10f 10f 10g 1
+        10d 10d 10f 10f 10g ?
+        10d 10e 10e 10e 10e 5
+        ? 3 3 3 1 $
         """
 
     @staticmethod
@@ -18693,17 +18625,12 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         030.abstractpainting
         5
-        0 0 0 0 0 ?
-        0 0 0 0 0 5
-        0 0 0 0 0 2
-        0 0 0 0 0 1
-        0 0 0 0 0 1
-        3 2 ? 2 5
-        a a a f f
-        a a f f f
-        a c d d e
-        b c d d e
-        b b b d e
+        10a 10a 10a 10f 10f ?
+        10a 10a 10f 10f 10f 5
+        10a 10c 10d 10d 10e 2
+        10b 10c 10d 10d 10e 1
+        10b 10b 10b 10d 10e 1
+        3 2 ? 2 5 $
         """
 
     @staticmethod
@@ -18711,19 +18638,13 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         031.abstractpainting
         6
-        0 0 0 0 0 0 4
-        0 0 0 0 0 0 3
-        0 0 0 0 0 0 ?
-        0 0 0 0 0 0 ?
-        0 0 0 0 0 0 4
-        0 0 0 0 0 0 ?
-        3 5 3 4 3 1
-        a a b d d d
-        b b b e e k
-        c b i j j k
-        c b i j j k
-        f f f f h h
-        f f g g h h
+        10a 10a 10b 10d 10d 10d 4
+        10b 10b 10b 10e 10e 10k 3
+        10c 10b 10i 10j 10j 10k ?
+        10c 10b 10i 10j 10j 10k ?
+        10f 10f 10f 10f 10h 10h 4
+        10f 10f 10g 10g 10h 10h ?
+        3 5 3 4 3 1     $
         """
 
     @staticmethod
@@ -18815,19 +18736,13 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         035.abstractpainting
         6
-        0 0 0 0 0 0 4
-        0 0 0 0 0 0 2
-        0 0 0 0 0 0 4
-        0 0 0 0 0 0 5
-        0 0 0 0 0 0 3
-        0 0 0 0 0 0 3
-        4 4 ? ? 4 ?
-        a a b b c c
-        a a b b h h
-        a d d h h i
-        a d d h i i
-        e e f g i i
-        e f f g g g
+        10a 10a 10b 10b 10c 10c 4
+        10a 10a 10b 10b 10h 10h 2
+        10a 10d 10d 10h 10h 10i 4
+        10a 10d 10d 10h 10i 10i 5
+        10e 10e 10f 10g 10i 10i 3
+        10e 10f 10f 10g 10g 10g 3
+        4 4 ? ? 4 ?     $
         """
 
     @staticmethod
@@ -18863,19 +18778,13 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         036.abstractpainting
         6
-        0 0 0 0 0 0 ?
-        0 0 0 0 0 0 5
-        0 0 0 0 0 0 1
-        0 0 0 0 0 0 ?
-        0 0 0 0 0 0 3
-        0 0 0 0 0 0 6
-        1 5 3 4 3 ?
-        a a b b c c
-        a b b b c c
-        d e f g g g
-        d e f f g h
-        d e f h g h
-        e e e h h h
+        10a 10a 10b 10b 10c 10c ?
+        10a 10b 10b 10b 10c 10c 5
+        10d 10e 10f 10g 10g 10g 1
+        10d 10e 10f 10f 10g 10h ?
+        10d 10e 10f 10h 10g 10h 3
+        10e 10e 10e 10h 10h 10h 6
+        1 5 3 4 3 ?     $
         """
 
     @staticmethod
@@ -18911,21 +18820,14 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         051.abstractpainting
         7
-        0 0 0 0 0 0 0 6
-        0 0 0 0 0 0 0 4
-        0 0 0 0 0 0 0 3
-        0 0 0 0 0 0 0 5
-        0 0 0 0 0 0 0 2
-        0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 3
-        ? 3 ? 3 ? 4 ?
-        a a a a f g g
-        a a f f f g g
-        b d d e f g h
-        b b d e h h h
-        b e e e i j j
-        b c c i i j j
-        c c i i i j j
+        10a 10a 10a 10a 10f 10g 10g 6
+        10a 10a 10f 10f 10f 10g 10g 4
+        10b 10d 10d 10e 10f 10g 10h 3
+        10b 10b 10d 10e 10h 10h 10h 5
+        10b 10e 10e 10e 10i 10j 10j 2
+        10b 10c 10c 10i 10i 10j 10j ?
+        10c 10c 10i 10i 10i 10j 10j 3
+        ? 3 ? 3 ? 4 ?      $
         """
 
     @staticmethod
@@ -18966,23 +18868,15 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         101.abstractpainting
         8
-        0 0 0 0 0 0 0 0 4
-        0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 1
-        0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 5
-        0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 7
-        0 0 0 0 0 0 0 0 ?
-        4 ? ? 4 ? 3 2 ?
-        a b h h h h l l
-        a b h h h l l l
-        b b g g i l m n
-        b b b i i l m n
-        c c c i j j k k
-        d c i i j k k k
-        d c f f f k j j
-        d e e e j j j j
+        10a 10b 10h 10h 10h 10h 10l 10l 4
+        10a 10b 10h 10h 10h 10l 10l 10l ?
+        10b 10b 10g 10g 10i 10l 10m 10n 1
+        10b 10b 10b 10i 10i 10l 10m 10n ?
+        10c 10c 10c 10i 10j 10j 10k 10k 5
+        10d 10c 10i 10i 10j 10k 10k 10k ?
+        10d 10c 10f 10f 10f 10k 10j 10j 7
+        10d 10e 10e 10e 10j 10j 10j 10j ?
+        4 ? ? 4 ? 3 2 ?       $
         """
 
     @staticmethod
@@ -19023,25 +18917,16 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         151.abstractpainting
         9
-        0 0 0 0 0 0 0 0 0 5
-        0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 4
-        0 0 0 0 0 0 0 0 0 6
-        0 0 0 0 0 0 0 0 0 3
-        0 0 0 0 0 0 0 0 0 4
-        0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 ?
-        ? 7 5 4 ? 7 ? ? ?
-        a l l n o o p p t
-        a a m n p p p p t
-        a a m m q q r r t
-        b b f f q q r r s
-        b c c f f f i r s
-        b c c e e h i k k
-        b c e e g h i j j
-        b c d d g h i i j
-        d d d d h h i j j
+        10a 10l 10l 10n 10o 10o 10p 10p 10t 5
+        10a 10a 10m 10n 10p 10p 10p 10p 10t ?
+        10a 10a 10m 10m 10q 10q 10r 10r 10t ?
+        10b 10b 10f 10f 10q 10q 10r 10r 10s 4
+        10b 10c 10c 10f 10f 10f 10i 10r 10s 6
+        10b 10c 10c 10e 10e 10h 10i 10k 10k 3
+        10b 10c 10e 10e 10g 10h 10i 10j 10j 4
+        10b 10c 10d 10d 10g 10h 10i 10i 10j ?
+        10d 10d 10d 10d 10h 10h 10i 10j 10j ?
+        ? 7 5 4 ? 7 ? ? ?       $
         """
 
     @staticmethod
@@ -19086,27 +18971,17 @@ _______8_g ______7__g 123456789g 1________h _____6___h ____5____h 123456789i __3
         return f"""
         191.abstractpainting
         10
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 6
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 9
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 ?
-        0 0 0 0 0 0 0 0 0 0 4
-        0 0 0 0 0 0 0 0 0 0 ?
-        6 4 ? 5 ? 5 ? ? 4 ?
-        a i i i i p s s s s
-        a i i j j p r r r r
-        b b k k m p p p r r
-        b b k l m m p p q q
-        c b l l m m m m q q
-        c b l l n n n o o q
-        d e l l n n o o o o
-        d e e e f g g g h h
-        d d e f f f g g h h
-        d d e f f f g g h h
+        10a 10i 10i 10i 10i 10p 10s 10s 10s 10s ?
+        10a 10i 10i 10j 10j 10p 10r 10r 10r 10r 6
+        10b 10b 10k 10k 10m 10p 10p 10p 10r 10r ?
+        10b 10b 10k 10l 10m 10m 10p 10p 10q 10q ?
+        10c 10b 10l 10l 10m 10m 10m 10m 10q 10q 9
+        10c 10b 10l 10l 10n 10n 10n 10o 10o 10q ?
+        10d 10e 10l 10l 10n 10n 10o 10o 10o 10o ?
+        10d 10e 10e 10e 10f 10g 10g 10g 10h 10h ?
+        10d 10d 10e 10f 10f 10f 10g 10g 10h 10h 4
+        10d 10d 10e 10f 10f 10f 10g 10g 10h 10h ?
+        6 4 ? 5 ? 5 ? ? 4 ?         $
         """
 
     @staticmethod
