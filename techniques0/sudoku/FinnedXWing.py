@@ -1,112 +1,114 @@
+from Loc import Loc
 from puzzles import Sudoku
+from techniques0.Technique import Technique
+from colorama import Fore
 
 
-class FinnedXWing:
+# class Color:
+#     @classmethod
+#     def
+
+
+
+
+
+class FinnedXWing(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
+        # 'a': Fore.RED,
+        # 'b': Fore.CYAN,
+        # 'c': Fore.GREEN,
+        # 'd': Fore.LIGHTBLUE_EX,
+        # 'e': Fore.LIGHTMAGENTA_EX,
+        # 'f': Fore.LIGHTGREEN_EX,
+        # 'g': Fore.LIGHTWHITE_EX,
+        # 'h': Fore.LIGHTYELLOW_EX,
+        # 'i': Fore.LIGHTRED_EX,
+        # 'j': Fore.YELLOW,
+        # 'k': Fore.RED
+        # puzzle.override_loc_color([Loc(6, 2), Loc(6, 6), Loc(2, 2), Loc(2, 6)], Fore.YELLOW)
+        # puzzle.override_loc_color([Loc(2, 0), Loc(2, 1)], Fore.LIGHTBLUE_EX)
+        # puzzle.override_loc_color([Loc(0, 2), Loc(1, 2)], Fore.LIGHTRED_EX)
+        # puzzle.override_loc_color([Loc(2, 3), Loc(2, 4), Loc(2, 5), Loc(2, 7), Loc(2, 8)], Fore.GREEN)
+        # puzzle.override_loc_color([Loc(6, 0), Loc(6, 1),Loc(6, 3), Loc(6, 4), Loc(6, 5), Loc(6, 7), Loc(6, 8)], Fore.GREEN)
 
-        for index0 in range(puzzle.length):
-            for index1 in range(puzzle.length):
-
-                col_house0 = puzzle.house_col(index0)
-                col_house1 = puzzle.house_col(index1)
-
-                row_house0 = puzzle.house_row(index0)
-                row_house1 = puzzle.house_row(index1)
-
-                for candidate in puzzle.expected_candidates():
-
-                    row_house0_with_candidate = [loc for loc in row_house0 if
-                                                 candidate in puzzle.cell_candidates(loc)]
-                    row_house1_with_candidate = [loc for loc in row_house1 if
-                                                 candidate in puzzle.cell_candidates(loc)]
-
-                    row_locs_set = set(row_house0_with_candidate + row_house1_with_candidate)
-
-                    fence_dict = puzzle.fence_dict(row_locs_set)
-
-                    if len(fence_dict) != 4:
+        for candidate in puzzle.expected_candidates():
+            for i in range(puzzle.length - 1):
+                house0 = puzzle.house_row(i, candidate)
+                if 1 < len(house0) > 4:
+                    continue
+                for ii in range(i + 1, puzzle.length):
+                    house1 = puzzle.house_row(ii, candidate)
+                    if 1 < len(house1) > 4:
                         continue
 
-                    fence_with_multiples = [fence for fence in fence_dict if len(fence_dict[fence]) > 1]
+                    all_locs = house0 + house1
 
-                    if len(fence_with_multiples) != 1:
-                        continue
 
-                    fence_with_fin = fence_with_multiples[0]
+                    row_dict = {}
+                    col_dict = {}
+                    fence_dict = {}
 
-                    for loc in fence_dict[fence_with_fin]:
-                        row_locs_set.remove(loc)
 
-                    # need to find the two cells that are in the same col right now
-                    loc0, loc1, loc2 = row_locs_set
 
-                    col_set = None
+                    rows = set()
+                    cols = set()
+                    fences = set()
 
-                    if loc0.col == loc1.col:
-                        col_set = set(puzzle.house_col(loc2.col)).difference([loc2])
-                    elif loc0.col == loc2.col:
-                        col_set = set(puzzle.house_col(loc1.col)).difference([loc1])
-                    elif loc1.col == loc2.col:
-                        col_set = set(puzzle.house_col(loc0.col)).difference([loc0])
+                    row_chute = set()
+                    col_chute = set()
 
-                    fence_set = set(puzzle.house_fence(fence_with_fin)).difference(fence_dict[fence_with_fin])
 
-                    if col_set is None or fence_set is None:
-                        continue
+                    for loc in all_locs:
+                        rows.add(loc.row)
+                        cols.add(loc.col)
+                        fences.add(puzzle.cell_fence(loc))
+                        row_chute.add(puzzle.row_chute(loc))
+                        col_chute.add(puzzle.col_chute(loc))
 
-                    intersection = col_set.intersection(fence_set)
 
-                    for loc in intersection:
-                        edits += puzzle.rem(loc, [candidate])
+                        fence = puzzle.cell_fence(loc)
+                        if fence not in fence_dict:
+                            fence_dict[fence] = []
+                        fence_dict[fence].append(loc)
 
-                for candidate in puzzle.expected_candidates():
+                        if loc.row not in row_dict:
+                            row_dict[loc.row] = []
+                        row_dict[loc.row].append(loc)
 
-                    col_house0_with_candidate = [loc for loc in col_house0 if
-                                                 candidate in puzzle.cell_candidates(loc)]
-                    col_house1_with_candidate = [loc for loc in col_house1 if
-                                                 candidate in puzzle.cell_candidates(loc)]
+                        if loc.col not in col_dict:
+                            col_dict[loc.col] = []
+                        col_dict[loc.col].append(loc)
 
-                    col_locs_set = set(col_house0_with_candidate + col_house1_with_candidate)
+                    if len(rows) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(cols) < 5:
+                        # rows
+                        temp_fences = set(fences)
 
-                    fence_dict = puzzle.fence_dict(col_locs_set)
+                        for fence in fences:
+                            if len(fence_dict[fence]) == 1:
+                                temp_fences.remove(fence)
 
-                    if len(fence_dict) != 4:
-                        continue
+                        if len(temp_fences) != 1:
+                            continue
 
-                    fence_with_multiples = [fence for fence in fence_dict if len(fence_dict[fence]) > 1]
+                        single_fence = temp_fences.pop()
 
-                    if len(fence_with_multiples) != 1:
-                        continue
+                        fin_locs = fence_dict[single_fence]
 
-                    fence_with_fin = fence_with_multiples[0]
+                        fence_locs = puzzle.house_fence(single_fence)
 
-                    for loc in fence_dict[fence_with_fin]:
-                        col_locs_set.remove(loc)
+                        row_chute0 = puzzle.row_chute(fin_locs[0])
 
-                    # need to find the two cells that are in the same row right now
-                    loc0, loc1, loc2 = col_locs_set
+                        expected_col_chute = puzzle.col_chute(fin_locs[0])
 
-                    row_set = None
+                        # need to find the cell that is not in the {row_chute0} but is in the {expected_col_chute} in {all_locs}
 
-                    if loc0.row == loc1.row:
-                        row_set = set(puzzle.house_row(loc2.row)).difference([loc2])
-                    elif loc0.row == loc2.row:
-                        row_set = set(puzzle.house_row(loc1.row)).difference([loc1])
-                    elif loc1.row == loc2.row:
-                        row_set = set(puzzle.house_row(loc0.row)).difference([loc0])
+                        temporary = [loc for loc in all_locs if expected_col_chute == puzzle.col_chute(loc) and row_chute0 != puzzle.row_chute(loc)]
 
-                    fence_set = set(puzzle.house_fence(fence_with_fin)).difference(fence_dict[fence_with_fin])
+                        if len(temporary) == 1:
+                            col_locs = puzzle.house_col(temporary[0].col)
 
-                    if row_set is None or fence_set is None:
-                        continue
-
-                    intersection = row_set.intersection(fence_set)
-
-                    # if intersection is not None:
-
-                    for loc in intersection:
-                        edits += puzzle.rem(loc, [candidate])
+                            edits += puzzle.rem(list(set(fence_locs).intersection(col_locs).difference(all_locs)) , [candidate])
 
         return edits
 

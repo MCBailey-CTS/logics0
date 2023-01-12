@@ -14,6 +14,7 @@ from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
 from techniques0.sudoku.XyzWing import XyzWing
+from techniques0.sudoku.FinnedXWing import FinnedXWing
 from puzzles import Skyscrapers, Kropki, Parks1, Tenner, AbstractPainting, Sumscrapers, Sudoku, PowerGrid
 
 EXPLICITLY = "EXPLICITLY"
@@ -399,10 +400,10 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
     #  Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
     #
     #
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
+    (Sudoku,
+     FinnedXWing(),
+     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
+     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
     (Sudoku,
      XWing(),
      Constants.sudoku_explicit_x_wing_col_actual(),
@@ -762,6 +763,23 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      UniqueRectangleType2(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected()),
+    # (Sudoku,
+    #  FinnedXWing(),
+    #  Constants.sudoku_explicit_finned_x_wing_1_fin_cols_actual(),
+    #  Constants.sudoku_explicit_finned_x_wing_1_fin_cols_expected()),
+    # (Sudoku,
+    #  FinnedXWing(),
+    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_actual(),
+    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_expected()),
+    (Sudoku,
+     FinnedXWing(),
+     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual(),
+     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected()),
+    # (Sudoku,
+    #  FinnedXWing(),
+    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
+    #  Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
+
 
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
