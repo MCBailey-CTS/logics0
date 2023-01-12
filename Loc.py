@@ -70,19 +70,19 @@ class Loc:
 
     # throw Error(`Cannot find intersection between ${loc0} and ${loc1}`);
 
-    def north(self, offset: int = 1):
+    def north(self, offset: int = 1)->'Loc':
         return Loc(self._row - offset, self._col)
 
-    def south(self, offset: int = 1):
+    def south(self, offset: int = 1)->'Loc':
         return Loc(self._row + offset, self._col)
 
-    def west(self, offset: int = 1):
+    def west(self, offset: int = 1)->'Loc':
         return Loc(self._row, self._col - offset)
 
-    def east(self, offset: int = 1):
+    def east(self, offset: int = 1)->'Loc':
         return Loc(self._row, self._col + offset)
 
-    def add(self, x_row: int, y_col: int):
+    def add(self, x_row: int, y_col: int)->'Loc':
         return Loc(self._row + x_row, self._col + y_col)
 
     def add(self, vector):
