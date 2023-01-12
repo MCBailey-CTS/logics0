@@ -47,8 +47,9 @@ class AbstractPaintingTech:
             edits += puzzle.rem(unsolved, [1])
 
         # hidden paint
-        if len(unsolved) == scraper  and len(solved_abstract) == 0:
+        if len(unsolved) == scraper and len(solved_abstract) == 0:
             edits += puzzle.rem(unsolved, [0])
+            
 
         # check fence length
         fence_dict = {}
