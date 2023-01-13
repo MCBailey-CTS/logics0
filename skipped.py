@@ -168,6 +168,7 @@
 # (Constants.botanical_park_010(), Walls, Solving.walls_techniques()),
 # (Constants.botanical_park_011(), Walls, Solving.walls_techniques()),
 # (Constants.botanical_park_011(), Walls, Solving.walls_techniques()),
+    # ('sudoku_x_wing_0', Sudoku, Solving.sudoku_techniques()),
 
 # (Constants.sudoku_shashimi_x_wing_04(), Sudoku, Solving.sudoku_techniques()),
 # (Constants.sudoku_shashimi_x_wing_05(), Sudoku, Solving.sudoku_techniques()),
