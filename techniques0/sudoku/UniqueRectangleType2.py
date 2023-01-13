@@ -5,8 +5,8 @@ from puzzles import Sudoku
 class UniqueRectangleType2:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
-        for corner0 in puzzle.unsolved_cells():
-            for corner1 in puzzle.unsolved_cells():
+        for corner0 in list(puzzle.unsolved_cells()):
+            for corner1 in list(puzzle.unsolved_cells()):
                 corners = [
                     corner0,
                     corner1,

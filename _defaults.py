@@ -36,5 +36,6 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
         if edit_dict[tech] == 0:
             continue
         print(f'{tech}: {edit_dict[tech]}')
+    print(f'Total edits: {edits}')
     print(puzzle)
     return False
