@@ -19,6 +19,7 @@ from techniques0.sudoku.SwordFish import SwordFish
 from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.parks1.Parks1LockedCandidatesClaiming import Parks1LockedCandidatesClaiming
 from techniques0.sudoku.FinnedXWing import FinnedXWing
+from techniques0.lighten_up.LightenUpTech import LightenUpTech
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
@@ -186,7 +187,9 @@ class Solving:
     @staticmethod
     def lightenup_techniques() -> list:
         return [
-            # Techs.LightenUpTech()
+            # Lighten
+            # Techs.
+            LightenUpTech()
         ]
 
 # 2865

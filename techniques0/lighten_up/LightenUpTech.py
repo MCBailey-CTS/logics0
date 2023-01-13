@@ -1,50 +1,43 @@
 from Loc import Loc
 from puzzles import LightenUp
 
+
 class LightenUpTech:
     def solve0(self, puzzle: LightenUp) -> int:
         edits = 0
         for r in range(puzzle.length):
             for c in range(puzzle.length):
                 loc = Loc(r, c)
-                # print(puzzle.grid[r][c])
 
-                if puzzle.grid[r][c].isnumeric():
-                    # print(puzzle.grid[r][c])
+                if puzzle.grid[r][c] == '+-':
+                    locs_to_remove = puzzle.extending_cell_locs(loc)
 
-                    number = int(puzzle.grid[r][c])
+                    if all(puzzle.grid[loc0.row][loc0.col] == '_-' for loc0 in locs_to_remove):
+                        edits += puzzle.rem([loc], ['-'])
 
+                if puzzle.grid[r][c] == '+_':
+                    locs_to_remove = puzzle.extending_cell_locs(loc)
 
+                    edits += puzzle.rem(locs_to_remove, ['+'])
 
-                    # print(number)
-                    directions = [
-                        loc.north(),
-                        loc.east(),
-                        loc.south(),
-                        loc.west()
-                    ]
+                if puzzle.grid[r][c] == '+_':
+                    for loc0 in puzzle.surrounding_light(loc):
+                        if puzzle.is_candidate_cell(loc0):
+                            edits += puzzle.rem([loc0], ['+'])
 
-                    # valid_locs = [loc for loc in directions if loc.is_valid_parks(puzzle.grid)]
-                    #
-                    # if number == 0:
-                    #
-                    # if len(valid_locs) == int(puzzle.grid[r][c]):
+                light_number = puzzle.light_number(loc)
 
-                    if number == 4:
-                        print("here")
-                        edits += puzzle.rem(directions, ["-"])
+                if light_number is None:
+                    continue
 
+                if light_number == 0:
+                    edits += puzzle.rem(
+                        list(filter(lambda loc1: puzzle.is_candidate_cell(loc1), puzzle.surrounding_light(loc))), ['+'])
 
+                if light_number == 4:
+                    edits += puzzle.rem(
+                        list(filter(lambda loc1: puzzle.is_candidate_cell(loc1), puzzle.surrounding_light(loc))), ['-'])
 
-                    # surrounding = Techs.MinesweeperSolver.surrounding(puzzle, loc)
-
-                    # surrounding_numbers = []
-
-
-
-
-
-
+                # print(f'"{puzzle.grid[r][c]}"')
 
         return edits
-

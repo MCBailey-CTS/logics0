@@ -3,6 +3,7 @@ from puzzles import Sudoku
 from techniques0.Technique import Technique
 from colorama import Fore
 
+
 class FinnedXWing(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
@@ -59,9 +60,8 @@ class FinnedXWing(Technique):
                             col_dict[loc.col] = []
                         col_dict[loc.col].append(loc)
 
-
-
-                    if len(rows) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(cols) < 5:
+                    if len(rows) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(
+                            cols) < 5:
                         # rows
                         temp_fences = set(fences)
                         for fence in fences:
@@ -75,13 +75,16 @@ class FinnedXWing(Technique):
                         row_chute0 = puzzle.row_chute(fin_locs[0])
                         expected_col_chute = puzzle.col_chute(fin_locs[0])
                         # need to find the cell that is not in the {row_chute0} but is in the {expected_col_chute} in {all_locs}
-                        temporary = [loc for loc in all_locs if expected_col_chute == puzzle.col_chute(loc) and row_chute0 != puzzle.row_chute(loc)]
+                        temporary = [loc for loc in all_locs if
+                                     expected_col_chute == puzzle.col_chute(loc) and row_chute0 != puzzle.row_chute(
+                                         loc)]
                         if len(temporary) == 1:
                             col_locs = puzzle.house_col(temporary[0].col)
-                            edits += puzzle.rem(list(set(fence_locs).intersection(col_locs).difference(all_locs)) , [candidate])
+                            edits += puzzle.rem(list(set(fence_locs).intersection(col_locs).difference(all_locs)),
+                                                [candidate])
 
-
-                    if len(cols) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(rows) < 5:
+                    if len(cols) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(
+                            rows) < 5:
                         # cols
                         temp_fences = set(fences)
                         for fence in fences:
@@ -95,10 +98,12 @@ class FinnedXWing(Technique):
                         col_chute0 = puzzle.col_chute(fin_locs[0])
                         expected_row_chute = puzzle.row_chute(fin_locs[0])
                         # need to find the cell that is not in the {col_chute0} but is in the {expected_row_chute} in {all_locs}
-                        temporary = [loc for loc in all_locs if expected_row_chute == puzzle.col_chute(loc) and col_chute0 != puzzle.col_chute(loc)]
+                        temporary = [loc for loc in all_locs if
+                                     expected_row_chute == puzzle.col_chute(loc) and col_chute0 != puzzle.col_chute(
+                                         loc)]
                         if len(temporary) == 1:
                             row_locs = puzzle.house_row(temporary[0].row)
-                            edits += puzzle.rem(list(set(fence_locs).intersection(row_locs).difference(all_locs)) , [candidate])
+                            edits += puzzle.rem(list(set(fence_locs).intersection(row_locs).difference(all_locs)),
+                                                [candidate])
 
         return edits
-

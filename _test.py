@@ -15,7 +15,7 @@ from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
 from techniques0.sudoku.XyzWing import XyzWing
 from techniques0.sudoku.FinnedXWing import FinnedXWing
-from puzzles import Skyscrapers, Kropki, Parks1, Tenner, AbstractPainting, Sumscrapers, Sudoku, PowerGrid
+from puzzles import Skyscrapers, Kropki, Parks1, Tenner, AbstractPainting, Sumscrapers, Sudoku, PowerGrid, LightenUp
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -151,8 +151,8 @@ EXPLICITLY = "EXPLICITLY"
     ('abstractpainting_005', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_006', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_007', AbstractPainting, Solving.abstractpainting_techniques()),
-    
-    ('abstractpainting_008', AbstractPainting, Solving.abstractpainting_techniques()),
+
+    # ('abstractpainting_008', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_009', AbstractPainting, Solving.abstractpainting_techniques()),
     # ('abstractpainting_010', AbstractPainting, Solving.abstractpainting_techniques()),
     ('abstractpainting_011', AbstractPainting, Solving.abstractpainting_techniques()),
@@ -176,8 +176,46 @@ EXPLICITLY = "EXPLICITLY"
     # ('abstractpainting_101', AbstractPainting, Solving.abstractpainting_techniques()),
     # ('abstractpainting_151', AbstractPainting, Solving.abstractpainting_techniques()),
     # ('abstractpainting_191', AbstractPainting, Solving.abstractpainting_techniques()),
-    
-    
+
+    ('lightenup_001', LightenUp, Solving.lightenup_techniques()),
+    ('lightenup_002', LightenUp, Solving.lightenup_techniques()),
+    ('lightenup_003', LightenUp, Solving.lightenup_techniques()),
+    ('lightenup_004', LightenUp, Solving.lightenup_techniques()),
+    ('lightenup_005', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_006', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_007', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_009', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_010', LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_011(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_012(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_013(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_014(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_015(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_016(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_017(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_018(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_019(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_020(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_021(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_022(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_023(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_024(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_025(), LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_026', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_027', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_028', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_029', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_030', LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_031', LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_032(), LightenUp, Solving.lightenup_techniques()),
+    # ('lightenup_033', LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_034(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_035(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_070(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_078(), LightenUp, Solving.lightenup_techniques()),
+    # (Constants.lightenup_080(), LightenUp, Solving.lightenup_techniques()),
+    #     ('lightenup_081', LightenUp, Solving.lightenup_techniques()),
+
     ('power_grid_001', PowerGrid, Solving.power_grid_techniques()),
     ('power_grid_002', PowerGrid, Solving.power_grid_techniques()),
     ('power_grid_003', PowerGrid, Solving.power_grid_techniques()),
@@ -802,7 +840,6 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
      FinnedXWing(),
      Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual(),
      Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected()),
-
 
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):

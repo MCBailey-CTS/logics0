@@ -11,7 +11,9 @@ from .PowerGrid import PowerGrid
 from .RobotCrosswords import RobotCrosswords
 from .Tenner import Tenner
 from .AbstractPainting import AbstractPainting
+from .LightenUp import LightenUp
 __all__ = [
+    "LightenUp",
     "Puzzle",
     "Sumscrapers",
     "Skyscrapers",

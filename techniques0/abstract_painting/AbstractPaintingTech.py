@@ -4,6 +4,7 @@ from Loc import Loc
 from puzzles import AbstractPainting
 from typing import Optional
 
+
 class AbstractPaintingScraperAndHouse:
     @abstractmethod
     def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
@@ -30,6 +31,7 @@ class AbstractPaintingScraperAndHouse:
                 if 0 in candidates:
                     edits += puzzle.rem(puzzle.house_fence(fence), [1])
         return edits
+
 
 class AbstractPaintingTech(AbstractPaintingScraperAndHouse):
     def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
@@ -65,8 +67,3 @@ class AbstractPaintingTech(AbstractPaintingScraperAndHouse):
             if scraper is not None and len(fence_dict[fence]) > scraper:
                 edits += puzzle.rem(puzzle.house_fence(fence), [1])
         return edits
-
-
-
-
-
