@@ -12,8 +12,10 @@ from .RobotCrosswords import RobotCrosswords
 from .Tenner import Tenner
 from .AbstractPainting import AbstractPainting
 from .LightenUp import LightenUp
+from .Lighthouses import Lighthouses
 __all__ = [
     "LightenUp",
+    "Lighthouses",
     "Puzzle",
     "Sumscrapers",
     "Skyscrapers",

@@ -57,7 +57,9 @@ from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
 from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques0.sudoku.FinnedXWing import FinnedXWing
+from techniques0.lighthouses.LighthousesTech import LighthousesTech
 __all__ = [
+        "LighthousesTech",
         "FinnedXWing",
         "UniqueRectangleType3",
         "BaseSudokuHouseTechnique",

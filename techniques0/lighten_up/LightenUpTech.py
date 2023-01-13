@@ -1,8 +1,9 @@
 from Loc import Loc
 from puzzles import LightenUp
+from techniques0.Technique import Technique
 
 
-class LightenUpTech:
+class LightenUpTech(Technique):
     def solve0(self, puzzle: LightenUp) -> int:
         edits = 0
         for r in range(puzzle.length):
@@ -38,6 +39,25 @@ class LightenUpTech:
                     edits += puzzle.rem(
                         list(filter(lambda loc1: puzzle.is_candidate_cell(loc1), puzzle.surrounding_light(loc))), ['-'])
 
-                # print(f'"{puzzle.grid[r][c]}"')
+                solved_light = []
+                solved_empty = []
+                unsolved = []
+
+                for loc0 in puzzle.surrounding_light(loc):
+                    if puzzle.grid[loc0.row][loc0.col] == '+_':
+                        solved_light.append(loc0)
+                    if puzzle.grid[loc0.row][loc0.col] == '_-':
+                        solved_empty.append(loc0)
+                    if puzzle.grid[loc0.row][loc0.col] == '+-':
+                        unsolved.append(loc0)
+
+                if len(solved_light) == 0 and len(unsolved) == light_number:
+                    edits += puzzle.rem(unsolved, ['-'])
+
+                if len(solved_light) == light_number:
+                    edits += puzzle.rem(unsolved, ['+'])
+
+                if len(solved_light) == 2 and light_number == 3 and len(unsolved) == 1:
+                    edits += puzzle.rem(unsolved, ['-'])
 
         return edits
