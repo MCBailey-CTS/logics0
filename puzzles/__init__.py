@@ -13,7 +13,9 @@ from .Tenner import Tenner
 from .AbstractPainting import AbstractPainting
 from .LightenUp import LightenUp
 from .Lighthouses import Lighthouses
+from .Mathrax import Mathrax
 __all__ = [
+    "Mathrax",
     "LightenUp",
     "Lighthouses",
     "Puzzle",

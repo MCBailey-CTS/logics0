@@ -7,11 +7,17 @@ class Sudoku(Puzzle):
     def __init__(self, puzzle: str) -> None:
         super().__init__(puzzle)
 
+        self.__unsolved_locs: set[Loc] = set()
+
         for r in range(self.length):
             for c in range(self.length):
                 loc = Loc(r, c)
 
                 candidates = self.cell_candidates(loc)
+
+
+
+
 
                 if len(candidates) == 0 or len(candidates) == 1 and candidates[0] == 0:
                     new_string = ""
@@ -37,6 +43,9 @@ class Sudoku(Puzzle):
 
                     self.grid[r][c] = new_string
 
+                if len(self.cell_candidates(loc)) > 1:
+                    self.__unsolved_locs.add(loc)
+
     def rem(self, locs: list[Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
@@ -48,19 +57,22 @@ class Sudoku(Puzzle):
                     continue
                 if len(cell_candidates) == 1:
                     raise Exception(f'Cannot remove final candidate {candidate} from Loc {loc}')
+                if len(cell_candidates) == 2:
+                    self.__unsolved_locs.remove(loc)
                 self.grid[loc.row][loc.col] = self.grid[loc.row][loc.col].replace(str(candidate), "_")
                 edits += 1
         return edits
 
     def unsolved_cells(self) -> set[Loc]:
-        unsolved = set()
-        for r in range(self.length):
-            for c in range(self.length):
-                loc = Loc(r, c)
-                if len(self.cell_candidates(loc)) == 1:
-                    continue
-                unsolved.add(loc)
-        return unsolved
+        # unsolved = set()
+        # for r in range(self.length):
+        #     for c in range(self.length):
+        #         loc = Loc(r, c)
+        #         if len(self.cell_candidates(loc)) == 1:
+        #             continue
+        #         unsolved.add(loc)
+        # return unsolved
+        return self.__unsolved_locs
 
     def any_cell_is_solved(self, locs) -> bool:
         return [len(self.cell_candidates(loc)) == 1 for loc in locs] > 0

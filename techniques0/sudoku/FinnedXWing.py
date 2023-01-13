@@ -80,8 +80,21 @@ class FinnedXWing(Technique):
                                          loc)]
                         if len(temporary) == 1:
                             col_locs = puzzle.house_col(temporary[0].col)
+                            row0, row1 = rows
+                            puzzle.override_loc_color(puzzle.house_row(row0), Fore.RED)
+                            puzzle.override_loc_color(puzzle.house_row(row1), Fore.RED)
+
+                            # # print("rows")
+                            # print("before")
+                            # print(puzzle)
                             edits += puzzle.rem(list(set(fence_locs).intersection(col_locs).difference(all_locs)),
                                                 [candidate])
+                            # print("after")
+                            # print(puzzle)
+                            # # print(f'{edits} {candidate}')
+                            # print("////")
+
+
 
                     if len(cols) == 2 and len(fences) == 4 and len(row_chute) == 2 and len(col_chute) == 2 and 1 < len(
                             rows) < 5:
@@ -103,6 +116,8 @@ class FinnedXWing(Technique):
                                          loc)]
                         if len(temporary) == 1:
                             row_locs = puzzle.house_row(temporary[0].row)
+                            print("cols")
+
                             edits += puzzle.rem(list(set(fence_locs).intersection(row_locs).difference(all_locs)),
                                                 [candidate])
 
