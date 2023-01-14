@@ -17,7 +17,7 @@ from techniques0.skyscrapers.SkyscrapersN import SkyscrapersN
 from techniques0.sudoku.CrossHatch import CrossHatch
 from techniques0.sudoku.HiddenSingle import HiddenSingle
 from techniques0.parks1.Parks1DominateFence import Parks1DominateFence
-from techniques0.abstract_painting.AbstractPaintingTech import AbstractPaintingTech
+from techniques0.abstract_painting import AbstractPaintingScraperAndHouse, AbstractPaintingTech
 from techniques0.skyscrapers.SkyscrapersRange import SkyscrapersRange
 from techniques0.minesweeper.MinesweeperSolver import MinesweeperSolver
 from techniques0.sudoku.LockedCandidatesPointing import LockedCandidatesPointing
