@@ -12,14 +12,14 @@ from techniques0.parks1.Parks1Shape_00_01 import Parks1Shape_00_01
 from techniques0.parks1.Parks1Shapes import Parks1Shapes
 from techniques0.power_grid.PowerGridCrossHatch import PowerGridCrossHatch
 from techniques0.power_grid.PowerGridTech import PowerGridTech
-from techniques0.skyscrapers.Skyscrapers1 import Skyscrapers1
-from techniques0.skyscrapers.SkyscrapersN import SkyscrapersN
+# from techniques0.skyscrapers.Skyscrapers1 import Skyscrapers1
+# from techniques0.skyscrapers.SkyscrapersN import SkyscrapersN
 from techniques0.sudoku.CrossHatch import CrossHatch
 from techniques0.sudoku.HiddenSingle import HiddenSingle
 from techniques0.parks1.Parks1DominateFence import Parks1DominateFence
 from techniques0.abstract_painting import AbstractPaintingScraperAndHouse, AbstractPaintingTech
-from techniques0.skyscrapers.SkyscrapersRange import SkyscrapersRange
-from techniques0.minesweeper.MinesweeperSolver import MinesweeperSolver
+# from techniques0.skyscrapers.SkyscrapersRange import SkyscrapersRange
+# from techniques0.minesweeper.MinesweeperSolver import MinesweeperSolver
 from techniques0.sudoku.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques0.sudoku.NakedPair import NakedPair
 from techniques0.sudoku.XyWing import XyWing
@@ -30,8 +30,8 @@ from techniques0.sumscrapers.SumscrapersNextToScraper import SumscrapersNextToSc
 from techniques0.sumscrapers.SumscrapersSecondInLine import SumscrapersSecondInLine
 from techniques0.sumscrapers.SumscrapersTech import SumscrapersTech
 from techniques0.sudoku.LockedCandidatesClaiming import LockedCandidatesClaiming
-from techniques0.robot_fences.CrossHatchRobotFences import CrossHatchRobotFences
-from techniques0.robot_fences.HiddenSingleRobotFences import HiddenSingleRobotFences
+# from techniques0.robot_fences.CrossHatchRobotFences import CrossHatchRobotFences
+# from techniques0.robot_fences.HiddenSingleRobotFences import HiddenSingleRobotFences
 from techniques0.tenner.TennerCrossHatch import TennerCrossHatch
 from techniques0.sumscrapers.CrossHatchSumscrapers import CrossHatchSumscrapers
 from techniques0.sumscrapers.HiddenSingleSumscrapers import HiddenSingleSumscrapers
@@ -57,11 +57,11 @@ from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
 from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques0.sudoku.FinnedXWing import FinnedXWing
-from techniques0.lighthouses.LighthousesTech import LighthousesTech
+# from techniques0.lighthouses.LighthousesTech import LighthousesTech
 from techniques0.mathrax.MathraxMath import MathraxMath
 __all__ = [
         "MathraxMath",
-        "LighthousesTech",
+        # "LighthousesTech",
         "FinnedXWing",
         "UniqueRectangleType3",
         "BaseSudokuHouseTechnique",
@@ -76,18 +76,18 @@ __all__ = [
         "HiddenSingle",
         "Parks1Shape_00_01",
         "AbstractPaintingTech",
-        "SkyscrapersRange",
+        # "SkyscrapersRange",
         "MagnetsFullHouse",
         "MagnetsPair",
         "MagnetsZero",
         "Parks1DominateFence",
         "Parks1Shapes",
-        "MinesweeperSolver",
+        # "MinesweeperSolver",
         "NakedPair",
-        "SkyscrapersN",
+        # "SkyscrapersN",
         "SumscrapersSecondInLine",
         "SumscrapersTech",
-        "Skyscrapers1",
+        # "Skyscrapers1",
         "LockedCandidatesPointing",
         "LockedCandidatesClaiming",
         "Parks1CrossHatch",
@@ -98,8 +98,8 @@ __all__ = [
         "KropkiBlack",
         "KropkiWhite",
         'KropkiEmpty',
-        "CrossHatchRobotFences",
-        "HiddenSingleRobotFences",
+        # "CrossHatchRobotFences",
+        # "HiddenSingleRobotFences",
         "TennerCrossHatch",
         "TennerNakedPair",
         "TennerHiddenPair",
