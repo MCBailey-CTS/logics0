@@ -6,8 +6,8 @@ class NakedPair(BaseSudokuHouseTechnique):
     @staticmethod
     def static_solve_house(puzzle: Sudoku, house: list[Loc]) -> int:
         edits = 0
-        for i in range(0, puzzle.length - 1):
-            for ii in range(i + 1, puzzle.length):
+        for i in range(0, len(puzzle) - 1):
+            for ii in range(i + 1, len(puzzle)):
                 if i == ii:
                     continue
                 index_set = {i, ii}
@@ -22,7 +22,7 @@ class NakedPair(BaseSudokuHouseTechnique):
                     candidate_set.add(c)
                 if len(candidate_set) != 2:
                     continue
-                for j in range(puzzle.length):
+                for j in range(len(puzzle)):
                     if j not in index_set:
                         edits += puzzle.rem([house[j]], list(candidate_set))
         return edits

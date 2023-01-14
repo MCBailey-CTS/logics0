@@ -1,7 +1,8 @@
 from puzzles import Puzzle
 from typing import Union
-from Loc import  Loc
+from Loc import Loc
 from colorama import Fore, Style
+
 
 class Tenner(Puzzle):
 
@@ -16,35 +17,36 @@ class Tenner(Puzzle):
             array.append(temp)
         array.pop(0)
         array.pop(0)
-        for row in range(self.length + 1):
+        for row in range(len(self) + 1):
             temp = []
-            split = array[row].replace("-1", "0123456789", -1).replace("\r", " ", -1).replace("\t", " ",
-                                                                                              -1).replace(
-                "  ", " ", -1).strip().split(' ')
+            split = array[row].replace("-1", "0123456789", -1) \
+                .replace("\r", " ", -1) \
+                .replace("\t", " ", -1)\
+                .replace("  ", " ", -1)\
+                .strip().split(' ')
 
-            # print(split)
             for t in split:
                 if len(t) == 0:
                     continue
-                if row != self.length and t == "00":
+                if row != len(self) and t == "00":
                     temp.append("0_________")
-                elif row != self.length and t == "01":
+                elif row != len(self) and t == "01":
                     temp.append("_1________")
-                elif row != self.length and t == "02":
+                elif row != len(self) and t == "02":
                     temp.append("__2_______")
-                elif row != self.length and t == "03":
+                elif row != len(self) and t == "03":
                     temp.append("___3______")
-                elif row != self.length and t == "04":
+                elif row != len(self) and t == "04":
                     temp.append("____4_____")
-                elif row != self.length and t == "05":
+                elif row != len(self) and t == "05":
                     temp.append("_____5____")
-                elif row != self.length and t == "06":
+                elif row != len(self) and t == "06":
                     temp.append("______6___")
-                elif row != self.length and t == "07":
+                elif row != len(self) and t == "07":
                     temp.append("_______7__")
-                elif row != self.length and t == "08":
+                elif row != len(self) and t == "08":
                     temp.append("________8_")
-                elif row != self.length and t == "09":
+                elif row != len(self) and t == "09":
                     temp.append("_________9")
                 else:
                     temp.append(t)
@@ -75,7 +77,7 @@ class Tenner(Puzzle):
             for loc in self.house_col_cell_locs(col)
             if self.is_cell_solved(loc)
         ]
-        if len(solved_candidates) != self.length:
+        if len(solved_candidates) != len(self):
             return False
         total = self.total(col)
         if total is None:
@@ -83,7 +85,7 @@ class Tenner(Puzzle):
         return sum(solved_candidates) == total
 
     def is_solved(self) -> bool:
-        for row in range(self.length):
+        for row in range(len(self)):
             if not self.is_row_house_solved(row):
                 print(f'print bad row: {row}')
 
@@ -94,7 +96,7 @@ class Tenner(Puzzle):
                 print(f'print bad col: {col}')
                 return False
 
-        for r in range(self.length):
+        for r in range(len(self)):
             for c in range(self.col_length):
                 cell = Loc(r, c)
                 if not self.is_cell_solved(cell):
@@ -114,7 +116,7 @@ class Tenner(Puzzle):
                 for direction in directions:
                     if direction.row < 0 or direction.col < 0:
                         continue
-                    if direction.row >= self.length or direction.col >= 10:
+                    if direction.row >= len(self) or direction.col >= 10:
                         continue
 
                     if not self.is_cell_solved(direction):
@@ -133,8 +135,8 @@ class Tenner(Puzzle):
 
     def __str__(self):
         string = f'{Fore.RED}{self.id()}{Style.RESET_ALL}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length + 1):
+        string += f'{len(self)}\n'
+        for r in range(len(self) + 1):
             for c in range(self.col_length):
 
                 cell_candidates = self.cell_candidates(Loc(r, c))
@@ -154,10 +156,10 @@ class Tenner(Puzzle):
     def house_col_cell_locs(self, loc_col: Union[int, Loc]) -> list[Loc]:
         if isinstance(loc_col, Loc):
             return self.house_col_cell_locs(loc_col.col)
-        return [Loc(row, loc_col) for row in range(self.length)]
+        return [Loc(row, loc_col) for row in range(len(self))]
 
     def total(self, col: int) -> Union[int, None]:
-        string = self.grid[self.length][col]
+        string = self.grid[len(self)][col]
         if string.isnumeric():
             return int(string)
         return None

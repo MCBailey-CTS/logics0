@@ -5,7 +5,7 @@ class CrossHatchSumscrapers:
     def solve0(self, puzzle: Sumscrapers) -> int:
         edits = 0
         houses = []
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             houses.append(puzzle.house_row(index))
             houses.append(puzzle.house_col(index))
         for house in houses:

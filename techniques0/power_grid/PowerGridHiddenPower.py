@@ -6,7 +6,7 @@ class PowerGridHiddenPower:
     def solve0(self, puzzle: PowerGrid) -> int:
         edits = 0
 
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             row_house = puzzle.house_row(index)
             row_scraper = puzzle.east_scraper(index)
             # if row_scraper is None:

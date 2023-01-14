@@ -1,4 +1,3 @@
-ass SkyscrapersCrossHatch:
-            def solve0(self):
-                            pass
-
+class SkyscrapersCrossHatch:
+    def solve0(self):
+        pass

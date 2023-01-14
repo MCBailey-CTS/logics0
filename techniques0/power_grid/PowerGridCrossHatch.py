@@ -7,8 +7,8 @@ class PowerGridCrossHatch:
         edits = 0
         POWER = 1
         EMPTY = 0
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 candidates = puzzle.cell_candidates(loc)
                 if len(candidates) > 1:
@@ -26,7 +26,7 @@ class PowerGridCrossHatch:
                     ]
 
                     for direction in directions:
-                        if direction.is_valid_sudoku(puzzle.length):
+                        if direction.is_valid_sudoku(len(puzzle)):
                             edits += puzzle.rem([direction], [POWER])
 
         return edits

@@ -9,8 +9,8 @@ class Sudoku(Puzzle):
 
         self.__unsolved_locs: set[Loc] = set()
 
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
 
                 candidates = self.cell_candidates(loc)
@@ -79,8 +79,8 @@ class Sudoku(Puzzle):
 
     def list_all_cell_locs(self) -> list[Loc]:
         locs = []
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 locs.append(Loc(r, c))
         return locs
 
@@ -89,7 +89,7 @@ class Sudoku(Puzzle):
             solved_candidates = [list(self.cell_candidates(loc))[0] for loc in house if
                                  len(self.cell_candidates(loc)) == 1]
 
-            if len(solved_candidates) != self.length:
+            if len(solved_candidates) != len(self):
                 print("house wasn't completely solved")
                 return False
 
@@ -105,7 +105,7 @@ class Sudoku(Puzzle):
         return True
 
     def row_chute(self, loc: Loc) -> int:
-        if self.length != 9:
+        if len(self) != 9:
             raise Exception("Can only ask for row chute of 9x9 sudoku")
         if loc.row < 0:
             raise Exception(f'Invalid loc to ask row chute for {loc}')
@@ -118,7 +118,7 @@ class Sudoku(Puzzle):
         raise Exception(f'Invalid loc to ask row chute for {loc}')
 
     def col_chute(self, loc: Loc) -> int:
-        if self.length != 9:
+        if len(self) != 9:
             raise Exception("Can only ask for col chute of 9x9 sudoku")
         if loc.col < 0:
             raise Exception(f'Invalid loc to ask col chute for {loc}')

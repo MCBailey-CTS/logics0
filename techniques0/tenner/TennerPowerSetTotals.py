@@ -18,7 +18,7 @@ class TennerPowerSetTotals(Technique):
         edits = 0
         if total is None:
             return edits
-        valid_candidates_dict = {house[i]: set() for i in range(puzzle.length)}
+        valid_candidates_dict = {house[i]: set() for i in range(len(puzzle))}
         for candidates in TennerPowerSetTotals.power_set_candidates(puzzle, house):
             self.mid(puzzle, valid_candidates_dict, candidates, house, total)
         edits += self.end(puzzle, valid_candidates_dict, house)
@@ -29,16 +29,16 @@ class TennerPowerSetTotals(Technique):
         if sum(candidates) != total:
             return
         is_valid_column = [candidates[index] != candidates[index + 1] for index in
-                           range(puzzle.length - 1)]
+                           range(len(puzzle) - 1)]
         if not all(is_valid_column):
             return
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             valid_candidates_dict[house[index]].add(candidates[index])
 
     @staticmethod
     def end(puzzle: Tenner, valid_candidates_dict, house) -> int:
         edits = 0
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             edits += puzzle.rem([house[index]],
                                 list(set(puzzle.expected_candidates()).difference(
                                     valid_candidates_dict[house[index]])))

@@ -12,15 +12,15 @@ class AbstractPaintingScraperAndHouse:
 
     def solve0(self, puzzle: AbstractPainting) -> int:
         edits = 0
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             row_house = puzzle.house_row(index)
             row_scraper = puzzle.east_scraper(index)
             edits += self.solve1(puzzle, row_scraper, row_house)
             col_house = puzzle.house_col(index)
             col_scraper = puzzle.south_scraper(index)
             edits += self.solve1(puzzle, col_scraper, col_house)
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 candidates = puzzle.cell_candidates(loc)
                 if len(candidates) != 1:

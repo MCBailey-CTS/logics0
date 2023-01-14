@@ -42,8 +42,8 @@ class Parks1(Puzzle):
             houses.append(house)
         fence_dict = {}
         # for house in puzzle.
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 fence = self.cell_fence(loc)
                 if fence not in fence_dict:
@@ -64,8 +64,8 @@ class Parks1(Puzzle):
             if len(unsolved) != 0:
                 return False
 
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 candidates0 = self.cell_candidates(loc)
                 if len(candidates0) != 1 or candidates0[0] != 1:
@@ -95,9 +95,9 @@ class Parks1(Puzzle):
     def __str__(self) -> str:
         string = f'{Fore.LIGHTCYAN_EX}########################\n'
         string += f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
+        string += f'{len(self)}\n'
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 grid_string = self.grid[r][c]
                 candidates = "".join([char for char in grid_string if not char.isalpha()])

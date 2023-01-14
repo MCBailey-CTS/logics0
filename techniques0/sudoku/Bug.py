@@ -31,7 +31,7 @@ class Bug:
 
             return edits
 
-        total = puzzle.length * puzzle.length
+        total = len(puzzle) * len(puzzle)
 
         if len(length_3) != 1 or total != len(length_3) + len(length_2) + len(length_1):
             return edits

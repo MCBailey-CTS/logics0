@@ -28,9 +28,9 @@ class Minesweeper(Puzzle):
 
     def __str__(self):
         string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
+        string += f'{len(self)}\n'
+        for r in range(len(self)):
+            for c in range(len(self)):
                 string += f'{self.grid[r][c]} '
             string += '\n'
         return string

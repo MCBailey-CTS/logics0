@@ -10,9 +10,9 @@ class NakedTriple(BaseSudokuHouseTechnique):
 
         naked_count = 3
 
-        for i in range(puzzle.length):
-            for ii in range(puzzle.length):
-                for iii in range(puzzle.length):
+        for i in range(len(puzzle)):
+            for ii in range(len(puzzle)):
+                for iii in range(len(puzzle)):
                     indexes = {i, ii, iii}
 
                     if len(indexes) != naked_count:
@@ -40,7 +40,7 @@ class NakedTriple(BaseSudokuHouseTechnique):
                     if len(candidate_set) != naked_count:
                         continue
 
-                    for j in range(puzzle.length):
+                    for j in range(len(puzzle)):
                         if j not in indexes:
                             edits += puzzle.rem([house[j]], list(candidate_set))
         return edits

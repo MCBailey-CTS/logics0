@@ -82,14 +82,14 @@ class WWing:
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
 
-        for r0 in range(puzzle.length):
-            for c0 in range(puzzle.length):
+        for r0 in range(len(puzzle)):
+            for c0 in range(len(puzzle)):
                 loc0 = Loc(r0, c0)
                 candidates0 = set(puzzle.cell_candidates(loc0))
                 if len(candidates0) != 2:
                     continue
-                for r1 in range(puzzle.length):
-                    for c1 in range(puzzle.length):
+                for r1 in range(len(puzzle)):
+                    for c1 in range(len(puzzle)):
                         loc1 = Loc(r1, c1)
                         if loc0 == loc1:
                             continue

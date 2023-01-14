@@ -4,7 +4,7 @@ from puzzles import Tenner
 class TennerHiddenPair:
     def solve0(self, puzzle: Tenner) -> int:
         edits = 0
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             house = puzzle.house_row_cell_locs(index)
             expected = puzzle.expected_candidates()
 

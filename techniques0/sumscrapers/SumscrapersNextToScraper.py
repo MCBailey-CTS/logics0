@@ -11,7 +11,7 @@ class SumscrapersNextToScraper:
 
         tuples: list[tuple[Optional[int], list[Loc]]] = []
 
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             house = puzzle.house_row(index)
             tuples.append((puzzle.west_scraper(index), house))
             house = list(house)
@@ -28,7 +28,7 @@ class SumscrapersNextToScraper:
             if scraper is None:
                 continue
 
-            if scraper > puzzle.length:
-                edits += puzzle.rem([house[0]], [puzzle.length])
+            if scraper > len(puzzle):
+                edits += puzzle.rem([house[0]], [len(puzzle)])
 
         return edits

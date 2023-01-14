@@ -8,15 +8,15 @@ class RobotCrosswordsHouses:
 
         houses = []
 
-        for row in range(puzzle.length):
+        for row in range(puzzle.__length):
             house = []
-            for col in range(puzzle.length):
+            for col in range(puzzle.__length):
                 house.append(Loc(row, col))
             houses.append(house)
 
-        for col in range(puzzle.length):
+        for col in range(puzzle.__length):
             house = []
-            for row in range(puzzle.length):
+            for row in range(puzzle.__length):
                 house.append(Loc(row, col))
             houses.append(house)
 

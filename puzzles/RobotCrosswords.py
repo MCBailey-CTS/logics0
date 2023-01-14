@@ -38,9 +38,9 @@ class RobotCrosswords(Puzzle):
     def __str__(self) -> str:
         string = f'///////////////////////////////////\n'
         string += f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.length):
-            for c in range(self.length):
+        string += f'{self.__length}\n'
+        for r in range(self.__length):
+            for c in range(self.__length):
                 string += f'{self.grid[r][c]} '
             string += '\n'
         string += f'///////////////////////////////////'

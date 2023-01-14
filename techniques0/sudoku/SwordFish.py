@@ -7,9 +7,9 @@ class SwordFish:
         edits = 0
 
         for candidate in puzzle.expected_candidates():
-            for i in range(puzzle.length):
-                for ii in range(puzzle.length):
-                    for iii in range(puzzle.length):
+            for i in range(len(puzzle)):
+                for ii in range(len(puzzle)):
+                    for iii in range(len(puzzle)):
                         if len({i, ii, iii}) != 3:
                             continue
 
@@ -38,9 +38,9 @@ class SwordFish:
                                 edits += puzzle.rem(loc, [candidate])
 
         for candidate in puzzle.expected_candidates():
-            for i in range(puzzle.length):
-                for ii in range(puzzle.length):
-                    for iii in range(puzzle.length):
+            for i in range(len(puzzle)):
+                for ii in range(len(puzzle)):
+                    for iii in range(len(puzzle)):
                         if len({i, ii, iii}) != 3:
                             continue
 

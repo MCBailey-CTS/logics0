@@ -8,8 +8,8 @@ class Lighthouses(LightenUp):
 
     def is_solved(self) -> bool:
 
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 if self.grid[r][c] == '+-':
                     return False

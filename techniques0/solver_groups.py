@@ -26,6 +26,7 @@ MINUS = "-"
 EMPTY = "."
 
 
+
 class Solving:
     @staticmethod
     def sudoku_techniques() -> list:
@@ -121,7 +122,7 @@ class Solving:
 
     @staticmethod
     def mathrax_techniques() -> list:
-        return []
+        return [CrossHatch()]
 
     @staticmethod
     def sumscrapers_techniques() -> list:

@@ -1,5 +1,6 @@
-
 from puzzles import Sudoku
+
+
 class RobotFences(Sudoku):
     def __init__(self, puzzle: str) -> None:
         Sudoku.__init__(self, puzzle)
@@ -9,7 +10,7 @@ class RobotFences(Sudoku):
             solved_candidates = [list(self.cell_candidates(loc))[0] for loc in house if
                                  len(self.cell_candidates(loc)) == 1]
 
-            if len(solved_candidates) != self.length:
+            if len(solved_candidates) != len(self):
                 print("row or column wasn't completely solved")
                 return False
 
@@ -33,5 +34,3 @@ class RobotFences(Sudoku):
                     return False
 
         return True
-
-

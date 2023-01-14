@@ -8,7 +8,7 @@ class SkyscrapersRange:
         edits = 0
         tuples: list[tuple[Optional[int], list[Loc]]] = []
 
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             house = puzzle.house_row(index)
             tuples.append((puzzle.west_scraper(index), house))
             house = list(house)

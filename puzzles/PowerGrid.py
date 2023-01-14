@@ -6,7 +6,7 @@ from Loc import Loc
 class PowerGrid(Puzzle):
 
     def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle, 1, 1)
+        super().__init__(puzzle)
 
     def __is_solved0(self, house: list[Loc], power: Optional[int]) -> bool:
         POWER = 1
@@ -57,7 +57,7 @@ class PowerGrid(Puzzle):
         return True
 
     def is_solved(self) -> bool:
-        for index in range(self.length):
+        for index in range(len(self)):
             if not self.__is_solved0(self.house_row(index), self.east_scraper(index)):
                 return False
             if not self.__is_solved0(self.house_col(index), self.south_scraper(index)):
@@ -65,13 +65,13 @@ class PowerGrid(Puzzle):
         return True
 
     def east_scraper(self, row: int) -> Optional[int]:
-        string = self.grid[row][self.length]
+        string = self.grid[row][len(self)]
         if string.isnumeric():
             return int(string)
         return None
 
     def south_scraper(self, col: int) -> Optional[int]:
-        string = self.grid[self.length][col]
+        string = self.grid[len(self)][col]
         if string.isnumeric():
             return int(string)
         return None

@@ -7,7 +7,7 @@ class Skyscrapers1:
         def solve0(self, puzzle: Skyscrapers) -> int:
             edits = 0
 
-            for index in range(puzzle.length):
+            for index in range(len(puzzle)):
                 north = puzzle.north_scraper(index)
                 south = puzzle.south_scraper(index)
                 east = puzzle.east_scraper(index)
@@ -18,7 +18,7 @@ class Skyscrapers1:
                         [max(puzzle.expected_candidates())]))
 
                 if south == 1:
-                    edits += puzzle.rem([Loc(puzzle.length - 1, index)], set(puzzle.expected_candidates()).difference(
+                    edits += puzzle.rem([Loc(len(puzzle) - 1, index)], set(puzzle.expected_candidates()).difference(
                         [max(puzzle.expected_candidates())]))
 
                 if west == 1:
@@ -26,7 +26,7 @@ class Skyscrapers1:
                         [max(puzzle.expected_candidates())]))
 
                 if east == 1:
-                    edits += puzzle.rem([Loc(index, puzzle.length - 1)], set(puzzle.expected_candidates()).difference(
+                    edits += puzzle.rem([Loc(index, len(puzzle) - 1)], set(puzzle.expected_candidates()).difference(
                         [max(puzzle.expected_candidates())]))
 
             return edits

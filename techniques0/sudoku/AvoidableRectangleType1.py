@@ -8,8 +8,8 @@ class AvoidableRectangleType1:
         edits = 0
 
         solved_cells = []
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 if len(puzzle.cell_candidates(loc)) == 1:
                     solved_cells.append(loc)

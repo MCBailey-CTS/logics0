@@ -5,7 +5,7 @@ from Loc import Loc
 
 
 class Puzzle:
-    def __init__(self, puzzle: str, row_offset: int = 0, col_offset: int = 0) -> None:
+    def __init__(self, puzzle: str) -> None:
         self.grid = []
         array = []
         for line in puzzle.split("\n"):
@@ -29,25 +29,14 @@ class Puzzle:
                 .strip()
                 .split(" "))
 
-        if row_offset is None:
-            self.__row_length = self.__length
-        else:
-            self.__row_length = row_offset + self.__length
-
-        if col_offset is None:
-            self.__col_length = self.__length
-        else:
-            self.__col_length = col_offset + self.__length
-
-    @property
-    def length(self) -> int:
+    def __len__(self):
         return self.__length
 
     def fences(self) -> set[str]:
         house = set()
 
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(self.__length):
+            for c in range(self.__length):
                 loc = Loc(r, c)
                 other = self.cell_fence(loc)
                 house.add(other)
@@ -60,8 +49,8 @@ class Puzzle:
     def house_fence(self, fence: str) -> list[Loc]:
         house = []
 
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 other = self.cell_fence(loc)
                 if other == fence:
@@ -75,14 +64,14 @@ class Puzzle:
         fence = self.cell_fence(loc)
         return [self.house_row(loc.row), self.house_col(loc.col), self.house_fence(fence)]
 
-    @property
-    def row_length(self) -> int:
-        return self.__row_length
+    # @property
+    # def row_length(self) -> int:
+    #     return self.__row_length
 
     def unsolved_cells(self) -> list[Loc]:
         unsolved = []
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 if len(self.cell_candidates(loc)) == 1:
                     unsolved.append(loc)
@@ -108,9 +97,9 @@ class Puzzle:
 
         return valid
 
-    @property
-    def col_length(self) -> int:
-        return self.__col_length
+    # @property
+    # def col_length(self) -> int:
+    #     return self.__col_length
 
     def id(self) -> str:
         return self.__id
@@ -129,7 +118,7 @@ class Puzzle:
         return candidates[0] == solved_with_candidate
 
     def expected_candidates(self) -> list:
-        return [candidate for candidate in range(1, self.length + 1)]
+        return [candidate for candidate in range(1, len(self) + 1)]
 
     def rem(self, locs: list[Loc], candidates: iter) -> int:
         edits = 0
@@ -149,17 +138,17 @@ class Puzzle:
 
     def house_row(self, row: int, candidate=None) -> list[Loc]:
         if candidate is None:
-            return [Loc(row, c) for c in range(self.length)]
+            return [Loc(row, c) for c in range(len(self))]
         return [loc for loc in self.house_row(row) if candidate in self.cell_candidates(loc)]
 
     def house_col(self, col: int, candidate=None) -> list[Loc]:
         if candidate is None:
-            return [Loc(r, col) for r in range(self.length)]
+            return [Loc(r, col) for r in range(len(self))]
         return [loc for loc in self.house_col(col) if candidate in self.cell_candidates(loc)]
 
     @property
     def grid_length(self):
-        return self.length
+        return self.__length
 
     @property
     def has_fences(self) -> bool:
@@ -172,10 +161,10 @@ class Puzzle:
         return self.houses_rows() + self.houses_cols()
 
     def houses_rows(self) -> list[list[Loc]]:
-        return [self.house_row(i) for i in range(self.length)]
+        return [self.house_row(i) for i in range(len(self))]
 
     def houses_cols(self) -> list[list[Loc]]:
-        return [self.house_col(i) for i in range(self.length)]
+        return [self.house_col(i) for i in range(len(self))]
 
     def override_loc_color(self, locs: list[Loc], color):
         for loc in locs:
@@ -183,16 +172,16 @@ class Puzzle:
 
     def __str__(self):
         string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.row_length):
-            for c in range(self.col_length):
+        string += f'{len(self)}\n'
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 if loc in self.__color_override:
-                    string += f'{self.__color_override[loc]}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
+                    string += f'{self.__color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                     continue
                 if len(self.cell_candidates(loc)) == 0:
-                    string += f'{Fore.GREEN}{self.grid[r][c].ljust(self.length)}{Style.RESET_ALL} '
+                    string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                 else:
-                    string += f'{self.grid[r][c].ljust(self.length)} '
+                    string += f'{self.grid[r][c].ljust(len(self))} '
             string += '\n'
         return string

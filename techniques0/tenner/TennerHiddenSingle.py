@@ -5,7 +5,7 @@ from techniques0 import HiddenSingle
 class TennerHiddenSingle:
     def solve0(self, puzzle: Tenner) -> int:
         edits = 0
-        for row in range(puzzle.length):
+        for row in range(len(puzzle)):
             house = puzzle.house_row_cell_locs(row)
             edits += HiddenSingle.solve1(puzzle, house)
         return edits

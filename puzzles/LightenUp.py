@@ -9,8 +9,8 @@ class LightenUp(Puzzle):
         super().__init__(puzzle)
 
     def is_solved(self) -> bool:
-        for r in range(self.length):
-            for c in range(self.length):
+        for r in range(len(self)):
+            for c in range(len(self)):
                 loc = Loc(r, c)
                 if self.grid[r][c] == '??':
                     continue
@@ -80,7 +80,7 @@ class LightenUp(Puzzle):
             next_loc = next_loc.west()
 
         next_loc = loc.east()
-        while next_loc.col < self.length and self.is_candidate_cell(next_loc):
+        while next_loc.col < len(self) and self.is_candidate_cell(next_loc):
             locs_to_remove.append(next_loc)
             next_loc = next_loc.east()
 
@@ -90,16 +90,16 @@ class LightenUp(Puzzle):
             next_loc = next_loc.north()
 
         next_loc = loc.south()
-        while next_loc.row < self.length and self.is_candidate_cell(next_loc):
+        while next_loc.row < len(self) and self.is_candidate_cell(next_loc):
             locs_to_remove.append(next_loc)
             next_loc = next_loc.south()
         return locs_to_remove
 
     def __str__(self):
         string = f'{self.id()}\n'
-        string += f'{self.length}\n'
-        for r in range(self.row_length):
-            for c in range(self.col_length):
+        string += f'{len(self)}\n'
+        for r in range(len(self)):
+            for c in range(len(self)):
                 if self.grid[r][c] == '+_':
                     string += f'++ '
                     # string += f'{Back.LIGHTYELLOW_EX}{self.grid[r][c].ljust(2)}{Style.RESET_ALL} '

@@ -6,8 +6,8 @@ class ShashimiXWingPlus1:
     def solve0(puzzle: Sudoku) -> int:
         edits = 0
         for candidate in puzzle.expected_candidates():
-            for i in range(puzzle.length):
-                for ii in range(puzzle.length):
+            for i in range(puzzle.__length):
+                for ii in range(puzzle.__length):
                     if i == ii:
                         continue
 

@@ -8,8 +8,8 @@ class Parks1CrossHatch:
         edits = 0
         houses = []
         fence_dict = {}
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 fence = puzzle.cell_fence(loc)
 
@@ -21,14 +21,14 @@ class Parks1CrossHatch:
         for fence in fence_dict.keys():
             houses.append(fence_dict[fence])
 
-        for row in range(puzzle.length):
+        for row in range(len(puzzle)):
             house = []
-            for col in range(puzzle.length):
+            for col in range(len(puzzle)):
                 house.append(Loc(row, col))
             houses.append(house)
-        for col in range(puzzle.length):
+        for col in range(len(puzzle)):
             house = []
-            for row in range(puzzle.length):
+            for row in range(len(puzzle)):
                 house.append(Loc(row, col))
             houses.append(house)
         for house in houses:

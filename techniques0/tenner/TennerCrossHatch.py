@@ -9,7 +9,7 @@ class TennerCrossHatch(Technique):
     def solve0(self, puzzle: Tenner) -> int:
         edits = 0
 
-        for r in range(puzzle.length):
+        for r in range(len(puzzle)):
             for c in range(puzzle.col_length):
                 cell = Loc(r, c)
                 candidates = puzzle.cell_candidates(cell)
@@ -34,7 +34,7 @@ class TennerCrossHatch(Technique):
                 for direction in directions:
                     if direction.row < 0 or direction.col < 0:
                         continue
-                    if direction.row >= puzzle.length or direction.col >= 10:
+                    if direction.row >= len(puzzle) or direction.col >= 10:
                         continue
                     edits += puzzle.rem([direction], [solved_candidate])
         return edits

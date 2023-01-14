@@ -25,11 +25,11 @@ class FinnedXWing(Technique):
         # puzzle.override_loc_color([Loc(6, 0), Loc(6, 1),Loc(6, 3), Loc(6, 4), Loc(6, 5), Loc(6, 7), Loc(6, 8)], Fore.GREEN)
 
         for candidate in puzzle.expected_candidates():
-            for i in range(puzzle.length - 1):
+            for i in range(puzzle.__length - 1):
                 house0 = puzzle.house_row(i, candidate)
                 if 1 < len(house0) > 4:
                     continue
-                for ii in range(i + 1, puzzle.length):
+                for ii in range(i + 1, puzzle.__length):
                     house1 = puzzle.house_row(ii, candidate)
                     if 1 < len(house1) > 4:
                         continue

@@ -11,7 +11,7 @@ class SumscrapersSecondInLine:
 
         tuples: list[tuple[Optional[int], list[Loc]]] = []
 
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             house = puzzle.house_row(index)
             tuples.append((puzzle.west_scraper(index), house))
             house = list(house)
@@ -32,9 +32,9 @@ class SumscrapersSecondInLine:
 
             if len(candidates1) != 1:
                 continue
-            if candidates1[0] != puzzle.length:
+            if candidates1[0] != len(puzzle):
                 continue
-            difference = scraper - puzzle.length
+            difference = scraper - len(puzzle)
 
             edits += puzzle.rem([house[0]], set(puzzle.expected_candidates()).difference([difference]))
 

@@ -10,7 +10,7 @@ class UniqueRectangleType4:
         if len(unsolved) == 0:
             return edits
 
-        for r in range(puzzle.length):
+        for r in range(len(puzzle)):
 
             house = puzzle.house_row(r)
 
@@ -34,7 +34,7 @@ class UniqueRectangleType4:
                     col0 = puzzle.house_col(l0.col)
                     col1 = puzzle.house_col(l1.col)
 
-                    for j in range(puzzle.length):
+                    for j in range(len(puzzle)):
                         corner0 = col0[j]
                         corner1 = col1[j]
 
@@ -78,7 +78,7 @@ class UniqueRectangleType4:
                             for loc in [corner0, corner1]:
                                 edits += puzzle.rem(loc, [other])
 
-        for c in range(puzzle.length):
+        for c in range(len(puzzle)):
 
             house = puzzle.house_col(c)
 
@@ -102,7 +102,7 @@ class UniqueRectangleType4:
                     row0 = puzzle.house_row(l0.row)
                     row1 = puzzle.house_row(l1.row)
 
-                    for j in range(puzzle.length):
+                    for j in range(len(puzzle)):
                         corner0 = row0[j]
                         corner1 = row1[j]
 

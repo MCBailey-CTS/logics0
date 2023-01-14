@@ -7,8 +7,8 @@ class KropkiEmpty:
     def solve0(self, puzzle: Kropki) -> int:
         # print("in here")
         edits = 0
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r * 2, c * 2)
                 directions = [
                     [loc.north(), loc.north(2)],

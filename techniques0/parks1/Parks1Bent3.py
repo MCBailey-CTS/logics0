@@ -7,8 +7,8 @@ class Parks1Bent3:
     def solve0(self, puzzle: Parks1) -> int:
         edits = 0
         fence_dict = {}
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 fence = puzzle.cell_fence(loc)
                 if fence not in fence_dict:
@@ -42,7 +42,7 @@ class Parks1Bent3:
                 if not all(all_next_to):
                     continue
 
-                # south east
+                # south-east
                 if unsolved.issuperset([pivot.east(), pivot.south()]):
                     remove = [pivot.south().east()]
 

@@ -7,7 +7,7 @@ class HiddenSingleRobotFences:
 
     @staticmethod
     def get_required_candidates(puzzle: RobotFences, house: list[Loc]) -> list[int]:
-        length = puzzle.length
+        length = len(puzzle)
         solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in house if
                              len(puzzle.cell_candidates(loc)) == 1]
 
@@ -34,11 +34,11 @@ class HiddenSingleRobotFences:
 
         for fence_house in puzzle.houses_fences():
 
-            if len(fence_house) == puzzle.length:
+            if len(fence_house) == len(puzzle):
                 edits += HiddenSingle.solve1(puzzle, fence_house)
                 continue
 
-            #  get the solve candidates in the fence_house
+            #  get the solved candidates in the fence_house
             solved_candidates = [puzzle.cell_candidates(loc)[0] for loc in fence_house if
                                  len(puzzle.cell_candidates(loc)) == 1]
 

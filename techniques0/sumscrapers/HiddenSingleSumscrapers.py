@@ -5,13 +5,13 @@ class HiddenSingleSumscrapers:
     def solve0(self, puzzle: Sumscrapers) -> int:
         edits = 0
         houses = []
-        for index in range(puzzle.length):
+        for index in range(len(puzzle)):
             houses.append(puzzle.house_row(index))
             houses.append(puzzle.house_col(index))
 
         for house in houses:
             candidate_dict = {}
-            for index in range(puzzle.length):
+            for index in range(len(puzzle)):
                 for candidate in puzzle.cell_candidates(house[index]):
                     if candidate not in candidate_dict:
                         candidate_dict[candidate] = []

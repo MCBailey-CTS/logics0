@@ -28,7 +28,7 @@ class Kropki(Puzzle):
             array.pop(0)
 
     def expected_candidates(self) -> list:
-        return [candidate for candidate in range(1, self.length + 1)]
+        return [candidate for candidate in range(1, self.__length + 1)]
 
     def is_solved(self) -> bool:
         return False

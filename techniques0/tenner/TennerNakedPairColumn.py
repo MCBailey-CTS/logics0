@@ -7,7 +7,7 @@ class TennerNakedPairColumn:
         for col in range(puzzle.col_length):
             house = puzzle.house_col_cell_locs(col)
 
-            for index in range(puzzle.length - 1):
+            for index in range(len(puzzle) - 1):
                 loc0 = house[index]
                 loc1 = house[index + 1]
 

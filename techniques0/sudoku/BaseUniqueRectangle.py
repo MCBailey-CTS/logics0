@@ -16,8 +16,8 @@ class BaseUniqueRectangle:
         if len(unsolved) == 0:
             return edits
         locs: list[Loc] = []
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 locs.append(Loc(r, c))
         length = len(locs)
         for i in range(length):

@@ -6,8 +6,8 @@ class Parks1HiddenSingle:
     def solve0(self, puzzle: Parks1) -> int:
         edits = 0
         fence_dict = {}
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 fence = puzzle.cell_fence(loc)
                 if fence not in fence_dict:

@@ -59,7 +59,7 @@ class Parks1XWing:
         # edits = Parks1FenceWing().solve0(puzzle)
 
         if cell0.row == cell1.row:
-            for row in set(range(puzzle.length)).difference([cell0.row]):
+            for row in set(range(len(puzzle))).difference([cell0.row]):
                 other0 = Loc(row, cell0.col)
                 other1 = Loc(row, cell1.col)
                 corners = [cell0, cell1, other0, other1]
@@ -79,7 +79,7 @@ class Parks1XWing:
                 edits += puzzle.rem(locs_to_remove_from, [candidate])
 
         if cell0.col == cell1.col:
-            for col in set(range(puzzle.length)).difference([cell0.col]):
+            for col in set(range(len(puzzle))).difference([cell0.col]):
                 other0 = Loc(cell0.row, col)
                 other1 = Loc(cell1.row, col)
                 corners = [cell0, cell1, other0, other1]
@@ -122,8 +122,8 @@ class Parks1XWing:
     def solve0(self, puzzle: Parks1) -> int:
         edits = 0
         # print("heresssss")
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
 
                 if puzzle.is_cell_solved(loc):

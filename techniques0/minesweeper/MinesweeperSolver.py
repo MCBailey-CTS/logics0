@@ -26,8 +26,8 @@ class MinesweeperSolver:  # :
 
     def solve0(self, puzzle: Minesweeper) -> int:
         edits = 0
-        for r in range(puzzle.length):
-            for c in range(puzzle.length):
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
                 loc = Loc(r, c)
                 if puzzle.is_number_cell(loc):
                     number = int(puzzle.grid[loc.row][loc.col])
