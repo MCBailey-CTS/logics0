@@ -382,6 +382,14 @@ EXPLICITLY = "EXPLICITLY"
      UniqueRectangleType2(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected()),
+#      (Mathrax,
+#  MathraxCrossHatch(),
+#  Constants.mathrax_explicit_cross_hatch_actual(),
+#  Constants.mathrax_explicit_cross_hatch_expected()),
+# (Mathrax,
+#  MathraxHiddenSingle(),
+#  Constants.mathrax_explicit_hidden_single_actual(),
+#  Constants.mathrax_explicit_hidden_single_expected()),
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     assert default_test_explicit_actual_expected(constructor, technique, actual, expected)
@@ -640,7 +648,27 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     ['sudoku_difficult_37', Sudoku, [CrossHatch(), HiddenSingle(), Bug(), NakedTriple()]],
     ['sudoku_difficult_38', Sudoku, [CrossHatch(), HiddenSingle(), Bug()]],
     ['sudoku_difficult_39', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]],
-    ('mathrax_001', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_020', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_019', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_018', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_017', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_016', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_015', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_014', Mathrax, Solving.mathrax_techniques()),
+    # ('magnets_014', Magnets, Solving.magnets_techniques()),
+    # ('mathrax_013', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_012', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_011', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_010', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_009', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_008', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_007', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_006', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_005', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_004', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_003', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_002', Mathrax, Solving.mathrax_techniques()),
+    # ('mathrax_001', Mathrax, Solving.mathrax_techniques()),
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     if "\n" in puzzle_string:

@@ -58,7 +58,9 @@ from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques0.sudoku.FinnedXWing import FinnedXWing
 from techniques0.lighthouses.LighthousesTech import LighthousesTech
+from techniques0.mathrax.MathraxMath import MathraxMath
 __all__ = [
+        "MathraxMath",
         "LighthousesTech",
         "FinnedXWing",
         "UniqueRectangleType3",

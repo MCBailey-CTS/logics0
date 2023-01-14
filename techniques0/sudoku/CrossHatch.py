@@ -8,6 +8,8 @@ class CrossHatch:
 
         unsolved = puzzle.unsolved_cells()
 
+        # print(len(unsolved))
+
         if len(unsolved) == 0:
             return edits
 

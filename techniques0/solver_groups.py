@@ -21,6 +21,7 @@ from techniques0.parks1.Parks1LockedCandidatesClaiming import Parks1LockedCandid
 from techniques0.sudoku.FinnedXWing import FinnedXWing
 from techniques0.lighten_up.LightenUpTech import LightenUpTech
 from techniques0.lighthouses.LighthousesTech import LighthousesTech
+from techniques0.mathrax.MathraxMath import MathraxMath
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
@@ -122,7 +123,7 @@ class Solving:
 
     @staticmethod
     def mathrax_techniques() -> list:
-        return [CrossHatch()]
+        return [CrossHatch(), MathraxMath()]
 
     @staticmethod
     def sumscrapers_techniques() -> list:
