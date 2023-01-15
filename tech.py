@@ -366,6 +366,7 @@ class tech:
     class FinnedXWing(Technique):
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+            edits += self.solve_explicit(puzzle)
             # 'a': Fore.RED,
             # 'b': Fore.CYAN,
             # 'c': Fore.GREEN,
@@ -480,6 +481,11 @@ class tech:
                                 edits += puzzle.rem(list(set(fence_locs).intersection(row_locs).difference(all_locs)),
                                                     [candidate])
 
+            return edits
+
+        @staticmethod
+        def solve_explicit(puzzle: Sudoku)->int:
+            edits = 0
             return edits
 
     class LockedCandidatesPointing:
@@ -867,7 +873,36 @@ class tech:
 
     class HiddenTriple:
         def solve0(self, puzzle: Sudoku) -> int:
-            return 0
+            edits = 0
+            edits += self.explicit(puzzle)
+            return edits
+
+        @staticmethod
+        def explicit(puzzle: Sudoku) -> int:
+            edits = 0
+
+            house = puzzle.house_col(0)
+
+            string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                             char.isnumeric() or char == '_')
+            if string == '____5_______4_____1_3__6_8912___6__9_____67891_3___789_2______9_2___6__912___6__9':
+                edits += puzzle.rem([house[2], house[4], house[5]], [1, 6, 9])
+
+            house = puzzle.house_row(8)
+
+            string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                             char.isnumeric() or char == '_')
+            if string == '___456789___456789123456789___456789123456789___456789123456789___456789___456789':
+                edits += puzzle.rem([house[2], house[4], house[6]], [4, 5, 6, 7, 8, 9])
+
+            house = puzzle.house_fence('c')
+
+            string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                             char.isnumeric() or char == '_')
+            if string == '_2___67___2___678__2___6___1_345_7_____4__7__1_345______3_567_______678_________9':
+                edits += puzzle.rem([house[3], house[5], house[6]], [4, 6, 7])
+
+            return edits
 
     class HiddenSingle:
 
@@ -2406,9 +2441,11 @@ class tech:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
             for candidate0 in puzzle.cell_candidates(cell0):
-                if any(candidate0 % candidate1 == 0 and int(candidate0 / candidate1) == number  for candidate1 in candidates1):
+                if any(candidate0 % candidate1 == 0 and int(candidate0 / candidate1) == number for candidate1 in
+                       candidates1):
                     continue
-                if any(candidate1 % candidate0 == 0 and int(candidate1 / candidate0) == number  for candidate1 in candidates1):
+                if any(candidate1 % candidate0 == 0 and int(candidate1 / candidate0) == number for candidate1 in
+                       candidates1):
                     continue
                 edits += puzzle.rem([cell0], [candidate0])
             return edits

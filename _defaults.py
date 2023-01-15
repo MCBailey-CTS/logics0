@@ -4,6 +4,10 @@ EXPLICITLY = "explicitly"
 
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
+    # print(actual)
+    # temp = next((name for name in dir()))
+
+
     actual_puzzle = constructor(actual)
     expected_puzzle = constructor(expected)
     technique.solve0(actual_puzzle)
