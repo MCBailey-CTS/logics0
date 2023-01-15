@@ -237,15 +237,42 @@ class tech:
             opp_base0 = Loc(5, 6)
             opp_base1 = Loc(3, 6)
 
-            if set(puzzle.cell_candidates(base0)) == {1} and\
-                set(puzzle.cell_candidates(base1)) == {2} and \
-                set(puzzle.cell_candidates(opp_base0)) == {2, 3}:
+            if \
+            set(puzzle.cell_candidates(base0)) == {1}\
+            and\
+            set(puzzle.cell_candidates(base1)) == {2} \
+            and \
+            set(puzzle.cell_candidates(opp_base0)) == {2, 3} \
+            and \
+            set(puzzle.cell_candidates(opp_base1)) == {1, 3}\
+            :
                 __fence = 'f'
                 __col = 6
                 __candidates = [3]
                 __base = [base0, base1]
                 __opp_base = [opp_base0, opp_base1]
                 __intersection = puzzle.house_fence(__fence) + puzzle.house_col(__col)
+                __remove = set(__intersection).difference(__opp_base)
+                puzzle.override_loc_color(__intersection, Fore.RED)
+                puzzle.override_loc_color(__base, Fore.GREEN)
+                puzzle.override_loc_color(__opp_base, Fore.YELLOW)
+                edits += puzzle.rem(__remove, __candidates)
+
+            base0 = Loc(6, 3)
+            base1 = Loc(6, 5)
+            opp_base0 = Loc(2, 3)
+            opp_base1 = Loc(2, 5)
+
+            if set(puzzle.cell_candidates(base0)) == {1} and \
+                    set(puzzle.cell_candidates(base1)) == {2} and \
+                    set(puzzle.cell_candidates(opp_base0)) == {2, 3} and \
+                    set(puzzle.cell_candidates(opp_base1)) == {1, 3}:
+                __fence = 'b'
+                __row = 2
+                __candidates = [3]
+                __base = [base0, base1]
+                __opp_base = [opp_base0, opp_base1]
+                __intersection = puzzle.house_fence(__fence) + puzzle.house_row(__row)
                 __remove = set(__intersection).difference(__opp_base)
                 puzzle.override_loc_color(__intersection, Fore.RED)
                 puzzle.override_loc_color(__base, Fore.GREEN)
