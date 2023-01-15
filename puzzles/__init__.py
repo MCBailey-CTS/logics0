@@ -14,7 +14,9 @@ from .AbstractPainting import AbstractPainting
 from .LightenUp import LightenUp
 from .Lighthouses import Lighthouses
 from .Mathrax import Mathrax
+from .Futoshiki import Futoshiki
 __all__ = [
+    "Futoshiki",
     "Mathrax",
     "LightenUp",
     "Lighthouses",

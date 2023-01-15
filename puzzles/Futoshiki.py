@@ -1,4 +1,4 @@
-
+from Loc import Loc
 class Futoshiki:
     def __init__(self, puzzle: str) -> None:
         array = []

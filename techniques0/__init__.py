@@ -1,8 +1,6 @@
 from techniques0.Technique import Technique
 from techniques0.kropki.KropkiBlack import KropkiBlack
 from techniques0.kropki.KropkiWhite import KropkiWhite
-from techniques0.magnets.MagnetsFullHouse import MagnetsFullHouse
-from techniques0.magnets.MagnetsZero import MagnetsZero
 from techniques0.parks1.Parks1Bent3 import Parks1Bent3
 from techniques0.parks1.Parks1CrossHatch import Parks1CrossHatch
 from techniques0.parks1.Parks1CrossHatchTouching import Parks1CrossHatchTouching
@@ -35,10 +33,9 @@ from techniques0.sudoku.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques0.tenner.TennerCrossHatch import TennerCrossHatch
 from techniques0.sumscrapers.CrossHatchSumscrapers import CrossHatchSumscrapers
 from techniques0.sumscrapers.HiddenSingleSumscrapers import HiddenSingleSumscrapers
-from techniques0.robot_crosswords.RobotCrosswordsHouses import RobotCrosswordsHouses
+# from techniques0.robot_crosswords.RobotCrosswordsHouses import RobotCrosswordsHouses
 from techniques0.power_grid.PowerGridHiddenPower import PowerGridHiddenPower
 from techniques0.kropki.KropkiEmpty import KropkiEmpty
-from techniques0.magnets.MagnetsPair import MagnetsPair
 from techniques0.tenner.TennerHiddenPair import TennerHiddenPair
 from techniques0.tenner.TennerHiddenSingle import TennerHiddenSingle
 from techniques0.tenner.TennerNakedPair import TennerNakedPair
@@ -57,11 +54,7 @@ from techniques0.kropki.KropkiDiamondWwwe import KropkiDiamondWwwe
 from techniques0.kropki.KropkiDominatingEmpty import KropkiDominatingEmpty
 from techniques0.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques0.sudoku.FinnedXWing import FinnedXWing
-# from techniques0.lighthouses.LighthousesTech import LighthousesTech
-from techniques0.mathrax.MathraxMath import MathraxMath
 __all__ = [
-        "MathraxMath",
-        # "LighthousesTech",
         "FinnedXWing",
         "UniqueRectangleType3",
         "BaseSudokuHouseTechnique",
@@ -77,9 +70,6 @@ __all__ = [
         "Parks1Shape_00_01",
         "AbstractPaintingTech",
         # "SkyscrapersRange",
-        "MagnetsFullHouse",
-        "MagnetsPair",
-        "MagnetsZero",
         "Parks1DominateFence",
         "Parks1Shapes",
         # "MinesweeperSolver",
@@ -111,7 +101,7 @@ __all__ = [
         "HiddenSingleSumscrapers",
         "SumscrapersLastIsMax",
         "SumscrapersNextToScraper",
-        "RobotCrosswordsHouses",
+        # "RobotCrosswordsHouses",
         "PowerGridTech",
         "PowerGridCrossHatch",
         "PowerGridHiddenPower",

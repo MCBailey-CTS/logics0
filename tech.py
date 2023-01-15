@@ -327,7 +327,7 @@ class tech:
                 temp_min = max([1, maximum - length + 1])
                 temp_max = max([length, minimum + length - 1])
 
-                expected_candidates = tech. HiddenSingleRobotFences.get_required_candidates(puzzle, fence_house)
+                expected_candidates = tech.HiddenSingleRobotFences.get_required_candidates(puzzle, fence_house)
 
                 candidates_to_remove = list(set(puzzle.expected_candidates()).difference(expected_candidates))
                 # print(candidates_to_remove)
@@ -340,6 +340,260 @@ class tech:
 
             return edits
 
+    class FutoshikiGreaterThanLessThan:  # (BaseFutoshikiTechnique):
+        def solve0(self, puzzle: Futoshiki) -> int:
+            edits = 0
 
+            for r in range(puzzle.length * 2 - 1):
+                for c in range(puzzle.length * 2 - 1):
 
+                    even_row = r % 2 == 0
+                    even_col = c % 2 == 0
 
+                    if even_row and even_col:
+                        continue
+
+                    if not even_row and not even_col:
+                        continue
+
+                    if even_row:
+                        loc = Loc(r, c)
+                        string = puzzle.cell_string(loc)
+
+                        if string == '>':
+                            edits += self.solve_greater_than(puzzle, loc.east(), loc.west())
+
+                        # print(puzzle.cell_string(loc))
+            # for row_house in puzzle.house_row_cells()
+
+            return edits
+
+        def solve_greater_than(self, puzzle: Futoshiki, lesser: Loc, greater: Loc):
+            edits = 0
+            lesser_candidates = puzzle.cell_candidates(lesser)
+            greater_candidates = puzzle.cell_candidates(greater)
+
+            min_greater = min(greater_candidates)
+            max_lesser = max(lesser_candidates)
+
+            print(min_greater)
+            print(max_lesser)
+
+            for candidate in lesser_candidates:
+                if candidate >= min_greater:
+                    print(f'removing {candidate} from {lesser}')
+                    edits += puzzle.rem([lesser], [str(candidate)])
+
+            # print(lesser_candidates)
+            # print(greater_candidates)
+
+            return edits
+
+    class FutoshikiCrossHatch:
+        def solve0(self, puzzle: Futoshiki) -> int:
+            edits = 0
+            return edits
+
+    class RobotCrosswordsHouses:
+        def solve0(self, puzzle: RobotCrosswords) -> int:
+            edits = 0
+
+            houses = []
+
+            for row in range(len(puzzle)):
+                house = []
+                for col in range(len(puzzle)):
+                    house.append(Loc(row, col))
+                houses.append(house)
+
+            for col in range(len(puzzle)):
+                house = []
+                for row in range(len(puzzle)):
+                    house.append(Loc(row, col))
+                houses.append(house)
+
+            for house in houses:
+
+                # temp_house = list(house)
+                #
+                #
+                #
+                #
+                #
+                #
+                # continue
+
+                string = ""
+
+                all_crosswords = []
+
+                in_crossword = False
+
+                crossword = []
+
+                for index in range(len(house)):
+                    if 'x' in puzzle.grid[house[index].row][house[index].col]:
+                        if in_crossword:
+                            all_crosswords.append(list(crossword))
+                            crossword = []
+                            in_crossword = False
+                            # continue
+                    elif in_crossword:
+                        crossword.append(house[index])
+                    else:
+                        crossword.append(house[index])
+                        in_crossword = True
+                # for cross in
+
+                print(all_crosswords)
+
+                # loc = house[index]
+
+                #     string += f'{puzzle.grid[loc.row][loc.col]} '
+                #
+                # string = string.replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).strip()
+                # .split(" ")
+
+                # string = string.strip()
+
+                # print(string)
+
+            return edits
+
+    class MagnetsFullHouse:
+        def __int__(self):
+            self.EMPTY = 0
+
+        def solve0(self, puzzle: Magnets) -> int:
+            edits = 0
+
+            for i in range(puzzle.length):
+                plus_row_value = puzzle.plus_row_value(i)
+                minus_row_value = puzzle.minus_row_value(i)
+                row_house = puzzle.house_row(i)
+
+                if plus_row_value + minus_row_value == puzzle.length:
+                    edits += puzzle.rem(row_house, [self.EMPTY])
+
+                plus_col_value = puzzle.plus_col_value(i)
+                minus_col_value = puzzle.minus_col_value(i)
+                col_house = puzzle.house_col(i)
+
+                if plus_col_value + minus_col_value == puzzle.length:
+                    edits += puzzle.rem(col_house, [self.EMPTY])
+
+            return edits
+
+    class MagnetsPair:
+        def __int__(self):
+            self.PLUS = 1
+            self.MINUS = 0
+            self.EMPTY = self.MINUS
+
+        def solve1(self, puzzle: Magnets, loc0: Loc, loc1: Loc) -> int:
+            edits = 0
+            candidates0 = puzzle.cell_candidates(loc0)
+            candidates1 = puzzle.cell_candidates(loc1)
+
+            if self.EMPTY not in candidates0:
+                edits += puzzle.rem([loc1], [self.EMPTY])
+
+            if self.EMPTY not in candidates1:
+                edits += puzzle.rem([loc0], [self.EMPTY])
+
+            if self.PLUS not in candidates0:
+                edits += puzzle.rem([loc1], [self.MINUS])
+
+            if self.PLUS not in candidates1:
+                edits += puzzle.rem([loc0], [self.MINUS])
+
+            if self.MINUS not in candidates0:
+                edits += puzzle.rem([loc1], [self.PLUS])
+
+            if self.MINUS not in candidates1:
+                edits += puzzle.rem([loc0], [self.PLUS])
+
+            return edits
+
+        def solve0(self, puzzle: Magnets) -> int:
+            edits = 0
+
+            # loc0 = Loc(1, 1)
+            # loc1 = Loc(1, 2)
+
+            for magnets_fence_pair in puzzle.house_fences():
+                loc0, loc1 = magnets_fence_pair
+                #
+                #     if puzzle.house_fence(loc0) != 'a':
+                #         continue
+                #
+                edits += self.solve1(puzzle, loc0, loc1)
+
+            return edits
+
+        class MagnetsZero:
+            def __int__(self):
+                self.PLUS = 1
+                self.MINUS = 0
+                self.EMPTY = self.MINUS
+
+            def solve0(self, puzzle: Magnets) -> int:
+                edits = 0
+                for i in range(puzzle.length):
+                    plus_row_value = puzzle.plus_row_value(i)
+                    row_house = puzzle.house_row(i)
+                    if plus_row_value == 0:
+                        for loc in row_house:
+                            edits += puzzle.rem([loc], [self.PLUS])
+                    plus_col_value = puzzle.plus_col_value(i)
+                    col_house = puzzle.house_col(i)
+                    if plus_col_value == 0:
+                        for loc in col_house:
+                            edits += puzzle.rem([loc], [self.PLUS])
+                    minus_row_value = puzzle.minus_row_value(i)
+                    row_house = puzzle.house_row(i)
+                    if minus_row_value == 0:
+                        for loc in row_house:
+                            edits += puzzle.rem([loc], [self.MINUS])
+                    minus_col_value = puzzle.minus_col_value(i)
+                    col_house = puzzle.house_col(i)
+                    print(minus_col_value)
+                    if minus_col_value == 0:
+                        for loc in col_house:
+                            edits += puzzle.rem([loc], [self.MINUS])
+                return edits
+
+    class MathraxHiddenSingle:
+
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+            return edits
+
+        class MathraxMath:
+
+            def solve0(self, puzzle: Mathrax) -> int:
+                edits = 0
+                for r in range(1, len(puzzle) * 2 - 1, 2):
+                    for c in range(1, len(puzzle) * 2 - 1, 2):
+                        loc = Loc(r, c)
+                        string = puzzle.grid[r][c]
+                        if '+' in string:
+                            number = int(string.replace('+', ''))
+                            edits += self.solve_addition(puzzle, number, loc.top_left(), loc.bottom_right())
+                            edits += self.solve_addition(puzzle, number, loc.top_right(), loc.bottom_left())
+                return edits
+
+            @staticmethod
+            def __solve_addition(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+                edits = 0
+                candidates1 = set(puzzle.cell_candidates(cell1))
+                for candidate0 in puzzle.cell_candidates(cell0):
+                    if any(candidate0 + candidate1 == number for candidate1 in candidates1):
+                        continue
+                    edits += puzzle.rem([cell0], [candidate0])
+                return edits
+
+            def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+                edits = self.__solve_addition(puzzle, number, cell0, cell1)
+                edits = self.__solve_addition(puzzle, number, cell1, cell0)
+                return edits

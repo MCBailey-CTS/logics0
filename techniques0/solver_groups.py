@@ -3,8 +3,8 @@ from techniques0 import CrossHatch, HiddenSingle, NakedPair, LockedCandidatesPoi
     Parks1HiddenSingle, Parks1CrossHatchTouching, Parks1LockedCandidatesPointing, Parks1Bent3, Parks1Shape_00_01, \
     Parks1Shapes, Parks1DominateFence, TennerCrossHatch, TennerNakedPair, TennerHiddenPair, TennerHiddenSingle, \
     TennerTotalHiddenSingle, TennerPowerSetTotals, TennerNakedPairColumn, SumscrapersTech, SumscrapersSecondInLine, \
-    CrossHatchSumscrapers, HiddenSingleSumscrapers, SumscrapersNextToScraper, SumscrapersLastIsMax,  \
-      RobotCrosswordsHouses, PowerGridTech, PowerGridCrossHatch, \
+    CrossHatchSumscrapers, HiddenSingleSumscrapers, SumscrapersNextToScraper, SumscrapersLastIsMax, \
+    PowerGridTech, PowerGridCrossHatch, \
     PowerGridHiddenPower, AbstractPaintingTech
 from techniques0.sudoku.UniqueRectangleType2 import UniqueRectangleType2
 from techniques0.sudoku.Bug import Bug
@@ -15,17 +15,16 @@ from techniques0.sudoku.UniqueRectangleType4 import UniqueRectangleType4
 from techniques0.sudoku.XWing import XWing
 from techniques0.sudoku.XyWing import XyWing
 from techniques0.parks1.Parks1XWing import Parks1XWing
-from techniques0.sudoku.SwordFish import SwordFish
-from techniques0.sudoku.JellyFish import JellyFish
+# from techniques0.sudoku.SwordFish import SwordFish
+# from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.parks1.Parks1LockedCandidatesClaiming import Parks1LockedCandidatesClaiming
-from techniques0.sudoku.FinnedXWing import FinnedXWing
+# from techniques0.sudoku.FinnedXWing import FinnedXWing
 from techniques0.lighten_up.LightenUpTech import LightenUpTech
 from tech import tech
-from techniques0.mathrax.MathraxMath import MathraxMath
+
 PLUS = "+"
 MINUS = "-"
 EMPTY = "."
-
 
 
 class Solving:
@@ -105,6 +104,7 @@ class Solving:
     def knightoku_techniques() -> list:
         # return [CrossHatchKnightoku()] + Solving.sudoku_techniques()
         return Solving.sudoku_techniques()
+
     @staticmethod
     def kakuro_techniques() -> list:
         return []
@@ -123,7 +123,7 @@ class Solving:
 
     @staticmethod
     def mathrax_techniques() -> list:
-        return [CrossHatch(), MathraxMath()]
+        return [CrossHatch(), tech.MathraxMath()]
 
     @staticmethod
     def sumscrapers_techniques() -> list:
@@ -134,7 +134,7 @@ class Solving:
     def skyscrapers_techniques() -> list:
         return [
             CrossHatchSumscrapers(), HiddenSingleSumscrapers(), tech.SkyscrapersN(), tech.Skyscrapers1(),
-           tech. SkyscrapersRange()
+            tech.SkyscrapersRange()
         ]
 
     @staticmethod
@@ -159,7 +159,7 @@ class Solving:
 
     @staticmethod
     def robot_crosswords_techniques() -> list:
-        return [RobotCrosswordsHouses()]
+        return [tech.RobotCrosswordsHouses()]
 
     @staticmethod
     def power_grid_techniques() -> list:
@@ -193,6 +193,6 @@ class Solving:
 
     @staticmethod
     def lighthouses_techniques() -> list:
-        return [tech. LighthousesTech()]
+        return [tech.LighthousesTech()]
 
 # 2865

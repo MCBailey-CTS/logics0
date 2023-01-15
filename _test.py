@@ -5,7 +5,6 @@ from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 
 from techniques0 import KropkiBlack, KropkiWhite, KropkiEmpty, NakedPair, LockedCandidatesPointing, \
     LockedCandidatesClaiming
-from puzzles import RobotFences
 from techniques0.solver_groups import Solving
 from techniques0.sudoku.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques0.sudoku.CrossHatch import CrossHatch
@@ -14,7 +13,7 @@ from techniques0.sudoku.JellyFish import JellyFish
 from techniques0.sudoku.NakedTriple import NakedTriple
 from techniques0.sudoku.SwordFish import SwordFish
 from techniques0.sudoku.XyzWing import XyzWing
-from techniques0.sudoku.FinnedXWing import FinnedXWing
+# from techniques0.sudoku.FinnedXWing import FinnedXWing
 from techniques0.sudoku.Bug import Bug
 from puzzles import *
 
@@ -382,14 +381,14 @@ EXPLICITLY = "EXPLICITLY"
      UniqueRectangleType2(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual(),
      Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected()),
-#      (Mathrax,
-#  MathraxCrossHatch(),
-#  Constants.mathrax_explicit_cross_hatch_actual(),
-#  Constants.mathrax_explicit_cross_hatch_expected()),
-# (Mathrax,
-#  MathraxHiddenSingle(),
-#  Constants.mathrax_explicit_hidden_single_actual(),
-#  Constants.mathrax_explicit_hidden_single_expected()),
+    #      (Mathrax,
+    #  MathraxCrossHatch(),
+    #  Constants.mathrax_explicit_cross_hatch_actual(),
+    #  Constants.mathrax_explicit_cross_hatch_expected()),
+    # (Mathrax,
+    #  MathraxHiddenSingle(),
+    #  Constants.mathrax_explicit_hidden_single_actual(),
+    #  Constants.mathrax_explicit_hidden_single_expected()),
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     assert default_test_explicit_actual_expected(constructor, technique, actual, expected)
@@ -643,7 +642,8 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     ['sudoku_difficult_30', Sudoku, [CrossHatch(), HiddenSingle(), Bug(), XWing()]],
     ['sudoku_difficult_32', Sudoku, [CrossHatch(), HiddenSingle(), Bug(), XWing()]],
     ['sudoku_difficult_33', Sudoku, [CrossHatch(), HiddenSingle(), Bug(), XWing()]],
-    ['sudoku_difficult_34', Sudoku, [CrossHatch(), HiddenSingle(), LockedCandidatesClaiming(), UniqueRectangleType4(), Bug()]],
+    ['sudoku_difficult_34', Sudoku,
+     [CrossHatch(), HiddenSingle(), LockedCandidatesClaiming(), UniqueRectangleType4(), Bug()]],
     ['sudoku_difficult_36', Sudoku, [CrossHatch(), LockedCandidatesPointing(), Bug(), NakedTriple()]],
     ['sudoku_difficult_37', Sudoku, [CrossHatch(), HiddenSingle(), Bug(), NakedTriple()]],
     ['sudoku_difficult_38', Sudoku, [CrossHatch(), HiddenSingle(), Bug()]],
