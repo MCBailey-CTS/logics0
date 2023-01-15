@@ -1,3 +1,5 @@
+from typing import Union
+
 from puzzles import Puzzle
 from Loc import Loc
 
@@ -46,7 +48,7 @@ class Sudoku(Puzzle):
                 if len(self.cell_candidates(loc)) > 1:
                     self.__unsolved_locs.add(loc)
 
-    def rem(self, locs: list[Loc], candidates: iter) -> int:
+    def rem(self, locs: Union[Loc, list[Loc], set[Loc]], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             return self.rem([locs], candidates)
@@ -164,3 +166,6 @@ class Sudoku(Puzzle):
             return self.cell_fence(Loc(6, 6))
 
         raise Exception(f'Invalid chute loc: {chute_loc}')
+
+    def fence_dict(self, loc_set):
+        pass

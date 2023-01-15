@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Optional
+from typing import Optional, Union
 from colorama import Fore, Style
 from Loc import Loc
 
@@ -120,7 +120,7 @@ class Puzzle:
     def expected_candidates(self) -> list:
         return [candidate for candidate in range(1, len(self) + 1)]
 
-    def rem(self, locs: list[Loc], candidates: iter) -> int:
+    def rem(self, locs: Union[Loc, list[Loc], set[Loc]], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             locs = [locs]
