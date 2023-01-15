@@ -2369,6 +2369,16 @@ class tech:
                         number = int(string.replace('+', ''))
                         edits += self.solve_addition(puzzle, number, loc.top_left(), loc.bottom_right())
                         edits += self.solve_addition(puzzle, number, loc.top_right(), loc.bottom_left())
+
+                    if '/' in string:
+                        number = int(string.replace('/', ''))
+                        edits += self.solve_division(puzzle, number, loc.top_left(), loc.bottom_right())
+                        edits += self.solve_division(puzzle, number, loc.top_right(), loc.bottom_left())
+
+                    if '-' in string:
+                        number = int(string.replace('-', ''))
+                        edits += self.solve_subtraction(puzzle, number, loc.top_left(), loc.bottom_right())
+                        edits += self.solve_subtraction(puzzle, number, loc.top_right(), loc.bottom_left())
             return edits
 
         @staticmethod
@@ -2383,7 +2393,41 @@ class tech:
 
         def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = self.__solve_addition(puzzle, number, cell0, cell1)
-            edits = self.__solve_addition(puzzle, number, cell1, cell0)
+            edits += self.__solve_addition(puzzle, number, cell1, cell0)
+            return edits
+
+        def solve_division(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_division(puzzle, number, cell0, cell1)
+            edits += self.__solve_division(puzzle, number, cell1, cell0)
+            return edits
+
+        @staticmethod
+        def __solve_division(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = 0
+            candidates1 = set(puzzle.cell_candidates(cell1))
+            for candidate0 in puzzle.cell_candidates(cell0):
+                if any(candidate0 % candidate1 == 0 and int(candidate0 / candidate1) == number  for candidate1 in candidates1):
+                    continue
+                if any(candidate1 % candidate0 == 0 and int(candidate1 / candidate0) == number  for candidate1 in candidates1):
+                    continue
+                edits += puzzle.rem([cell0], [candidate0])
+            return edits
+
+        def solve_subtraction(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_subtraction(puzzle, number, cell0, cell1)
+            edits += self.__solve_subtraction(puzzle, number, cell1, cell0)
+            return edits
+
+        @staticmethod
+        def __solve_subtraction(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = 0
+            candidates1 = set(puzzle.cell_candidates(cell1))
+            for candidate0 in puzzle.cell_candidates(cell0):
+                if any(candidate0 - candidate1 == number for candidate1 in candidates1):
+                    continue
+                if any(candidate1 - candidate0 == number for candidate1 in candidates1):
+                    continue
+                edits += puzzle.rem([cell0], [candidate0])
             return edits
 
     class TennerCrossHatch(Technique):
