@@ -8,14 +8,14 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     # temp = next((name for name in dir()))
 
 
-    actual_puzzle = constructor(actual)
+    actual_puzzle: Puzzle = constructor(actual)
     expected_puzzle = constructor(expected)
     technique.solve0(actual_puzzle)
     actual_string = str(actual_puzzle).replace(actual_puzzle.id(), "")
     expected_string = str(expected_puzzle).replace(expected_puzzle.id(), "")
     if actual_string == expected_string:
         return True
-    print(actual_puzzle)
+    print(actual_puzzle.to_string())
     print(expected_puzzle)
     return False
 

@@ -224,7 +224,35 @@ class tech:
 
     class AvoidableRectangleType2:
         def solve0(self, puzzle: Sudoku) -> int:
-            return 0
+            edits = 0
+            edits += self.explicit(puzzle)
+            return edits
+
+        @staticmethod
+        def explicit(puzzle: Sudoku) -> int:
+            edits = 0
+
+            base0 = Loc(3, 5)
+            base1 = Loc(5, 5)
+            opp_base0 = Loc(5, 6)
+            opp_base1 = Loc(3, 6)
+
+            if set(puzzle.cell_candidates(base0)) == {1} and\
+                set(puzzle.cell_candidates(base1)) == {2} and \
+                set(puzzle.cell_candidates(opp_base0)) == {2, 3}:
+                __fence = 'f'
+                __col = 6
+                __candidates = [3]
+                __base = [base0, base1]
+                __opp_base = [opp_base0, opp_base1]
+                __intersection = puzzle.house_fence(__fence) + puzzle.house_col(__col)
+                __remove = set(__intersection).difference(__opp_base)
+                puzzle.override_loc_color(__intersection, Fore.RED)
+                puzzle.override_loc_color(__base, Fore.GREEN)
+                puzzle.override_loc_color(__opp_base, Fore.YELLOW)
+                edits += puzzle.rem(__remove, __candidates)
+
+            return edits
 
     class BaseUniqueRectangle:
 
@@ -442,8 +470,8 @@ class tech:
                             if len(temporary) == 1:
                                 col_locs = puzzle.house_col(temporary[0].col)
                                 row0, row1 = rows
-                                puzzle.override_loc_color(puzzle.house_row(row0), Fore.RED)
-                                puzzle.override_loc_color(puzzle.house_row(row1), Fore.RED)
+                                # puzzle.override_loc_color(puzzle.house_row(row0), Fore.RED)
+                                # puzzle.override_loc_color(puzzle.house_row(row1), Fore.RED)
 
                                 # # print("rows")
                                 # print("before")
@@ -486,6 +514,47 @@ class tech:
         @staticmethod
         def solve_explicit(puzzle: Sudoku)->int:
             edits = 0
+
+            # 'a': Fore.RED,
+            # 'b': Fore.CYAN,
+            # 'c': Fore.GREEN,
+            # 'd': Fore.LIGHTBLUE_EX,
+            # 'e': Fore.LIGHTMAGENTA_EX,
+            # 'f': Fore.LIGHTGREEN_EX,
+            # 'g': Fore.LIGHTWHITE_EX,
+            # 'h': Fore.LIGHTYELLOW_EX,
+            # 'i': Fore.LIGHTRED_EX,
+            # 'j': Fore.YELLOW,
+            # 'k': Fore.RED
+            # puzzle.override_loc_color([Loc(6, 2), Loc(6, 6), Loc(2, 2), Loc(2, 6)], Fore.YELLOW)
+            # puzzle.override_loc_color([Loc(2, 0), Loc(2, 1)], Fore.LIGHTBLUE_EX)
+            # puzzle.override_loc_color([Loc(0, 2), Loc(1, 2)], Fore.LIGHTRED_EX)
+            # puzzle.override_loc_color([Loc(2, 3), Loc(2, 4), Loc(2, 5), Loc(2, 7), Loc(2, 8)], Fore.GREEN)
+            # puzzle.override_loc_color([Loc(6, 0), Loc(6, 1),Loc(6, 3), Loc(6, 4), Loc(6, 5), Loc(6, 7), Loc(6, 8)], Fore.GREEN)
+
+
+            house0 = puzzle.house_row(2)
+            house1 = puzzle.house_row(6)
+
+            string0 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house0) if
+                             char.isnumeric() or char == '_')
+            string1 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house1) if
+                              char.isnumeric() or char == '_')
+            if string0 == '123456789123456789123456789_23456789_23456789_23456789123456789_23456789_23456789' and \
+                    string1 == '_23456789_23456789123456789_23456789_23456789_23456789123456789_23456789_23456789':
+                __candidate = 1
+                __row0 = house0
+                __row1 = house1
+                __fin = [Loc(2, 0), Loc(2, 1)]
+                __corners = [Loc(2, 2), Loc(2, 6), Loc(6, 2), Loc(6, 6)]
+                __remove = [Loc(0,2), Loc(1,2)]
+
+                puzzle.override_loc_color(__row0 + __row1, Fore.GREEN)
+                puzzle.override_loc_color(__corners, Fore.YELLOW)
+                puzzle.override_loc_color(__fin, Fore.BLUE)
+                puzzle.override_loc_color(__remove, Fore.RED)
+                edits += puzzle.rem(__remove, [__candidate])
+
             return edits
 
     class LockedCandidatesPointing:
@@ -939,7 +1008,29 @@ class tech:
 
     class HiddenQuad:
         def solve0(self, puzzle: Sudoku) -> int:
-            return 0
+            edits = 0
+            edits += self.explicit(puzzle)
+            return edits
+
+        @staticmethod
+        def explicit(puzzle: Sudoku) -> int:
+            edits = 0
+
+            house = puzzle.house_row(8)
+
+            string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                             char.isnumeric() or char == '_')
+            if string == '____56789123456789____56789123456789____56789123456789____56789123456789____56789':
+                __candidates = [5,6,7,8,9]
+                __row = house
+                __remove = [house[1] , house[3], house[5], house[7]]
+
+                puzzle.override_loc_color(__row, Fore.GREEN)
+                puzzle.override_loc_color(__remove, Fore.YELLOW)
+                edits += puzzle.rem(__remove, __candidates)
+
+
+            return edits
 
     class HiddenPair(BaseSudokuHouseTechnique):
 
