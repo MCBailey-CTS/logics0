@@ -2570,31 +2570,31 @@ class tech:
             return edits
 
     class MathraxMathAddition:
-        def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = self.__solve_addition(puzzle, number, cell0, cell1)
             edits += self.__solve_addition(puzzle, number, cell1, cell0)
 
             return edits
 
+        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+            string = puzzle.grid[loc.row][loc.col]
+            if '+' in string:
+                return True, int(string.replace('+', ''))
+            return False, None
+
         def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
-
-            # for house in puzzle.houses_rows()
-
             for r in range(1, len(puzzle) * 2 - 1, 2):
                 for c in range(1, len(puzzle) * 2 - 1, 2):
                     loc = Loc(r, c)
-
                     tl = loc.top_left()
                     tr = loc.top_right()
                     bl = loc.bottom_left()
                     br = loc.bottom_right()
-
-                    string = puzzle.grid[r][c]
-                    if '+' in string:
-                        number = int(string.replace('+', ''))
-                        edits += self.solve_addition(puzzle, number, tl, br)
-                        edits += self.solve_addition(puzzle, number, tr, bl)
+                    valid, number = self.get_valid_and_number(puzzle, loc)
+                    if valid:
+                        edits += self.solve_math(puzzle, number, tl, br)
+                        edits += self.solve_math(puzzle, number, tr, bl)
 
             return edits
 
@@ -2602,12 +2602,6 @@ class tech:
         def __solve_addition(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
-
-            # for candidate0 in puzzle.cell_candidates(cell0):
-            #     if number - candidate0 in candidates1:
-            #         continue
-            #     edits += puzzle.rem([cell0], [candidate0])
-
             if number == 4:
                 if 0 not in candidates1:
                     edits += puzzle.rem([cell0], [4])
@@ -2642,7 +2636,6 @@ class tech:
                     edits += puzzle.rem([cell0], [2])
                 if 5 not in candidates1:
                     edits += puzzle.rem([cell0], [1])
-            #
             if number == 7:
                 if 1 not in candidates1:
                     edits += puzzle.rem([cell0], [6])
