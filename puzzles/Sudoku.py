@@ -65,6 +65,9 @@ class Sudoku(Puzzle):
                 edits += 1
         return edits
 
+    # def __repr__(self):
+    #     return 'Sudoku()'
+
     def unsolved_cells(self) -> set[Loc]:
         # unsolved = set()
         # for r in range(self.length):
@@ -104,6 +107,7 @@ class Sudoku(Puzzle):
 
             return False
 
+        return True
         return True
 
     def row_chute(self, loc: Loc) -> int:

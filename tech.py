@@ -1143,6 +1143,31 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
 
+            # row = 4
+
+            puzzle.override_loc_color(puzzle.house_row(4), Fore.LIGHTBLUE_EX)
+            puzzle.override_loc_color([Loc(4, 4)], Fore.GREEN)
+            puzzle.override_loc_color([Loc(4, 3), Loc(4, 5)], Fore.RED)
+            puzzle.override_loc_color([
+                Loc(4, 1),
+                Loc(5, 3),
+                Loc(4, 7)
+            ], Fore.YELLOW)
+
+            
+
+
+
+
+            # extensions = [
+            #     Loc(4, 1)
+            # ]
+
+
+
+
+            # print("hello")
+
             return edits
 
     class WWing:
