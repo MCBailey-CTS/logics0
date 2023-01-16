@@ -84,15 +84,13 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
-
             unsolved = puzzle.unsolved_cells()
-
             if len(unsolved) == 0:
                 return edits
-
-            for house in puzzle.houses_rows_cols_fences():
-                edits += self.solve_house(puzzle, house)
-
+            houses = puzzle.houses_rows() + puzzle.houses_cols()
+            if puzzle.has_fences:
+                houses = houses + puzzle.houses_fences()
+            edits += sum(self.solve_house(puzzle, house) for house in houses)
             return edits
 
         @abstractmethod
@@ -238,14 +236,14 @@ class tech:
             opp_base1 = Loc(3, 6)
 
             if \
-            set(puzzle.cell_candidates(base0)) == {1}\
-            and\
-            set(puzzle.cell_candidates(base1)) == {2} \
-            and \
-            set(puzzle.cell_candidates(opp_base0)) == {2, 3} \
-            and \
-            set(puzzle.cell_candidates(opp_base1)) == {1, 3}\
-            :
+                    set(puzzle.cell_candidates(base0)) == {1} \
+                            and \
+                            set(puzzle.cell_candidates(base1)) == {2} \
+                            and \
+                            set(puzzle.cell_candidates(opp_base0)) == {2, 3} \
+                            and \
+                            set(puzzle.cell_candidates(opp_base1)) == {1, 3} \
+                    :
                 __fence = 'f'
                 __col = 6
                 __candidates = [3]
@@ -402,6 +400,18 @@ class tech:
                             edits += puzzle.rem(cell, [list(_candidates)[0]])
             return edits
 
+    class MathraxCrossHatch:
+        def solve0(self, puzzle: Sudoku) -> int:
+            edits = 0
+
+            for house in puzzle.houses_rows() + puzzle.houses_cols():
+                for loc in house:
+                    candidates = puzzle.cell_candidates(loc)
+                    if len(candidates) == 1:
+                        edits += puzzle.rem(set(house) - {loc}, [candidates[0]])
+
+            return edits
+
     class FishyCycle:
 
         def solve0(self, puzzle: Sudoku) -> int:
@@ -539,7 +549,7 @@ class tech:
             return edits
 
         @staticmethod
-        def solve_explicit(puzzle: Sudoku)->int:
+        def solve_explicit(puzzle: Sudoku) -> int:
             edits = 0
 
             # 'a': Fore.RED,
@@ -559,12 +569,11 @@ class tech:
             # puzzle.override_loc_color([Loc(2, 3), Loc(2, 4), Loc(2, 5), Loc(2, 7), Loc(2, 8)], Fore.GREEN)
             # puzzle.override_loc_color([Loc(6, 0), Loc(6, 1),Loc(6, 3), Loc(6, 4), Loc(6, 5), Loc(6, 7), Loc(6, 8)], Fore.GREEN)
 
-
             house0 = puzzle.house_row(2)
             house1 = puzzle.house_row(6)
 
             string0 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house0) if
-                             char.isnumeric() or char == '_')
+                              char.isnumeric() or char == '_')
             string1 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house1) if
                               char.isnumeric() or char == '_')
             if string0 == '123456789123456789123456789_23456789_23456789_23456789123456789_23456789_23456789' and \
@@ -574,7 +583,7 @@ class tech:
                 __row1 = house1
                 __fin = [Loc(2, 0), Loc(2, 1)]
                 __corners = [Loc(2, 2), Loc(2, 6), Loc(6, 2), Loc(6, 6)]
-                __remove = [Loc(0,2), Loc(1,2)]
+                __remove = [Loc(0, 2), Loc(1, 2)]
 
                 puzzle.override_loc_color(__row0 + __row1, Fore.GREEN)
                 puzzle.override_loc_color(__corners, Fore.YELLOW)
@@ -943,6 +952,8 @@ class tech:
         @staticmethod
         def static_solve_house(puzzle: Sudoku, house: list[Loc]) -> int:
             edits = 0
+            # print(f'{len(house)} {len(puzzle)}')
+            # print(house)
             for i in range(0, len(puzzle) - 1):
                 for ii in range(i + 1, len(puzzle)):
                     if i == ii:
@@ -1048,14 +1059,13 @@ class tech:
             string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
                              char.isnumeric() or char == '_')
             if string == '____56789123456789____56789123456789____56789123456789____56789123456789____56789':
-                __candidates = [5,6,7,8,9]
+                __candidates = [5, 6, 7, 8, 9]
                 __row = house
-                __remove = [house[1] , house[3], house[5], house[7]]
+                __remove = [house[1], house[3], house[5], house[7]]
 
                 puzzle.override_loc_color(__row, Fore.GREEN)
                 puzzle.override_loc_color(__remove, Fore.YELLOW)
                 edits += puzzle.rem(__remove, __candidates)
-
 
             return edits
 
@@ -1145,6 +1155,8 @@ class tech:
 
             # row = 4
 
+            # pivot = [Loc(4, 4)]
+
             puzzle.override_loc_color(puzzle.house_row(4), Fore.LIGHTBLUE_EX)
             puzzle.override_loc_color([Loc(4, 4)], Fore.GREEN)
             puzzle.override_loc_color([Loc(4, 3), Loc(4, 5)], Fore.RED)
@@ -1154,17 +1166,9 @@ class tech:
                 Loc(4, 7)
             ], Fore.YELLOW)
 
-            
-
-
-
-
             # extensions = [
             #     Loc(4, 1)
             # ]
-
-
-
 
             # print("hello")
 
@@ -1964,6 +1968,7 @@ class tech:
 
                     for candidate in puzzle.cell_candidates(loc):
                         edits += self.solve_one_cell(puzzle, loc, candidate)
+
             return edits
 
     class XyChain:
@@ -2539,39 +2544,163 @@ class tech:
 
         def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
+
+            # for house in puzzle.houses_rows()
+
             for r in range(1, len(puzzle) * 2 - 1, 2):
                 for c in range(1, len(puzzle) * 2 - 1, 2):
                     loc = Loc(r, c)
+
+                    tl = loc.top_left()
+                    tr = loc.top_right()
+                    bl = loc.bottom_left()
+                    br = loc.bottom_right()
+
                     string = puzzle.grid[r][c]
                     if '+' in string:
                         number = int(string.replace('+', ''))
-                        edits += self.solve_addition(puzzle, number, loc.top_left(), loc.bottom_right())
-                        edits += self.solve_addition(puzzle, number, loc.top_right(), loc.bottom_left())
+                        edits += self.solve_addition(puzzle, number, tl, br)
+                        edits += self.solve_addition(puzzle, number, tr, bl)
 
-                    if '/' in string:
-                        number = int(string.replace('/', ''))
-                        edits += self.solve_division(puzzle, number, loc.top_left(), loc.bottom_right())
-                        edits += self.solve_division(puzzle, number, loc.top_right(), loc.bottom_left())
-
+                    if 'x' in string:
+                        number = int(string.replace('x', ''))
+                        edits += self.solve_multiplication(puzzle, number, tl, br)
+                        edits += self.solve_multiplication(puzzle, number, tr, bl)
+                    #
+                    # if '/' in string:
+                    #     number = int(string.replace('/', ''))
+                    #     edits += self.solve_division(puzzle, number, tl, br)
+                    #     edits += self.solve_division(puzzle, number, tr, bl)
+                    #
                     if '-' in string:
                         number = int(string.replace('-', ''))
-                        edits += self.solve_subtraction(puzzle, number, loc.top_left(), loc.bottom_right())
-                        edits += self.solve_subtraction(puzzle, number, loc.top_right(), loc.bottom_left())
+                        edits += self.solve_subtraction(puzzle, number, tl, br)
+                        edits += self.solve_subtraction(puzzle, number, tr, bl)
+                    # if string == 'OOO':
+                    #     edits += puzzle.rem([tl, tr, bl, br],
+                    #                         [2, 4, 6])
+                    if string == '04+':
+                        corners = [tl, tr, bl, br]
+                        row0, row1 = set([loc.row for loc in corners])
+                        col0, col1 = set([loc.col for loc in corners])
+                        remove = set(
+                            puzzle.house_row(row0) + puzzle.house_row(row1) + puzzle.house_col(col0) + puzzle.house_col(
+                                col1)).difference(corners)
+                        edits += puzzle.rem(remove, [2])
+                    #
+                    # if string == '02-':
+                    #     if {1, 3, 5}.issuperset(puzzle.cell_candidates(tl)) and {1, 3, 5}.issuperset(puzzle.cell_candidates(br)):
+                    #         edits += puzzle.rem([tr, bl], [3])
+
             return edits
 
         @staticmethod
         def __solve_addition(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
-            for candidate0 in puzzle.cell_candidates(cell0):
-                if any(candidate0 + candidate1 == number for candidate1 in candidates1):
-                    continue
-                edits += puzzle.rem([cell0], [candidate0])
+
+            # for candidate0 in puzzle.cell_candidates(cell0):
+            #     if number - candidate0 in candidates1:
+            #         continue
+            #     edits += puzzle.rem([cell0], [candidate0])
+
+            if number == 4:
+                # if 0 not in candidates1:
+                #     edits += puzzle.rem([cell0], [4])
+                if 1 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
+                # if 2 not in candidates1:
+                #     edits += puzzle.rem([cell0], [2])
+                # if 3 not in candidates1:
+                #     edits += puzzle.rem([cell0], [1])
+                edits += puzzle.rem([cell0], [4, 5, 6, 7])
+
+            # if number == 5:
+            #     edits += puzzle.rem(cell0, [5, 6, 7])
+            #     if 1 not in candidates1:
+            #         edits += puzzle.rem([cell0], [4])
+            #     if 2 not in candidates1:
+            #         edits += puzzle.rem([cell0], [3])
+            #     if 3 not in candidates1:
+            #         edits += puzzle.rem([cell0], [2])
+            #     if 4 not in candidates1:
+            #         edits += puzzle.rem([cell0], [1])
+            #
+            # if number == 7:
+            #     if 1 not in candidates1:
+            #         edits += puzzle.rem([cell0], [6])
+            #     if 2 not in candidates1:
+            #         edits += puzzle.rem([cell0], [5])
+            #     if 3 not in candidates1:
+            #         edits += puzzle.rem([cell0], [4])
+            #     if 4 not in candidates1:
+            #         edits += puzzle.rem([cell0], [3])
+            #     if 5 not in candidates1:
+            #         edits += puzzle.rem([cell0], [2])
+            #     if 6 not in candidates1:
+            #         edits += puzzle.rem([cell0], [1])
+            #
+            # if number == 8:
+            #     if 1 not in candidates1:
+            #         edits += puzzle.rem([cell0], [7])
+            #     if 2 not in candidates1:
+            #         edits += puzzle.rem([cell0], [6])
+            #     if 3 not in candidates1:
+            #         edits += puzzle.rem([cell0], [5])
+            #     if 4 not in candidates1:
+            #         edits += puzzle.rem([cell0], [4])
+            #     if 5 not in candidates1:
+            #         edits += puzzle.rem([cell0], [3])
+            #     if 6 not in candidates1:
+            #         edits += puzzle.rem([cell0], [2])
+            #     if 7 not in candidates1:
+            #         edits += puzzle.rem([cell0], [1])
+            #
+            # if number == 9:
+            #     if 1 not in candidates1:
+            #         edits += puzzle.rem([cell0], [8])
+            #     if 2 not in candidates1:
+            #         edits += puzzle.rem([cell0], [7])
+            #     if 3 not in candidates1:
+            #         edits += puzzle.rem([cell0], [6])
+            #     if 4 not in candidates1:
+            #         edits += puzzle.rem([cell0], [5])
+            #     if 5 not in candidates1:
+            #         edits += puzzle.rem([cell0], [4])
+            #     if 6 not in candidates1:
+            #         edits += puzzle.rem([cell0], [3])
+            #     if 7 not in candidates1:
+            #         edits += puzzle.rem([cell0], [2])
+            #     if 8 not in candidates1:
+            #         edits += puzzle.rem([cell0], [1])
+
+            return edits
+
+        @staticmethod
+        def __solve_multiplication(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = 0
+            candidates1 = set(puzzle.cell_candidates(cell1))
+            if number == 4:
+                edits += puzzle.rem(cell0, [3, 5, 6, 7])
+                # if 4 not in candidates1:
+                #     edits += puzzle.rem([cell0], [1])
+
+                if 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
+            if number == 6:
+                edits += puzzle.rem(cell0, [4, 5, 7])
+                if 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
             return edits
 
         def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = self.__solve_addition(puzzle, number, cell0, cell1)
             edits += self.__solve_addition(puzzle, number, cell1, cell0)
+            return edits
+
+        def solve_multiplication(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_multiplication(puzzle, number, cell0, cell1)
+            edits += self.__solve_multiplication(puzzle, number, cell1, cell0)
             return edits
 
         def solve_division(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
@@ -2583,14 +2712,18 @@ class tech:
         def __solve_division(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
-            for candidate0 in puzzle.cell_candidates(cell0):
-                if any(candidate0 % candidate1 == 0 and int(candidate0 / candidate1) == number for candidate1 in
-                       candidates1):
-                    continue
-                if any(candidate1 % candidate0 == 0 and int(candidate1 / candidate0) == number for candidate1 in
-                       candidates1):
-                    continue
-                edits += puzzle.rem([cell0], [candidate0])
+            if number == 2:
+                edits += puzzle.rem([cell0, cell1], [5, 7])
+                if 1 not in candidates1 and 4 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [6])
+                # if 1 not in candidates1 and 3 not in candidates1:
+                #     edits += puzzle.rem([cell0], [2])
+                # if 3 not in candidates1 and 5 not in candidates1:
+                #     edits += puzzle.rem([cell0], [4])
+                # if 4 not in candidates1 and 6 not in candidates1:
+                #     edits += puzzle.rem([cell0], [5])
             return edits
 
         def solve_subtraction(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
@@ -2601,13 +2734,57 @@ class tech:
         @staticmethod
         def __solve_subtraction(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
+
             candidates1 = set(puzzle.cell_candidates(cell1))
-            for candidate0 in puzzle.cell_candidates(cell0):
-                if any(candidate0 - candidate1 == number for candidate1 in candidates1):
-                    continue
-                if any(candidate1 - candidate0 == number for candidate1 in candidates1):
-                    continue
-                edits += puzzle.rem([cell0], [candidate0])
+
+            if number == 0:
+                if 1 not in candidates1:
+                    edits += puzzle.rem([cell0], [1])
+                if 2 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
+                if 4 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
+                if 5 not in candidates1:
+                    edits += puzzle.rem([cell0], [5])
+                if 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [6])
+                if 7 not in candidates1:
+                    edits += puzzle.rem([cell0], [7])
+            if number == 1:
+                if 2 not in candidates1:
+                    edits += puzzle.rem([cell0], [1])
+                if 1 not in candidates1 and 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 3 not in candidates1 and 5 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
+                if 4 not in candidates1 and 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [5])
+            if number == 2:
+                if 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [1])
+                if 4 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 1 not in candidates1 and 5 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
+                if 2 not in candidates1 and 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
+                if 3 not in candidates1 and 7 not in candidates1:
+                    edits += puzzle.rem([cell0], [5])
+            if number == 3:
+                if 4 not in candidates1:
+                    edits += puzzle.rem([cell0], [1])
+                # if 5 not in candidates1:
+                #     edits += puzzle.rem([cell0], [2])
+                if 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [3])
+                if 1 not in candidates1 and 7 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
+                if 2 not in candidates1 and 8 not in candidates1:
+                    edits += puzzle.rem([cell0], [5])
+                if 3 not in candidates1 and 9 not in candidates1:
+                    edits += puzzle.rem([cell0], [6])
             return edits
 
     class TennerCrossHatch(Technique):

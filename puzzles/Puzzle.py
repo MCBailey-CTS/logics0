@@ -32,6 +32,9 @@ class Puzzle:
     def __len__(self):
         return self.__length
 
+    def __repr__(self):
+        return f'{self.__class__.__name__}( {self.id()} )'
+
     def fences(self) -> set[str]:
         house = set()
 

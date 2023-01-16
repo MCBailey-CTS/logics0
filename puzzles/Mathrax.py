@@ -19,6 +19,12 @@ class Mathrax(Puzzle):
             return temp
         return [loc for loc in self.house_col(col) if candidate in self.cell_candidates(loc)]
 
+    def houses_rows(self) -> list[list[Loc]]:
+        return [self.house_row(i) for i in range(0, len(self) * 2 - 1, 2)]
+
+    def houses_cols(self) -> list[list[Loc]]:
+        return [self.house_col(i) for i in range(0, len(self) * 2 - 1, 2)]
+
     def unsolved_cells(self) -> list[Loc]:
         unsolved = []
         for r in range(0, len(self) * 2 - 1, 2):
@@ -75,6 +81,6 @@ class Mathrax(Puzzle):
                 # if len(self.cell_candidates(loc)) == 0:
                 #     string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                 # else:
-                string += f'{self.grid[r][c].ljust(len(self))} '
+                string += f'{self.grid[r][c]} '
             string += '\n'
         return string
