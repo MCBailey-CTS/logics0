@@ -4,10 +4,6 @@ EXPLICITLY = "explicitly"
 
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
-    # print(actual)
-    # temp = next((name for name in dir()))
-
-
     actual_puzzle: Puzzle = constructor(actual)
     expected_puzzle = constructor(expected)
     technique.solve0(actual_puzzle)
@@ -15,6 +11,10 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
     expected_string = str(expected_puzzle).replace(expected_puzzle.id(), "")
     if actual_string == expected_string:
         return True
+
+    print(actual_string.replace('\n',''))
+    print(expected_string.replace('\n',''))
+
     print(actual_puzzle.to_string())
     print(expected_puzzle)
     return False

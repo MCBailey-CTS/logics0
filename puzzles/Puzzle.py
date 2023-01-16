@@ -18,7 +18,7 @@ class Puzzle:
         array.pop(0)
         array.pop(0)
 
-        self.__color_override = {}
+        self.color_override = {}
 
         for line in array:
             self.grid.append(
@@ -171,18 +171,18 @@ class Puzzle:
 
     def override_loc_color(self, locs: list[Loc], color):
         for loc in locs:
-            self.__color_override[loc] = color
+            self.color_override[loc] = color
 
-    def to_string(self, include_colors = True)->str:
+    def to_string(self, include_colors=True) -> str:
         string = f'{self.id()}\n'
         string += f'{len(self)}\n'
         for r in range(len(self)):
             for c in range(len(self)):
                 loc = Loc(r, c)
-                if include_colors and loc in self.__color_override:
-                    string += f'{self.__color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
+                if include_colors and loc in self.color_override:
+                    string += f'{self.color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                     continue
-                if  len(self.cell_candidates(loc)) == 0:
+                if len(self.cell_candidates(loc)) == 0:
                     string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                 else:
                     string += f'{self.grid[r][c].ljust(len(self))} '
@@ -191,4 +191,3 @@ class Puzzle:
 
     def __str__(self):
         return self.to_string(False)
-

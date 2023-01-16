@@ -401,15 +401,45 @@ class tech:
             return edits
 
     class MathraxCrossHatch:
-        def solve0(self, puzzle: Sudoku) -> int:
+
+        @staticmethod
+        def solve_explicit(puzzle: Mathrax, loc0: Loc, loc1: Loc) -> int:
+            edits = 0
+            candidates = puzzle.cell_candidates(loc0)
+
+            if len(candidates) == 1:
+                edits += puzzle.rem([loc1], [candidates[0]])
+
+            return edits
+
+        def solve0(self, puzzle: Mathrax, loc: Optional[Loc] = None) -> int:
             edits = 0
 
-            for house in puzzle.houses_rows() + puzzle.houses_cols():
+            if isinstance(loc, Loc):
+                candidates = puzzle.cell_candidates(loc)
+                if len(candidates) == 1:
+                    remove = set(puzzle.house_row(loc.row) + puzzle.house_col(loc.col))
+                    remove.remove(loc)
+                    edits += puzzle.rem(remove, [candidates[0]])
+                    # print(remove)
+                    # remove
+
+
+                return edits
+
+            for house in puzzle.houses_cols():
+                # print(house)
                 for loc in house:
                     candidates = puzzle.cell_candidates(loc)
                     if len(candidates) == 1:
                         edits += puzzle.rem(set(house) - {loc}, [candidates[0]])
-
+            for house in puzzle.houses_rows():
+                # print(house)
+                for loc in house:
+                    candidates = puzzle.cell_candidates(loc)
+                    if len(candidates) == 1:
+                        edits += puzzle.rem(set(house) - {loc}, [candidates[0]])
+            print('/////')
             return edits
 
     class FishyCycle:
@@ -2540,7 +2570,12 @@ class tech:
             edits = 0
             return edits
 
-    class MathraxMath:
+    class MathraxMathAddition:
+        def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_addition(puzzle, number, cell0, cell1)
+            edits += self.__solve_addition(puzzle, number, cell1, cell0)
+
+            return edits
 
         def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
@@ -2562,36 +2597,6 @@ class tech:
                         edits += self.solve_addition(puzzle, number, tl, br)
                         edits += self.solve_addition(puzzle, number, tr, bl)
 
-                    if 'x' in string:
-                        number = int(string.replace('x', ''))
-                        edits += self.solve_multiplication(puzzle, number, tl, br)
-                        edits += self.solve_multiplication(puzzle, number, tr, bl)
-                    #
-                    # if '/' in string:
-                    #     number = int(string.replace('/', ''))
-                    #     edits += self.solve_division(puzzle, number, tl, br)
-                    #     edits += self.solve_division(puzzle, number, tr, bl)
-                    #
-                    if '-' in string:
-                        number = int(string.replace('-', ''))
-                        edits += self.solve_subtraction(puzzle, number, tl, br)
-                        edits += self.solve_subtraction(puzzle, number, tr, bl)
-                    # if string == 'OOO':
-                    #     edits += puzzle.rem([tl, tr, bl, br],
-                    #                         [2, 4, 6])
-                    if string == '04+':
-                        corners = [tl, tr, bl, br]
-                        row0, row1 = set([loc.row for loc in corners])
-                        col0, col1 = set([loc.col for loc in corners])
-                        remove = set(
-                            puzzle.house_row(row0) + puzzle.house_row(row1) + puzzle.house_col(col0) + puzzle.house_col(
-                                col1)).difference(corners)
-                        edits += puzzle.rem(remove, [2])
-                    #
-                    # if string == '02-':
-                    #     if {1, 3, 5}.issuperset(puzzle.cell_candidates(tl)) and {1, 3, 5}.issuperset(puzzle.cell_candidates(br)):
-                    #         edits += puzzle.rem([tr, bl], [3])
-
             return edits
 
         @staticmethod
@@ -2605,15 +2610,15 @@ class tech:
             #     edits += puzzle.rem([cell0], [candidate0])
 
             if number == 4:
-                # if 0 not in candidates1:
-                #     edits += puzzle.rem([cell0], [4])
+                if 0 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
                 if 1 not in candidates1:
                     edits += puzzle.rem([cell0], [3])
                 # if 2 not in candidates1:
                 #     edits += puzzle.rem([cell0], [2])
                 # if 3 not in candidates1:
                 #     edits += puzzle.rem([cell0], [1])
-                edits += puzzle.rem([cell0], [4, 5, 6, 7])
+                # edits += puzzle.rem([cell0], [4, 5, 6, 7])
 
             # if number == 5:
             #     edits += puzzle.rem(cell0, [5, 6, 7])
@@ -2676,54 +2681,44 @@ class tech:
 
             return edits
 
-        @staticmethod
-        def __solve_multiplication(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+    class MathraxMathSubtraction:
+
+        def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
-            candidates1 = set(puzzle.cell_candidates(cell1))
-            if number == 4:
-                edits += puzzle.rem(cell0, [3, 5, 6, 7])
-                # if 4 not in candidates1:
-                #     edits += puzzle.rem([cell0], [1])
 
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-            if number == 6:
-                edits += puzzle.rem(cell0, [4, 5, 7])
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-            return edits
+            # for house in puzzle.houses_rows()
 
-        def solve_addition(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_addition(puzzle, number, cell0, cell1)
-            edits += self.__solve_addition(puzzle, number, cell1, cell0)
-            return edits
+            for r in range(1, len(puzzle) * 2 - 1, 2):
+                for c in range(1, len(puzzle) * 2 - 1, 2):
+                    loc = Loc(r, c)
 
-        def solve_multiplication(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_multiplication(puzzle, number, cell0, cell1)
-            edits += self.__solve_multiplication(puzzle, number, cell1, cell0)
-            return edits
+                    tl = loc.top_left()
+                    tr = loc.top_right()
+                    bl = loc.bottom_left()
+                    br = loc.bottom_right()
 
-        def solve_division(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_division(puzzle, number, cell0, cell1)
-            edits += self.__solve_division(puzzle, number, cell1, cell0)
-            return edits
+                    string = puzzle.grid[r][c]
 
-        @staticmethod
-        def __solve_division(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = 0
-            candidates1 = set(puzzle.cell_candidates(cell1))
-            if number == 2:
-                edits += puzzle.rem([cell0, cell1], [5, 7])
-                if 1 not in candidates1 and 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
-                # if 1 not in candidates1 and 3 not in candidates1:
-                #     edits += puzzle.rem([cell0], [2])
-                # if 3 not in candidates1 and 5 not in candidates1:
-                #     edits += puzzle.rem([cell0], [4])
-                # if 4 not in candidates1 and 6 not in candidates1:
-                #     edits += puzzle.rem([cell0], [5])
+                    if '-' in string:
+                        number = int(string.replace('-', ''))
+                        edits += self.solve_subtraction(puzzle, number, tl, br)
+                        edits += self.solve_subtraction(puzzle, number, tr, bl)
+                    # if string == 'OOO':
+                    #     edits += puzzle.rem([tl, tr, bl, br],
+                    #                         [2, 4, 6])
+                    # if string == '04+':
+                    #     corners = [tl, tr, bl, br]
+                    #     row0, row1 = set([loc.row for loc in corners])
+                    #     col0, col1 = set([loc.col for loc in corners])
+                    #     remove = set(
+                    #         puzzle.house_row(row0) + puzzle.house_row(row1) + puzzle.house_col(col0) + puzzle.house_col(
+                    #             col1)).difference(corners)
+                    #     edits += puzzle.rem(remove, [2])
+                    #
+                    # if string == '02-':
+                    #     if {1, 3, 5}.issuperset(puzzle.cell_candidates(tl)) and {1, 3, 5}.issuperset(puzzle.cell_candidates(br)):
+                    #         edits += puzzle.rem([tr, bl], [3])
+
             return edits
 
         def solve_subtraction(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
@@ -2772,20 +2767,153 @@ class tech:
                     edits += puzzle.rem([cell0], [4])
                 if 3 not in candidates1 and 7 not in candidates1:
                     edits += puzzle.rem([cell0], [5])
-            if number == 3:
+            # if number == 3:
+            #     if 4 not in candidates1:
+            #         edits += puzzle.rem([cell0], [1])
+            #     # if 5 not in candidates1:
+            #     #     edits += puzzle.rem([cell0], [2])
+            #     if 6 not in candidates1:
+            #         edits += puzzle.rem([cell0], [3])
+            #     if 1 not in candidates1 and 7 not in candidates1:
+            #         edits += puzzle.rem([cell0], [4])
+            #     if 2 not in candidates1 and 8 not in candidates1:
+            #         edits += puzzle.rem([cell0], [5])
+            #     if 3 not in candidates1 and 9 not in candidates1:
+            #         edits += puzzle.rem([cell0], [6])
+            return edits
+
+    class MathraxMathMultiplication:
+
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+
+            # for house in puzzle.houses_rows()
+
+            for r in range(1, len(puzzle) * 2 - 1, 2):
+                for c in range(1, len(puzzle) * 2 - 1, 2):
+                    loc = Loc(r, c)
+
+                    tl = loc.top_left()
+                    tr = loc.top_right()
+                    bl = loc.bottom_left()
+                    br = loc.bottom_right()
+
+                    string = puzzle.grid[r][c]
+
+                    if 'x' in string:
+                        number = int(string.replace('x', ''))
+                        edits += self.solve_multiplication(puzzle, number, tl, br)
+                        edits += self.solve_multiplication(puzzle, number, tr, bl)
+
+                    # if string == 'OOO':
+                    #     edits += puzzle.rem([tl, tr, bl, br],
+                    #                         [2, 4, 6])
+                    # if string == '04+':
+                    #     corners = [tl, tr, bl, br]
+                    #     row0, row1 = set([loc.row for loc in corners])
+                    #     col0, col1 = set([loc.col for loc in corners])
+                    #     remove = set(
+                    #         puzzle.house_row(row0) + puzzle.house_row(row1) + puzzle.house_col(col0) + puzzle.house_col(
+                    #             col1)).difference(corners)
+                    #     edits += puzzle.rem(remove, [2])
+                    #
+                    # if string == '02-':
+                    #     if {1, 3, 5}.issuperset(puzzle.cell_candidates(tl)) and {1, 3, 5}.issuperset(puzzle.cell_candidates(br)):
+                    #         edits += puzzle.rem([tr, bl], [3])
+
+            return edits
+
+        @staticmethod
+        def __solve_multiplication(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = 0
+            candidates1 = set(puzzle.cell_candidates(cell1))
+            if number == 4:
+                edits += puzzle.rem(cell0, [3, 5, 6, 7])
+                if 1 not in candidates1:
+                    edits += puzzle.rem([cell0], [4])
+                if 2 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
                 if 4 not in candidates1:
                     edits += puzzle.rem([cell0], [1])
-                # if 5 not in candidates1:
-                #     edits += puzzle.rem([cell0], [2])
-                if 6 not in candidates1:
+
+            if number == 6:
+                edits += puzzle.rem(cell0, [4, 5, 7])
+                if 2 not in candidates1:
                     edits += puzzle.rem([cell0], [3])
-                if 1 not in candidates1 and 7 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 2 not in candidates1 and 8 not in candidates1:
-                    edits += puzzle.rem([cell0], [5])
-                if 3 not in candidates1 and 9 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
+                if 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 6 not in candidates1:
+                    edits += puzzle.rem([cell0], [1])
             return edits
+
+        def solve_multiplication(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_multiplication(puzzle, number, cell0, cell1)
+            edits += self.__solve_multiplication(puzzle, number, cell1, cell0)
+            return edits
+
+    class MathraxMathDivision:
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+            for r in range(1, len(puzzle) * 2 - 1, 2):
+                for c in range(1, len(puzzle) * 2 - 1, 2):
+                    loc = Loc(r, c)
+                    tl = loc.top_left()
+                    tr = loc.top_right()
+                    bl = loc.bottom_left()
+                    br = loc.bottom_right()
+                    string = puzzle.grid[r][c]
+                    if '/' in string:
+                        number = int(string.replace('/', ''))
+                        edits += self.solve_division(puzzle, number, tl, br)
+                        edits += self.solve_division(puzzle, number, tr, bl)
+            return edits
+
+        def solve_division(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = self.__solve_division(puzzle, number, cell0, cell1)
+            edits += self.__solve_division(puzzle, number, cell1, cell0)
+            return edits
+
+        @staticmethod
+        def __solve_division(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+            edits = 0
+            candidates1 = set(puzzle.cell_candidates(cell1))
+            if number == 2:
+                edits += puzzle.rem([cell0, cell1], [5, 7])
+                if 1 not in candidates1 and 4 not in candidates1:
+                    edits += puzzle.rem([cell0], [2])
+                if 3 not in candidates1:
+                    edits += puzzle.rem([cell0], [6])
+                # if 1 not in candidates1 and 3 not in candidates1:
+                #     edits += puzzle.rem([cell0], [2])
+                # if 3 not in candidates1 and 5 not in candidates1:
+                #     edits += puzzle.rem([cell0], [4])
+                # if 4 not in candidates1 and 6 not in candidates1:
+                #     edits += puzzle.rem([cell0], [5])
+            return edits
+
+    class MathraxMath04XWing:
+
+        def solve0(self, puzzle: Mathrax) -> int:
+            edits = 0
+            for r in range(len(puzzle) * 2 - 1):
+                for c in range(len(puzzle) * 2 - 1):
+
+                    if puzzle.grid[r][c] != '04x' and puzzle.grid[r][c] != '04+':
+                        continue
+
+                    loc = Loc(r, c)
+
+                    tl = loc.top_left()
+                    tr = loc.top_right()
+                    bl = loc.bottom_left()
+                    br = loc.bottom_right()
+
+                    remove = set(puzzle.house_row(tl.row) + puzzle.house_col(tl.col) + puzzle.house_row(br.row) + puzzle.house_col(br.col)).difference([tl, tr, bl, br])
+
+                    edits += puzzle.rem(remove, [2])
+
+            return edits
+
 
     class TennerCrossHatch(Technique):
 

@@ -104,8 +104,13 @@ class Solving:
     @staticmethod
     def mathrax_techniques() -> list:
         return [
-            tech.MathraxCrossHatch(),
-                tech.MathraxMath(),
+                tech.CrossHatch(),
+                tech.MathraxMathAddition(),
+                tech.MathraxMathSubtraction(),
+                tech.MathraxMathMultiplication(),
+                tech.MathraxMathDivision(),
+                tech.MathraxMath04XWing(),
+
                 # tech.NakedPair(),
                 # tech.XWing(),
                 # tech.HiddenPair()
@@ -183,10 +188,7 @@ class Solving:
 
 
 @pytest.mark.parametrize("constructor, technique, actual, expected", [
-    # (Mathrax,
-    #  tech.CrossHatch(),
-    #  Constants.mathrax_cross_hatch_actual.__name__,
-    #  Constants.mathrax_cross_hatch_expected.__name__),
+
     (Sudoku,
      tech.XWing(),
      Constants.sudoku_explicit_x_wing_row_actual.__name__,
@@ -760,6 +762,26 @@ class Solving:
     #  XyWing(),
     #  Constants.sudoku_explicit_xy_wing_2_fences_row_chute_actual(),
     #  Constants.sudoku_explicit_xy_wing_2_fences_row_chute_expected()),
+    (Mathrax,
+     tech.CrossHatch(),
+     Constants.mathrax_cross_hatch_actual.__name__,
+     Constants.mathrax_cross_hatch_expected.__name__),
+    (Mathrax,
+     tech.MathraxMathSubtraction(),
+     Constants.mathrax_01minus_actual.__name__,
+     Constants.mathrax_01minus_expected.__name__),
+    (Mathrax,
+     tech.MathraxMath04XWing(),
+     Constants.mathrax_04plus_actual.__name__,
+     Constants.mathrax_04plus_expected.__name__),
+    (Mathrax,
+     tech.MathraxMathMultiplication(),
+     Constants.mathrax_06x04x_actual.__name__,
+     Constants.mathrax_06x04x_expected.__name__),
+    (Mathrax,
+     tech.MathraxMathDivision(),
+     Constants.mathrax_02division_actual.__name__,
+     Constants.mathrax_02division_expected.__name__),
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     if "\n" in actual or "\n" in expected:
@@ -1056,10 +1078,10 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     # (Constants.mathrax_007.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_006.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_005.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_004.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_003.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_001.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_004.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_003.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_001.__name__, Mathrax, Solving.mathrax_techniques()),
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     if "\n" in puzzle_string:

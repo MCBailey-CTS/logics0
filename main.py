@@ -3,10 +3,9 @@ from typing import Iterable
 # import numpy as np
 # from py_linq import Enumarable
 from Constants import Constants
+from Loc import Loc
 
 from linq import linq
-
-
 
 sudoku_fences = [
     ['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c'],
@@ -160,6 +159,7 @@ def powerset(seq):
             yield [seq[0]] + item
             yield item
 
+
 def powert_set_start():
     temp = [0, 1, 2, 6, 6, 7]
 
@@ -174,7 +174,6 @@ def powert_set_start():
     print(r)
 
 
-
 # def where(function, iterable):
 #     return filter(function, iterable)
 
@@ -182,26 +181,43 @@ def powert_set_start():
 #     return 
 
 
+# def first
 
+# def to_set(self)->set:
+#     return
 
+# def select(self, func=lambda x: x):
+#     pass
 
-    # def first
-
-    # def to_set(self)->set:
-    #     return 
-
-    # def select(self, func=lambda x: x):
-    #     pass
+from puzzles import Mathrax
+from tech import tech
 
 if __name__ == "__main__":
+    puzzle = Mathrax(Constants.mathrax_002())
+    edits = 0
+    edits += tech.CrossHatch().solve0(puzzle) + \
+             tech.CrossHatch().solve0(puzzle) + \
+             tech.CrossHatch().solve0(puzzle)
+
+    edits += tech.MathraxMathAddition().solve0(puzzle)
+    # edits += tech.MathraxMathMultiplication().solve0(puzzle)
+
+    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 0))
+    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 2))
+    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(2, 2))
+
+    print(edits)
+
+    print(puzzle)
+
+    # (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
+
     # from linq import linq
-    temp = linq([1,2,3,4,5])
+    # temp = linq([1,2,3,4,5])
 
-    # temp.select(lambda x: x).
+    # # temp.select(lambda x: x).
 
-    print(temp.single(lambda x:x==2))
-
-
+    # print(temp.single(lambda x:x==2))
 
     # temp.
 
