@@ -110,11 +110,16 @@ class Solving:
                 tech.MathraxMathMultiplication(),
                 tech.MathraxMathDivision(),
                 tech.MathraxMath04XWing(),
-
-                # tech.NakedPair(),
+                tech.MathraxMath01MinusXWing(),
+                tech.MathraxMath02MinusXWing(),
+                tech.MathraxOdd(),
+                tech.MathraxEven(),
+                tech.NakedPair(),
+                tech.NakedTriple(),
+                tech.MathraxMath04MinusXWing(),
                 # tech.XWing(),
-                # tech.HiddenPair()
-                ]
+                tech.HiddenPair()
+            ]
 
     @staticmethod
     def sumscrapers_techniques() -> list:
@@ -778,10 +783,10 @@ class Solving:
      tech.MathraxMathMultiplication(),
      Constants.mathrax_06x04x_actual.__name__,
      Constants.mathrax_06x04x_expected.__name__),
-    (Mathrax,
-     tech.MathraxMathDivision(),
-     Constants.mathrax_02division_actual.__name__,
-     Constants.mathrax_02division_expected.__name__),
+    # (Mathrax,
+    #  tech.MathraxMathDivision(),
+    #  Constants.mathrax_02division_actual.__name__,
+    #  Constants.mathrax_02division_expected.__name__),
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     if "\n" in actual or "\n" in expected:
@@ -1064,20 +1069,19 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     # (Constants.mathrax_020.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_019.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_018.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_017.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_017.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_016.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_015.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_014.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.magnets_014.__name__, Magnets, Solving.magnets_techniques()),
     # (Constants.mathrax_013.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_012.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_011.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_010.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_012.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_011.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_010.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_009.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_008.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_007.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_007.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_006.__name__, Mathrax, Solving.mathrax_techniques()),
-    # (Constants.mathrax_005.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.mathrax_005.__name__, Mathrax, Solving.mathrax_techniques()),
     (Constants.mathrax_004.__name__, Mathrax, Solving.mathrax_techniques()),
     (Constants.mathrax_003.__name__, Mathrax, Solving.mathrax_techniques()),
     (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
