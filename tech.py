@@ -2570,17 +2570,15 @@ class tech:
             return edits
 
     class MathraxMathAddition:
-        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_addition(puzzle, number, cell0, cell1)
-            edits += self.__solve_addition(puzzle, number, cell1, cell0)
-
-            return edits
-
-        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+        @staticmethod
+        def get_valid_and_number(puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
             string = puzzle.grid[loc.row][loc.col]
             if '+' in string:
                 return True, int(string.replace('+', ''))
             return False, None
+
+        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+            return number - candidate in candidates1
 
         def solve0(self, puzzle: Mathrax) -> int:
             edits = 0
@@ -2594,236 +2592,49 @@ class tech:
                     valid, number = self.get_valid_and_number(puzzle, loc)
                     if valid:
                         edits += self.solve_math(puzzle, number, tl, br)
+                        edits += self.solve_math(puzzle, number, br, tl)
                         edits += self.solve_math(puzzle, number, tr, bl)
-
+                        edits += self.solve_math(puzzle, number, bl, tr)
             return edits
 
-        @staticmethod
-        def __solve_addition(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
-            if number == 4:
-                if 0 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-                edits += puzzle.rem([cell0], [4, 5, 6, 7])
-
-            if number == 5:
-                edits += puzzle.rem(cell0, [5, 6, 7])
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-
-            if number == 6:
-                edits += puzzle.rem(cell0, [6, 7])
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [5])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 5 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-            if number == 7:
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [5])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 5 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-            #
-            if number == 8:
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [7])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [5])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 5 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 7 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-
-            if number == 9:
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [8])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [7])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [5])
-                if 5 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 7 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 8 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-
+            for candidate in puzzle.expected_candidates():
+                if self.math_predicate(number, candidate, candidates1):
+                    continue
+                edits += puzzle.rem([cell0], [candidate])
             return edits
 
-    class MathraxMathSubtraction:
+    class MathraxMathSubtraction(MathraxMathAddition):
+        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+            string = puzzle.grid[loc.row][loc.col]
+            if '-' in string:
+                return True, int(string.replace('-', ''))
+            return False, None
 
-        def solve0(self, puzzle: Mathrax) -> int:
-            edits = 0
-            for r in range(1, len(puzzle) * 2 - 1, 2):
-                for c in range(1, len(puzzle) * 2 - 1, 2):
-                    loc = Loc(r, c)
-                    tl = loc.top_left()
-                    tr = loc.top_right()
-                    bl = loc.bottom_left()
-                    br = loc.bottom_right()
-                    string = puzzle.grid[r][c]
-                    if '-' in string:
-                        number = int(string.replace('-', ''))
-                        edits += self.solve_subtraction(puzzle, number, tl, br)
-                        edits += self.solve_subtraction(puzzle, number, tr, bl)
-            return edits
+        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+            return candidate + number in candidates1 or candidate - number in candidates1
 
-        def solve_subtraction(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_subtraction(puzzle, number, cell0, cell1)
-            edits += self.__solve_subtraction(puzzle, number, cell1, cell0)
-            return edits
+    class MathraxMathMultiplication(MathraxMathAddition):
 
-        @staticmethod
-        def __solve_subtraction(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = 0
-            candidates1 = set(puzzle.cell_candidates(cell1))
-            if number == 0 or number == 1 or number == 2 or number == 3 or number == 4 or number == 5 or number == 6:
-                for candidate in puzzle.expected_candidates():
-                    if candidate + number not in candidates1 and candidate - number not in candidates1:
-                        edits += puzzle.rem([cell0], [candidate])
-            return edits
+        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+            string = puzzle.grid[loc.row][loc.col]
+            if 'x' in string:
+                return True, int(string.replace('x', ''))
+            return False, None
 
-    class MathraxMathMultiplication:
+        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+            return number % candidate == 0 and int(number / candidate) in candidates1
 
-        def solve0(self, puzzle: Mathrax) -> int:
-            edits = 0
+    class MathraxMathDivision(MathraxMathAddition):
+        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+            string = puzzle.grid[loc.row][loc.col]
+            if '/' in string:
+                return True, int(string.replace('/', ''))
+            return False, None
 
-            # for house in puzzle.houses_rows()
-
-            for r in range(1, len(puzzle) * 2 - 1, 2):
-                for c in range(1, len(puzzle) * 2 - 1, 2):
-                    loc = Loc(r, c)
-
-                    tl = loc.top_left()
-                    tr = loc.top_right()
-                    bl = loc.bottom_left()
-                    br = loc.bottom_right()
-
-                    string = puzzle.grid[r][c]
-
-                    if 'x' in string:
-                        number = int(string.replace('x', ''))
-                        edits += self.solve_multiplication(puzzle, number, tl, br)
-                        edits += self.solve_multiplication(puzzle, number, tr, bl)
-
-                    # if string == 'OOO':
-                    #     edits += puzzle.rem([tl, tr, bl, br],
-                    #                         [2, 4, 6])
-                    # if string == '04+':
-                    #     corners = [tl, tr, bl, br]
-                    #     row0, row1 = set([loc.row for loc in corners])
-                    #     col0, col1 = set([loc.col for loc in corners])
-                    #     remove = set(
-                    #         puzzle.house_row(row0) + puzzle.house_row(row1) + puzzle.house_col(col0) + puzzle.house_col(
-                    #             col1)).difference(corners)
-                    #     edits += puzzle.rem(remove, [2])
-                    #
-                    # if string == '02-':
-                    #     if {1, 3, 5}.issuperset(puzzle.cell_candidates(tl)) and {1, 3, 5}.issuperset(puzzle.cell_candidates(br)):
-                    #         edits += puzzle.rem([tr, bl], [3])
-
-            return edits
-
-        @staticmethod
-        def __solve_multiplication(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = 0
-            candidates1 = set(puzzle.cell_candidates(cell1))
-            if number == 4:
-                edits += puzzle.rem(cell0, [3, 5, 6, 7])
-                if 1 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-
-            if number == 6:
-                edits += puzzle.rem(cell0, [4, 5, 7])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [1])
-
-            if number == 12:
-                edits += puzzle.rem(cell0, [1, 5, 7])
-
-                if 3 not in candidates1:
-                    edits += puzzle.rem([cell0], [4])
-                if 4 not in candidates1:
-                    edits += puzzle.rem([cell0], [3])
-
-                if 6 not in candidates1:
-                    edits += puzzle.rem([cell0], [2])
-                if 2 not in candidates1:
-                    edits += puzzle.rem([cell0], [6])
-                # if 3 not in candidates1:
-                #     edits += puzzle.rem([cell0], [2])
-                # if 6 not in candidates1:
-                #     edits += puzzle.rem([cell0], [1])
-
-            return edits
-
-        def solve_multiplication(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
-            edits = self.__solve_multiplication(puzzle, number, cell0, cell1)
-            edits += self.__solve_multiplication(puzzle, number, cell1, cell0)
-            return edits
-
-    class MathraxMathDivision:
-        def solve0(self, puzzle: Mathrax) -> int:
-            edits = 0
-            for r in range(1, len(puzzle) * 2 - 1, 2):
-                for c in range(1, len(puzzle) * 2 - 1, 2):
-                    loc = Loc(r, c)
-                    tl = loc.top_left()
-                    tr = loc.top_right()
-                    bl = loc.bottom_left()
-                    br = loc.bottom_right()
-                    string = puzzle.grid[r][c]
-                    if '/' in string:
-                        number = int(string.replace('/', ''))
-                        edits += self.solve_division(puzzle, number, tl, br)
-                        edits += self.solve_division(puzzle, number, tr, bl)
-            return edits
-
-        def solve_division(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = self.__solve_division(puzzle, number, cell0, cell1)
             edits += self.__solve_division(puzzle, number, cell1, cell0)
             return edits
