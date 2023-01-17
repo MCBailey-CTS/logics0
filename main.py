@@ -4,6 +4,7 @@ from typing import Iterable
 # from py_linq import Enumarable
 from Constants import Constants
 from Loc import Loc
+from puzzles import Kropki
 
 from linq import linq
 
@@ -193,22 +194,53 @@ from puzzles import Mathrax
 from tech import tech
 
 if __name__ == "__main__":
-    puzzle = Mathrax(Constants.mathrax_002())
-    edits = 0
-    edits += tech.CrossHatch().solve0(puzzle) + \
-             tech.CrossHatch().solve0(puzzle) + \
-             tech.CrossHatch().solve0(puzzle)
+    temp = [
+        [0, 1],
+        [2, 3]
+    ]
 
-    edits += tech.MathraxMathAddition().solve0(puzzle)
+
+
+
+
+    import numpy as np
+    temp = np.array(temp, int)
+    print(temp)
+    temp = np.rot90(temp, 1)
+
+    print(temp)
+
+
+
+    #  tech.KropkiBlack(),
+    #             tech.KropkiWhite(),
+    #             tech.KropkiEmpty(),
+    #             tech.CrossHatch(),
+    #             tech.KropkiBb(),
+    #             tech.KropkiBw(),
+    #             tech.NakedPair(),
+    #             tech.KropkiDominatingEmpty(),
+    #             tech.KropkiDiamondEbbw(),
+    #             # tech.KropkiDiamondEwbw(),
+    #             # tech.KropkiDiamondEbww(),
+
+    # puzzle = Kropki(Constants.kropki_004())
+    # edits = tech.KropkiDiamond().solve0(puzzle)
+    # edits += tech.KropkiBlack().solve0(puzzle) + \
+    #          tech.KropkiWhite().solve0(puzzle) + \
+    #          tech.KropkiEmpty().solve0(puzzle) + \
+    #              tech.KropkiBb().solve0(puzzle)
+
+    # edits += tech.MathraxMathAddition().solve0(puzzle)
     # edits += tech.MathraxMathMultiplication().solve0(puzzle)
 
     # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 0))
     # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 2))
     # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(2, 2))
 
-    print(edits)
-
-    print(puzzle)
+    # print(edits)
+    #
+    # print(puzzle)
 
     # (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
 

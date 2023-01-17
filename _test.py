@@ -32,10 +32,17 @@ class Solving:
     @staticmethod
     def kropki_techniques() -> list:
         return [
-            tech.KropkiBlack(),
-            tech.KropkiWhite(),
-            tech.KropkiEmpty(),
-            # KropkiNakedPair(),
+            # tech.KropkiBlack(),
+            # tech.KropkiWhite(),
+            # tech.KropkiEmpty(),
+            # tech.CrossHatch(),
+            # tech.KropkiBb(),
+            # tech.KropkiBw(),
+            # tech.NakedPair(),
+            # tech.KropkiDominatingEmpty(),
+            tech.KropkiDiamond(),
+            # tech.KropkiDiamondEwbw(),
+            # tech.KropkiDiamondEbww(),
         ]
 
     @staticmethod
@@ -104,22 +111,22 @@ class Solving:
     @staticmethod
     def mathrax_techniques() -> list:
         return [
-                tech.CrossHatch(),
-                tech.MathraxMathAddition(),
-                tech.MathraxMathSubtraction(),
-                tech.MathraxMathMultiplication(),
-                tech.MathraxMathDivision(),
-                tech.MathraxMath04XWing(),
-                tech.MathraxMath01MinusXWing(),
-                tech.MathraxMath02MinusXWing(),
-                tech.MathraxOdd(),
-                tech.MathraxEven(),
-                tech.NakedPair(),
-                tech.NakedTriple(),
-                tech.MathraxMath04MinusXWing(),
-                # tech.XWing(),
-                tech.HiddenPair()
-            ]
+            tech.CrossHatch(),
+            tech.MathraxMathAddition(),
+            tech.MathraxMathSubtraction(),
+            tech.MathraxMathMultiplication(),
+            tech.MathraxMathDivision(),
+            tech.MathraxMath04XWing(),
+            tech.MathraxMath01MinusXWing(),
+            tech.MathraxMath02MinusXWing(),
+            tech.MathraxOdd(),
+            tech.MathraxEven(),
+            tech.NakedPair(),
+            tech.NakedTriple(),
+            tech.MathraxMath04MinusXWing(),
+            # tech.XWing(),
+            tech.HiddenPair()
+        ]
 
     @staticmethod
     def sumscrapers_techniques() -> list:
@@ -398,10 +405,10 @@ class Solving:
      tech.KropkiEmpty(),
      Constants.kropki_explicit_empty_actual.__name__,
      Constants.kropki_explicit_empty_expected.__name__),
-    (Kropki,
-     tech.KropkiBb(),
-     Constants.kropki_explicit_bb_actual.__name__,
-     Constants.kropki_explicit_bb_expected.__name__),
+    # (Kropki,
+    #  tech.KropkiBb(),
+    #  Constants.kropki_explicit_bb_actual.__name__,
+    #  Constants.kropki_explicit_bb_expected.__name__),
     (Kropki,
      tech.KropkiDominatingEmpty(),
      Constants.kropki_explicit_dominating_empty1_actual.__name__,
@@ -1086,6 +1093,28 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     (Constants.mathrax_003.__name__, Mathrax, Solving.mathrax_techniques()),
     (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
     (Constants.mathrax_001.__name__, Mathrax, Solving.mathrax_techniques()),
+    (Constants.kropki_001.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_002.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_003.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_004.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_005.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_006.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_007.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_008.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_009.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_010.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_011.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_012.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_013.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_014.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_015.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_016.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_017.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_018.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_019.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_020.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_021.__name__, Kropki, Solving.kropki_techniques()),
+    (Constants.kropki_022.__name__, Kropki, Solving.kropki_techniques()),
 ])
 def test_default_puzzle(puzzle_string, constructor, techniques):
     if "\n" in puzzle_string:

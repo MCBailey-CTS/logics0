@@ -2577,7 +2577,7 @@ class tech:
                 return True, int(string.replace('+', ''))
             return False, None
 
-        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+        def math_predicate(self, number: int, candidate: int, candidates1) -> bool:
             return number - candidate in candidates1
 
         def solve0(self, puzzle: Mathrax) -> int:
@@ -2613,7 +2613,7 @@ class tech:
                 return True, int(string.replace('-', ''))
             return False, None
 
-        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+        def math_predicate(self, number: int, candidate: int, candidates1) -> bool:
             return candidate + number in candidates1 or candidate - number in candidates1
 
     class MathraxMathMultiplication(MathraxMathAddition):
@@ -2624,7 +2624,7 @@ class tech:
                 return True, int(string.replace('x', ''))
             return False, None
 
-        def math_predicate(self, number: int, candidate: int, candidates1)->bool:
+        def math_predicate(self, number: int, candidate: int, candidates1) -> bool:
             return number % candidate == 0 and int(number / candidate) in candidates1
 
     class MathraxMathDivision(MathraxMathAddition):
@@ -3268,33 +3268,33 @@ class tech:
                         center_cell.south(2),
                     ],
                     # west north
-                    [
-                        center_cell.west(2),
-                        center_cell.west(),
-                        center_cell.north(),
-                        center_cell.north(2),
-                    ],
+                    # [
+                    #     center_cell.west(2),
+                    #     center_cell.west(),
+                    #     center_cell.north(),
+                    #     center_cell.north(2),
+                    # ],
                     # east south
-                    [
-                        center_cell.east(2),
-                        center_cell.east(),
-                        center_cell.south(),
-                        center_cell.south(2)
-                    ],
+                    # [
+                    #     center_cell.east(2),
+                    #     center_cell.east(),
+                    #     center_cell.south(),
+                    #     center_cell.south(2)
+                    # ],
                     # west south
-                    [
-                        center_cell.west(2),
-                        center_cell.west(),
-                        center_cell.south(),
-                        center_cell.south(2),
-                    ],
+                    # [
+                    #     center_cell.west(2),
+                    #     center_cell.west(),
+                    #     center_cell.south(),
+                    #     center_cell.south(2),
+                    # ],
                     # east north
-                    [
-                        center_cell.north(2),
-                        center_cell.north(),
-                        center_cell.east(),
-                        center_cell.east(2),
-                    ],
+                    # [
+                    #     center_cell.north(2),
+                    #     center_cell.north(),
+                    #     center_cell.east(),
+                    #     center_cell.east(2),
+                    # ],
                 ]
                 for direction in directions:
                     other0, kropki0, kropki1, other1 = direction
@@ -3315,22 +3315,33 @@ class tech:
                     cells_in_sets = []
 
                     if len(row_set) == 1:
-                        cells_in_sets = cells_in_sets + puzzle.house_row_cell_locs(row_set.pop())
+                        cells_in_sets = cells_in_sets + puzzle.house_row(row_set.pop())
 
                     if len(col_set) == 1:
-                        cells_in_sets = cells_in_sets + puzzle.house_col_cell_locs(col_set.pop())
+                        cells_in_sets = cells_in_sets + puzzle.house_col(col_set.pop())
 
-                    if puzzle.has_fences:
-                        fence_set = {puzzle.cell_fence(other0), puzzle.cell_fence(center_cell),
-                                     puzzle.cell_fence(other1)}
-                        if len(fence_set) == 1:
-                            cells_in_sets = cells_in_sets + puzzle.house_fence_cell_locs(fence_set.pop())
+                    # if puzzle.has_fences:
+                    #     fence_set = {puzzle.cell_fence(other0), puzzle.cell_fence(center_cell),
+                    #                  puzzle.cell_fence(other1)}
+                    #     if len(fence_set) == 1:
+                    #         cells_in_sets = cells_in_sets + puzzle.house_fence_cell_locs(fence_set.pop())
 
                     cells_to_remove_from = set(cells_in_sets).difference(cell_set)
 
                     edits += puzzle.rem(cells_to_remove_from, [2, 4])
                     edits += puzzle.rem([center_cell], [1, 3, 5, 6, 7, 8, 9])
                     edits += puzzle.rem([other0, other1], [3, 5, 6, 7, 9])
+
+                    if {2, 4, 8}.issuperset(puzzle.cell_candidates(other0)) and \
+                            {2, 4}.issuperset(puzzle.cell_candidates(center_cell)) and \
+                            {2, 4, 8}.issuperset(puzzle.cell_candidates(other1)):
+                        edits += puzzle.rem([center_cell], [2])
+
+                    if {1, 2, 4, 8}.issuperset(puzzle.cell_candidates(other0)) and \
+                            {2, 4}.issuperset(puzzle.cell_candidates(center_cell)) and \
+                            {2, 4, 8}.issuperset(puzzle.cell_candidates(other1)):
+                        edits += puzzle.rem([other0], [4])
+                        edits += puzzle.rem([other1], [8])
 
             return edits
 
@@ -3350,7 +3361,10 @@ class tech:
                         center, other = direction
                         if not center.is_valid_kropki(puzzle.grid_length):
                             continue
-                        if not puzzle.grid[center.row][center.col].replace(".", "", -1) == "BB":
+
+                        string = puzzle.grid[center.row][center.col].replace(".", "", -1)
+
+                        if string != "b" and string != "BB":
                             continue
                         edits += self.solve1(puzzle, loc, other)
             return edits
@@ -3447,6 +3461,15 @@ class tech:
                         continue
 
                     loc = Loc(r, c)
+                    #  b
+                    # . w
+                    #  w
+
+                    # if puzzle.is_black(loc.north()) and \
+                    #     puzzle.is_empty(loc.west()) and \
+                    #     puzzle.is_white(loc.east()) and \
+                    #     puzzle.is_white(loc.south()):
+                    #     print('here')
 
                     if puzzle.is_empty(loc.north()) and puzzle.is_white(loc.east()) and puzzle.is_white(
                             loc.south()) and puzzle.is_black(loc.west()):
@@ -3462,6 +3485,251 @@ class tech:
                         edits += puzzle.rem([loc.north().east()], black_empty)
                         edits += puzzle.rem([loc.south().east()], white_empty)
 
+            return edits
+
+    class KropkiDiamondEwbw:
+        edits = 0
+
+        def solve0(self, puzzle: Kropki) -> int:
+            # black_empty = [5, 7, 9]
+            black_white = [1]
+            # white_empty = [3, 5, 7, 9]
+            # white_white = [1, 4, 6, 8, 9]
+
+            edits = 0
+            for r in range(puzzle.grid_length):
+                for c in range(puzzle.grid_length):
+                    if r % 2 == 0 or c % 2 == 0:
+                        continue
+
+                    loc = Loc(r, c)
+
+                    if puzzle.is_white(loc.north()) and \
+                            puzzle.is_empty(loc.east()) and \
+                            puzzle.is_white(loc.south()) and \
+                            puzzle.is_black(loc.west()):
+                        edits += puzzle.rem([loc.north().west(), loc.south().west()], black_white)
+                        # edits += puzzle.rem([loc.south().west()], black_white)
+                        # edits += puzzle.rem([loc.north().east()], white_empty)
+                        # edits += puzzle.rem([loc.south().east()], white_white)
+
+                    # if puzzle.is_empty(loc.east()) and puzzle.is_white(loc.south()) and puzzle.is_white(
+                    #         loc.west()) and puzzle.is_black(loc.north()):
+                    # edits += puzzle.rem([loc.north().west()], black_white)
+                    # edits += puzzle.rem([loc.south().west()], white_white)
+                    # edits += puzzle.rem([loc.north().east()], black_empty)
+                    # edits += puzzle.rem([loc.south().east()], white_empty)
+
+            return edits
+
+    class KropkiDiamond:
+        edits = 0
+
+        def solve0(self, puzzle: Kropki) -> int:
+            black_black = [1, 8]
+            black_white = [1]
+
+            edits = 0
+            for r in range(puzzle.grid_length):
+                for c in range(puzzle.grid_length):
+                    if r % 2 == 0 or c % 2 == 0:
+                        continue
+
+                    loc = Loc(r, c)
+
+                    north = puzzle.grid[loc.north().row][loc.north().col]
+                    east = puzzle.grid[loc.east().row][loc.east().col]
+                    south = puzzle.grid[loc.south().row][loc.south().col]
+                    west = puzzle.grid[loc.west().row][loc.west().col]
+
+                    nw = loc.north().west()
+                    ne = loc.north().east()
+                    sw = loc.south().west()
+                    se = loc.south().east()
+
+                    # #  w
+                    # # b .
+                    # #  b
+                    # if north == 'w' and \
+                    #         west == 'b' and east == '.' and \
+                    #         south == 'b':
+                    #     # black_white
+                    #     edits += puzzle.rem([nw], [1, 3, 5, 6, 7, 9])
+                    #     # black_black
+                    #     edits += puzzle.rem([sw], [1, 3, 5, 6, 7, 8, 9])
+                    #     # white_empty
+                    #     edits += puzzle.rem([ne], [2, 4, 6, 8])
+                    #     # black_empty
+                    #     edits += puzzle.rem([se], [3, 5, 6, 7, 9])
+                    #
+                    # #  w
+                    # # w b
+                    # #  b
+                    # if north == 'w' and \
+                    #         west == 'w' and east == 'b' and \
+                    #         south == 'b':
+                    #     # white_white
+                    #     edits += puzzle.rem([nw], [6, 8])
+                    #     # white_black
+                    #     edits += puzzle.rem([sw, se, ne], [5, 7, 9])
+                    #
+                    # #  b
+                    # # w .
+                    # #  b
+                    # if north == 'b' and \
+                    #         west == 'w' and east == '.' and \
+                    #         south == 'b':
+                    #     # black_white
+                    #     edits += puzzle.rem([nw, sw], [1, 5, 7, 9])
+                    #     # black_empty
+                    #     edits += puzzle.rem([ne, se], [3, 5, 7, 9])
+                    #
+                    # #  .
+                    # # w w
+                    # #  b
+                    # if north == '.' and \
+                    #         west == 'w' and east == 'w' and \
+                    #         south == 'b':
+                    #     # black_white
+                    #     edits += puzzle.rem([sw, se], [1, 5, 7, 9])
+                    #     # white_empty
+                    #     edits += puzzle.rem([nw, ne], [6, 8])
+                    #
+                    # #  w
+                    # # b .
+                    # #  w
+                    # if north == 'w' and \
+                    #         west == 'b' and east == '.' and \
+                    #         south == 'w':
+                    #     # black_white
+                    #     edits += puzzle.rem([sw, nw], [1, 5, 7, 9])
+                    #     # white_empty
+                    #     edits += puzzle.rem([se, ne], [6, 8])
+
+                    edits += self.solve_bwwe(puzzle, loc)
+                    # #  w
+                    # # w .
+                    # #  b
+                    # if north == 'w' and \
+                    #         west == 'w' and east == '.' and \
+                    #         south == 'b':
+                    #     # white_white
+                    #     edits += puzzle.rem([nw], [1, 6, 8, 9])
+                    #     # black_white
+                    #     edits += puzzle.rem([sw], [1, 5, 7, 9])
+                    #     # white_empty
+                    #     edits += puzzle.rem([ne], [7, 9])
+                    #     # black_empty
+                    #     edits += puzzle.rem([se], [5, 7, 9])
+
+                    # #  w
+                    # # w b
+                    # #  w
+                    # if north == 'w' and \
+                    #         west == 'w' and east == 'b' and \
+                    #         south == 'w':
+                    #     # white_black
+                    #     edits += puzzle.rem([ne, se], [4, 5, 7, 8, 9])
+                    #     # white_white
+                    #     edits += puzzle.rem([nw, sw], [6, 7, 8, 9])
+                    #
+                    # #  w
+                    # # w .
+                    # #  w
+                    # if north == 'w' and \
+                    #         west == 'w' and east == '.' and \
+                    #         south == 'w':
+                    #     edits += self.solve_wwwe(puzzle, [ne, se], [nw, sw])
+                    #
+                    # #  w
+                    # # w w
+                    # #  .
+                    # if north == 'w' and \
+                    #         west == 'w' and east == 'w' and \
+                    #         south == '.':
+                    #     edits += self.solve_wwwe(puzzle, [sw, se], [nw, ne])
+
+            return edits
+
+        def solve_bwwe(self, puzzle: Kropki, loc: Loc)->int:
+            edits = 0
+            north = puzzle.grid[loc.north().row][loc.north().col]
+            east = puzzle.grid[loc.east().row][loc.east().col]
+            south = puzzle.grid[loc.south().row][loc.south().col]
+            west = puzzle.grid[loc.west().row][loc.west().col]
+
+            nw = loc.north().west()
+            ne = loc.north().east()
+            sw = loc.south().west()
+            se = loc.south().east()
+            #  w
+            # w .
+            #  b
+            if north == 'w' and \
+                    west == 'w' and east == '.' and \
+                    south == 'b':
+                # white_white
+                edits += puzzle.rem([nw], [1, 6, 8, 9])
+                # black_white
+                edits += puzzle.rem([sw], [1, 5, 7, 9])
+                # white_empty
+                edits += puzzle.rem([ne], [7, 9])
+                # black_empty
+                edits += puzzle.rem([se], [5, 7, 9])
+
+            #  w
+            # b w
+            #  .
+            if north == 'w' and \
+                    west == 'b' and east == 'w' and \
+                    south == '.':
+                # white_white
+                edits += puzzle.rem([ne], [1, 6, 8, 9])
+                # black_white
+                edits += puzzle.rem([nw], [1, 5, 7, 9])
+                # white_empty
+                edits += puzzle.rem([se], [7, 9])
+                # black_empty
+                edits += puzzle.rem([sw], [5, 7, 9])
+
+            #  b
+            # . w
+            #  w
+            if north == 'b' and \
+                    west == '.' and east == 'w' and \
+                    south == 'w':
+                # white_white
+                edits += puzzle.rem([se], [1, 6, 8, 9])
+                # black_white
+                edits += puzzle.rem([ne], [1, 5, 7, 9])
+                # white_empty
+                edits += puzzle.rem([sw], [7, 9])
+                # black_empty
+                edits += puzzle.rem([nw], [5, 7, 9])
+
+            #  b
+            # w .
+            #  w
+            if north == 'b' and \
+                    west == 'w' and east == '.' and \
+                    south == 'w':
+                # white_white
+                edits += puzzle.rem([sw], [1, 6, 8, 9])
+                # black_white
+                edits += puzzle.rem([ne], [1, 5, 7, 9])
+                # white_empty
+                edits += puzzle.rem([se], [7, 9])
+                # black_empty
+                edits += puzzle.rem([nw], [5, 7, 9])
+
+            return edits
+
+        def solve_wwwe(self, puzzle: Kropki, white_empty, white_white) -> int:
+            edits = 0
+            # white_empty
+            edits += puzzle.rem(white_empty, [3])
+            # white_white
+            edits += puzzle.rem(white_white, [1, 9])
             return edits
 
     class KropkiDiamondWwwe:
@@ -3608,6 +3876,9 @@ class tech:
 
             loc0_candidates = puzzle.cell_candidates(loc0)
 
+            if set(loc0_candidates) == {1, 8}:
+                edits += puzzle.rem([loc1], [4])
+
             if len(loc0_candidates) != 1:
                 return edits
 
@@ -3639,7 +3910,10 @@ class tech:
                         center, other = direction
                         if not center.is_valid_kropki(puzzle.grid_length):
                             continue
-                        if not puzzle.grid[center.row][center.col].replace(".", "", -1) == "WW":
+
+                        string = puzzle.grid[center.row][center.col].replace(".", "", -1)
+
+                        if string != "w" and string != "WW":
                             continue
                         edits += self.solve1(puzzle, loc, other)
             return edits
