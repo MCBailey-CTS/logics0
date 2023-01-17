@@ -406,7 +406,8 @@ class Kropki(Mathrax):
 
                 # if
 
-                string += f'{self.grid[r][c].replace("123456789$", "__________", -1).replace("123456789", "_________", -1).center(len(self) + 1, " ")} '
+                # string += f'{self.grid[r][c].replace("123456789$", "__________", -1).replace("123456789", "_________", -1).center(len(self) + 1, " ")} '
+                string += f'{self.grid[r][c].center(len(self) + 1, " ")} '
                 # elif c % 2 == 0:
                 #     string += f'{self.__grid[r][c]} '
                 # else:

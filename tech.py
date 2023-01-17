@@ -3402,34 +3402,34 @@ class tech:
                         center_cell.south(),
                         center_cell.south(2),
                     ],
-                    # west north
-                    [
-                        center_cell.west(2),
-                        center_cell.west(),
-                        center_cell.north(),
-                        center_cell.north(2),
-                    ],
-                    # east south
-                    [
-                        center_cell.east(2),
-                        center_cell.east(),
-                        center_cell.south(),
-                        center_cell.south(2)
-                    ],
-                    # west south
-                    [
-                        center_cell.west(2),
-                        center_cell.west(),
-                        center_cell.south(),
-                        center_cell.south(2),
-                    ],
-                    # east north
-                    [
-                        center_cell.north(2),
-                        center_cell.north(),
-                        center_cell.east(),
-                        center_cell.east(2),
-                    ],
+                    # # west north
+                    # [
+                    #     center_cell.west(2),
+                    #     center_cell.west(),
+                    #     center_cell.north(),
+                    #     center_cell.north(2),
+                    # ],
+                    # # east south
+                    # [
+                    #     center_cell.east(2),
+                    #     center_cell.east(),
+                    #     center_cell.south(),
+                    #     center_cell.south(2)
+                    # ],
+                    # # west south
+                    # [
+                    #     center_cell.west(2),
+                    #     center_cell.west(),
+                    #     center_cell.south(),
+                    #     center_cell.south(2),
+                    # ],
+                    # # east north
+                    # [
+                    #     center_cell.north(2),
+                    #     center_cell.north(),
+                    #     center_cell.east(),
+                    #     center_cell.east(2),
+                    # ],
                 ]
                 for direction in directions:
                     other0, kropki0, kropki1, other1 = direction
