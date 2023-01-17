@@ -1,6 +1,7 @@
 from abc import abstractmethod
 from typing import Optional
 
+import numpy as np
 from colorama import Fore
 
 from Loc import Loc
@@ -3547,111 +3548,111 @@ class tech:
                     sw = loc.south().west()
                     se = loc.south().east()
 
-                    # #  w
-                    # # b .
-                    # #  b
-                    # if north == 'w' and \
-                    #         west == 'b' and east == '.' and \
-                    #         south == 'b':
-                    #     # black_white
-                    #     edits += puzzle.rem([nw], [1, 3, 5, 6, 7, 9])
-                    #     # black_black
-                    #     edits += puzzle.rem([sw], [1, 3, 5, 6, 7, 8, 9])
-                    #     # white_empty
-                    #     edits += puzzle.rem([ne], [2, 4, 6, 8])
-                    #     # black_empty
-                    #     edits += puzzle.rem([se], [3, 5, 6, 7, 9])
-                    #
-                    # #  w
-                    # # w b
-                    # #  b
-                    # if north == 'w' and \
-                    #         west == 'w' and east == 'b' and \
-                    #         south == 'b':
-                    #     # white_white
-                    #     edits += puzzle.rem([nw], [6, 8])
-                    #     # white_black
-                    #     edits += puzzle.rem([sw, se, ne], [5, 7, 9])
-                    #
-                    # #  b
-                    # # w .
-                    # #  b
-                    # if north == 'b' and \
-                    #         west == 'w' and east == '.' and \
-                    #         south == 'b':
-                    #     # black_white
-                    #     edits += puzzle.rem([nw, sw], [1, 5, 7, 9])
-                    #     # black_empty
-                    #     edits += puzzle.rem([ne, se], [3, 5, 7, 9])
-                    #
-                    # #  .
-                    # # w w
-                    # #  b
-                    # if north == '.' and \
-                    #         west == 'w' and east == 'w' and \
-                    #         south == 'b':
-                    #     # black_white
-                    #     edits += puzzle.rem([sw, se], [1, 5, 7, 9])
-                    #     # white_empty
-                    #     edits += puzzle.rem([nw, ne], [6, 8])
-                    #
-                    # #  w
-                    # # b .
-                    # #  w
-                    # if north == 'w' and \
-                    #         west == 'b' and east == '.' and \
-                    #         south == 'w':
-                    #     # black_white
-                    #     edits += puzzle.rem([sw, nw], [1, 5, 7, 9])
-                    #     # white_empty
-                    #     edits += puzzle.rem([se, ne], [6, 8])
+                    #  w
+                    # b .
+                    #  b
+                    if north == 'w' and \
+                            west == 'b' and east == '.' and \
+                            south == 'b':
+                        # black_white
+                        edits += puzzle.rem([nw], [1, 3, 5, 6, 7, 9])
+                        # black_black
+                        edits += puzzle.rem([sw], [1, 3, 5, 6, 7, 8, 9])
+                        # white_empty
+                        edits += puzzle.rem([ne], [2, 4, 6, 8])
+                        # black_empty
+                        edits += puzzle.rem([se], [3, 5, 6, 7, 9])
 
-                    edits += self.solve_bwwe(puzzle, loc)
-                    # #  w
-                    # # w .
-                    # #  b
-                    # if north == 'w' and \
-                    #         west == 'w' and east == '.' and \
-                    #         south == 'b':
-                    #     # white_white
-                    #     edits += puzzle.rem([nw], [1, 6, 8, 9])
-                    #     # black_white
-                    #     edits += puzzle.rem([sw], [1, 5, 7, 9])
-                    #     # white_empty
-                    #     edits += puzzle.rem([ne], [7, 9])
-                    #     # black_empty
-                    #     edits += puzzle.rem([se], [5, 7, 9])
+                    #  w
+                    # w b
+                    #  b
+                    if north == 'w' and \
+                            west == 'w' and east == 'b' and \
+                            south == 'b':
+                        # white_white
+                        edits += puzzle.rem([nw], [6, 8])
+                        # white_black
+                        edits += puzzle.rem([sw, se, ne], [5, 7, 9])
 
-                    # #  w
-                    # # w b
-                    # #  w
-                    # if north == 'w' and \
-                    #         west == 'w' and east == 'b' and \
-                    #         south == 'w':
-                    #     # white_black
-                    #     edits += puzzle.rem([ne, se], [4, 5, 7, 8, 9])
-                    #     # white_white
-                    #     edits += puzzle.rem([nw, sw], [6, 7, 8, 9])
-                    #
-                    # #  w
-                    # # w .
-                    # #  w
-                    # if north == 'w' and \
-                    #         west == 'w' and east == '.' and \
-                    #         south == 'w':
-                    #     edits += self.solve_wwwe(puzzle, [ne, se], [nw, sw])
-                    #
-                    # #  w
-                    # # w w
-                    # #  .
-                    # if north == 'w' and \
-                    #         west == 'w' and east == 'w' and \
-                    #         south == '.':
-                    #     edits += self.solve_wwwe(puzzle, [sw, se], [nw, ne])
+                    #  b
+                    # w .
+                    #  b
+                    if north == 'b' and \
+                            west == 'w' and east == '.' and \
+                            south == 'b':
+                        # black_white
+                        edits += puzzle.rem([nw, sw], [1, 5, 7, 9])
+                        # black_empty
+                        edits += puzzle.rem([ne, se], [3, 5, 7, 9])
+
+                    #  .
+                    # w w
+                    #  b
+                    if north == '.' and \
+                            west == 'w' and east == 'w' and \
+                            south == 'b':
+                        # black_white
+                        edits += puzzle.rem([sw, se], [1, 5, 7, 9])
+                        # white_empty
+                        edits += puzzle.rem([nw, ne], [6, 8])
+
+                    #  w
+                    # b .
+                    #  w
+                    if north == 'w' and \
+                            west == 'b' and east == '.' and \
+                            south == 'w':
+                        # black_white
+                        edits += puzzle.rem([sw, nw], [1, 5, 7, 9])
+                        # white_empty
+                        edits += puzzle.rem([se, ne], [6, 8])
+
+                    # edits += self.solve_bwwe(puzzle, loc)
+                    #  w
+                    # w .
+                    #  b
+                    if north == 'w' and \
+                            west == 'w' and east == '.' and \
+                            south == 'b':
+                        # white_white
+                        edits += puzzle.rem([nw], [1, 6, 8, 9])
+                        # black_white
+                        edits += puzzle.rem([sw], [1, 5, 7, 9])
+                        # white_empty
+                        edits += puzzle.rem([ne], [7, 9])
+                        # black_empty
+                        edits += puzzle.rem([se], [5, 7, 9])
+
+                    #  w
+                    # w b
+                    #  w
+                    if north == 'w' and \
+                            west == 'w' and east == 'b' and \
+                            south == 'w':
+                        # white_black
+                        edits += puzzle.rem([ne, se], [4, 5, 7, 8, 9])
+                        # white_white
+                        edits += puzzle.rem([nw, sw], [6, 7, 8, 9])
+
+                    #  w
+                    # w .
+                    #  w
+                    if north == 'w' and \
+                            west == 'w' and east == '.' and \
+                            south == 'w':
+                        edits += self.solve_wwwe(puzzle, [ne, se], [nw, sw])
+
+                    #  w
+                    # w w
+                    #  .
+                    if north == 'w' and \
+                            west == 'w' and east == 'w' and \
+                            south == '.':
+                        edits += self.solve_wwwe(puzzle, [sw, se], [nw, ne])
 
             return edits
 
-        def solve_bwwe(self, puzzle: Kropki, loc: Loc)->int:
+        def solve_bwwe(self, puzzle: Kropki, loc: Loc) -> int:
             edits = 0
             north = puzzle.grid[loc.north().row][loc.north().col]
             east = puzzle.grid[loc.east().row][loc.east().col]
@@ -3662,20 +3663,15 @@ class tech:
             ne = loc.north().east()
             sw = loc.south().west()
             se = loc.south().east()
-            #  w
-            # w .
-            #  b
-            if north == 'w' and \
-                    west == 'w' and east == '.' and \
-                    south == 'b':
-                # white_white
-                edits += puzzle.rem([nw], [1, 6, 8, 9])
-                # black_white
-                edits += puzzle.rem([sw], [1, 5, 7, 9])
-                # white_empty
-                edits += puzzle.rem([ne], [7, 9])
-                # black_empty
-                edits += puzzle.rem([se], [5, 7, 9])
+
+            white_white = [1, 6, 8, 0]
+            black_white = [1, 5, 7, 9]
+            white_empty = [7, 9]
+            black_empty = [5, 7, 9]
+
+            news = np.array([[nw, ne], [sw, se]], Loc)
+            candidate_groups = np.array([[black_white, white_white], [black_empty, white_empty]], object)
+            letters = np.array([['w', 'w'], ['b', '.']], str)
 
             #  w
             # b w
@@ -3684,13 +3680,32 @@ class tech:
                     west == 'b' and east == 'w' and \
                     south == '.':
                 # white_white
-                edits += puzzle.rem([ne], [1, 6, 8, 9])
+                edits += puzzle.rem(news[0, 1], candidate_groups[0, 1])
                 # black_white
-                edits += puzzle.rem([nw], [1, 5, 7, 9])
+                edits += puzzle.rem(news[0, 0], candidate_groups[0, 0])
                 # white_empty
-                edits += puzzle.rem([se], [7, 9])
+                edits += puzzle.rem(news[1, 1], candidate_groups[1, 1])
                 # black_empty
-                edits += puzzle.rem([sw], [5, 7, 9])
+                edits += puzzle.rem(news[1, 0], candidate_groups[1, 0])
+
+
+            news = np.rot90(news, 1)
+            candidate_groups = np.rot90(candidate_groups, 1)
+
+            #  w
+            # w .
+            #  b
+            if north == 'w' and \
+                    west == 'w' and east == '.' and \
+                    south == 'b':
+                # white_white
+                edits += puzzle.rem([nw], white_white)
+                # black_white
+                edits += puzzle.rem([sw], black_white)
+                # white_empty
+                edits += puzzle.rem([ne], white_empty)
+                # black_empty
+                edits += puzzle.rem([se], black_empty)
 
             #  b
             # . w
@@ -3699,13 +3714,13 @@ class tech:
                     west == '.' and east == 'w' and \
                     south == 'w':
                 # white_white
-                edits += puzzle.rem([se], [1, 6, 8, 9])
+                edits += puzzle.rem([se], white_white)
                 # black_white
-                edits += puzzle.rem([ne], [1, 5, 7, 9])
+                edits += puzzle.rem([ne], black_white)
                 # white_empty
-                edits += puzzle.rem([sw], [7, 9])
+                edits += puzzle.rem([sw], white_empty)
                 # black_empty
-                edits += puzzle.rem([nw], [5, 7, 9])
+                edits += puzzle.rem([nw], black_empty)
 
             #  b
             # w .
@@ -3714,13 +3729,13 @@ class tech:
                     west == 'w' and east == '.' and \
                     south == 'w':
                 # white_white
-                edits += puzzle.rem([sw], [1, 6, 8, 9])
+                edits += puzzle.rem([sw], white_white)
                 # black_white
-                edits += puzzle.rem([ne], [1, 5, 7, 9])
+                edits += puzzle.rem([ne], black_white)
                 # white_empty
-                edits += puzzle.rem([se], [7, 9])
+                edits += puzzle.rem([se], white_empty)
                 # black_empty
-                edits += puzzle.rem([nw], [5, 7, 9])
+                edits += puzzle.rem([nw], black_empty)
 
             return edits
 
