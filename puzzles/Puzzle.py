@@ -11,6 +11,8 @@ class Puzzle:
                  length: Optional[int] = None,
                  id: Optional[str] = None) -> None:
         self.grid = []
+        self.color_override = {}
+
         array = []
 
         if isinstance(puzzle, numpy.ndarray) and isinstance(length, int) and isinstance(id, str):
@@ -29,7 +31,6 @@ class Puzzle:
         array.pop(0)
         array.pop(0)
 
-        self.color_override = {}
 
         for line in array:
             self.grid.append(

@@ -446,6 +446,21 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+            row0 = puzzle.house_row(2)
+            row1 = puzzle.house_row(7)
+            fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 1)))
+            puzzle.override_loc_color(row0 + row1 + fence, Fore.GREEN)
+            puzzle.override_loc_color([Loc(2, 2), Loc(2, 3), Loc(3, 3), Loc(5, 5), Loc(7, 5), Loc(7, 2)], Fore.YELLOW)
+            puzzle.override_loc_color(
+                [Loc(0, 2), Loc(1, 2), Loc(3, 2), Loc(4, 2), Loc(5, 2), Loc(6, 2), Loc(8, 2),
+                 Loc(0, 3), Loc(1, 3), Loc(6, 3), Loc(8, 3),
+                 Loc(0, 5), Loc(1, 5), Loc(6, 5), Loc(8, 5),
+                 ], Fore.RED)
+            edits += puzzle.rem([Loc(0, 2), Loc(1, 2), Loc(3, 2), Loc(4, 2), Loc(5, 2), Loc(6, 2), Loc(8, 2),
+                                 Loc(0, 3), Loc(1, 3), Loc(6, 3), Loc(8, 3),
+                                 Loc(0, 5), Loc(1, 5), Loc(6, 5), Loc(8, 5),
+                                 ], [1])
+
             return edits
 
     class FinnedSwordFish:
@@ -766,6 +781,24 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            row = puzzle.house_row(2)
+            col = puzzle.house_col(5)
+            fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 1)))
+
+            end0 = Loc(3, 2)
+            internal0 = Loc(3, 3)
+            internal1 = Loc(5, 5)
+            end1 = Loc(6, 5)
+            remove = [Loc(6, 2)]
+
+            puzzle.override_loc_color(row + col + fence, Fore.BLUE)
+            puzzle.override_loc_color([end0, internal1], Fore.YELLOW)
+            puzzle.override_loc_color([end1, internal0], Fore.GREEN)
+            puzzle.override_loc_color(remove, Fore.RED)
+
+            edits += puzzle.rem(remove, [1])
+
             return edits
 
     class ShashimiXWingPlus1:
@@ -839,6 +872,46 @@ class tech:
     class ShashimiXWing:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            # base0 = Loc(2, 2)
+            # base1 = Loc(6, 2)
+
+            row0 = puzzle.house_row(2)
+
+            row1 = puzzle.house_row(6)
+
+            row0_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row0])
+            row1_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row1])
+
+            print(row0_string)
+            print(row1_string)
+
+            if row0_string == '_23456789a_23456789a123456789a_23456789b_23456789b_23456789b_23456789c123456789c123456789c' and \
+                    row1_string == '_23456789g_23456789g123456789g_23456789h_23456789h_23456789h123456789i_23456789i_23456789i':
+                base0 = Loc(2, 2)
+                base1 = Loc(6, 2)
+                single_fin = Loc(6, 6)
+                two_fin = [Loc(2, 7), Loc(2, 8)]
+                remove = [Loc(1, 6), Loc(0, 6)]
+                puzzle.override_loc_color(row0 + row1, Fore.GREEN)
+                puzzle.override_loc_color(two_fin, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
+                puzzle.override_loc_color([base0, base1, single_fin], Fore.YELLOW)
+                edits += puzzle.rem(remove, [1])
+
+            if row0_string == '_23456789a_23456789a123456789a_23456789b_23456789b_23456789b_23456789c123456789c_23456789c' and \
+                    row1_string == '_23456789g_23456789g123456789g_23456789h_23456789h_23456789h123456789i_23456789i_23456789i':
+                base0 = Loc(2, 2)
+                base1 = Loc(6, 2)
+                single_fin = [Loc(6, 6), Loc(2, 7)]
+                remove = [Loc(1, 6), Loc(0, 6), Loc(8, 7), Loc(7, 7)]
+                puzzle.override_loc_color(row0 + row1, Fore.GREEN)
+                puzzle.override_loc_color(single_fin, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
+                puzzle.override_loc_color([base0, base1], Fore.YELLOW)
+                edits += puzzle.rem(remove, [1])
+
+            return edits
 
             candidate = 1
 
@@ -1078,6 +1151,19 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
             edits += self.explicit(puzzle)
+
+            col0 = puzzle.house_col(0)
+
+            col0_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in col0) if
+                                  char.isnumeric() or char == '_')
+
+            for candidate in puzzle.expected_candidates():
+                print(f'{candidate}: {puzzle.house_col(0, candidate)}')
+
+            if col0_string == '_____67_________89__34________456____2____7_91_3____8____4__7__12_________3_5____':
+                puzzle.override_loc_color(col0, Fore.GREEN)
+                puzzle.override_loc_color([Loc(5, 0)], Fore.YELLOW)
+
             return edits
 
         @staticmethod
@@ -1183,24 +1269,23 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
 
-            # row = 4
+            pivot = Loc(4, 4)
+            row = puzzle.house_row(4)
+            remove = [Loc(4, 3), Loc(4, 5)]
+            fin0 = Loc(4, 1)
+            fin1 = Loc(5, 3)
+            fin2 = Loc(4, 7)
+            fins = [fin0, fin1, fin2]
 
-            # pivot = [Loc(4, 4)]
-
-            puzzle.override_loc_color(puzzle.house_row(4), Fore.LIGHTBLUE_EX)
-            puzzle.override_loc_color([Loc(4, 4)], Fore.GREEN)
-            puzzle.override_loc_color([Loc(4, 3), Loc(4, 5)], Fore.RED)
-            puzzle.override_loc_color([
-                Loc(4, 1),
-                Loc(5, 3),
-                Loc(4, 7)
-            ], Fore.YELLOW)
-
-            # extensions = [
-            #     Loc(4, 1)
-            # ]
-
-            # print("hello")
+            if {1, 2, 3, 4}.issuperset(puzzle.cell_candidates(pivot)) and \
+                    {2, 4}.issuperset(puzzle.cell_candidates(fin0)) and \
+                    {1, 4}.issuperset(puzzle.cell_candidates(fin1)) and \
+                    {3, 4}.issuperset(puzzle.cell_candidates(fin2)):
+                puzzle.override_loc_color(row, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color([pivot], Fore.GREEN)
+                puzzle.override_loc_color(remove, Fore.RED)
+                puzzle.override_loc_color(fins, Fore.YELLOW)
+                edits += puzzle.rem(remove, [4])
 
             return edits
 
@@ -1461,12 +1546,26 @@ class tech:
     class UniqueRectangleType3:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            base0 = Loc(1, 6)
+            base1 = Loc(2, 6)
+            opp_base0 = Loc(1, 1)
+            opp_base1 = Loc(2, 1)
+            extensions = [Loc(3, 1), Loc(5, 1)]
+            col = puzzle.house_col(1)
+            puzzle.override_loc_color(col, Fore.RED)
+            puzzle.override_loc_color([base0, base1], Fore.GREEN)
+            puzzle.override_loc_color([opp_base0, opp_base1] + extensions, Fore.YELLOW)
+
+            edits += puzzle.rem(set(col) - set([opp_base0, opp_base1] + extensions))
+
             return edits
 
     class SueDeCoq:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
             return edits
 
     class SwordFish:
@@ -1798,6 +1897,31 @@ class tech:
     class XyWing:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            # explicit
+            pivot = Loc(8, 7)
+            fin0 = Loc(4, 7)
+            fin1 = Loc(6, 6)
+            remove = [Loc(6, 7), Loc(5, 6), Loc(4, 6), Loc(3, 6), Loc(7, 7), ]
+            if {3, 5}.issuperset(puzzle.cell_candidates(pivot)) and {1, 5}.issuperset(
+                    puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
+                puzzle.override_loc_color(remove, Fore.RED)
+                puzzle.override_loc_color([pivot], Fore.GREEN)
+                puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
+                edits += puzzle.rem(remove, [1])
+
+            # explicit
+            pivot = Loc(3, 2)
+            fin0 = Loc(5, 0)
+            fin1 = Loc(3, 6)
+            remove = [Loc(3, 0), Loc(3, 1), Loc(5, 6), Loc(5, 7), Loc(5, 8)]
+            if {1, 2}.issuperset(puzzle.cell_candidates(pivot)) and {2, 3}.issuperset(
+                    puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
+                puzzle.override_loc_color(remove, Fore.RED)
+                puzzle.override_loc_color([pivot], Fore.GREEN)
+                puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
+                edits += puzzle.rem(remove, [3])
+
             unsolved = puzzle.unsolved_cells()
 
             if len(unsolved) == 0:
@@ -1917,6 +2041,14 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            remove = [Loc(0, 1), Loc(1, 1), Loc(6, 2), Loc(8, 2)]
+            puzzle.override_loc_color(puzzle.house_row(2) + puzzle.house_row(7) + puzzle.house_fence('e'), Fore.GREEN)
+            puzzle.override_loc_color(remove, Fore.RED)
+            puzzle.override_loc_color([Loc(2, 2), Loc(3, 3), Loc(2, 3), Loc(5, 5), Loc(7, 1), Loc(7, 5)], Fore.YELLOW)
+
+            edits += puzzle.rem(remove, [1])
+
             return edits
 
     class XWing:
@@ -2005,6 +2137,18 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            end_loc0 = Loc(2, 2)
+            end_loc1 = Loc(5, 1)
+            non_end_locs = [Loc(2, 5), Loc(5, 5)]
+            remove = [Loc(0, 1), Loc(1, 1), Loc(2, 1), Loc(3, 2), Loc(4, 2), Loc(5, 2)]
+
+            puzzle.override_loc_color([end_loc0, end_loc1], Fore.YELLOW)
+            puzzle.override_loc_color(non_end_locs, Fore.GREEN)
+            puzzle.override_loc_color(remove, Fore.RED)
+
+            edits += puzzle.rem(remove, [1])
+
             return edits
 
     class LighthousesTech(Technique):
@@ -3687,7 +3831,6 @@ class tech:
                 edits += puzzle.rem(news[1, 1], candidate_groups[1, 1])
                 # black_empty
                 edits += puzzle.rem(news[1, 0], candidate_groups[1, 0])
-
 
             news = np.rot90(news, 1)
             candidate_groups = np.rot90(candidate_groups, 1)

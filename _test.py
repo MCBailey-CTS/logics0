@@ -6,11 +6,13 @@ import numpy
 import pytest
 
 from Constants import Constants
+from Loc import Loc
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 from puzzles import *
 from tech import tech
 
 EXPLICITLY = "EXPLICITLY"
+from colorama import Fore
 
 
 class Solving:
@@ -614,86 +616,83 @@ def all_file_leaves():
 
 
 def the_data():
-    for id in all_file_leaves():
+    for _id in all_file_leaves():
 
-
-
-        if 'hidden_single' in id:
-            yield [id, tech.HiddenSingle()]
-        elif 'hidden_pair' in id:
-            yield [id, tech.HiddenPair()]
-        elif 'hidden_triple' in id:
-            yield [id, tech.HiddenTriple()]
-        elif 'hidden_quad' in id:
-            yield [id, tech.HiddenQuad()]
-        elif 'naked_pair' in id:
-            yield [id, tech.NakedPair()]
-        elif 'naked_triple' in id:
-            yield [id, tech.NakedTriple()]
-        elif 'naked_quad' in id:
-            yield [id, tech.NakedQuad()]
-        elif 'cross_hatch' in id:
-            yield [id, tech.CrossHatch()]
-        elif 'avoidable_rectangle_type1' in id:
-            yield [id, tech.AvoidableRectangleType1()]
-        elif 'avoidable_rectangle_type2' in id:
-            yield [id, tech.AvoidableRectangleType2()]
-        elif 'hidden_unique_rectangle' in id:
-            yield [id, tech.HiddenUniqueRectangle()]
-        elif 'unique_rectangle_type1' in id:
-            yield [id, tech.UniqueRectangleType1()]
-        elif 'unique_rectangle_type2' in id:
-            yield [id, tech.UniqueRectangleType2()]
-        elif 'unique_rectangle_type3' in id:
-            yield [id, tech.UniqueRectangleType3()]
-        elif 'unique_rectangle_type4' in id:
-            yield [id, tech.UniqueRectangleType4()]
-        elif 'locked_candidates_pointing' in id:
-            yield [id, tech.LockedCandidatesPointing()]
-        elif 'locked_candidates_claiming' in id:
-            yield [id, tech.LockedCandidatesClaiming()]
-        elif 'finned_jelly_fish' in id:
-            yield [id, tech.FinnedJellyFish()]
-        elif 'shashimi_jelly_fish' in id:
-            yield [id, tech.ShashimiJellyFish()]
-        elif 'jelly_fish' in id:
-            yield [id, tech.JellyFish()]
-        elif 'finned_sword_fish' in id:
-            yield [id, tech.FinnedSwordFish()]
-        elif 'shashimi_sword_fish' in id:
-            yield [id, tech.ShashimiSwordFish()]
-        elif 'sword_fish' in id:
-            yield [id, tech.SwordFish()]
-        elif 'finned_x_wing' in id:
-            yield [id, tech.FinnedXWing()]
-        elif 'shashimi_x_wing' in id:
-            yield [id, tech.ShashimiXWing()]
-        elif 'x_wing' in id:
-            yield [id, tech.XWing()]
-        elif 'x_chain' in id:
-            yield [id, tech.XChain()]
-        elif 'xy_chain' in id:
-            yield [id, tech.XyChain()]
-        elif 'xy_wing' in id:
-            yield [id, tech.XyWing()]
-        elif 'xyz_wing' in id:
-            yield [id, tech.XyzWing()]
-        elif 'wxyz_wing' in id:
-            yield [id, tech.WxyzWing()]
-        elif 'w_wing' in id:
-            yield [id, tech.WWing()]
-        elif 'simple_coloring' in id:
-            yield [id, tech.SimpleColoring()]
-        elif 'sue_de_coq' in id:
-            yield [id, tech.SueDeCoq()]
-        elif 'fishy_cycle' in id:
-            yield [id, tech.FishyCycle()]
+        if 'hidden_single' in _id:
+            yield [_id, tech.HiddenSingle()]
+        elif 'hidden_pair' in _id:
+            yield [_id, tech.HiddenPair()]
+        elif 'hidden_triple' in _id:
+            yield [_id, tech.HiddenTriple()]
+        elif 'hidden_quad' in _id:
+            yield [_id, tech.HiddenQuad()]
+        elif 'naked_pair' in _id:
+            yield [_id, tech.NakedPair()]
+        elif 'naked_triple' in _id:
+            yield [_id, tech.NakedTriple()]
+        elif 'naked_quad' in _id:
+            yield [_id, tech.NakedQuad()]
+        elif 'cross_hatch' in _id:
+            yield [_id, tech.CrossHatch()]
+        elif 'avoidable_rectangle_type1' in _id:
+            yield [_id, tech.AvoidableRectangleType1()]
+        elif 'avoidable_rectangle_type2' in _id:
+            yield [_id, tech.AvoidableRectangleType2()]
+        elif 'hidden_unique_rectangle' in _id:
+            yield [_id, tech.HiddenUniqueRectangle()]
+        elif 'unique_rectangle_type1' in _id:
+            yield [_id, tech.UniqueRectangleType1()]
+        elif 'unique_rectangle_type2' in _id:
+            yield [_id, tech.UniqueRectangleType2()]
+        elif 'unique_rectangle_type3' in _id:
+            yield [_id, tech.UniqueRectangleType3()]
+        elif 'unique_rectangle_type4' in _id:
+            yield [_id, tech.UniqueRectangleType4()]
+        elif 'locked_candidates_pointing' in _id:
+            yield [_id, tech.LockedCandidatesPointing()]
+        elif 'locked_candidates_claiming' in _id:
+            yield [_id, tech.LockedCandidatesClaiming()]
+        elif 'finned_jelly_fish' in _id:
+            yield [_id, tech.FinnedJellyFish()]
+        elif 'shashimi_jelly_fish' in _id:
+            yield [_id, tech.ShashimiJellyFish()]
+        elif 'jelly_fish' in _id:
+            yield [_id, tech.JellyFish()]
+        elif 'finned_sword_fish' in _id:
+            yield [_id, tech.FinnedSwordFish()]
+        elif 'shashimi_sword_fish' in _id:
+            yield [_id, tech.ShashimiSwordFish()]
+        elif 'sword_fish' in _id:
+            yield [_id, tech.SwordFish()]
+        elif 'finned_x_wing' in _id:
+            yield [_id, tech.FinnedXWing()]
+        elif 'shashimi_x_wing' in _id:
+            yield [_id, tech.ShashimiXWing()]
+        elif 'x_wing' in _id:
+            yield [_id, tech.XWing()]
+        elif 'x_chain' in _id:
+            yield [_id, tech.XChain()]
+        elif 'xy_chain' in _id:
+            yield [_id, tech.XyChain()]
+        elif 'xy_wing' in _id:
+            yield [_id, tech.XyWing()]
+        elif 'wxyz_wing' in _id:
+            yield [_id, tech.WxyzWing()]
+        elif 'xyz_wing' in _id:
+            yield [_id, tech.XyzWing()]
+        elif 'w_wing' in _id:
+            yield [_id, tech.WWing()]
+        elif 'simple_coloring' in _id:
+            yield [_id, tech.SimpleColoring()]
+        elif 'sue_de_coq' in _id:
+            yield [_id, tech.SueDeCoq()]
+        elif 'fishy_cycle' in _id:
+            yield [_id, tech.FishyCycle()]
         else:
-            yield [id, None]
+            yield [_id, None]
 
 
-@pytest.mark.parametrize('data', the_data(), ids=[i[0] for i in the_data()])
-def test_file_puzzle(data):
+def __test_file_puzzle(data) -> tuple[bool, str]:
     actual_path, technique = data
 
     if technique is None:
@@ -718,27 +717,44 @@ def test_file_puzzle(data):
     length_expected = int(expected[0, 0])
     expected = numpy.delete(expected, 0, 0)
 
-    actual_puzzle: Optional[Puzzle] = None
-    expected_puzzle: Optional[Puzzle] = None
-
     if actual_id.endswith('.sudoku'):
-        actual_puzzle = Sudoku(actual, length_actual, actual_id)
-        expected_puzzle = Sudoku(expected, length_expected, expected_id)
+        constructor = Sudoku
     elif actual_id.endswith('.kropki'):
-        actual_puzzle = Kropki(actual, length_actual, actual_id)
-        expected_puzzle = Kropki(expected, length_expected, expected_id)
+        constructor = Kropki
     else:
-        assert False, f'Could not determine puzzle type'
+        return False, 'Could not determine puzzle type'
 
-    if actual_puzzle is None or expected_puzzle is None:
-        assert False, actual_id
+    if constructor is None:
+        return False, "Constructor was None"
+
+    actual_puzzle = constructor(actual, length_actual, actual_id)
+    expected_puzzle = constructor(expected, length_expected, expected_id)
 
     technique.solve0(actual_puzzle)
 
     if actual_puzzle == expected_puzzle:
-        return
+        return True, ""
 
-    print(actual_puzzle)
-    print(expected_puzzle)
+    if actual_id.endswith('.sudoku'):
+        for r in range(len(actual_puzzle)):
+            for c in range(len(actual_puzzle)):
+                loc = Loc(r, c)
+                actual_candidates = actual_puzzle.cell_candidates(loc)
+                expected_candidates = expected_puzzle.cell_candidates(loc)
 
-    assert False
+                if set(actual_candidates) == set(expected_candidates):
+                    continue
+
+                expected_puzzle.override_loc_color([loc], Fore.CYAN)
+
+    print(actual_puzzle.to_string())
+    print(expected_puzzle.to_string())
+
+    return False, "{actual_puzzle} dit not equal {expected_puzzle}"
+
+
+@pytest.mark.parametrize('data', the_data(), ids=[i[0] for i in the_data()])
+def test_file_puzzle(data):
+    result, message = __test_file_puzzle(data)
+
+    assert result, message
