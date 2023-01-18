@@ -225,6 +225,34 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
             edits += self.explicit(puzzle)
+
+
+            base0 = Loc(3,3)
+            base1 = Loc(3,5)
+            opp_base0 = Loc(6, 3)
+            opp_base1 = Loc(6, 5)
+
+            bases = [base0, base1]
+            opp_bases = [opp_base0, opp_base1]
+            house_row_col = puzzle.house_row(6)
+            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(2,1)))
+
+            if {1}.issuperset(puzzle.cell_candidates(base0)) and \
+                    {2}.issuperset(puzzle.cell_candidates(base1)) and \
+                    {2, 3}.issuperset(puzzle.cell_candidates(opp_base0)) and \
+                    {1, 3}.issuperset(puzzle.cell_candidates(opp_base1)):
+
+                puzzle.override_loc_color(house_row_col + house_fence, Fore.RED)
+                puzzle.override_loc_color(bases, Fore.GREEN)
+                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
+                edits += puzzle.rem(set(house_row_col + house_fence) - set(opp_bases), [3])
+
+
+
+
+
+
+
             return edits
 
         @staticmethod
