@@ -4,9 +4,11 @@ from puzzles import Puzzle
 from Loc import Loc
 import numpy
 
+
 class Sudoku(Puzzle):
 
-    def __init__(self, puzzle: Union[str,numpy.ndarray], length:Optional[int]=None, id:Optional[str]=None ) -> None:
+    def __init__(self, puzzle: Union[str, numpy.ndarray], length: Optional[int] = None,
+                 id: Optional[str] = None) -> None:
         super().__init__(puzzle, length, id)
 
         self.__unsolved_locs: set[Loc] = set()
@@ -16,10 +18,6 @@ class Sudoku(Puzzle):
                 loc = Loc(r, c)
 
                 candidates = self.cell_candidates(loc)
-
-
-
-
 
                 if len(candidates) == 0 or len(candidates) == 1 and candidates[0] == 0:
                     new_string = ""

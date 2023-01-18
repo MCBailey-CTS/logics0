@@ -6,7 +6,9 @@ import numpy
 
 
 class Puzzle:
-    def __init__(self, puzzle: Union[str, numpy.ndarray], length: Optional[int] = None,
+    def __init__(self,
+                 puzzle: Union[str, numpy.ndarray],
+                 length: Optional[int] = None,
                  id: Optional[str] = None) -> None:
         self.grid = []
         array = []
@@ -213,8 +215,13 @@ class Puzzle:
 
 class Mathrax(Puzzle):
 
-    def __init__(self, puzzle: str) -> None:
+    def __init__(self, puzzle: Union[str, numpy.ndarray],
+                 length: Optional[int] = None,
+                 id: Optional[str] = None) -> None:
         super().__init__(puzzle)
+
+        if isinstance(puzzle, numpy.ndarray) and isinstance(length, int) and isinstance(id, str):
+            return
 
     def house_row(self, row: int, candidate=None) -> list[Loc]:
         if candidate is None:
@@ -344,8 +351,14 @@ class Mathrax(Puzzle):
 
 class Kropki(Mathrax):
 
-    def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
+    def __init__(self, puzzle: Union[str, numpy.ndarray],
+                 length: Optional[int] = None,
+                 id: Optional[str] = None) -> None:
+        super().__init__(puzzle, length, id)
+
+        if isinstance(puzzle, numpy.ndarray) and isinstance(length, int) and isinstance(id, str):
+            return
+
         array = []
         for line in puzzle.split("\n"):
             temp = line.strip()

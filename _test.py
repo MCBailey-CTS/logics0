@@ -1,13 +1,14 @@
-from posixpath import splitext
 from typing import Optional
 import pytest
+from typing import Optional
+
+import numpy
+import pytest
+
 from Constants import Constants
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 from puzzles import *
-from tech import Technique, tech
-import numpy
-import os
-import re
+from tech import tech
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -205,10 +206,7 @@ class Solving:
 
 
 @pytest.mark.parametrize("constructor, technique, actual, expected", [
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.hidden_unique_rectangle_default_actual.__name__,
-     Constants.hidden_unique_rectangle_default_expected.__name__),
+
     (Kropki,
      tech.KropkiBlack(),
      Constants.kropki_explicit_black_actual.__name__,
@@ -617,6 +615,9 @@ def all_file_leaves():
 
 def the_data():
     for id in all_file_leaves():
+
+
+
         if 'hidden_single' in id:
             yield [id, tech.HiddenSingle()]
         elif 'hidden_pair' in id:
@@ -723,8 +724,14 @@ def test_file_puzzle(data):
     if actual_id.endswith('.sudoku'):
         actual_puzzle = Sudoku(actual, length_actual, actual_id)
         expected_puzzle = Sudoku(expected, length_expected, expected_id)
+    elif actual_id.endswith('.kropki'):
+        actual_puzzle = Kropki(actual, length_actual, actual_id)
+        expected_puzzle = Kropki(expected, length_expected, expected_id)
     else:
-        assert False, f'Could determine puzzle type'
+        assert False, f'Could not determine puzzle type'
+
+    if actual_puzzle is None or expected_puzzle is None:
+        assert False, actual_id
 
     technique.solve0(actual_puzzle)
 

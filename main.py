@@ -190,14 +190,9 @@ def powert_set_start():
 # def select(self, func=lambda x: x):
 #     pass
 
-from puzzles import Mathrax
-from tech import tech
-
-if __name__ == "__main__":
-    from os import walk
-
-    for name in dir(Constants):
-        if ('actual' in name or 'expected' in name) and 'sudoku' in name:
+def read_sudokus():
+      for name in dir(Constants):
+        if  'sudoku' in name and 'explicit' in name:
             func = getattr(Constants, name)
             string: str = func()
             string = string.replace('\n', ' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).strip()
@@ -240,6 +235,58 @@ if __name__ == "__main__":
 
             except:
                 print(f'Exception: bad string format: {_id}')
+
+
+from puzzles import Mathrax
+from tech import tech
+
+if __name__ == "__main__":
+    from os import walk
+    for name in dir(Constants):
+        if  'kropki' in name and 'explicit' in name:
+            func = getattr(Constants, name)
+            string: str = func()
+            string = string.replace('\n', ' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).strip()
+            split = string.split(' ')
+            _id = split.pop(0)
+
+            try:
+                length = int(split.pop(0))
+                # print(_id)
+                # print(length)
+                # print(split)
+
+                if length != 9:
+                    continue
+                index = 0
+                result = f'{length}          $  $          $  $          $  $          $  $          $  $          $  $          $  $          $  $\n'
+                for r in range(length * 2 - 1):
+                    # if r == 3 or r == 6:
+                    #     result += '\n'
+                    for c in range(length * 2 - 1):
+                        result += f'{split[index]} '
+                        index+=1
+                        # if c == 2 or c == 5:
+                        #     result += '   '
+                    result += '\n'
+
+                result.strip()
+
+                f = open(f'C:\\Users\\mcbailey\\Desktop\\files\\{_id}', 'w')
+
+                f.write(result)
+
+                f.close()
+
+                # print(result)
+                # print()
+                # print()
+                # print()
+                
+
+            except:
+                print(f'Exception: bad string format: {_id}')
+    
 
             # print(split)
 
