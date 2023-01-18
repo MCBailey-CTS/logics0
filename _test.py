@@ -1,8 +1,13 @@
+from posixpath import splitext
+from typing import Optional
 import pytest
 from Constants import Constants
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 from puzzles import *
-from tech import tech
+from tech import Technique, tech
+import numpy
+import os
+import re
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -200,199 +205,10 @@ class Solving:
 
 
 @pytest.mark.parametrize("constructor, technique, actual, expected", [
-
-    (Sudoku,
-     tech.XWing(),
-     Constants.sudoku_explicit_x_wing_row_actual.__name__,
-     Constants.sudoku_explicit_x_wing_row_expected.__name__),
-    (Sudoku,
-     tech.XWing(),
-     Constants.sudoku_explicit_x_wing_col_actual.__name__,
-     Constants.sudoku_explicit_x_wing_col_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_type1_north_east_row_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_type1_north_east_row_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_row_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_row_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_north_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.HiddenUniqueRectangle(),
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_row_chute_actual.__name__,
-     Constants.sudoku_explicit_hidden_unique_rectangle_south_east_row_chute_expected.__name__),
     (Sudoku,
      tech.HiddenUniqueRectangle(),
      Constants.hidden_unique_rectangle_default_actual.__name__,
      Constants.hidden_unique_rectangle_default_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_north_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_north_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_east_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_east_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_south_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_south_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_west_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_normal_west_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_west_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_west_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_north_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_north_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_east_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_east_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType4(),
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_south_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type4_goofy_south_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_east_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_east_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_north_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_north_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_west_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_west_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_west_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_west_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_east_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_east_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_south_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_goofy_south_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_south_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_south_expected.__name__),
-    (Sudoku,
-     tech.HiddenPair(),
-     Constants.sudoku_explicit_hidden_pair_fences_actual.__name__,
-     Constants.sudoku_explicit_hidden_pair_fences_expected.__name__),
-    (Sudoku,
-     tech.HiddenPair(),
-     Constants.sudoku_explicit_hidden_pair_rows_actual.__name__,
-     Constants.sudoku_explicit_hidden_pair_rows_expected.__name__),
-    (Sudoku,
-     tech.HiddenPair(),
-     Constants.sudoku_explicit_hidden_pair_cols_actual.__name__,
-     Constants.sudoku_explicit_hidden_pair_cols_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesPointing(),
-     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_cols_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_cols_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesClaiming(),
-     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_rows_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_rows_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesClaiming(),
-     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_rows_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_rows_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesClaiming(),
-     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_cols_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_claiming_2_fins_cols_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesClaiming(),
-     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_cols_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_claiming_3_fins_cols_expected.__name__),
-    (Sudoku,
-     tech.JellyFish(),
-     Constants.sudoku_explicit_jelly_fish_cols_actual.__name__,
-     Constants.sudoku_explicit_jelly_fish_cols_expected.__name__),
-    (Sudoku,
-     tech.JellyFish(),
-     Constants.sudoku_explicit_jelly_fish_rows_actual.__name__,
-     Constants.sudoku_explicit_jelly_fish_rows_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_north_west_row_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_north_west_row_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_south_east_row_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_south_east_row_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_south_west_row_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_south_west_row_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_north_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_north_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_north_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_north_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_south_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_south_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType1(),
-     Constants.sudoku_explicit_unique_rectangle_type1_south_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type1_south_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.SwordFish(),
-     Constants.sudoku_explicit_sword_fish_rows_actual.__name__,
-     Constants.sudoku_explicit_sword_fish_rows_expected.__name__),
-    (Sudoku,
-     tech.SwordFish(),
-     Constants.sudoku_explicit_sword_fish_cols_actual.__name__,
-     Constants.sudoku_explicit_sword_fish_cols_expected.__name__),
-    (Sudoku,
-     tech.XyWing(),
-     Constants.sudoku_explicit_xy_wing_north_east_actual.__name__,
-     Constants.sudoku_explicit_xy_wing_north_east_expected.__name__),
-    (Sudoku,
-     tech.XyWing(),
-     Constants.sudoku_explicit_xy_wing_south_west_actual.__name__,
-     Constants.sudoku_explicit_xy_wing_south_west_expected.__name__),
-    # (Kropki,
-    #  tech.KropkiBw(),
-    #  Constants.kropki_explicit_bw_actual.__name__,
-    #  Constants.kropki_explicit_bw_expected.__name__),
     (Kropki,
      tech.KropkiBlack(),
      Constants.kropki_explicit_black_actual.__name__,
@@ -405,10 +221,6 @@ class Solving:
      tech.KropkiEmpty(),
      Constants.kropki_explicit_empty_actual.__name__,
      Constants.kropki_explicit_empty_expected.__name__),
-    # (Kropki,
-    #  tech.KropkiBb(),
-    #  Constants.kropki_explicit_bb_actual.__name__,
-    #  Constants.kropki_explicit_bb_expected.__name__),
     (Kropki,
      tech.KropkiDominatingEmpty(),
      Constants.kropki_explicit_dominating_empty1_actual.__name__,
@@ -445,335 +257,7 @@ class Solving:
      tech.KropkiDiamondWwwe(),
      Constants.kropki_explicit_diamond_wwwe_actual.__name__,
      Constants.kropki_explicit_diamond_wwwe_expected.__name__),
-    (Sudoku,
-     tech.NakedPair(),
-     Constants.sudoku_explicit_naked_pair_rows_actual.__name__,
-     Constants.sudoku_explicit_naked_pair_rows_expected.__name__),
-    (Sudoku,
-     tech.NakedPair(),
-     Constants.sudoku_explicit_naked_pair_cols_actual.__name__,
-     Constants.sudoku_explicit_naked_pair_cols_expected.__name__),
-    (Sudoku,
-     tech.NakedPair(),
-     Constants.sudoku_explicit_naked_pair_fences_actual.__name__,
-     Constants.sudoku_explicit_naked_pair_fences_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_row_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_row_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_col_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_col_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_row_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_west_row_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_row_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_north_east_row_chute_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_row_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_east_row_chute_expected.__name__),
-    (Sudoku,
-     tech.NakedTriple(),
-     Constants.sudoku_explicit_naked_triple_cols_actual.__name__,
-     Constants.sudoku_explicit_naked_triple_cols_expected.__name__),
-    (Sudoku,
-     tech.NakedTriple(),
-     Constants.sudoku_explicit_naked_triple_rows_actual.__name__,
-     Constants.sudoku_explicit_naked_triple_rows_expected.__name__),
-    (Sudoku,
-     tech.NakedTriple(),
-     Constants.sudoku_explicit_naked_triple_fences_actual.__name__,
-     Constants.sudoku_explicit_naked_triple_fences_expected.__name__),
-    (Sudoku,
-     tech.AvoidableRectangleType1(),
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_col_chute_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type1_south_west_col_chute_expected.__name__),
-    (Sudoku,
-     tech.CrossHatch(),
-     Constants.sudoku_explicit_cross_hatch_actual.__name__,
-     Constants.sudoku_explicit_cross_hatch_expected.__name__),
-    (Sudoku,
-     tech.HiddenSingle(),
-     Constants.sudoku_explicit_hidden_single_rows_actual.__name__,
-     Constants.sudoku_explicit_hidden_single_rows_expected.__name__),
-    (Sudoku,
-     tech.HiddenSingle(),
-     Constants.sudoku_explicit_hidden_single_cols_actual.__name__,
-     Constants.sudoku_explicit_hidden_single_cols_expected.__name__),
-    (Sudoku,
-     tech.HiddenSingle(),
-     Constants.sudoku_explicit_hidden_single_fences_actual.__name__,
-     Constants.sudoku_explicit_hidden_single_fences_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesPointing(),
-     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_rows_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_rows_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesPointing(),
-     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_cols_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_pointing_3_fins_cols_expected.__name__),
-    (Sudoku,
-     tech.LockedCandidatesPointing(),
-     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_rows_actual.__name__,
-     Constants.sudoku_explicit_locked_candidates_pointing_2_fins_rows_expected.__name__),
-    (Sudoku,
-     tech.WWing(),
-     Constants.sudoku_explicit_w_wing_rows_actual.__name__,
-     Constants.sudoku_explicit_w_wing_rows_expected.__name__),
-    (Sudoku,
-     tech.WWing(),
-     Constants.sudoku_explicit_w_wing_cols_actual.__name__,
-     Constants.sudoku_explicit_w_wing_cols_expected.__name__),
-    (Sudoku,
-     tech.XyWing(),
-     Constants.sudoku_explicit_xy_wing_north_west_actual.__name__,
-     Constants.sudoku_explicit_xy_wing_north_west_expected.__name__),
-    (Sudoku,
-     tech.XyWing(),
-     Constants.sudoku_explicit_xy_wing_south_east_actual.__name__,
-     Constants.sudoku_explicit_xy_wing_south_east_expected.__name__),
-    (Sudoku,
-     tech.XyzWing(),
-     Constants.sudoku_explicit_xyz_wing_rows_actual.__name__,
-     Constants.sudoku_explicit_xyz_wing_rows_expected.__name__),
-    (Sudoku,
-     tech.XyzWing(),
-     Constants.sudoku_explicit_xyz_wing_cols_actual.__name__,
-     Constants.sudoku_explicit_xyz_wing_cols_expected.__name__),
-    (Sudoku,
-     tech.XWing(),
-     Constants.sudoku_explicit_x_wing_col_actual.__name__,
-     Constants.sudoku_explicit_x_wing_col_expected.__name__),
-    (Sudoku,
-     tech.UniqueRectangleType2(),
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_actual.__name__,
-     Constants.sudoku_explicit_unique_rectangle_type2_normal_north_expected.__name__),
-    (Sudoku,
-     tech.HiddenTriple(),
-     Constants.sudoku_explicit_hidden_triple_cols_actual.__name__,
-     Constants.sudoku_explicit_hidden_triple_cols_expected.__name__),
-    (Sudoku,
-     tech.HiddenTriple(),
-     Constants.sudoku_explicit_hidden_triple_rows_actual.__name__,
-     Constants.sudoku_explicit_hidden_triple_rows_expected.__name__),
-    (Sudoku,
-     tech.HiddenTriple(),
-     Constants.sudoku_explicit_hidden_triple_fences_actual.__name__,
-     Constants.sudoku_explicit_hidden_triple_fences_expected.__name__),
-    (Sudoku,
-     tech.FinnedXWing(),
-     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_actual.__name__,
-     Constants.sudoku_explicit_finned_x_wing_2_fin_rows_expected.__name__),
-    (Sudoku,
-     tech.FinnedXWing(),
-     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_actual.__name__,
-     Constants.sudoku_explicit_finned_x_wing_1_fin_rows_expected.__name__),
-    #      (Mathrax,
-    #  MathraxCrossHatch(),
-    #  Constants.mathrax_explicit_cross_hatch_actual(),
-    #  Constants.mathrax_explicit_cross_hatch_expected()),
-    # (Mathrax,
-    #  Mathraxtech.HiddenSingle(),
-    #  Constants.mathrax_explicit_hidden_single_actual(),
-    #  Constants.mathrax_explicit_hidden_single_expected()),
-    #     (Sudoku,
-    #      Techs.XyChain(),
-    #      Constants.sudoku_explicit_xy_chain_actual(),
-    #      Constants.sudoku_explicit_xy_chain_expected()),
-    #     (Sudoku,
-    #      Techs.FishyCycle(),
-    #      Constants.sudoku_explicit_fishy_cycle_actual(),
-    #      Constants.sudoku_explicit_fishy_cycle_expected()),
-    # (Sudoku,
-    #  tech.SimpleColoring(),
-    #  Constants.sudoku_explicit_simple_coloring_actual.__name__,
-    #  Constants.sudoku_explicit_simple_coloring_expected.__name__),
-    #     (Sudoku,
-    #      Techs.SueDeCoq(),
-    #      Constants.sudoku_explicit_sue_de_coq_rows_actual(),
-    #      Constants.sudoku_explicit_sue_de_coq_rows_expected()),
-    #     (Sudoku,
-    #      Techs.SueDeCoq(),
-    #      Constants.sudoku_explicit_sue_de_coq_cols_actual(),
-    #      Constants.sudoku_explicit_sue_de_coq_cols_expected()),
-    #     (Sudoku,
-    #      Techs.UniqueRectangleType3(),
-    #      Constants.sudoku_explicit_unique_rectangle_type3_col_chute_fences_2_fins_actual(),
-    #      Constants.sudoku_explicit_unique_rectangle_type3_col_chute_fences_2_fins_expected()),
-    #     (Sudoku,
-    #      Techs.UniqueRectangleType3(),
-    #      Constants.sudoku_explicit_unique_rectangle_type3_row_chute_west_cols_2_fins_actual(),
-    #      Constants.sudoku_explicit_unique_rectangle_type3_row_chute_west_cols_2_fins_expected()),
-    #     (Sudoku,
-    #      Techs.ShashimiJellyFish(),
-    #      Constants.sudoku_explicit_shashimi_jelly_fish_cols_actual(),
-    #      Constants.sudoku_explicit_shashimi_jelly_fish_cols_expected()),
-    #     (Sudoku,
-    #      Techs.FinnedXWing(), Constants.sudoku_explicit_finned_x_wing_1_fin_cols_actual(),
-    #      Constants.sudoku_explicit_finned_x_wing_1_fin_cols_expected()),
-    #     (Sudoku,
-    #      Techs.FinnedSwordFish(), Constants.sudoku_explicit_finned_sword_fish_cols_actual(),
-    #      Constants.sudoku_explicit_finned_sword_fish_cols_expected()),
-    #     (Sudoku,
-    #      Techs.FinnedJellyFish(),
-    #      Constants.sudoku_explicit_finned_jelly_fish_cols_actual(),
-    #      Constants.sudoku_explicit_finned_jelly_fish_cols_expected()),
-    #     (Sudoku,
-    #      Techs.ShashimiSwordFish(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_1_fin_rows_actual(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_1_fin_rows_expected()),
-    #     (Sudoku,
-    #      Techs.ShashimiSwordFish(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_2_fin_cols_actual(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_2_fin_cols_expected()),
-    #     (Sudoku,
-    #      Techs.XChain(),
-    #      Constants.sudoku_explicit_x_chain_actual(),
-    #      Constants.sudoku_explicit_x_chain_expected()),
-    #     (Sudoku,
-    #      Techs.ShashimiSwordFish(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_1_fin_cols_actual(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_1_fin_cols_expected()),
 
-    # (Sudoku,
-    #  ShashimiXWing(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_1_fin_cols_actual(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_1_fin_cols_expected()),
-    # (Sudoku,
-    #  ShashimiXWing(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_1_fin_rows_actual(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_1_fin_rows_expected()),
-    # (Sudoku,
-    #  ShashimiXWing(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_2_fin_rows_actual(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_2_fin_rows_expected()),
-    #
-    # (Sudoku,
-    #  ShashimiXWing(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_2_fin_cols_actual(),
-    #  Constants.sudoku_explicit_shashimi_x_wing_2_fin_cols_expected()),
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_cols_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_1_fin_cols_expected()),
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_expected()),
-    # (Sudoku,
-    #  FinnedXWing(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_actual(),
-    #  Constants.sudoku_explicit_finned_x_wing_2_fin_cols_expected()),
-    (Sudoku,
-     tech.HiddenQuad(),
-     Constants.sudoku_explicit_hidden_quad_rows_actual.__name__,
-     Constants.sudoku_explicit_hidden_quad_rows_expected.__name__),
-    #     (Sudoku,
-    #      Techs.HiddenQuad(),
-    #      Constants.sudoku_explicit_hidden_quad_cols_actual(),
-    #      Constants.sudoku_explicit_hidden_quad_cols_expected()),
-    (Sudoku,
-     tech.AvoidableRectangleType2(),
-     Constants.sudoku_explicit_avoidable_rectangle_type2_east_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type2_east_expected.__name__),
-    # sudoku_explicit_wxyz_wing_3_fences_row_chute_expected
-    # (Sudoku,
-    #  tech.WxyzWing(),
-    #  Constants.sudoku_explicit_wxyz_wing_3_fences_row_chute_actual.__name__,
-    #  Constants.sudoku_explicit_wxyz_wing_3_fences_row_chute_expected.__name__),
-    #     (Sudoku,
-    #      Techs.WxyzWing(),
-    #      Constants.sudoku_explicit_wxyz_wing_2_fences_row_chute_actual(),
-    #      Constants.sudoku_explicit_wxyz_wing_2_fences_row_chute_expected()),
-    #     (Sudoku,
-    #      Techs.WxyzWing(),
-    #      Constants.sudoku_explicit_wxyz_wing_3_fences_col_chute_actual(),
-    #      Constants.sudoku_explicit_wxyz_wing_3_fences_col_chute_expected()),
-    #     (Sudoku,
-    #      Techs.WxyzWing(),
-    #      Constants.sudoku_explicit_wxyz_wing_2_fences_col_chute_actual(),
-    #      Constants.sudoku_explicit_wxyz_wing_2_fences_col_chute_expected()),
-    #     (Skyscrapers,
-    #      Techs.SkyscrapersCrossHatch(),
-    #      Constants.skyscrapers_explicit_cross_hatch_actual(),
-    #      Constants.skyscrapers_explicit_cross_hatch_expected()),
-    #     (Skyscrapers,
-    #      Techs.SkyscrapersHiddenSingle(),
-    #      Constants.skyscrapers_explicit_hidden_single_actual(),
-    #      Constants.skyscrapers_explicit_hidden_single_expected()),
-    #     (Skyscrapers,
-    #      Techs.SkyscrapersEdges(),
-    #      Constants.skyscrapers_explicit_edges_actual(),
-    #      Constants.skyscrapers_explicit_edges_expected()),
-    (Sudoku,
-     tech.AvoidableRectangleType2(),
-     Constants.sudoku_explicit_avoidable_rectangle_type2_north_actual.__name__,
-     Constants.sudoku_explicit_avoidable_rectangle_type2_north_expected.__name__),
-    #     (Sudoku,
-    #      Techs.FinnedSwordFish(),
-    #      Constants.sudoku_explicit_finned_sword_fish_rows_actual(),
-    #      Constants.sudoku_explicit_finned_sword_fish_rows_expected()),
-    #     (Sudoku,
-    #      Techs.FinnedJellyFish(),
-    #      Constants.sudoku_explicit_finned_jelly_fish_rows_actual(),
-    #      Constants.sudoku_explicit_finned_jelly_fish_rows_expected()),
-
-    #     (Sudoku,
-    #      Techs.ShashimiSwordFish(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_2_fin_rows_actual(),
-    #      Constants.sudoku_explicit_shashimi_sword_fish_2_fin_rows_expected()),
-    #     (Sudoku,
-    #      Techs.ShashimiJellyFish(),
-    #      Constants.sudoku_explicit_shashimi_jelly_fish_rows_actual(),
-    #      Constants.sudoku_explicit_shashimi_jelly_fish_rows_expected()),
-    #     (Sudoku,
-    #      Techs.AlmostLockedCandidatesClaiming(),
-    #      Constants.sudoku_explicit_almost_locked_candidates_claming_rows_actual(),
-    #      Constants.sudoku_explicit_almost_locked_candidates_claming_rows_expected()),
-    #     (Sudoku,
-    #      Techs.AlmostLockedCandidatesPointing(),
-    #      Constants.sudoku_explicit_almost_locked_candidates_pointing_rows_actual(),
-    #      Constants.sudoku_explicit_almost_locked_candidates_pointing_rows_expected()),
-
-    #     (Sudoku,
-    #      Techs.AvoidableRectangleType2(),
-    #      Constants.sudoku_explicit_avoidable_rectangle_type2_south_actual(),
-    #      Constants.sudoku_explicit_avoidable_rectangle_type2_south_expected()),
-
-    #     (Sudoku,
-    #      Techs.HiddenQuad(),
-    #      Constants.sudoku_explicit_hidden_quad_fences_actual(),
-    #      Constants.sudoku_explicit_hidden_quad_fences_expected()),
-
-    #     (Sudoku,
-    #      Techs.NakedQuad(),
-    #      Constants.sudoku_explicit_naked_quad_rows_actual(),
-    #      Constants.sudoku_explicit_naked_quad_rows_expected()),
-    #     (Sudoku,
-    #      tech.NakedQuad(),
-    #      Constants.sudoku_explicit_naked_quad_cols_actual.__name__,
-    #      Constants.sudoku_explicit_naked_quad_cols_expected.__name__),
-    #     (Sudoku,
-    #      Techs.NakedQuad(),
-    #      Constants.sudoku_explicit_naked_quad_fences_actual(),
-    #      Constants.sudoku_explicit_naked_quad_fences_expected()),
-    # (Sudoku,
-    #  XyWing(),
-    #  Constants.sudoku_explicit_xy_wing_2_fences_row_chute_actual(),
-    #  Constants.sudoku_explicit_xy_wing_2_fences_row_chute_expected()),
     (Mathrax,
      tech.CrossHatch(),
      Constants.mathrax_cross_hatch_actual.__name__,
@@ -790,10 +274,6 @@ class Solving:
      tech.MathraxMathMultiplication(),
      Constants.mathrax_06x04x_actual.__name__,
      Constants.mathrax_06x04x_expected.__name__),
-    # (Mathrax,
-    #  tech.MathraxMathDivision(),
-    #  Constants.mathrax_02division_actual.__name__,
-    #  Constants.mathrax_02division_expected.__name__),
 ])
 def test_default_actual_expected(constructor, technique, actual, expected):
     if "\n" in actual or "\n" in expected:
@@ -801,23 +281,6 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     assert default_test_explicit_actual_expected(constructor, technique, getattr(Constants, actual)(),
                                                  getattr(Constants, expected)())
 
-
-# [
-#         CrossHatch(),
-#         tech.HiddenSingle(),
-#         tech.NakedPair(),
-#         tech.LockedCandidatesPointing(),
-#         tech.LockedCandidatesClaiming(),
-#         UniqueRectangleType1(),
-#         UniqueRectangleType2(),
-#         UniqueRectangleType4(),
-#         FinnedXWing(),
-#         Bug(),
-#         HiddenPair(),
-#         NakedTriple(),
-#         XWing(),
-#         XyWing(),
-#     ]
 
 @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
     ('sudoku_unique_rectangle_type1_00', Sudoku,
@@ -1108,13 +571,13 @@ def test_default_actual_expected(constructor, technique, actual, expected):
         tech.KropkiBw(),
     ]),
     (Constants.kropki_003.__name__, Kropki,
-[
-        tech.KropkiBlack(),
-        tech.KropkiWhite(),
-        tech.KropkiEmpty(),
-        tech.CrossHatch(),
-        tech.KropkiBw(),
-    ]
+     [
+         tech.KropkiBlack(),
+         tech.KropkiWhite(),
+         tech.KropkiEmpty(),
+         tech.CrossHatch(),
+         tech.KropkiBw(),
+     ]
      ),
     # (Constants.kropki_004.__name__, Kropki, Solving.kropki_techniques()),
     # (Constants.kropki_005.__name__, Kropki, Solving.kropki_techniques()),
@@ -1141,3 +604,134 @@ def test_default_puzzle(puzzle_string, constructor, techniques):
         pytest.skip(puzzle_string)
     result = getattr(Constants, puzzle_string)
     assert default_test_puzzle(result(), constructor, techniques)
+
+
+def all_file_leaves():
+    from os import walk
+    files = []
+    for filename in next(walk('C:\\Repos\\logics0\\files'), (None, None, []))[2]:  # [] if no file
+        if 'actual' in filename:
+            files.append(filename)
+    return files
+
+
+def the_data():
+    for id in all_file_leaves():
+        if 'hidden_single' in id:
+            yield [id, tech.HiddenSingle()]
+        elif 'hidden_pair' in id:
+            yield [id, tech.HiddenPair()]
+        elif 'hidden_triple' in id:
+            yield [id, tech.HiddenTriple()]
+        elif 'hidden_quad' in id:
+            yield [id, tech.HiddenQuad()]
+        elif 'naked_pair' in id:
+            yield [id, tech.NakedPair()]
+        elif 'naked_triple' in id:
+            yield [id, tech.NakedTriple()]
+        elif 'naked_quad' in id:
+            yield [id, tech.NakedQuad()]
+        elif 'cross_hatch' in id:
+            yield [id, tech.CrossHatch()]
+        elif 'avoidable_rectangle_type1' in id:
+            yield [id, tech.AvoidableRectangleType1()]
+        elif 'avoidable_rectangle_type2' in id:
+            yield [id, tech.AvoidableRectangleType2()]
+        elif 'hidden_unique_rectangle' in id:
+            yield [id, tech.HiddenUniqueRectangle()]
+        elif 'unique_rectangle_type1' in id:
+            yield [id, tech.UniqueRectangleType1()]
+        elif 'unique_rectangle_type2' in id:
+            yield [id, tech.UniqueRectangleType2()]
+        elif 'unique_rectangle_type3' in id:
+            yield [id, tech.UniqueRectangleType3()]
+        elif 'unique_rectangle_type4' in id:
+            yield [id, tech.UniqueRectangleType4()]
+        elif 'locked_candidates_pointing' in id:
+            yield [id, tech.LockedCandidatesPointing()]
+        elif 'locked_candidates_claiming' in id:
+            yield [id, tech.LockedCandidatesClaiming()]
+        elif 'finned_jelly_fish' in id:
+            yield [id, tech.FinnedJellyFish()]
+        elif 'shashimi_jelly_fish' in id:
+            yield [id, tech.ShashimiJellyFish()]
+        elif 'jelly_fish' in id:
+            yield [id, tech.JellyFish()]
+        elif 'finned_sword_fish' in id:
+            yield [id, tech.FinnedSwordFish()]
+        elif 'shashimi_sword_fish' in id:
+            yield [id, tech.ShashimiSwordFish()]
+        elif 'sword_fish' in id:
+            yield [id, tech.SwordFish()]
+        elif 'finned_x_wing' in id:
+            yield [id, tech.FinnedXWing()]
+        elif 'shashimi_x_wing' in id:
+            yield [id, tech.ShashimiXWing()]
+        elif 'x_wing' in id:
+            yield [id, tech.XWing()]
+        elif 'x_chain' in id:
+            yield [id, tech.XChain()]
+        elif 'xy_chain' in id:
+            yield [id, tech.XyChain()]
+        elif 'xy_wing' in id:
+            yield [id, tech.XyWing()]
+        elif 'xyz_wing' in id:
+            yield [id, tech.XyzWing()]
+        elif 'wxyz_wing' in id:
+            yield [id, tech.WxyzWing()]
+        elif 'w_wing' in id:
+            yield [id, tech.WWing()]
+        elif 'simple_coloring' in id:
+            yield [id, tech.SimpleColoring()]
+        elif 'sue_de_coq' in id:
+            yield [id, tech.SueDeCoq()]
+        elif 'fishy_cycle' in id:
+            yield [id, tech.FishyCycle()]
+        else:
+            yield [id, None]
+
+
+@pytest.mark.parametrize('data', the_data(), ids=[i[0] for i in the_data()])
+def test_file_puzzle(data):
+    actual_path, technique = data
+
+    if technique is None:
+        pytest.skip(actual_path)
+
+    actual_path = f'C:\\Repos\\logics0\\files\\{actual_path}'
+
+    expected_path = actual_path.replace('actual', 'expected')
+
+    actual = numpy.loadtxt(actual_path, dtype=str)
+    expected = numpy.loadtxt(expected_path, dtype=str)
+
+    actual_split = actual_path.split('\\')
+    expected_split = expected_path.split('\\')
+
+    actual_id = actual_split[-1]
+    expected_id = expected_split[-1]
+
+    length_actual = int(actual[0, 0])
+    actual = numpy.delete(actual, 0, 0)
+
+    length_expected = int(expected[0, 0])
+    expected = numpy.delete(expected, 0, 0)
+
+    actual_puzzle: Optional[Puzzle] = None
+    expected_puzzle: Optional[Puzzle] = None
+
+    if actual_id.endswith('.sudoku'):
+        actual_puzzle = Sudoku(actual, length_actual, actual_id)
+        expected_puzzle = Sudoku(expected, length_expected, expected_id)
+    else:
+        assert False, f'Could determine puzzle type'
+
+    technique.solve0(actual_puzzle)
+
+    if actual_puzzle == expected_puzzle:
+        return
+
+    print(actual_puzzle)
+    print(expected_puzzle)
+
+    assert False

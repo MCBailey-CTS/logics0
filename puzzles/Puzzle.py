@@ -2,12 +2,21 @@ from abc import abstractmethod
 from typing import Optional, Union
 from colorama import Fore, Style
 from Loc import Loc
+import numpy
 
 
 class Puzzle:
-    def __init__(self, puzzle: str) -> None:
+    def __init__(self, puzzle: Union[str, numpy.ndarray], length: Optional[int] = None,
+                 id: Optional[str] = None) -> None:
         self.grid = []
         array = []
+
+        if isinstance(puzzle, numpy.ndarray) and isinstance(length, int) and isinstance(id, str):
+            self.grid = puzzle
+            self.__id = id
+            self.__length = length
+            return
+
         for line in puzzle.split("\n"):
             temp = line.strip()
             if len(temp) == 0:
@@ -191,6 +200,15 @@ class Puzzle:
 
     def __str__(self):
         return self.to_string(False)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Puzzle):
+            raise TypeError(f'Cannot == because not a puzzle {type(other)}')
+
+        if isinstance(self.grid, numpy.ndarray) and isinstance(other.grid, numpy.ndarray):
+            return (self.grid == other.grid).all()
+
+        return False
 
 
 class Mathrax(Puzzle):
@@ -516,7 +534,7 @@ class Kropki(Mathrax):
         #                     # print(f'{tr_candidate} {bl_candidate} {number}')
         #                     return False
 
-                    # print(self.grid[r][c])
+        # print(self.grid[r][c])
 
         return True
         # return len(self.unsolved_cells()) == 0 and all(

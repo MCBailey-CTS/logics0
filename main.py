@@ -194,21 +194,72 @@ from puzzles import Mathrax
 from tech import tech
 
 if __name__ == "__main__":
-    temp = [
-        [0, 1],
-        [2, 3]
-    ]
+    from os import walk
+
+    for name in dir(Constants):
+        if ('actual' in name or 'expected' in name) and 'sudoku' in name:
+            func = getattr(Constants, name)
+            string: str = func()
+            string = string.replace('\n', ' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).strip()
+            split = string.split(' ')
+            _id = split.pop(0)
+
+            try:
+                length = int(split.pop(0))
+                # print(_id)
+                # print(length)
+                # print(split)
+
+                if length != 9:
+                    continue
+                index = 0
+                result = f'{length} $ $ $ $ $ $ $ $\n'
+                for r in range(length):
+                    if r == 3 or r == 6:
+                        result += '\n'
+                    for c in range(length):
+                        result += f'{split[index]} '
+                        index+=1
+                        if c == 2 or c == 5:
+                            result += '   '
+                    result += '\n'
+
+                result.strip()
+
+                f = open(f'C:\\Users\\mcbailey\\Desktop\\files\\{_id}', 'w')
+
+                f.write(result)
+
+                f.close()
+
+                # print(result)
+                # print()
+                # print()
+                # print()
+                
+
+            except:
+                print(f'Exception: bad string format: {_id}')
+
+            # print(split)
 
 
+    # filenames = next(walk('C:\\Repos\\logics0\\files'), (None, None, []))[2]  # [] if no file
+
+    # print(filenames)
 
 
+    # import numpy as np
 
-    import numpy as np
-    temp = np.array(temp, int)
-    print(temp)
-    temp = np.rot90(temp, 1)
+    # temp = np.array([[float(j) for j in i.split('\n')] for i in b.splitlines()])
+    # temp = np.fromstring(Constants.mathrax_001())
 
-    print(temp)
+
+    # temp = np.array(temp, int)
+    # print(temp)
+    # temp = np.rot90(temp, 1)
+    #
+    # print(temp)
 
 
 

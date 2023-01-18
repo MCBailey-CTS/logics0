@@ -1,13 +1,13 @@
-from typing import Union
+from typing import Optional, Union
 
 from puzzles import Puzzle
 from Loc import Loc
-
+import numpy
 
 class Sudoku(Puzzle):
 
-    def __init__(self, puzzle: str) -> None:
-        super().__init__(puzzle)
+    def __init__(self, puzzle: Union[str,numpy.ndarray], length:Optional[int]=None, id:Optional[str]=None ) -> None:
+        super().__init__(puzzle, length, id)
 
         self.__unsolved_locs: set[Loc] = set()
 
