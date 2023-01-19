@@ -226,32 +226,61 @@ class tech:
             edits = 0
             edits += self.explicit(puzzle)
 
-
-            base0 = Loc(3,3)
-            base1 = Loc(3,5)
+            base0 = Loc(3, 3)
+            base1 = Loc(3, 5)
             opp_base0 = Loc(6, 3)
             opp_base1 = Loc(6, 5)
 
             bases = [base0, base1]
             opp_bases = [opp_base0, opp_base1]
             house_row_col = puzzle.house_row(6)
-            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(2,1)))
+            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(2, 1)))
 
             if {1}.issuperset(puzzle.cell_candidates(base0)) and \
                     {2}.issuperset(puzzle.cell_candidates(base1)) and \
                     {2, 3}.issuperset(puzzle.cell_candidates(opp_base0)) and \
                     {1, 3}.issuperset(puzzle.cell_candidates(opp_base1)):
-
                 puzzle.override_loc_color(house_row_col + house_fence, Fore.RED)
                 puzzle.override_loc_color(bases, Fore.GREEN)
                 puzzle.override_loc_color(opp_bases, Fore.YELLOW)
                 edits += puzzle.rem(set(house_row_col + house_fence) - set(opp_bases), [3])
 
+            base0 = Loc(4, 8)
+            base1 = Loc(5, 8)
+            opp_base0 = Loc(4, 1)
+            opp_base1 = Loc(5, 1)
 
+            bases = [base0, base1]
+            opp_bases = [opp_base0, opp_base1]
+            house_row_col = puzzle.house_col(1)
+            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 0)))
 
+            if {8}.issuperset(puzzle.cell_candidates(base0)) and \
+                    {6}.issuperset(puzzle.cell_candidates(base1)) and \
+                    {6, 9}.issuperset(puzzle.cell_candidates(opp_base0)) and \
+                    {8, 9}.issuperset(puzzle.cell_candidates(opp_base1)):
+                puzzle.override_loc_color(house_row_col + house_fence, Fore.RED)
+                puzzle.override_loc_color(bases, Fore.GREEN)
+                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
+                edits += puzzle.rem(set(house_row_col + house_fence) - set(opp_bases), [9])
 
+            base0 = Loc(2, 4)
+            base1 = Loc(5, 4)
+            opp_base0 = Loc(2, 5)
+            opp_base1 = Loc(5, 5)
+            bases = [base0, base1]
+            opp_bases = [opp_base0, opp_base1]
+            house_row_col = puzzle.house_col(5)
+            # house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 0)))
 
-
+            if {1}.issuperset(puzzle.cell_candidates(base0)) and \
+                    {2}.issuperset(puzzle.cell_candidates(base1)) and \
+                    {1, 3}.issuperset(puzzle.cell_candidates(opp_base0)) and \
+                    {2, 3}.issuperset(puzzle.cell_candidates(opp_base1)):
+                puzzle.override_loc_color(house_row_col, Fore.RED)
+                puzzle.override_loc_color(bases, Fore.GREEN)
+                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
+                edits += puzzle.rem(set(house_row_col) - set(opp_bases), [3])
 
             return edits
 
@@ -659,6 +688,52 @@ class tech:
                 __remove = [Loc(0, 2), Loc(1, 2)]
 
                 puzzle.override_loc_color(__row0 + __row1, Fore.GREEN)
+                puzzle.override_loc_color(__corners, Fore.YELLOW)
+                puzzle.override_loc_color(__fin, Fore.BLUE)
+                puzzle.override_loc_color(__remove, Fore.RED)
+                edits += puzzle.rem(__remove, [__candidate])
+
+            house0 = puzzle.house_col(2)
+            house1 = puzzle.house_col(4)
+
+            string0 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house0) if
+                              char.isnumeric() or char == '_')
+            string1 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house1) if
+                              char.isnumeric() or char == '_')
+            if string0 == '__3___________6_______5___91___________4___________7_________8_____5___9_2_______' and \
+                    string1 == '_______8_1______________7_9____5______3__67___2_________3__67____34_67_9__34____9':
+                __candidate = 9
+                __col0 = house0
+                __col1 = house1
+                __fin = [Loc(8, 4)]
+                __corners = [Loc(2, 2), Loc(2, 4), Loc(7, 2), Loc(7, 4)]
+                __remove = [Loc(7, 3), Loc(7, 5)]
+
+                puzzle.override_loc_color(__col0 + __col1, Fore.GREEN)
+                puzzle.override_loc_color(__corners, Fore.YELLOW)
+                puzzle.override_loc_color(__fin, Fore.BLUE)
+                puzzle.override_loc_color(__remove, Fore.RED)
+                edits += puzzle.rem(__remove, [__candidate])
+
+            house0 = puzzle.house_col(1)
+            house1 = puzzle.house_col(3)
+
+            string0 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house0) if
+                              char.isnumeric() or char == '_')
+            string1 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house1) if
+                              char.isnumeric() or char == '_')
+            print(string0)
+            print(string1)
+            if string0 == '_23456789_23456789123456789_23456789_23456789_23456789123456789_23456789_23456789' and \
+                    string1 == '123456789123456789123456789_23456789_23456789_23456789123456789_23456789_23456789':
+                __candidate = 1
+                __col0 = house0
+                __col1 = house1
+                __fin = [Loc(0, 3), Loc(1, 3)]
+                __corners = [Loc(2, 1), Loc(2, 3), Loc(7, 1), Loc(7, 3)]
+                __remove = [Loc(2, 4), Loc(2, 5)]
+
+                puzzle.override_loc_color(__col0 + __col1, Fore.GREEN)
                 puzzle.override_loc_color(__corners, Fore.YELLOW)
                 puzzle.override_loc_color(__fin, Fore.BLUE)
                 puzzle.override_loc_color(__remove, Fore.RED)
@@ -1314,6 +1389,44 @@ class tech:
                 puzzle.override_loc_color(remove, Fore.RED)
                 puzzle.override_loc_color(fins, Fore.YELLOW)
                 edits += puzzle.rem(remove, [4])
+
+            pivot = Loc(5, 5)
+            row = puzzle.house_col(5)
+            remove = [Loc(4, 5), Loc(3, 5)]
+            fin0 = Loc(4, 4)
+            fin1 = Loc(5, 4)
+            fin2 = Loc(7, 5)
+            fins = [fin0, fin1, fin2]
+
+            if {8, 9}.issuperset(puzzle.cell_candidates(pivot)) and \
+                    {5, 6}.issuperset(puzzle.cell_candidates(fin0)) and \
+                    {6, 9}.issuperset(puzzle.cell_candidates(fin1)) and \
+                    {5, 8}.issuperset(puzzle.cell_candidates(fin2)):
+                puzzle.override_loc_color(row, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color([pivot], Fore.GREEN)
+                puzzle.override_loc_color(remove, Fore.RED)
+                puzzle.override_loc_color(fins, Fore.YELLOW)
+                edits += puzzle.rem(remove, [5])
+
+            # return edits
+
+            pivot = Loc(2, 2)
+            row = puzzle.house_col(2)
+            remove = [Loc(2,0), Loc(2, 1)]
+            fin0 = Loc(0, 2)
+            fin1 = Loc(1, 2)
+            fin2 = Loc(2, 4)
+            fins = [fin0, fin1, fin2]
+
+            if {3, 6, 7, 8}.issuperset(puzzle.cell_candidates(pivot)) and \
+                {3, 6, 8}.issuperset(puzzle.cell_candidates(fin0)) and \
+                {3, 6}.issuperset(puzzle.cell_candidates(fin1)) and \
+                {7, 8}.issuperset(puzzle.cell_candidates(fin2)):
+                puzzle.override_loc_color(row, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color([pivot], Fore.GREEN)
+                puzzle.override_loc_color(remove, Fore.RED)
+                puzzle.override_loc_color(fins, Fore.YELLOW)
+                edits += puzzle.rem(remove, [8])
 
             return edits
 
