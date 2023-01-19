@@ -126,16 +126,7 @@ class FinnedXWing(Technique):
                     len(count_length_more_than_1) == 1:
 
                 fence = puzzle.fence_from_chute(list(count_length_more_than_1)[0])
-
-
-
-                print(fence)
-
-
-                # fence = puzzle.cell_fence(puzzle.fence_from_chute(list(count_length_more_than_1)[0]))
-                #
                 puzzle.override_loc_color(puzzle.house_fence(fence), Fore.BLUE)
-                # puzzle.override_loc_color(containing_locs, Fore.YELLOW)
 
 
 
