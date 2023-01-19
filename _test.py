@@ -624,7 +624,7 @@ def the_data():
 
         if 'hidden_single' in _id:
             yield [_id, tech.HiddenSingle()]
-        if 'almost_locked_candidates_claiming' in _id:
+        elif 'almost_locked_candidates_claiming' in _id:
             yield [_id, tech.AlmostLockedCandidatesClaiming()]
         elif 'hidden_pair' in _id:
             yield [_id, tech.HiddenPair()]

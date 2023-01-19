@@ -19,6 +19,52 @@ class Technique:
 
 
 class tech:
+    class BaseUniqueRectangle:
+
+        @abstractmethod
+        def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
+            raise NotImplementedError()
+
+        def solve0(self, puzzle: Sudoku) -> int:
+            edits = 0
+            unsolved = puzzle.unsolved_cells()
+
+            if len(unsolved) == 0:
+                return edits
+            locs: list[Loc] = []
+            for r in range(len(puzzle)):
+                for c in range(len(puzzle)):
+                    locs.append(Loc(r, c))
+            length = len(locs)
+            for i in range(length):
+                for ii in range(length):
+                    if i == ii:
+                        continue
+                    l0: Loc = locs[i]
+                    l1: Loc = locs[ii]
+                    if l0.row == l1.row:
+                        continue
+                    if l0.col == l1.col:
+                        continue
+                    fences = set([puzzle.cell_fence(l) for l in [l0, l1]])
+                    if len(fences) != 2:
+                        continue
+
+                    corners = {l0, l1, Loc(l0.row, l1.col), Loc(l1.row, l0.col)}
+
+                    if len(corners) != 4:
+                        raise ValueError("number of corners didn't equal 4")
+
+                    rows = set([loc.row for loc in corners])
+                    cols = set([loc.col for loc in corners])
+                    fences = set([puzzle.cell_fence(loc) for loc in corners])
+
+                    if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
+                        continue
+
+                    edits += self.solve_rectangle(puzzle, list(corners))
+            return edits
+
     class AbstractPaintingScraperAndHouse:
         @abstractmethod
         def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
@@ -246,167 +292,110 @@ class tech:
 
             return edits
 
-    class AvoidableRectangleType2:
-        def solve0(self, puzzle: Sudoku) -> int:
+    class AvoidableRectangleType2(BaseUniqueRectangle):
+
+        def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]) -> int:
             edits = 0
-            edits += self.explicit(puzzle)
-
-            base0 = Loc(3, 3)
-            base1 = Loc(3, 5)
-            opp_base0 = Loc(6, 3)
-            opp_base1 = Loc(6, 5)
-
-            bases = [base0, base1]
-            opp_bases = [opp_base0, opp_base1]
-            house_row_col = puzzle.house_row(6)
-            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(2, 1)))
-
-            if {1}.issuperset(puzzle.cell_candidates(base0)) and \
-                    {2}.issuperset(puzzle.cell_candidates(base1)) and \
-                    {2, 3}.issuperset(puzzle.cell_candidates(opp_base0)) and \
-                    {1, 3}.issuperset(puzzle.cell_candidates(opp_base1)):
-                puzzle.override_loc_color(house_row_col + house_fence, Fore.RED)
-                puzzle.override_loc_color(bases, Fore.GREEN)
-                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
-                edits += puzzle.rem(set(house_row_col + house_fence) - set(opp_bases), [3])
-
-            base0 = Loc(4, 8)
-            base1 = Loc(5, 8)
-            opp_base0 = Loc(4, 1)
-            opp_base1 = Loc(5, 1)
-
-            bases = [base0, base1]
-            opp_bases = [opp_base0, opp_base1]
-            house_row_col = puzzle.house_col(1)
-            house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 0)))
-
-            if {8}.issuperset(puzzle.cell_candidates(base0)) and \
-                    {6}.issuperset(puzzle.cell_candidates(base1)) and \
-                    {6, 9}.issuperset(puzzle.cell_candidates(opp_base0)) and \
-                    {8, 9}.issuperset(puzzle.cell_candidates(opp_base1)):
-                puzzle.override_loc_color(house_row_col + house_fence, Fore.RED)
-                puzzle.override_loc_color(bases, Fore.GREEN)
-                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
-                edits += puzzle.rem(set(house_row_col + house_fence) - set(opp_bases), [9])
-
-            base0 = Loc(2, 4)
-            base1 = Loc(5, 4)
-            opp_base0 = Loc(2, 5)
-            opp_base1 = Loc(5, 5)
-            bases = [base0, base1]
-            opp_bases = [opp_base0, opp_base1]
-            house_row_col = puzzle.house_col(5)
-            # house_fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 0)))
-
-            if {1}.issuperset(puzzle.cell_candidates(base0)) and \
-                    {2}.issuperset(puzzle.cell_candidates(base1)) and \
-                    {1, 3}.issuperset(puzzle.cell_candidates(opp_base0)) and \
-                    {2, 3}.issuperset(puzzle.cell_candidates(opp_base1)):
-                puzzle.override_loc_color(house_row_col, Fore.RED)
-                puzzle.override_loc_color(bases, Fore.GREEN)
-                puzzle.override_loc_color(opp_bases, Fore.YELLOW)
-                edits += puzzle.rem(set(house_row_col) - set(opp_bases), [3])
-
-            return edits
-
-        @staticmethod
-        def explicit(puzzle: Sudoku) -> int:
-            edits = 0
-
-            base0 = Loc(3, 5)
-            base1 = Loc(5, 5)
-            opp_base0 = Loc(5, 6)
-            opp_base1 = Loc(3, 6)
-
-            if \
-                    set(puzzle.cell_candidates(base0)) == {1} \
-                            and \
-                            set(puzzle.cell_candidates(base1)) == {2} \
-                            and \
-                            set(puzzle.cell_candidates(opp_base0)) == {2, 3} \
-                            and \
-                            set(puzzle.cell_candidates(opp_base1)) == {1, 3} \
-                    :
-                __fence = 'f'
-                __col = 6
-                __candidates = [3]
-                __base = [base0, base1]
-                __opp_base = [opp_base0, opp_base1]
-                __intersection = puzzle.house_fence(__fence) + puzzle.house_col(__col)
-                __remove = set(__intersection).difference(__opp_base)
-                puzzle.override_loc_color(__intersection, Fore.RED)
-                puzzle.override_loc_color(__base, Fore.GREEN)
-                puzzle.override_loc_color(__opp_base, Fore.YELLOW)
-                edits += puzzle.rem(__remove, __candidates)
-
-            base0 = Loc(6, 3)
-            base1 = Loc(6, 5)
-            opp_base0 = Loc(2, 3)
-            opp_base1 = Loc(2, 5)
-
-            if set(puzzle.cell_candidates(base0)) == {1} and \
-                    set(puzzle.cell_candidates(base1)) == {2} and \
-                    set(puzzle.cell_candidates(opp_base0)) == {2, 3} and \
-                    set(puzzle.cell_candidates(opp_base1)) == {1, 3}:
-                __fence = 'b'
-                __row = 2
-                __candidates = [3]
-                __base = [base0, base1]
-                __opp_base = [opp_base0, opp_base1]
-                __intersection = puzzle.house_fence(__fence) + puzzle.house_row(__row)
-                __remove = set(__intersection).difference(__opp_base)
-                puzzle.override_loc_color(__intersection, Fore.RED)
-                puzzle.override_loc_color(__base, Fore.GREEN)
-                puzzle.override_loc_color(__opp_base, Fore.YELLOW)
-                edits += puzzle.rem(__remove, __candidates)
-
-            return edits
-
-    class BaseUniqueRectangle:
-
-        @abstractmethod
-        def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
-            raise NotImplementedError()
-
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-            unsolved = puzzle.unsolved_cells()
-
-            if len(unsolved) == 0:
+            if len(corners) != 4:
                 return edits
-            locs: list[Loc] = []
-            for r in range(len(puzzle)):
-                for c in range(len(puzzle)):
-                    locs.append(Loc(r, c))
-            length = len(locs)
-            for i in range(length):
-                for ii in range(length):
-                    if i == ii:
-                        continue
-                    l0: Loc = locs[i]
-                    l1: Loc = locs[ii]
-                    if l0.row == l1.row:
-                        continue
-                    if l0.col == l1.col:
-                        continue
-                    fences = set([puzzle.cell_fence(l) for l in [l0, l1]])
-                    if len(fences) != 2:
-                        continue
+            corner_set = set(corners)
+            base0 = next((loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 1), None)
 
-                    corners = {l0, l1, Loc(l0.row, l1.col), Loc(l1.row, l0.col)}
+            if base0 is None:
+                return edits
 
-                    if len(corners) != 4:
-                        raise ValueError("number of corners didn't equal 4")
+            # print(corner_set)
+            # print(base0)
+            # print('///////')
 
-                    rows = set([loc.row for loc in corners])
-                    cols = set([loc.col for loc in corners])
-                    fences = set([puzzle.cell_fence(loc) for loc in corners])
+            corner_set.remove(base0)
+            base1 = next((loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 1), None)
+            if base1 is None:
+                return edits
+            corner_set.remove(base1)
 
-                    if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
-                        continue
+            print('6')
+            print(base0)
+            print(base1)
 
-                    edits += self.solve_rectangle(puzzle, list(corners))
+            same_row = base0.in_same_row(base1)
+            same_col = base0.in_same_col(base1)
+
+            print(corner_set)
+            opp_base0 = next((loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 2 and (
+                    same_row and base0.in_same_col(loc) or same_col and base0.in_same_row(loc))), None)
+
+            print(opp_base0)
+
+            if opp_base0 is None:
+                return edits
+
+            print('7')
+
+            corner_set.remove(opp_base0)
+            opp_base1 = next((loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 2 and (
+                    same_row and base1.in_same_col(loc) or same_col and base1.in_same_row(loc))), None)
+
+            if opp_base1 is None:
+                return edits
+            print('8')
+
+            corner_set.remove(opp_base1)
+
+            base0_candidates = puzzle.cell_candidates(base0)
+            base1_candidates = puzzle.cell_candidates(base1)
+            opp_base0_candidates = set(puzzle.cell_candidates(opp_base0))
+            opp_base1_candidates = set(puzzle.cell_candidates(opp_base1))
+
+            if base0_candidates[0] not in opp_base1_candidates or base1_candidates[0] not in opp_base0_candidates:
+                return edits
+
+            opp_base0_candidates.remove(base1_candidates[0])
+            opp_base1_candidates.remove(base0_candidates[0])
+
+            if opp_base0_candidates != opp_base1_candidates:
+                return edits
+
+            # if result is not None:
+            __base = (base0, base1)
+            __opp_base = (opp_base0, opp_base1)
+            candidate = opp_base0_candidates.pop()
+            rows = set(loc.row for loc in __opp_base)
+            cols = set(loc.col for loc in __opp_base)
+            fences = set(puzzle.cell_fence(loc) for loc in __opp_base)
+            row_col_house = None
+            fence_house = None
+            if len(rows) == 1:
+                row_col_house = puzzle.house_row(list(rows)[0])
+            if len(cols) == 1:
+                row_col_house = puzzle.house_col(list(cols)[0])
+            if len(fences) == 1:
+                fence_house = puzzle.house_fence(list(fences)[0])
+            if row_col_house is not None:
+                __intersection = row_col_house
+                if fence_house is not None:
+                    __intersection = __intersection + fence_house
+                __remove = set(__intersection).difference(__opp_base)
+                puzzle.override_loc_color(__intersection, Fore.RED)
+                puzzle.override_loc_color(__base, Fore.GREEN)
+                puzzle.override_loc_color(__opp_base, Fore.YELLOW)
+                edits += puzzle.rem(__remove, [candidate])
+
             return edits
+
+            # for corner0 in corners:
+            #
+            #     corner0_candidates = puzzle.cell_candidates(corner0)
+            #
+            #     if len(corner0_candidates) != 1:
+            #         continue
+            #
+            #     others = set(corners) - {corner0}
+            #
+            #
+            #
+            #
+            #     print(others)
 
     class Bug:
 
@@ -1207,6 +1196,15 @@ class tech:
     class ShashimiSwordFish:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            house0 = puzzle.house_col(1)
+            house1 = puzzle.house_col(4)
+            house2 = puzzle.house_col(7)
+            # "".join([puzzle.grid[loc.row][loc.col] for loc in row0]
+
+            puzzle.override_loc_color(house0 + house1+house2,Fore.GREEN)
+
+
             return edits
 
     class ShashimiJellyFish:
@@ -1361,17 +1359,23 @@ class tech:
             edits = 0
             edits += self.explicit(puzzle)
 
-            col0 = puzzle.house_col(0)
+            house = puzzle.house_fence('g')
+            house_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                                   char.isalnum() or char == '_')
+            if house_string == '1_3__6_8_g1___56_8_g_23___78_g_23____8_g_23______g___4__7__g1_3__6__9g1___56__9g_234__7__g':
+                remove = [Loc(6, 0), Loc(6, 1), Loc(8, 0), Loc(8, 1)]
+                puzzle.override_loc_color(house, Fore.GREEN)
+                puzzle.override_loc_color(remove, Fore.YELLOW)
+                edits += puzzle.rem(remove, [2, 3, 4, 7, 8])
 
-            col0_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in col0) if
-                                  char.isnumeric() or char == '_')
-
-            for candidate in puzzle.expected_candidates():
-                print(f'{candidate}: {puzzle.house_col(0, candidate)}')
-
-            if col0_string == '_____67_________89__34________456____2____7_91_3____8____4__7__12_________3_5____':
-                puzzle.override_loc_color(col0, Fore.GREEN)
-                puzzle.override_loc_color([Loc(5, 0)], Fore.YELLOW)
+            house = puzzle.house_col(0)
+            house_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                                   char.isalnum() or char == '_')
+            if house_string == '_____67__a_______89a__34_____a___456___d_2____7_9d1_3____8_d___4__7__g12_______g__3_5____g':
+                remove = [Loc(1, 0), Loc(4, 0), Loc(5, 0), Loc(7, 0)]
+                puzzle.override_loc_color(house, Fore.GREEN)
+                puzzle.override_loc_color(remove, Fore.YELLOW)
+                edits += puzzle.rem(remove, [3, 4, 5, 6, 7])
 
             return edits
 
