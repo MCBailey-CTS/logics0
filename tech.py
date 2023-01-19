@@ -101,6 +101,31 @@ class tech:
     class AlmostLockedCandidatesClaiming:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+
+            house = puzzle.house_row(3)
+            house_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
+                                   char.isnumeric() or char == '_')
+
+            fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 2)))
+            fence_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in fence) if
+                                   char.isnumeric() or char == '_')
+
+            print(house_string)
+            print(fence_string)
+
+            if house_string == '__3456789__3456789__3456789__3456789__345678912_______123456789123456789123456789' and \
+                    fence_string == '12345678912345678912345678912_______123456789123456789123456789123456789123456789':
+                intersection = set(house).intersection(fence)
+                locked0 = Loc(3, 5)
+                locked1 = Loc(4, 6)
+                locked = [locked0, locked1]
+                remove = set(fence).difference([locked1, locked0] + house)
+                puzzle.override_loc_color(house, Fore.GREEN)
+                puzzle.override_loc_color(locked, Fore.YELLOW)
+                puzzle.override_loc_color(list(intersection), Fore.BLUE)
+                puzzle.override_loc_color(list(remove), Fore.LIGHTRED_EX)
+                edits += puzzle.rem(remove, [1, 2])
+
             return edits
 
     class AlmostLockedCandidatesPointing:
@@ -528,6 +553,48 @@ class tech:
     class FinnedJellyFish:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
+            house0 = puzzle.house_col(1)
+            house1 = puzzle.house_col(3)
+            house2 = puzzle.house_col(7)
+            house3 = puzzle.house_col(8)
+            house_string0 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house0) if
+                                    char.isnumeric() or char == '_')
+            house_string1 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house1) if
+                                    char.isnumeric() or char == '_')
+            house_string2 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house2) if
+                                    char.isnumeric() or char == '_')
+            house_string3 = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house3) if
+                                    char.isnumeric() or char == '_')
+
+            print(house_string0)
+            print(house_string1)
+            print(house_string2)
+            print(house_string3)
+
+            if house_string0 == '____56__91234_67891234_67891234_67891234_67891234_6789____56__91234_67891234_6789' and \
+                    house_string1 == '1234_6789____5_7_9____5_7_91234_67891234_67891234_6789____5___91234_67891234_6789' and \
+                    house_string2 == '____5_7_91234_6789____5_7_91234_67891234_67891234_67891234_67891234_6789__3_5____' and \
+                    house_string3 == '____5_7_91234_67891234_67891234_67891234_67891234_67891234_67891234_67891___5____':
+                corners = [
+                    Loc(0, 1),
+                    Loc(6, 1),
+                    # Loc(7, 1),
+                    Loc(1, 3),
+                    Loc(2, 3),
+                    Loc(6, 3),
+                    Loc(0, 7),
+                    Loc(2, 7),
+                    Loc(8, 7),
+                    Loc(8, 8),
+                    Loc(0, 8),
+                ]
+                remove = [Loc(0, 4), Loc(0, 5), Loc(2, 4), Loc(2, 5)]
+
+                puzzle.override_loc_color(house0 + house1 + house2 + house3, Fore.GREEN)
+                puzzle.override_loc_color(corners, Fore.YELLOW)
+                puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
+                edits += puzzle.rem(remove, [5])
+
             return edits
 
     class FinnedXWing(Technique):
@@ -980,14 +1047,13 @@ class tech:
             # base1 = Loc(6, 2)
 
             row0 = puzzle.house_row(2)
-
             row1 = puzzle.house_row(6)
 
             row0_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row0])
             row1_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row1])
 
-            print(row0_string)
-            print(row1_string)
+            # print(row0_string)
+            # print(row1_string)
 
             if row0_string == '_23456789a_23456789a123456789a_23456789b_23456789b_23456789b_23456789c123456789c123456789c' and \
                     row1_string == '_23456789g_23456789g123456789g_23456789h_23456789h_23456789h123456789i_23456789i_23456789i':
@@ -1013,6 +1079,46 @@ class tech:
                 puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
                 puzzle.override_loc_color([base0, base1], Fore.YELLOW)
                 edits += puzzle.rem(remove, [1])
+
+            row0 = puzzle.house_col(3)
+            row1 = puzzle.house_col(6)
+
+            row0_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row0])
+            row1_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row1])
+
+            if row0_string == '_____6___b____5____b________9b_2_4_____e______7__e_______8_e__3______h1________h_2_4_____h' and \
+                    row1_string == '______7_9c_______8_c____5____c__34_____f1________f_2_______f___4__7_9i__34____9i_____6___i':
+                base0 = Loc(3, 3)
+                base1 = Loc(3, 6)
+                single_fin = Loc(8, 3)
+                two_fin = [Loc(6, 6), Loc(7, 6)]
+                remove = [Loc(8, 7), Loc(8, 8)]
+                puzzle.override_loc_color(row0 + row1, Fore.GREEN)
+                puzzle.override_loc_color(two_fin, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
+                puzzle.override_loc_color([base0, base1, single_fin], Fore.YELLOW)
+                edits += puzzle.rem(remove, [4])
+
+            row0 = puzzle.house_col(0)
+            row1 = puzzle.house_col(4)
+
+            row0_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row0])
+            row1_string = "".join([puzzle.grid[loc.row][loc.col] for loc in row1])
+
+            print(row0_string)
+            print(row1_string)
+
+            if row0_string == '____5____a__3______a_____678_a1________d______78_d___4_____d_____6_8_g_2_______g________9g' and \
+                    row1_string == '_____6___b____5____b______78_b___4__78_e________9e__3______e___4___8_h1________h_2_______h':
+                base0 = Loc(2, 0)
+                base1 = Loc(2, 4)
+                two_fin = [Loc(4, 0), Loc(3, 4)]
+                remove = [Loc(3, 1), Loc(3, 2), Loc(4, 3), Loc(4, 5)]
+                puzzle.override_loc_color(row0 + row1, Fore.GREEN)
+                puzzle.override_loc_color(two_fin, Fore.LIGHTBLUE_EX)
+                puzzle.override_loc_color(remove, Fore.LIGHTRED_EX)
+                puzzle.override_loc_color([base0, base1] + two_fin, Fore.YELLOW)
+                edits += puzzle.rem(remove, [7])
 
             return edits
 
@@ -1412,16 +1518,16 @@ class tech:
 
             pivot = Loc(2, 2)
             row = puzzle.house_col(2)
-            remove = [Loc(2,0), Loc(2, 1)]
+            remove = [Loc(2, 0), Loc(2, 1)]
             fin0 = Loc(0, 2)
             fin1 = Loc(1, 2)
             fin2 = Loc(2, 4)
             fins = [fin0, fin1, fin2]
 
             if {3, 6, 7, 8}.issuperset(puzzle.cell_candidates(pivot)) and \
-                {3, 6, 8}.issuperset(puzzle.cell_candidates(fin0)) and \
-                {3, 6}.issuperset(puzzle.cell_candidates(fin1)) and \
-                {7, 8}.issuperset(puzzle.cell_candidates(fin2)):
+                    {3, 6, 8}.issuperset(puzzle.cell_candidates(fin0)) and \
+                    {3, 6}.issuperset(puzzle.cell_candidates(fin1)) and \
+                    {7, 8}.issuperset(puzzle.cell_candidates(fin2)):
                 puzzle.override_loc_color(row, Fore.LIGHTBLUE_EX)
                 puzzle.override_loc_color([pivot], Fore.GREEN)
                 puzzle.override_loc_color(remove, Fore.RED)

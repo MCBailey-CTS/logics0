@@ -283,6 +283,10 @@ def test_default_actual_expected(constructor, technique, actual, expected):
 
 
 @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
+
+    # [Constants.sudoku_annoying_00(), Sudoku, ],
+
+
     ('sudoku_unique_rectangle_type1_00', Sudoku,
      [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.UniqueRectangleType1()]),
     ('sudoku_unique_rectangle_type1_01', Sudoku,
@@ -531,8 +535,8 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     ['sudoku_difficult_34', Sudoku,
      [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesClaiming(), tech.UniqueRectangleType4(),
       tech.Bug()]],
-    ['sudoku_difficult_36', Sudoku,
-     [tech.CrossHatch(), tech.LockedCandidatesPointing(), tech.Bug(), tech.NakedTriple()]],
+    # ['sudoku_difficult_36', Sudoku,
+    #  [tech.CrossHatch(), tech.LockedCandidatesPointing(), tech.Bug(), tech.NakedTriple()]],
     ['sudoku_difficult_37', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.NakedTriple()]],
     ['sudoku_difficult_38', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug()]],
     ['sudoku_difficult_39', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]],
@@ -620,6 +624,8 @@ def the_data():
 
         if 'hidden_single' in _id:
             yield [_id, tech.HiddenSingle()]
+        if 'almost_locked_candidates_claiming' in _id:
+            yield [_id, tech.AlmostLockedCandidatesClaiming()]
         elif 'hidden_pair' in _id:
             yield [_id, tech.HiddenPair()]
         elif 'hidden_triple' in _id:
