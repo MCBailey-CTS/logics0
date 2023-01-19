@@ -88,16 +88,76 @@ class FinnedXWing(Technique):
             __candidate = 3
             __col0 = house0
             __col1 = house1
-            __fin = [Loc(4, 5)]
-            __corners = [Loc(4, 6), Loc(6, 6), Loc(4, 3), Loc(6, 3)]
-            __remove = [Loc(3, 3), Loc(5, 3)]
 
-            puzzle.override_loc_color(__col0 + __col1, Fore.GREEN)
-            puzzle.override_loc_color(__corners, Fore.YELLOW)
-            puzzle.override_loc_color(__fin, Fore.BLUE)
-            puzzle.override_loc_color(__remove, Fore.RED)
-            edits += puzzle.rem(__remove, [__candidate])
+            containing_locs0 = [loc for loc in __col0 if __candidate in puzzle.cell_candidates(loc)]
+            containing_locs1 = [loc for loc in __col1 if __candidate in puzzle.cell_candidates(loc)]
+
+            containing_locs = containing_locs0 + containing_locs1
+
+            rows = set(loc.row for loc in containing_locs)
+            cols = set(loc.col for loc in containing_locs)
+            row_chutes = set(puzzle.row_chute(loc) for loc in containing_locs)
+            col_chutes = set(puzzle.col_chute(loc) for loc in containing_locs)
+
+            fence_dict = {}
+            for loc in containing_locs:
+                fence = puzzle.cell_fence(loc)
+                if fence not in fence_dict:
+                    fence_dict[fence] = set()
+                fence_dict[fence].add(loc)
+
+            chute_dict = {}
+            for loc in containing_locs:
+                chute = puzzle.loc_chute(loc)
+                if chute not in chute_dict:
+                    chute_dict[chute] = set()
+                chute_dict[chute].add(loc)
+
+
+            count_length_1 = set(chute_fence for chute_fence in chute_dict.keys() if len(chute_dict[chute_fence]) == 1)
+            count_length_more_than_1 = set(chute_fence for chute_fence in chute_dict.keys() if len(chute_dict[chute_fence]) > 1)
+
+            if len(rows) == 2 and \
+                    len(fence_dict) == 4 and \
+                    len(row_chutes) == 2 and \
+                    len(col_chutes) == 2 and \
+                    len(chute_dict) == 4 and \
+                    len(count_length_1) == 3 and \
+                    len(count_length_more_than_1) == 1:
+
+                fence = puzzle.fence_from_chute(list(count_length_more_than_1)[0])
+
+
+
+                print(fence)
+
+
+                # fence = puzzle.cell_fence(puzzle.fence_from_chute(list(count_length_more_than_1)[0]))
+                #
+                puzzle.override_loc_color(puzzle.house_fence(fence), Fore.BLUE)
+                # puzzle.override_loc_color(containing_locs, Fore.YELLOW)
+
+
+
+
+
+
+
+
+
+
+            # __fin = [Loc(4, 5)]
+            # __corners = [Loc(4, 6), Loc(6, 6), Loc(4, 3), Loc(6, 3)]
+            # __remove = [Loc(3, 3), Loc(5, 3)]
+            #
+            # puzzle.override_loc_color(__col0 + __col1, Fore.GREEN)
+            # puzzle.override_loc_color(__corners, Fore.YELLOW)
+            # puzzle.override_loc_color(__fin, Fore.BLUE)
+            # puzzle.override_loc_color(__remove, Fore.RED)
+            # edits += puzzle.rem(__remove, [__candidate])
 
         return edits
+
+    # def make_edit(self, puzzle: Sudoku, house0: list[Loc], house1: list[Loc]):
 
 
