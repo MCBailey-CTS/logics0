@@ -1,7 +1,3 @@
-from typing import Optional
-import pytest
-from typing import Optional
-
 import numpy
 import pytest
 
@@ -10,6 +6,27 @@ from Loc import Loc
 from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 from puzzles import *
 from tech import tech
+from techniques.AbstractPaintingTech import AbstractPaintingTech
+from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
+from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
+from techniques.CrossHatch import CrossHatch
+from techniques.CrossHatchRobotFences import CrossHatchRobotFences
+from techniques.CrossHatchSumscrapers import CrossHatchSumscrapers
+from techniques.HiddenSingle import HiddenSingle
+from techniques.HiddenSingleRobotFences import HiddenSingleRobotFences
+from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
+from techniques.Parks1Shapes import Parks1Shapes
+from techniques.Parks1XWing import Parks1XWing
+from techniques.TennerHiddenSingle import TennerHiddenSingle
+from techniques.UniqueRectangleType1 import UniqueRectangleType1
+from techniques.UniqueRectangleType2 import UniqueRectangleType2
+from techniques.UniqueRectangleType3 import UniqueRectangleType3
+from techniques.UniqueRectangleType4 import UniqueRectangleType4
+from techniques.WWing import WWing
+from techniques.WxyzWing import WxyzWing
+from techniques.FinnedXWing import FinnedXWing
+from techniques.AlmostLockedCandidatesClaiming import AlmostLockedCandidatesClaiming
+from techniques.AlmostLockedCandidatesPointing import AlmostLockedCandidatesPointing
 
 EXPLICITLY = "EXPLICITLY"
 from colorama import Fore
@@ -19,14 +36,14 @@ class Solving:
     @staticmethod
     def sudoku_techniques() -> list:
         return [
-            tech.CrossHatch(),
-            tech.HiddenSingle(),
+            CrossHatch(),
+            HiddenSingle(),
             tech.NakedPair(),
             tech.LockedCandidatesPointing(),
             tech.LockedCandidatesClaiming(),
-            tech.UniqueRectangleType1(),
-            tech.UniqueRectangleType2(),
-            tech.UniqueRectangleType4(),
+            UniqueRectangleType1(),
+            UniqueRectangleType2(),
+            UniqueRectangleType4(),
             # FinnedXWing(),
             tech.Bug(),
             tech.HiddenPair(),
@@ -43,7 +60,7 @@ class Solving:
             tech.KropkiBlack(),
             tech.KropkiWhite(),
             tech.KropkiEmpty(),
-            tech.CrossHatch(),
+            CrossHatch(),
             tech.KropkiBb(),
             tech.KropkiBw(),
             tech.NakedPair(),
@@ -55,7 +72,7 @@ class Solving:
 
     @staticmethod
     def robot_fences_techniques() -> list:
-        return [tech.CrossHatchRobotFences(), tech.HiddenSingleRobotFences()]
+        return [CrossHatchRobotFences(), HiddenSingleRobotFences()]
 
     @staticmethod
     def parks1_techniques() -> list:
@@ -67,9 +84,9 @@ class Solving:
             tech.Parks1LockedCandidatesClaiming(),
             tech.Parks1Bent3(),
             tech.Parks1Shape_00_01(),
-            tech.Parks1Shapes(),
+            Parks1Shapes(),
             tech.Parks1DominateFence(),
-            tech.Parks1XWing(),
+            Parks1XWing(),
             # Parks1DominateFenceAgain(),
         ]
 
@@ -82,7 +99,7 @@ class Solving:
         return [tech.TennerCrossHatch(),
                 tech.TennerNakedPair(),
                 tech.TennerHiddenPair(),
-                tech.TennerHiddenSingle(),
+                TennerHiddenSingle(),
                 tech.TennerTotalHiddenSingle(),
                 tech.TennerPowerSetTotals(),
                 tech.TennerNakedPairColumn()]
@@ -119,7 +136,7 @@ class Solving:
     @staticmethod
     def mathrax_techniques() -> list:
         return [
-            tech.CrossHatch(),
+            CrossHatch(),
             tech.MathraxMathAddition(),
             tech.MathraxMathSubtraction(),
             tech.MathraxMathMultiplication(),
@@ -138,13 +155,13 @@ class Solving:
 
     @staticmethod
     def sumscrapers_techniques() -> list:
-        return [tech.SumscrapersTech(), tech.CrossHatchSumscrapers(), tech.HiddenSingleSumscrapers(),
+        return [tech.SumscrapersTech(), CrossHatchSumscrapers(), HiddenSingleSumscrapers(),
                 tech.SumscrapersSecondInLine(), tech.SumscrapersLastIsMax(), tech.SumscrapersNextToScraper()]
 
     @staticmethod
     def skyscrapers_techniques() -> list:
         return [
-            tech.CrossHatchSumscrapers(), tech.HiddenSingleSumscrapers(), tech.SkyscrapersN(), tech.Skyscrapers1(),
+            CrossHatchSumscrapers(), HiddenSingleSumscrapers(), tech.SkyscrapersN(), tech.Skyscrapers1(),
             tech.SkyscrapersRange()
         ]
 
@@ -183,7 +200,7 @@ class Solving:
     @staticmethod
     def abstractpainting_techniques() -> list:
         return [
-            tech.AbstractPaintingTech()
+            AbstractPaintingTech()
         ]
 
     @staticmethod
@@ -259,7 +276,7 @@ class Solving:
      Constants.kropki_explicit_diamond_wwwe_expected.__name__),
 
     (Mathrax,
-     tech.CrossHatch(),
+     CrossHatch(),
      Constants.mathrax_cross_hatch_actual.__name__,
      Constants.mathrax_cross_hatch_expected.__name__),
     (Mathrax,
@@ -288,90 +305,90 @@ def test_default_actual_expected(constructor, technique, actual, expected):
 
 
     ('sudoku_unique_rectangle_type1_00', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.UniqueRectangleType1()]),
+     [CrossHatch(), HiddenSingle(), tech.NakedPair(), UniqueRectangleType1()]),
     ('sudoku_unique_rectangle_type1_01', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.UniqueRectangleType1()]),
-    ('sudoku_unique_rectangle_type1_02', Sudoku, [tech.CrossHatch(), tech.NakedPair(), tech.UniqueRectangleType1()]),
+     [CrossHatch(), HiddenSingle(), tech.NakedPair(), UniqueRectangleType1()]),
+    ('sudoku_unique_rectangle_type1_02', Sudoku, [CrossHatch(), tech.NakedPair(), UniqueRectangleType1()]),
     ('sudoku_unique_rectangle_type1_03', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.UniqueRectangleType1()]),
-    ('sudoku_unique_rectangle_type1_05', Sudoku, [tech.CrossHatch(), tech.NakedPair(), tech.UniqueRectangleType1()]),
-    ('sudoku_unique_rectangle_type4_00', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
-    ('sudoku_unique_rectangle_type4_01', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
-    ('sudoku_unique_rectangle_type4_02', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
-    ('sudoku_unique_rectangle_type4_03', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
-    ('sudoku_unique_rectangle_type4_04', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
-    ('sudoku_unique_rectangle_type4_05', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
+     [CrossHatch(), HiddenSingle(), tech.NakedPair(), UniqueRectangleType1()]),
+    ('sudoku_unique_rectangle_type1_05', Sudoku, [CrossHatch(), tech.NakedPair(), UniqueRectangleType1()]),
+    ('sudoku_unique_rectangle_type4_00', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
+    ('sudoku_unique_rectangle_type4_01', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
+    ('sudoku_unique_rectangle_type4_02', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
+    ('sudoku_unique_rectangle_type4_03', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
+    ('sudoku_unique_rectangle_type4_04', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
+    ('sudoku_unique_rectangle_type4_05', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
     ('sudoku_unique_rectangle_type4_east_rows', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
+     [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
     ('sudoku_unique_rectangle_type4_west_rows', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
+     [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
     ('sudoku_unique_rectangle_type4_west_cols', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
+     [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
     ('sudoku_unique_rectangle_type4_east_cols', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]),
+     [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]),
     ('sudoku_naked_triple_0', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_2', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_3', Sudoku, [tech.CrossHatch(), tech.NakedPair(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_4', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_row', Sudoku, [tech.CrossHatch(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_1', Sudoku, [tech.CrossHatch(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_5', Sudoku, [tech.CrossHatch(), tech.NakedTriple()]),
-    ('sudoku_naked_triple_6', Sudoku, [tech.CrossHatch(), tech.NakedTriple()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_2', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_3', Sudoku, [CrossHatch(), tech.NakedPair(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_4', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_row', Sudoku, [CrossHatch(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_1', Sudoku, [CrossHatch(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_5', Sudoku, [CrossHatch(), tech.NakedTriple()]),
+    ('sudoku_naked_triple_6', Sudoku, [CrossHatch(), tech.NakedTriple()]),
     (Constants.sudoku_naked_triple_9.__name__, Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]),
-    ('sudoku_bug', Sudoku, [tech.CrossHatch(), tech.Bug()]),
-    ('sudoku_x_wing_row', Sudoku, [tech.CrossHatch(), tech.XWing()]),
-    ('sudoku_x_wing_col', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.Bug(), tech.XWing()]),
-    ('sudoku_unique_rectangle_type2_00', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_01", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_02", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_03", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_04", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_05", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_06", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_08", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_09", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_10", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_11", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ("sudoku_unique_rectangle_type2_12", Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType2()]),
-    ('sudoku_intricate_0', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
-    ('sudoku_intricate_1', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
-    ('sudoku_intricate_2', Sudoku, [tech.CrossHatch(), tech.LockedCandidatesClaiming()]),
-    ('sudoku_intricate_3', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
-    ('sudoku_intricate_4', Sudoku, [tech.CrossHatch(), tech.LockedCandidatesPointing()]),
-    ('sudoku_intricate_5', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesPointing()]),
-    ('sudoku_intricate_6', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
-    ('sudoku_intricate_7', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
-    ('sudoku_intricate_8', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]),
+    ('sudoku_bug', Sudoku, [CrossHatch(), tech.Bug()]),
+    ('sudoku_x_wing_row', Sudoku, [CrossHatch(), tech.XWing()]),
+    ('sudoku_x_wing_col', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair(), tech.Bug(), tech.XWing()]),
+    ('sudoku_unique_rectangle_type2_00', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_01", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_02", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_03", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_04", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_05", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_06", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_08", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_09", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_10", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_11", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ("sudoku_unique_rectangle_type2_12", Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType2()]),
+    ('sudoku_intricate_0', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
+    ('sudoku_intricate_1', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
+    ('sudoku_intricate_2', Sudoku, [CrossHatch(), tech.LockedCandidatesClaiming()]),
+    ('sudoku_intricate_3', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
+    ('sudoku_intricate_4', Sudoku, [CrossHatch(), tech.LockedCandidatesPointing()]),
+    ('sudoku_intricate_5', Sudoku, [CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing()]),
+    ('sudoku_intricate_6', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
+    ('sudoku_intricate_7', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
+    ('sudoku_intricate_8', Sudoku, [CrossHatch(), HiddenSingle(), tech.NakedPair()]),
     ('sudoku_locked_candidates_claiming_0', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesClaiming()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesClaiming()]),
     ('sudoku_locked_candidates_claiming_1', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesClaiming()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesClaiming()]),
     ('sudoku_locked_candidates_claiming_2', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesClaiming()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesClaiming()]),
     ('sudoku_locked_candidates_pointing_0', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesPointing()]),
-    ('sudoku_easiest_0', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_easy_as_pie_0', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_first_lesson', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_hidden_single_0', Sudoku, [tech.CrossHatch(), tech.HiddenSingle()]),
-    ('sudoku_hidden_single_1', Sudoku, [tech.CrossHatch(), tech.HiddenSingle()]),
-    ('sudoku_hidden_single_2', Sudoku, [tech.CrossHatch(), tech.HiddenSingle()]),
-    ('sudoku_mild_0', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_mild_1', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_mild_2', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_mild_3', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_mild_4', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_moderate_0', Sudoku, [tech.CrossHatch(), tech.NakedPair()]),
-    ('sudoku_naked_pair_0', Sudoku, [tech.CrossHatch(), tech.NakedPair(), ]),
-    ('sudoku_naked_pair_1', Sudoku, [tech.CrossHatch(), tech.NakedPair()]),
-    ('sudoku_naked_pair_2', Sudoku, [tech.CrossHatch(), tech.NakedPair()]),
-    ('sudoku_picnic_0', Sudoku, [tech.CrossHatch(), ]),
-    ('sudoku_picnic_1', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_picnic_2', Sudoku, [tech.CrossHatch()]),
-    ('sudoku_second_lesson_0', Sudoku, [tech.CrossHatch(), ]),
-    ('sudoku_simple_0', Sudoku, [tech.CrossHatch()]),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing()]),
+    ('sudoku_easiest_0', Sudoku, [CrossHatch()]),
+    ('sudoku_easy_as_pie_0', Sudoku, [CrossHatch()]),
+    ('sudoku_first_lesson', Sudoku, [CrossHatch()]),
+    ('sudoku_hidden_single_0', Sudoku, [CrossHatch(), HiddenSingle()]),
+    ('sudoku_hidden_single_1', Sudoku, [CrossHatch(), HiddenSingle()]),
+    ('sudoku_hidden_single_2', Sudoku, [CrossHatch(), HiddenSingle()]),
+    ('sudoku_mild_0', Sudoku, [CrossHatch()]),
+    ('sudoku_mild_1', Sudoku, [CrossHatch()]),
+    ('sudoku_mild_2', Sudoku, [CrossHatch()]),
+    ('sudoku_mild_3', Sudoku, [CrossHatch()]),
+    ('sudoku_mild_4', Sudoku, [CrossHatch()]),
+    ('sudoku_moderate_0', Sudoku, [CrossHatch(), tech.NakedPair()]),
+    ('sudoku_naked_pair_0', Sudoku, [CrossHatch(), tech.NakedPair(), ]),
+    ('sudoku_naked_pair_1', Sudoku, [CrossHatch(), tech.NakedPair()]),
+    ('sudoku_naked_pair_2', Sudoku, [CrossHatch(), tech.NakedPair()]),
+    ('sudoku_picnic_0', Sudoku, [CrossHatch(), ]),
+    ('sudoku_picnic_1', Sudoku, [CrossHatch()]),
+    ('sudoku_picnic_2', Sudoku, [CrossHatch()]),
+    ('sudoku_second_lesson_0', Sudoku, [CrossHatch(), ]),
+    ('sudoku_simple_0', Sudoku, [CrossHatch()]),
     ("sumscrapers_008", Sumscrapers, Solving.sumscrapers_techniques()),
     ("sumscrapers_001", Sumscrapers, Solving.sumscrapers_techniques()),
     ("sumscrapers_002", Sumscrapers, Solving.sumscrapers_techniques()),
@@ -512,34 +529,34 @@ def test_default_actual_expected(constructor, technique, actual, expected):
     ("parks1_spring_047", Parks1, Solving.parks1_techniques()),
     ("parks1_spring_062", Parks1, Solving.parks1_techniques()),
     ("parks1_winter_049", Parks1, Solving.parks1_techniques()),
-    ['sudoku_difficult_00', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType1()]],
-    ['sudoku_difficult_03', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.HiddenPair()]],
-    ['sudoku_difficult_06', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.HiddenPair()]],
-    ['sudoku_difficult_10', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.HiddenPair()]],
+    ['sudoku_difficult_00', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType1()]],
+    ['sudoku_difficult_03', Sudoku, [CrossHatch(), HiddenSingle(), tech.HiddenPair()]],
+    ['sudoku_difficult_06', Sudoku, [CrossHatch(), HiddenSingle(), tech.HiddenPair()]],
+    ['sudoku_difficult_10', Sudoku, [CrossHatch(), HiddenSingle(), tech.HiddenPair()]],
     ['sudoku_difficult_12', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]],
-    ['sudoku_difficult_13', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType1()]],
-    ['sudoku_difficult_18', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.HiddenPair()]],
-    ['sudoku_difficult_19', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.HiddenPair()]],
-    ['sudoku_difficult_22', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.XWing()]],
-    ['sudoku_difficult_23', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType1()]],
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(), tech.NakedTriple()]],
+    ['sudoku_difficult_13', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType1()]],
+    ['sudoku_difficult_18', Sudoku, [CrossHatch(), HiddenSingle(), tech.HiddenPair()]],
+    ['sudoku_difficult_19', Sudoku, [CrossHatch(), HiddenSingle(), tech.HiddenPair()]],
+    ['sudoku_difficult_22', Sudoku, [CrossHatch(), HiddenSingle(), tech.XWing()]],
+    ['sudoku_difficult_23', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType1()]],
     ['sudoku_difficult_24', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.NakedPair(), tech.UniqueRectangleType1()]],
-    ['sudoku_difficult_25', Sudoku, [tech.CrossHatch(), tech.LockedCandidatesClaiming(), tech.NakedTriple()]],
-    ['sudoku_difficult_26', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]],
-    ['sudoku_difficult_27', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType1()]],
-    ['sudoku_difficult_29', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.XWing()]],
-    ['sudoku_difficult_30', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.XWing()]],
-    ['sudoku_difficult_32', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.XWing()]],
-    ['sudoku_difficult_33', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.XWing()]],
+     [CrossHatch(), HiddenSingle(), tech.NakedPair(), UniqueRectangleType1()]],
+    ['sudoku_difficult_25', Sudoku, [CrossHatch(), tech.LockedCandidatesClaiming(), tech.NakedTriple()]],
+    ['sudoku_difficult_26', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]],
+    ['sudoku_difficult_27', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType1()]],
+    ['sudoku_difficult_29', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug(), tech.XWing()]],
+    ['sudoku_difficult_30', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug(), tech.XWing()]],
+    ['sudoku_difficult_32', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug(), tech.XWing()]],
+    ['sudoku_difficult_33', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug(), tech.XWing()]],
     ['sudoku_difficult_34', Sudoku,
-     [tech.CrossHatch(), tech.HiddenSingle(), tech.LockedCandidatesClaiming(), tech.UniqueRectangleType4(),
+     [CrossHatch(), HiddenSingle(), tech.LockedCandidatesClaiming(), UniqueRectangleType4(),
       tech.Bug()]],
     # ['sudoku_difficult_36', Sudoku,
-    #  [tech.CrossHatch(), tech.LockedCandidatesPointing(), tech.Bug(), tech.NakedTriple()]],
-    ['sudoku_difficult_37', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug(), tech.NakedTriple()]],
-    ['sudoku_difficult_38', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.Bug()]],
-    ['sudoku_difficult_39', Sudoku, [tech.CrossHatch(), tech.HiddenSingle(), tech.UniqueRectangleType4()]],
+    #  [CrossHatch(), tech.LockedCandidatesPointing(), tech.Bug(), tech.NakedTriple()]],
+    ['sudoku_difficult_37', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug(), tech.NakedTriple()]],
+    ['sudoku_difficult_38', Sudoku, [CrossHatch(), HiddenSingle(), tech.Bug()]],
+    ['sudoku_difficult_39', Sudoku, [CrossHatch(), HiddenSingle(), UniqueRectangleType4()]],
     # (Constants.mathrax_020.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_019.__name__, Mathrax, Solving.mathrax_techniques()),
     # (Constants.mathrax_018.__name__, Mathrax, Solving.mathrax_techniques()),
@@ -564,14 +581,14 @@ def test_default_actual_expected(constructor, technique, actual, expected):
         tech.KropkiBlack(),
         tech.KropkiWhite(),
         tech.KropkiEmpty(),
-        tech.CrossHatch(),
+        CrossHatch(),
         tech.KropkiBw(),
     ]),
     (Constants.kropki_002.__name__, Kropki, [
         tech.KropkiBlack(),
         tech.KropkiWhite(),
         tech.KropkiEmpty(),
-        tech.CrossHatch(),
+        CrossHatch(),
         tech.KropkiBw(),
     ]),
     (Constants.kropki_003.__name__, Kropki,
@@ -579,7 +596,7 @@ def test_default_actual_expected(constructor, technique, actual, expected):
          tech.KropkiBlack(),
          tech.KropkiWhite(),
          tech.KropkiEmpty(),
-         tech.CrossHatch(),
+         CrossHatch(),
          tech.KropkiBw(),
      ]
      ),
@@ -623,9 +640,9 @@ def the_data():
     for _id in all_file_leaves():
 
         if 'hidden_single' in _id:
-            yield [_id, tech.HiddenSingle()]
+            yield [_id, HiddenSingle()]
         elif 'almost_locked_candidates_claiming' in _id:
-            yield [_id, tech.AlmostLockedCandidatesClaiming()]
+            yield [_id, AlmostLockedCandidatesClaiming()]
         elif 'hidden_pair' in _id:
             yield [_id, tech.HiddenPair()]
         elif 'hidden_triple' in _id:
@@ -639,21 +656,21 @@ def the_data():
         elif 'naked_quad' in _id:
             yield [_id, tech.NakedQuad()]
         elif 'cross_hatch' in _id:
-            yield [_id, tech.CrossHatch()]
+            yield [_id, CrossHatch()]
         elif 'avoidable_rectangle_type1' in _id:
-            yield [_id, tech.AvoidableRectangleType1()]
+            yield [_id, AvoidableRectangleType1()]
         elif 'avoidable_rectangle_type2' in _id:
-            yield [_id, tech.AvoidableRectangleType2()]
+            yield [_id, AvoidableRectangleType2()]
         elif 'hidden_unique_rectangle' in _id:
             yield [_id, tech.HiddenUniqueRectangle()]
         elif 'unique_rectangle_type1' in _id:
-            yield [_id, tech.UniqueRectangleType1()]
+            yield [_id, UniqueRectangleType1()]
         elif 'unique_rectangle_type2' in _id:
-            yield [_id, tech.UniqueRectangleType2()]
+            yield [_id, UniqueRectangleType2()]
         elif 'unique_rectangle_type3' in _id:
-            yield [_id, tech.UniqueRectangleType3()]
+            yield [_id, UniqueRectangleType3()]
         elif 'unique_rectangle_type4' in _id:
-            yield [_id, tech.UniqueRectangleType4()]
+            yield [_id, UniqueRectangleType4()]
         elif 'locked_candidates_pointing' in _id:
             yield [_id, tech.LockedCandidatesPointing()]
         elif 'locked_candidates_claiming' in _id:
@@ -671,7 +688,7 @@ def the_data():
         elif 'sword_fish' in _id:
             yield [_id, tech.SwordFish()]
         elif 'finned_x_wing' in _id:
-            yield [_id, tech.FinnedXWing()]
+            yield [_id, FinnedXWing()]
         elif 'shashimi_x_wing' in _id:
             yield [_id, tech.ShashimiXWing()]
         elif 'x_wing' in _id:
@@ -683,11 +700,11 @@ def the_data():
         elif 'xy_wing' in _id:
             yield [_id, tech.XyWing()]
         elif 'wxyz_wing' in _id:
-            yield [_id, tech.WxyzWing()]
+            yield [_id, WxyzWing()]
         elif 'xyz_wing' in _id:
             yield [_id, tech.XyzWing()]
         elif 'w_wing' in _id:
-            yield [_id, tech.WWing()]
+            yield [_id, WWing()]
         elif 'simple_coloring' in _id:
             yield [_id, tech.SimpleColoring()]
         elif 'sue_de_coq' in _id:
