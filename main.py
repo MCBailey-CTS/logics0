@@ -323,7 +323,7 @@ from tech import tech
 if __name__ == "__main__":
     from os import walk
 
-    f = open('C:\\Users\\mcbailey\\Desktop\\files\\' + "finned_x_wing_00.sudoku", 'r')
+    f = open('C:\\repos\\logics0\\solve_files\\' + "finned_x_wing_00.sudoku", 'r')
     from puzzles import Sudoku
 
     string = f'id.sudoku\n{f.read()}'.replace('$', '', -1)

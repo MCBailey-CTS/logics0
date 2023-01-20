@@ -1072,7 +1072,7 @@ skip_dict = {
 def all_file_leaves1():
     from os import walk
     files = []
-    for filename in next(walk('C:\\Users\\mcbailey\\Desktop\\files'), (None, None, []))[2]:  # [] if no file
+    for filename in next(walk('C:\\repos\\logics0\\solve_files'), (None, None, []))[2]:  # [] if no file
         # if 'actual' in filename:
         files.append(filename)
     return files
@@ -1094,7 +1094,7 @@ def test_file_puzzle1(data):
     if len(techniques) == 0:
         techniques = Solving.sudoku_techniques()
 
-    f = open(f'C:\\Users\\mcbailey\\Desktop\\files\\{data}', 'r')
+    f = open(f'C:\\repos\\logics0\\solve_files\\{data}', 'r')
     string = f.read()
     f.close()
     string = f'{data}\n{string}'
