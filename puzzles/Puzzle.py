@@ -27,7 +27,7 @@ class Puzzle:
                 continue
             array.append(temp)
         self.__id = array[0]
-        self.__length = int(array[1])
+        self.__length = int(array[1].replace("$","",-1))
         array.pop(0)
         array.pop(0)
 
@@ -43,6 +43,27 @@ class Puzzle:
 
     def __len__(self):
         return self.__length
+
+    def solve(self, techniques):
+        edits = 0
+        edit_dict = {}
+        while True:
+            original_edits = edits
+            for tech1 in techniques:
+                _edits = tech1.solve0(self)
+                if tech1.__class__.__name__ not in edit_dict:
+                    edit_dict[tech1.__class__.__name__] = 0
+                edit_dict[tech1.__class__.__name__] += _edits
+                edits = edits + _edits
+            if original_edits == edits:
+                break
+        for tech1 in edit_dict:
+            if edit_dict[tech1] == 0:
+                continue
+            print(f'{tech1}: {edit_dict[tech1]}')
+        print(f'Total edits: {edits}')
+        # for
+        return edits
 
     def __repr__(self):
         return f'{self.__class__.__name__}( {self.id()} )'

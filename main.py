@@ -1,5 +1,9 @@
 import os
 from typing import Iterable
+
+import numpy
+
+import temp
 # import numpy as np
 # from py_linq import Enumarable
 from Constants import Constants
@@ -7,6 +11,9 @@ from Loc import Loc
 from puzzles import Kropki
 
 from linq import linq
+from techniques.FinnedXWing import FinnedXWing
+from techniques.HiddenSingle import HiddenSingle
+from techniques.UniqueRectangleType4 import UniqueRectangleType4
 
 sudoku_fences = [
     ['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c'],
@@ -191,11 +198,13 @@ def powert_set_start():
 #     pass
 
 def read_sudokus():
-      for name in dir(Constants):
-        if  'sudoku' in name and 'explicit' in name:
+    for name in dir(Constants):
+        if 'sudoku' in name and 'explicit' in name:
             func = getattr(Constants, name)
             string: str = func()
-            string = string.replace('\n', ' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).strip()
+            string = string.replace('\n', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ',
+                                                                                                         -1).replace(
+                '  ', ' ', -1).strip()
             split = string.split(' ')
             _id = split.pop(0)
 
@@ -214,7 +223,7 @@ def read_sudokus():
                         result += '\n'
                     for c in range(length):
                         result += f'{split[index]} '
-                        index+=1
+                        index += 1
                         if c == 2 or c == 5:
                             result += '   '
                     result += '\n'
@@ -231,10 +240,81 @@ def read_sudokus():
                 # print()
                 # print()
                 # print()
-                
+
 
             except:
                 print(f'Exception: bad string format: {_id}')
+
+
+def temperature():
+    for name in dir(temp):
+        if '__' in name:
+            continue
+        # print(name)
+        string: str = getattr(temp, name)()
+        string = string.replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace(' ', '', -1) \
+            .replace('|', '', -1) \
+            .replace('-', '', -1) \
+            .replace('+', '', -1)
+        split = string.split('\n')
+
+        array = []
+        for temp1 in split:
+            strip = temp1.strip()
+
+            if len(strip) == 0:
+                continue
+            array.append(strip)
+
+        puzzle_id = array.pop(0)
+        length = int(array.pop(0))
+
+        separate = [int(char) for char in "".join(array).replace('.', '0', -1).replace('_', '0', -1)]
+
+        if len(separate) != 81:
+            continue
+
+        hello = numpy.array(separate)
+
+        hello = hello.reshape(9, 9)
+
+        actual_array = numpy.empty([9, 9], dtype=object)
+
+        for r in range(9):
+            for c in range(9):
+                if hello[r][c] == 0:
+                    actual_array[r][c] = f'123456789{sudoku_fences[r][c]}'
+                    continue
+                string = ''
+                for candidate in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+                    if candidate == hello[r][c]:
+                        string += f'{candidate}'
+                    else:
+                        string += f'_'
+                string += sudoku_fences[r][c]
+                actual_array[r][c] = string
+
+        puzzle_string = f'{9} $ $ $ $ $ $ $ $\n'
+        for r in range(9):
+            if r == 3 or r == 6:
+                puzzle_string += '\n'
+            for c in range(9):
+                if c == 3 or c == 6:
+                    puzzle_string += '  '
+                puzzle_string += f'{actual_array[r][c]} '
+            puzzle_string += '\n'
+
+        f = open(f'C:\\Users\\mcbailey\\Desktop\\files\\{puzzle_id}', 'w')
+
+        f.write(puzzle_string)
+        f.close()
 
 
 from puzzles import Mathrax
@@ -242,113 +322,41 @@ from tech import tech
 
 if __name__ == "__main__":
     from os import walk
-    for name in dir(Constants):
-        if  'kropki' in name and 'explicit' in name:
-            func = getattr(Constants, name)
-            string: str = func()
-            string = string.replace('\n', ' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).replace('  ',' ', -1).strip()
-            split = string.split(' ')
-            _id = split.pop(0)
 
-            try:
-                length = int(split.pop(0))
-                # print(_id)
-                # print(length)
-                # print(split)
+    f = open('C:\\Users\\mcbailey\\Desktop\\files\\' + "finned_x_wing_00.sudoku", 'r')
+    from puzzles import Sudoku
 
-                if length != 9:
-                    continue
-                index = 0
-                result = f'{length}          $  $          $  $          $  $          $  $          $  $          $  $          $  $          $  $\n'
-                for r in range(length * 2 - 1):
-                    # if r == 3 or r == 6:
-                    #     result += '\n'
-                    for c in range(length * 2 - 1):
-                        result += f'{split[index]} '
-                        index+=1
-                        # if c == 2 or c == 5:
-                        #     result += '   '
-                    result += '\n'
+    string = f'id.sudoku\n{f.read()}'.replace('$', '', -1)
+    f.close()
 
-                result.strip()
+    # print(string)
 
-                f = open(f'C:\\Users\\mcbailey\\Desktop\\files\\{_id}', 'w')
+    puzzle = Sudoku(string)
+    from techniques.CrossHatch import CrossHatch
 
-                f.write(result)
+    puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(),
+                  # UniqueRectangleType4()
+                  ])
+    # puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing()])
+    # puzzle.solve([HiddenSingle()])
+    # puzzle.solve([tech.LockedCandidatesPointing()])
+    # puzzle.solve([CrossHatch()])
+    # puzzle.solve([UniqueRectangleType4()])
 
-                f.close()
+    puzzle.solve([FinnedXWing()])
 
-                # print(result)
-                # print()
-                # print()
-                # print()
-                
+    print(puzzle.to_string())
 
-            except:
-                print(f'Exception: bad string format: {_id}')
-    
+    # files = []
+    # for filename in next(walk('C:\\Users\\mcbailey\\Desktop\\files'), (None, None, []))[2]:  # [] if no file
+    #     print(f"""'{filename}': [],""")
+    # if 'actual' in filename:
+    # files.append(filename)
 
-            # print(split)
-
-
-    # filenames = next(walk('C:\\Repos\\logics0\\files'), (None, None, []))[2]  # [] if no file
-
-    # print(filenames)
-
-
-    # import numpy as np
-
-    # temp = np.array([[float(j) for j in i.split('\n')] for i in b.splitlines()])
-    # temp = np.fromstring(Constants.mathrax_001())
-
-
-    # temp = np.array(temp, int)
-    # print(temp)
-    # temp = np.rot90(temp, 1)
     #
-    # print(temp)
-
-
-
-    #  tech.KropkiBlack(),
-    #             tech.KropkiWhite(),
-    #             tech.KropkiEmpty(),
-    #             tech.CrossHatch(),
-    #             tech.KropkiBb(),
-    #             tech.KropkiBw(),
-    #             tech.NakedPair(),
-    #             tech.KropkiDominatingEmpty(),
-    #             tech.KropkiDiamondEbbw(),
-    #             # tech.KropkiDiamondEwbw(),
-    #             # tech.KropkiDiamondEbww(),
-
-    # puzzle = Kropki(Constants.kropki_004())
-    # edits = tech.KropkiDiamond().solve0(puzzle)
-    # edits += tech.KropkiBlack().solve0(puzzle) + \
-    #          tech.KropkiWhite().solve0(puzzle) + \
-    #          tech.KropkiEmpty().solve0(puzzle) + \
-    #              tech.KropkiBb().solve0(puzzle)
-
-    # edits += tech.MathraxMathAddition().solve0(puzzle)
-    # edits += tech.MathraxMathMultiplication().solve0(puzzle)
-
-    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 0))
-    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(0, 2))
-    # edits += tech.MathraxCrossHatch().solve0(puzzle, Loc(2, 2))
-
-    # print(edits)
+    #     # print(puzzle_string)
     #
-    # print(puzzle)
-
-    # (Constants.mathrax_002.__name__, Mathrax, Solving.mathrax_techniques()),
-
-    # from linq import linq
-    # temp = linq([1,2,3,4,5])
-
-    # # temp.select(lambda x: x).
-
-    # print(temp.single(lambda x:x==2))
-
-    # temp.
-
-    # print(set(temp.where(lambda x :x % 2 == 0)))
+    #     # print(actual_array)
+    #     #
+    #     #
+    #     # numpy.savetxt(f'C:\\Users\\mcbailey\\Desktop\\files\\{puzzle_id}.sudoku',2,actual_array)

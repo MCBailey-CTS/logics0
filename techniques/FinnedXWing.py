@@ -53,14 +53,23 @@ class FinnedXWing(Technique):
                 locs_in_next_to_chute.append(
                     set(containing_locs).intersection(puzzle.house_fence(puzzle.fence_from_chute(chute))))
             locs_in_fin_chute = set(containing_locs).intersection(puzzle.house_fence(fence))
-            puzzle.override_loc_color(locs_in_fin_chute, Fore.YELLOW)
+            puzzle.override_loc_color(list(locs_in_fin_chute), Fore.YELLOW)
             for loc_chute in locs_in_next_to_chute:
                 temp = list(loc_chute)[0]
                 row_intersection = set(puzzle.house_row(temp.row)).intersection(puzzle.house_fence(fence)).difference(
                     containing_locs)
                 col_intersection = set(puzzle.house_col(temp.col)).intersection(puzzle.house_fence(fence)).difference(
                     containing_locs)
-                puzzle.rem(list(row_intersection) + list(col_intersection), [__candidate])
+
+                remove = list(row_intersection) + list(col_intersection)
+
+                puzzle.override_loc_color(remove, Fore.RED)
+
+                edits += puzzle.rem(remove, [__candidate])
+
+                if edits > 0:
+                    return edits
+
         return edits
 
     def solve0(self, puzzle: Sudoku) -> int:

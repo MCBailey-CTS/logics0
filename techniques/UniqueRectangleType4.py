@@ -1,5 +1,5 @@
 from puzzles import Sudoku
-
+from colorama import Fore
 class UniqueRectangleType4:
 
     def solve0(self, puzzle: Sudoku) -> int:
@@ -75,6 +75,8 @@ class UniqueRectangleType4:
                             other = list(temp_candidates)[0]
 
                             for loc in [corner0, corner1]:
+                                print(f'Removing: {other} from {loc}')
+                                puzzle.override_loc_color([loc], Fore.YELLOW)
                                 edits += puzzle.rem(loc, [other])
 
         for c in range(len(puzzle)):
@@ -143,6 +145,8 @@ class UniqueRectangleType4:
                             other = list(temp_candidates)[0]
 
                             for loc in [corner0, corner1]:
+                                print(f'Removing: {other} from {loc}')
+                                puzzle.override_loc_color([loc], Fore.YELLOW)
                                 edits += puzzle.rem(loc, [other])
 
         return edits
