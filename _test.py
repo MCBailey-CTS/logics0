@@ -818,10 +818,36 @@ skip_dict = {
     #         tech.NakedTriple(),
     #         tech.XWing(),
     #         tech.XyWing(),],
-    # 'annoying_07.sudoku': [],
-    # 'annoying_11.sudoku': [],
-    # 'annoying_13.sudoku': [],
-    # 'annoying_17.sudoku': [],
+    # 'annoying_07.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     FinnedXWing()
+    # ],
+    # 'annoying_11.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     NakedPair(),
+    #     tech.NakedTriple(),
+    #     tech.HiddenPair(),
+    #     tech.XWing(),
+    #     FinnedXWing()
+    # ],
+    # 'annoying_13.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     NakedPair(),
+    #     UniqueRectangleType1(),
+    #     FinnedXWing(),
+    # ],
+    # 'annoying_17.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.ShashimiXWing(),
+    #
+    # ],
     # 'annoying_22.sudoku': [],
     # 'annoying_23.sudoku': [],
     # 'annoying_25.sudoku': [],
@@ -1124,3 +1150,9 @@ def test_file_puzzle1(data):
     print(f'Total edits: {edits}')
     print(puzzle)
     assert False
+
+
+# @pytest.mark.parametrize("locations, is_valid", [
+#
+#     ])
+# def test_explicit_finned_x_wing(locations, remove)
