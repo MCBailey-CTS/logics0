@@ -593,6 +593,11 @@ class tech:
             edits = 0
             return edits
 
+    class RemotePair:
+        def solve0(self, puzzle: Sudoku) -> int:
+            edits = 0
+            return edits
+
     class NakedTriple(BaseSudokuHouseTechnique):
 
         def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
