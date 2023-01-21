@@ -451,6 +451,13 @@ def is_valid_finned(containing_locs: list[Loc]) -> bool:
     return False
 
 
+def is_rectangle(corners: list[Loc])->bool:
+    if len(corners) != 4:
+        return False
+    rows = set(loc1.row for loc1 in corners)
+    cols = set(loc1.col for loc1 in corners)
+    return len(rows) == 2 and len(cols) == 2
+
 if __name__ == "__main__":
     from os import walk
 
@@ -476,24 +483,102 @@ if __name__ == "__main__":
 
     # puzzle.solve([FinnedXWing1()])
 
-    right = [Loc(5, 3), Loc(6, 3)]
-    left = [Loc(4, 2), Loc(5, 2), Loc(6, 2)]
+    # right = [Loc(5, 3), Loc(6, 3)]
+    # left = [Loc(4, 2), Loc(5, 2), Loc(6, 2)]
 
-    corners = right + left
-
-    candidate = 2
+    # corners = right + left
+    #
+    # candidate = 2
 
     # puzzle.override_loc_color(corners, Fore.YELLOW)
-    puzzle.override_loc_color(right, Fore.GREEN)
+    # puzzle.override_loc_color(right, Fore.GREEN)
 
     in_cols = True
 
-    for i in range(len(puzzle)):
-        if in_cols and right[0].col != i:
-            other_col = puzzle.house_col(i, candidate)
-            if len(other_col) == 3:
+    # house_col0 = puzzle.hou
+
+    for candidate in puzzle.expected_candidates():
+        if candidate != 2:
+            continue
+        for i in range(len(puzzle)):
+            if i != 3:
+                continue
+            house_col0 = puzzle.house_col(i, candidate)
+            for ii in range(len(puzzle)):
+                if ii != 2:
+                    continue
+                house_col1 = puzzle.house_col(ii, candidate)
+                # puzzle.override_loc_color(house_col1, Fore.GREEN)
+
+                containing_locs = house_col0 + house_col1
+
+
+
+    # for i in range(len(puzzle)):
+    #     if in_cols and right[0].col != i:
+    #         other_col = puzzle.house_col(i, candidate)
+
+            # chute_dict
+
+            # rows = set(loc.row for loc in containing_locs)
+            # cols = set(loc.col for loc in containing_locs)
+            # row_chutes = set(puzzle.row_chute(loc) for loc in containing_locs)
+            # col_chutes = set(puzzle.col_chute(loc) for loc in containing_locs)
+            #
+            # fence_dict = {}
+            # for loc in containing_locs:
+            #     fence = puzzle.cell_fence(loc)
+            #     if fence not in fence_dict:
+            #         fence_dict[fence] = set()
+            #     fence_dict[fence].add(loc)
+            #
+                chute_dict = {}
+                for loc in containing_locs:
+                    chute = puzzle.loc_chute(loc)
+                    if chute not in chute_dict:
+                        chute_dict[chute] = set()
+                    chute_dict[chute].add(loc)
+
+                fence_dict = {}
+                for loc in containing_locs:
+                    chute = puzzle.cell_fence(loc)
+                    if chute not in fence_dict:
+                        fence_dict[chute] = set()
+                    fence_dict[chute].add(loc)
+
+                if len(chute_dict) != 4 or len(fence_dict) != 4:
+                    continue
+
+                # do the four chutes form a rectangle
+
+                if not is_rectangle(list(chute_dict.keys())):
+                    continue
+
+                fence_length_1 = [fence for fence in fence_dict.keys() if len(fence_dict[fence]) == 1]
+                fence_greater_length_1 = [fence for fence in fence_dict.keys() if len(fence_dict[fence]) > 1]
+
+                if len(fence_length_1) != 3 or len(fence_greater_length_1) != 1:
+                    continue
+
+                print(len(fence_length_1))
+                print(len(fence_greater_length_1))
+
+                # check if locs form a rectangle
+
+                min_row_chute = min(chute0.row for chute0 in chute_dict.keys())
+                max_row_chute = max(chute0.row for chute0 in chute_dict.keys())
+
+
+
+                # top chutes
+                # upper_chute =
+
+                puzzle.override_loc_color(puzzle.house_col(i) + puzzle.house_col(ii), Fore.GREEN)
+                puzzle.override_loc_color(containing_locs, Fore.YELLOW)
+
+            # if len(other_col) == 3:
                 # puzzle.override_loc_color(other_col, Fore.YELLOW)
-                puzzle.override_loc_color(right, Fore.YELLOW)
+                # puzzle.override_loc_color(right, Fore.YELLOW)
 
 
                 # intersection = set(other_col).intersection()
