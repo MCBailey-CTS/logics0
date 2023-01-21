@@ -316,6 +316,7 @@ def temperature():
         f.write(puzzle_string)
         f.close()
 
+
 from puzzles import Sudoku
 from colorama import Fore
 
@@ -329,7 +330,7 @@ class FinnedXWing1:
 
         containing_locs = containing_locs0 + containing_locs1
 
-        print(containing_locs)
+        # print(containing_locs)
 
         rows = set(loc.row for loc in containing_locs)
         cols = set(loc.col for loc in containing_locs)
@@ -377,8 +378,6 @@ class FinnedXWing1:
             for loc_chute in locs_in_next_to_chute:
                 temp = list(loc_chute)[0]
 
-
-
                 row_intersection = set(puzzle.house_row(temp.row)).intersection(puzzle.house_fence(fence)).difference(
                     containing_locs)
                 col_intersection = set(puzzle.house_col(temp.col)).intersection(puzzle.house_fence(fence)).difference(
@@ -387,8 +386,6 @@ class FinnedXWing1:
                 remove = list(row_intersection) + list(col_intersection)
 
                 puzzle.override_loc_color(remove, Fore.RED)
-
-
 
                 edits += puzzle.rem(remove, [__candidate])
 
@@ -410,6 +407,49 @@ class FinnedXWing1:
 
 from puzzles import Mathrax
 from tech import tech
+
+
+def is_valid_finned(containing_locs: list[Loc]) -> bool:
+    puzzle.override_loc_color(containing_locs, Fore.YELLOW)
+    rows = set(loc.row for loc in containing_locs)
+    cols = set(loc.col for loc in containing_locs)
+    row_chutes = set(puzzle.row_chute(loc) for loc in containing_locs)
+    col_chutes = set(puzzle.col_chute(loc) for loc in containing_locs)
+
+    fence_dict = {}
+    for loc in containing_locs:
+        fence = puzzle.cell_fence(loc)
+        if fence not in fence_dict:
+            fence_dict[fence] = set()
+        fence_dict[fence].add(loc)
+
+    chute_dict = {}
+    for loc in containing_locs:
+        chute = puzzle.loc_chute(loc)
+        if chute not in chute_dict:
+            chute_dict[chute] = set()
+        chute_dict[chute].add(loc)
+
+    count_length_1 = set(chute_fence for chute_fence in chute_dict.keys() if len(chute_dict[chute_fence]) == 1)
+    count_length_more_than_1 = set(
+        chute_fence for chute_fence in chute_dict.keys() if len(chute_dict[chute_fence]) > 1)
+
+    length_1_locs = [list(t)[0] for t in count_length_1]
+
+    print(length_1_locs)
+
+    if (len(rows) == 2 or len(cols) == 2) and \
+            len(fence_dict) == 4 and \
+            len(row_chutes) == 2 and \
+            len(col_chutes) == 2 and \
+            len(chute_dict) == 4 and \
+            len(count_length_1) == 3 and \
+            len(count_length_more_than_1) == 1:
+        chute_with_fin = list(count_length_more_than_1)[0]
+        fence = puzzle.fence_from_chute(chute_with_fin)
+        puzzle.override_loc_color(puzzle.house_fence(fence), Fore.BLUE)
+    return False
+
 
 if __name__ == "__main__":
     from os import walk
@@ -434,7 +474,38 @@ if __name__ == "__main__":
     # puzzle.solve([CrossHatch()])
     # puzzle.solve([UniqueRectangleType4()])
 
-    puzzle.solve([FinnedXWing1()])
+    # puzzle.solve([FinnedXWing1()])
+
+    right = [Loc(5, 3), Loc(6, 3)]
+    left = [Loc(4, 2), Loc(5, 2), Loc(6, 2)]
+
+    corners = right + left
+
+    candidate = 2
+
+    # puzzle.override_loc_color(corners, Fore.YELLOW)
+    puzzle.override_loc_color(right, Fore.GREEN)
+
+    in_cols = True
+
+    for i in range(len(puzzle)):
+        if in_cols and right[0].col != i:
+            other_col = puzzle.house_col(i, candidate)
+            if len(other_col) == 3:
+                # puzzle.override_loc_color(other_col, Fore.YELLOW)
+                puzzle.override_loc_color(right, Fore.YELLOW)
+
+
+                # intersection = set(other_col).intersection()
+                #
+                # fin = intersection.difference(other_col)
+                #
+                # puzzle.override_loc_color(fin, Fore.BLUE)
+
+
+
+
+    # is_valid_finned()
 
     print(puzzle.to_string())
 
