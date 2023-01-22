@@ -477,18 +477,12 @@ if __name__ == "__main__":
     puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(),
                   # UniqueRectangleType4()
                   ])
-    in_cols = True
+    # in_cols = True
 
     for candidate in puzzle.expected_candidates():
-        if candidate != 2:
-            continue
         for i in range(len(puzzle)):
-            if i != 3:
-                continue
             house_col0 = puzzle.house_col(i, candidate)
             for ii in range(len(puzzle)):
-                if ii != 2:
-                    continue
                 house_col1 = puzzle.house_col(ii, candidate)
 
                 containing_locs = house_col0 + house_col1
