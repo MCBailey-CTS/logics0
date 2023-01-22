@@ -451,12 +451,13 @@ def is_valid_finned(containing_locs: list[Loc]) -> bool:
     return False
 
 
-def is_rectangle(corners: list[Loc])->bool:
+def is_rectangle(corners: list[Loc]) -> bool:
     if len(corners) != 4:
         return False
     rows = set(loc1.row for loc1 in corners)
     cols = set(loc1.col for loc1 in corners)
     return len(rows) == 2 and len(cols) == 2
+
 
 if __name__ == "__main__":
     from os import walk
@@ -533,16 +534,20 @@ if __name__ == "__main__":
                     temp1 = chute_dict[lower_right_chute]
                     temp2 = chute_dict[other_chute]
                     if len(temp0) == 1 and len(temp1) == 1 and len(temp2) == 1:
-                        lower_left_loc:Loc = list(temp0)[0]
-                        lower_right_loc:Loc = list(temp1)[0]
-                        top_right_loc:Loc = list(temp2)[0]
+                        lower_left_loc: Loc = list(temp0)[0]
+                        lower_right_loc: Loc = list(temp1)[0]
+                        top_right_loc: Loc = list(temp2)[0]
 
                         if lower_left_loc.row == lower_right_loc.row:
-                            puzzle.override_loc_color(puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row), Fore.LIGHTMAGENTA_EX)
+                            puzzle.override_loc_color(
+                                puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row),
+                                Fore.LIGHTMAGENTA_EX)
                             puzzle.override_loc_color(puzzle.house_col(i) + puzzle.house_col(ii), Fore.GREEN)
                             puzzle.override_loc_color(containing_locs, Fore.YELLOW)
-                            fin = set(containing_locs).difference(puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row))
-                            remove = set(house_fence00).intersection(puzzle.house_row(top_right_loc.row)).difference(containing_locs)
+                            fin = set(containing_locs).difference(
+                                puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row))
+                            remove = set(house_fence00).intersection(puzzle.house_row(top_right_loc.row)).difference(
+                                containing_locs)
                             puzzle.override_loc_color(list(fin), Fore.BLUE)
                             puzzle.override_loc_color(list(remove), Fore.RED)
                             edits += puzzle.rem(list(remove), [candidate])
