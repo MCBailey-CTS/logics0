@@ -472,30 +472,12 @@ if __name__ == "__main__":
     puzzle = Sudoku(string)
     from techniques.CrossHatch import CrossHatch
 
+    edits = 0
+
     puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(),
                   # UniqueRectangleType4()
                   ])
-    # puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing()])
-    # puzzle.solve([HiddenSingle()])
-    # puzzle.solve([tech.LockedCandidatesPointing()])
-    # puzzle.solve([CrossHatch()])
-    # puzzle.solve([UniqueRectangleType4()])
-
-    # puzzle.solve([FinnedXWing1()])
-
-    # right = [Loc(5, 3), Loc(6, 3)]
-    # left = [Loc(4, 2), Loc(5, 2), Loc(6, 2)]
-
-    # corners = right + left
-    #
-    # candidate = 2
-
-    # puzzle.override_loc_color(corners, Fore.YELLOW)
-    # puzzle.override_loc_color(right, Fore.GREEN)
-
     in_cols = True
-
-    # house_col0 = puzzle.hou
 
     for candidate in puzzle.expected_candidates():
         if candidate != 2:
@@ -508,30 +490,9 @@ if __name__ == "__main__":
                 if ii != 2:
                     continue
                 house_col1 = puzzle.house_col(ii, candidate)
-                # puzzle.override_loc_color(house_col1, Fore.GREEN)
 
                 containing_locs = house_col0 + house_col1
 
-
-
-    # for i in range(len(puzzle)):
-    #     if in_cols and right[0].col != i:
-    #         other_col = puzzle.house_col(i, candidate)
-
-            # chute_dict
-
-            # rows = set(loc.row for loc in containing_locs)
-            # cols = set(loc.col for loc in containing_locs)
-            # row_chutes = set(puzzle.row_chute(loc) for loc in containing_locs)
-            # col_chutes = set(puzzle.col_chute(loc) for loc in containing_locs)
-            #
-            # fence_dict = {}
-            # for loc in containing_locs:
-            #     fence = puzzle.cell_fence(loc)
-            #     if fence not in fence_dict:
-            #         fence_dict[fence] = set()
-            #     fence_dict[fence].add(loc)
-            #
                 chute_dict = {}
                 for loc in containing_locs:
                     chute = puzzle.loc_chute(loc)
@@ -549,8 +510,6 @@ if __name__ == "__main__":
                 if len(chute_dict) != 4 or len(fence_dict) != 4:
                     continue
 
-                # do the four chutes form a rectangle
-
                 if not is_rectangle(list(chute_dict.keys())):
                     continue
 
@@ -560,50 +519,38 @@ if __name__ == "__main__":
                 if len(fence_length_1) != 3 or len(fence_greater_length_1) != 1:
                     continue
 
-                print(len(fence_length_1))
-                print(len(fence_greater_length_1))
-
-                # check if locs form a rectangle
-
                 min_row_chute = min(chute0.row for chute0 in chute_dict.keys())
                 max_row_chute = max(chute0.row for chute0 in chute_dict.keys())
 
+                min_col_chute = min(chute0.col for chute0 in chute_dict.keys())
+                max_col_chute = max(chute0.col for chute0 in chute_dict.keys())
 
+                house_fence00 = puzzle.house_fence(fence_greater_length_1[0])
 
-                # top chutes
-                # upper_chute =
+                chute_temp = puzzle.loc_chute(house_fence00[0])
 
-                puzzle.override_loc_color(puzzle.house_col(i) + puzzle.house_col(ii), Fore.GREEN)
-                puzzle.override_loc_color(containing_locs, Fore.YELLOW)
+                if chute_temp == Loc(min_row_chute, min_col_chute):
+                    other_chute = Loc(min_row_chute, max_col_chute)
+                    other_fence_house = puzzle.house_fence(puzzle.fence_from_chute(other_chute))
+                    # need to check that the two cells in the lower are in the same row
+                    lower_left_chute = Loc(max_row_chute, min_col_chute)
+                    lower_right_chute = Loc(max_row_chute, max_col_chute)
+                    temp0 = chute_dict[lower_left_chute]
+                    temp1 = chute_dict[lower_right_chute]
+                    temp2 = chute_dict[other_chute]
+                    if len(temp0) == 1 and len(temp1) == 1 and len(temp2) == 1:
+                        lower_left_loc:Loc = list(temp0)[0]
+                        lower_right_loc:Loc = list(temp1)[0]
+                        top_right_loc:Loc = list(temp2)[0]
 
-            # if len(other_col) == 3:
-                # puzzle.override_loc_color(other_col, Fore.YELLOW)
-                # puzzle.override_loc_color(right, Fore.YELLOW)
-
-
-                # intersection = set(other_col).intersection()
-                #
-                # fin = intersection.difference(other_col)
-                #
-                # puzzle.override_loc_color(fin, Fore.BLUE)
-
-
-
-
-    # is_valid_finned()
+                        if lower_left_loc.row == lower_right_loc.row:
+                            puzzle.override_loc_color(puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row), Fore.LIGHTMAGENTA_EX)
+                            puzzle.override_loc_color(puzzle.house_col(i) + puzzle.house_col(ii), Fore.GREEN)
+                            puzzle.override_loc_color(containing_locs, Fore.YELLOW)
+                            fin = set(containing_locs).difference(puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row))
+                            remove = set(house_fence00).intersection(puzzle.house_row(top_right_loc.row)).difference(containing_locs)
+                            puzzle.override_loc_color(list(fin), Fore.BLUE)
+                            puzzle.override_loc_color(list(remove), Fore.RED)
+                            edits += puzzle.rem(list(remove), [candidate])
 
     print(puzzle.to_string())
-
-    # files = []
-    # for filename in next(walk('C:\\Users\\mcbailey\\Desktop\\files'), (None, None, []))[2]:  # [] if no file
-    #     print(f"""'{filename}': [],""")
-    # if 'actual' in filename:
-    # files.append(filename)
-
-    #
-    #     # print(puzzle_string)
-    #
-    #     # print(actual_array)
-    #     #
-    #     #
-    #     # numpy.savetxt(f'C:\\Users\\mcbailey\\Desktop\\files\\{puzzle_id}.sudoku',2,actual_array)
