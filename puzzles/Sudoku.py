@@ -3,6 +3,7 @@ from typing import Optional, Union
 from puzzles import Puzzle
 from Loc import Loc
 import numpy
+from colorama import Fore, Style
 
 
 class Sudoku(Puzzle):
@@ -171,3 +172,23 @@ class Sudoku(Puzzle):
 
     def fence_dict(self, loc_set):
         pass
+
+    def to_string(self, include_colors=True) -> str:
+        string = f'{self.id()}\n'
+        string += f'{len(self)}\n'
+        for r in range(len(self)):
+            if r == 3 or r == 6:
+                string += '\n'
+            for c in range(len(self)):
+                if c == 3 or c == 6:
+                    string += '   '
+                loc = Loc(r, c)
+                if include_colors and loc in self.color_override:
+                    string += f'{self.color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
+                    continue
+                if len(self.cell_candidates(loc)) == 0:
+                    string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
+                else:
+                    string += f'{self.grid[r][c].ljust(len(self))} '
+            string += '\n'
+        return string

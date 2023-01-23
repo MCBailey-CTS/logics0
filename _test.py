@@ -65,9 +65,7 @@ class Solving:
             tech.KropkiBw(),
             NakedPair(),
             tech.KropkiDominatingEmpty(),
-            tech.KropkiDiamond(),
-            # tech.KropkiDiamondEwbw(),
-            # tech.KropkiDiamondEbww(),
+            tech.KropkiDiamond()
         ]
 
     @staticmethod
@@ -86,8 +84,7 @@ class Solving:
             tech.Parks1Shape_00_01(),
             Parks1Shapes(),
             tech.Parks1DominateFence(),
-            Parks1XWing(),
-            # Parks1DominateFenceAgain(),
+            Parks1XWing()
         ]
 
     @staticmethod
@@ -789,7 +786,7 @@ skip_dict = {
     # 'als_xz.sudoku': [],
     # 'alternating_inference_chain.sudoku': [],
     # 'annoying_00.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), tech.ShashimiXWing()],
-    'annoying_02.sudoku': [CrossHatch(),FinnedXWing()],
+    'annoying_02.sudoku': [CrossHatch(), FinnedXWing()],
     # 'annoying_05.sudoku': [CrossHatch(),
     #         HiddenSingle(),
     #         NakedPair(),
@@ -860,10 +857,34 @@ skip_dict = {
     #     CrossHatch(),
     #     HiddenSingle(),
     #                        ],
-    # 'annoying_25.sudoku': [notes],
-    # 'annoying_26.sudoku': [notes],
-    # 'annoying_27.sudoku': [],
-    # 'annoying_28.sudoku': [],
+    # 'annoying_25.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.LockedCandidatesClaiming(),
+    #     tech.HiddenPair(),
+    #     FinnedXWing()
+    #       Corners: {41, 61, 44, 64}
+    #       fin: {43, 45}
+    #       candidate: 1
+    #       North east
+    # ],
+    # 'annoying_26.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.HiddenPair(),
+    #     tech.ShashimiXWing()
+    # ],
+    # 'annoying_27.sudoku': []
+    # 'annoying_28.sudoku': [
+    #     CrossHatch(),
+    #         HiddenSingle(),
+    #         tech.LockedCandidatesPointing(),
+    #         tech.NakedTriple(),
+    #         UniqueRectangleType4(),
+    #         FinnedXWing(),
+    # ],
     # 'annoying_29.sudoku': [],
     # 'annoying_30.sudoku': [],
     # 'annoying_32.sudoku': [],
@@ -896,12 +917,35 @@ skip_dict = {
     #     AvoidableRectangleType2(),
     #     tech.Bug()
     # ],
-    # 'avoidable_rectangle_type2_2.sudoku': [notes],
+    # 'avoidable_rectangle_type2_2.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     UniqueRectangleType1(),
+    #     NakedPair(),
+    #     AvoidableRectangleType2(),
+    #     tech.ShashimiXWing(),
+    #     tech.Bug()
+    # ],
     # 'avoidable_rectangle_type2_3.sudoku': [notes],
     # 'avoidable_rectangle_type2_4.sudoku': [notes],
-    # 'avoidable_rectangle_type2_5.sudoku': [notes],
+    'avoidable_rectangle_type2_5.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(),
+        UniqueRectangleType1(),
+        AvoidableRectangleType2()
+    ],
     # 'avoidable_rectangle_type2_6.sudoku': [notes],
-    # 'avoidable_rectangle_type2_north.sudoku': [],
+    'avoidable_rectangle_type2_north.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        tech.LockedCandidatesPointing(),
+        NakedPair(),
+        UniqueRectangleType1(),
+        AvoidableRectangleType2()
+    ],
     # 'avoidable_rectangle_type2_south.sudoku': [],
     # 'avoidable_rectangle_type2_west.sudoku': [],
     # 'devious_1.sudoku': [
@@ -924,11 +968,38 @@ skip_dict = {
     # 'devious_7.sudoku': [],
     # 'devious_8.sudoku': [],
     # 'diabolical_0.sudoku': [],
-    # 'difficult_01.sudoku': [],
-    # 'difficult_04.sudoku': [],
-    # 'difficult_05.sudoku': [],
-    # 'difficult_08.sudoku': [],
-    # 'difficult_15.sudoku': [],
+    'difficult_01.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        UniqueRectangleType4(),
+        tech.XWing(),
+        tech.Bug()
+    ],
+    # 'difficult_04.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.LockedCandidatesClaiming(),
+    #     NakedPair(),
+    #     tech.RemotePair(),
+    # ],
+    'difficult_05.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        tech.Bug()
+    ],
+    'difficult_08.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        UniqueRectangleType1(),
+        tech.Bug()
+    ],
+    'difficult_15.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        UniqueRectangleType1(),
+
+    ],
     # 'difficult_20.sudoku': [],
     # 'difficult_21.sudoku': [],
     # 'difficult_31.sudoku': [],
@@ -1017,26 +1088,30 @@ skip_dict = {
     # 'jellyfish_2.sudoku': [],
     # 'jellyfish_of_1_in_rows.sudoku': [],
     # 'jellyfish_of_3_in_cols.sudoku': [],
-    'locked_candidates_claiming_col.sudoku': [CrossHatch(),
-                                              HiddenSingle(),
-                                              NakedPair(),
-                                              tech.LockedCandidatesPointing(),
-                                              tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
-    'locked_candidates_claiming_row.sudoku': [CrossHatch(),
-                                              HiddenSingle(),
-                                              NakedPair(),
-                                              tech.LockedCandidatesPointing(),
-                                              tech.LockedCandidatesClaiming(), UniqueRectangleType1() ],
-    'locked_candidates_pointing_col.sudoku': [CrossHatch(),
-                                              HiddenSingle(),
-                                              NakedPair(),
-                                              tech.LockedCandidatesPointing(),
-                                              tech.LockedCandidatesClaiming(), UniqueRectangleType1() ],
-    'locked_candidates_pointing_row.sudoku': [CrossHatch(),
-                                              HiddenSingle(),
-                                              NakedPair(),
-                                              tech.LockedCandidatesPointing(),
-                                              tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
+    'locked_candidates_claiming_col.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        NakedPair(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
+    'locked_candidates_claiming_row.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        NakedPair(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
+    'locked_candidates_pointing_col.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        NakedPair(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
+    'locked_candidates_pointing_row.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        NakedPair(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(), UniqueRectangleType1()],
     # 'maelstrom_0.sudoku': [],
     # 'medusa_coloring_3d.sudoku': [],
     # 'medusa_coloring_3d_0.sudoku': [],
@@ -1185,7 +1260,12 @@ skip_dict = {
     # 'xy_chain_2.sudoku': [],
     # 'xy_wing_00.sudoku': [],
     # 'xy_wing_cols_2_fences.sudoku': [],
-    # 'xy_wing_north_east_3_fences.sudoku': [],
+    # 'xy_wing_north_east_3_fences.sudoku': [
+    #     CrossHatch(),
+    #     NakedPair(),
+    #     FinnedXWing(),
+    #     tech.XyWing()
+    # ],
     # 'xy_wing_north_west_3_fences.sudoku': [],
     # 'xy_wing_rows_2_fences.sudoku': [],
     # 'xy_wing_south_east_3_fences.sudoku': [],
@@ -1251,7 +1331,6 @@ def test_file_puzzle1(data):
     print(f'Total edits: {edits}')
     print(puzzle)
     assert False
-
 
 # @pytest.mark.parametrize("locations, is_valid", [
 #
