@@ -1,6 +1,10 @@
 from puzzles import Sudoku
 from colorama import Fore
-class UniqueRectangleType4:
+
+from techniques.Technique import Technique
+
+
+class UniqueRectangleType4(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

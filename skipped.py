@@ -168,7 +168,7 @@
 # (Constants.botanical_park_010(), Walls, Solving.walls_techniques()),
 # (Constants.botanical_park_011(), Walls, Solving.walls_techniques()),
 # (Constants.botanical_park_011(), Walls, Solving.walls_techniques()),
-    # ('sudoku_x_wing_0', Sudoku, Solving.sudoku_techniques()),
+# ('sudoku_x_wing_0', Sudoku, Solving.sudoku_techniques()),
 
 # (Constants.sudoku_shashimi_x_wing_04(), Sudoku, Solving.sudoku_techniques()),
 # (Constants.sudoku_shashimi_x_wing_05(), Sudoku, Solving.sudoku_techniques()),
@@ -257,8 +257,6 @@
 # (Constants.magnets_006(), Magnets, Solving.magnets_techniques()),
 # (Constants.magnets_007(), Magnets, Solving.magnets_techniques()),
 # (Constants.magnets_003(), Magnets, Solving.magnets_techniques()),
-
-
 
 
 # (Constants.sudoku_almost_locked_candidates_0(), Sudoku, Solving.sudoku_techniques()),
@@ -753,9 +751,6 @@
 # (Constants.sudoku_shashimi_swordfish_4(), Sudoku, Solving.sudoku_techniques()),
 
 
-
-
-
 # (Magnets,
 #  MagnetsZero(),
 #  Constants.magnets_zero_cols_actual(),
@@ -836,7 +831,6 @@
 #      Techs.MinesweeperSolver(),
 #      Constants.minesweeper_explicit_0_actual(),
 #      Constants.minesweeper_explicit_0_expected()),
-
 
 
 # (Constants.skyscrapers_004(), Skyscrapers, Solving.skyscrapers_techniques()),
@@ -1049,7 +1043,7 @@
 # ('lighthouses_005', Lighthouses, Solving.lighthouses_techniques()),
 # # ('lighthouses_006', Lighthouses, Solving.lighthouses_techniques()),
 # ('sudoku_x_wing_2', Sudoku, Solving.sudoku_techniques()),
-    # ('sudoku_x_wing_3', Sudoku, Solving.sudoku_techniques()),
+# ('sudoku_x_wing_3', Sudoku, Solving.sudoku_techniques()),
 # ('sudoku_naked_triple_8', Sudoku, Solving.sudoku_techniques()),
 # (Sudoku,
 #  FinnedXWing(),

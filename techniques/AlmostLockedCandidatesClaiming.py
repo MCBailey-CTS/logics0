@@ -1,17 +1,20 @@
 from puzzles import Sudoku
 from colorama import Fore
 from Loc import Loc
-class AlmostLockedCandidatesClaiming:
+from techniques.Technique import Technique
+
+
+class AlmostLockedCandidatesClaiming(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
 
         house = puzzle.house_row(3)
         house_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in house) if
-                                char.isnumeric() or char == '_')
+                               char.isnumeric() or char == '_')
 
         fence = puzzle.house_fence(puzzle.fence_from_chute(Loc(1, 2)))
         fence_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in fence) if
-                                char.isnumeric() or char == '_')
+                               char.isnumeric() or char == '_')
 
         print(house_string)
         print(fence_string)

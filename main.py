@@ -1,22 +1,11 @@
-import os
-from typing import Iterable
-
-from puzzles import Sudoku
+import numpy
 from colorama import Fore
 
-import numpy
-
-import temp
-# import numpy as np
-# from py_linq import Enumarable
 from Constants import Constants
 from Loc import Loc
-from puzzles import Kropki
-
-from linq import linq
-from techniques.FinnedXWing import FinnedXWing
+from puzzles import Sudoku
 from techniques.HiddenSingle import HiddenSingle
-from techniques.UniqueRectangleType4 import UniqueRectangleType4
+from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 
 sudoku_fences = [
     ['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c'],
@@ -107,21 +96,21 @@ def replace_sudoku():
 
         # x = np.array(array_temp)
 
-        x = np.reshape(array_temp, (length, length))
+        x = numpy.reshape(array_temp, (length, length))
 
         grid = []
         for t in x:
             k: list = t.tolist()
             grid.append(k)
 
-        string = f'{length}\n'
+        __string = f'{length}\n'
         for r in range(length):
             for c in range(length):
-                string += f'{grid[r][c]}{sudoku_fences[r][c]} '
-            string = string.strip()
-            string += '\n'
+                __string += f'{grid[r][c]}{sudoku_fences[r][c]} '
+            __string = __string.strip()
+            __string += '\n'
 
-        print(string)
+        print(__string)
 
         #
         #
@@ -204,11 +193,11 @@ def read_sudokus():
     for name in dir(Constants):
         if 'sudoku' in name and 'explicit' in name:
             func = getattr(Constants, name)
-            string: str = func()
-            string = string.replace('\n', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ',
-                                                                                                         -1).replace(
+            __string: str = func()
+            __string = __string.replace('\n', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ', -1).replace('  ', ' ',
+                                                                                                             -1).replace(
                 '  ', ' ', -1).strip()
-            split = string.split(' ')
+            split = __string.split(' ')
             _id = split.pop(0)
 
             try:
@@ -295,14 +284,14 @@ def temperature():
                 if hello[r][c] == 0:
                     actual_array[r][c] = f'123456789{sudoku_fences[r][c]}'
                     continue
-                string = ''
-                for candidate in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+                __string = ''
+                for __candidate in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
                     if candidate == hello[r][c]:
-                        string += f'{candidate}'
+                        __string += f'{__candidate}'
                     else:
-                        string += f'_'
-                string += sudoku_fences[r][c]
-                actual_array[r][c] = string
+                        __string += f'_'
+                __string += sudoku_fences[r][c]
+                actual_array[r][c] = __string
 
         puzzle_string = f'{9} $ $ $ $ $ $ $ $\n'
         for r in range(9):
@@ -318,7 +307,6 @@ def temperature():
 
         f.write(puzzle_string)
         f.close()
-
 
 
 class FinnedXWing1:
@@ -405,7 +393,6 @@ class FinnedXWing1:
         return edits
 
 
-from puzzles import Mathrax
 from tech import tech
 
 
@@ -459,32 +446,28 @@ def is_rectangle(corners: list[Loc]) -> bool:
     return len(rows) == 2 and len(cols) == 2
 
 
-
-def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
-
-
-def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+def prRed(skk): print("\033[91m {}\033[00m".format(skk))
 
 
-def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+def prGreen(skk): print("\033[92m {}\033[00m".format(skk))
 
 
-def prLightPurple(skk): print("\033[94m {}\033[00m" .format(skk))
+def prYellow(skk): print("\033[93m {}\033[00m".format(skk))
 
 
-def prPurple(skk): print("\033[95m {}\033[00m" .format(skk))
+def prLightPurple(skk): print("\033[94m {}\033[00m".format(skk))
 
 
-def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+def prPurple(skk): print("\033[95m {}\033[00m".format(skk))
 
 
-def prLightGray(skk): print("\033[97m {}\033[00m" .format(skk))
+def prCyan(skk): print("\033[96m {}\033[00m".format(skk))
 
 
-def prBlack(skk): print("\033[98m {}\033[00m" .format(skk))
+def prLightGray(skk): print("\033[97m {}\033[00m".format(skk))
 
 
-
+def prBlack(skk): print("\033[98m {}\033[00m".format(skk))
 
 
 if __name__ == "__main__":
@@ -494,7 +477,6 @@ if __name__ == "__main__":
     prGreen("Geeks")
     prRed("For")
     prGreen("Geeks")
-    from os import walk
 
     f = open('C:\\repos\\logics0\\solve_files\\' + "finned_x_wing_00.sudoku", 'r')
     from puzzles import Sudoku
@@ -509,7 +491,7 @@ if __name__ == "__main__":
 
     edits = 0
 
-    puzzle.solve([CrossHatch(), HiddenSingle(), tech.LockedCandidatesPointing(),
+    puzzle.solve([CrossHatch(), HiddenSingle(), LockedCandidatesPointing(),
                   # UniqueRectangleType4()
                   ])
     # in_cols = True

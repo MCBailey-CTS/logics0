@@ -1,6 +1,8 @@
 from puzzles import Sumscrapers
+from techniques.Technique import Technique
 
-class HiddenSingleSumscrapers:
+
+class HiddenSingleSumscrapers(Technique):
     def solve0(self, puzzle: Sumscrapers) -> int:
         edits = 0
         houses = []

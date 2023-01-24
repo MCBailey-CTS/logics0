@@ -1,3 +1,5 @@
+from numpy import ndarray
+from typing import Union
 class Loc:
     def __init__(self, r: int, c: int):
         self._row = r
@@ -39,7 +41,7 @@ class Loc:
     def is_valid_sudoku(self, length: int):
         return -1 < self._row < length and -1 < self._col < length
 
-    def is_valid_parks(self, grid: list[list[str]]) -> bool:
+    def is_valid_parks(self, grid: Union[list[list[str]],ndarray]) -> bool:
         return -1 < self._row < len(grid) and -1 < self._col < len(grid)
 
     def is_valid_tenner(self, grid: list[list[str]]) -> bool:
@@ -57,13 +59,13 @@ class Loc:
     def cell_between(self, other):
         chain: list[Loc] = [self, other]
 
-        if (chain[0].north(2) == (chain[1])):
+        if chain[0].north(2) == (chain[1]):
             return chain[0].north()
-        if (chain[0].east(2) == (chain[1])):
+        if chain[0].east(2) == (chain[1]):
             return chain[0].east()
-        if (chain[0].south(2) == (chain[1])):
+        if chain[0].south(2) == (chain[1]):
             return chain[0].south()
-        if (chain[0].west(2) == (chain[1])):
+        if chain[0].west(2) == (chain[1]):
             return chain[0].west()
 
         raise ValueError()
@@ -120,33 +122,33 @@ class Loc:
 
         return False
 
-    @staticmethod
-    def row_chute(loc) -> int:
-        if self.length != 9:
-            raise Exception("Can only ask for row chute of 9x9 sudoku")
-        if loc.row < 0:
-            raise Exception(f'Invalid loc to ask row chute for {loc}')
-        if loc.row < 3:
-            return 0
-        elif loc.row < 6:
-            return 1
-        elif loc.row < 9:
-            return 2
-        raise Exception(f'Invalid loc to ask row chute for {loc}')
-
-    @staticmethod
-    def col_chute(loc) -> int:
-        if self.length != 9:
-            raise Exception("Can only ask for col chute of 9x9 sudoku")
-        if loc.col < 0:
-            raise Exception(f'Invalid loc to ask col chute for {loc}')
-        if loc.col < 3:
-            return 0
-        elif loc.col < 6:
-            return 1
-        elif loc.col < 9:
-            return 2
-        raise Exception(f'Invalid loc to ask col chute for {loc}')
+    # @staticmethod
+    # def row_chute(loc) -> int:
+    #     if self.length != 9:
+    #         raise Exception("Can only ask for row chute of 9x9 sudoku")
+    #     if loc.row < 0:
+    #         raise Exception(f'Invalid loc to ask row chute for {loc}')
+    #     if loc.row < 3:
+    #         return 0
+    #     elif loc.row < 6:
+    #         return 1
+    #     elif loc.row < 9:
+    #         return 2
+    #     raise Exception(f'Invalid loc to ask row chute for {loc}')
+    #
+    # @staticmethod
+    # def col_chute(loc) -> int:
+    #     if self.length != 9:
+    #         raise Exception("Can only ask for col chute of 9x9 sudoku")
+    #     if loc.col < 0:
+    #         raise Exception(f'Invalid loc to ask col chute for {loc}')
+    #     if loc.col < 3:
+    #         return 0
+    #     elif loc.col < 6:
+    #         return 1
+    #     elif loc.col < 9:
+    #         return 2
+    #     raise Exception(f'Invalid loc to ask col chute for {loc}')
 
     @staticmethod
     def kropki_row_locs(length: int):
@@ -277,12 +279,12 @@ def kropki_cell_locs_fences(grid, sudoku_length):
 
             array = [x for x in cell if not x.isnumeric() and x != "_"]
 
-            if (len(array) != 1):
+            if len(array) != 1:
                 continue
 
             fence = array[0]
 
-            if (fence not in fences.keys()):
+            if fence not in fences.keys():
                 fences[fence] = list()
 
             fences[fence].append(loc)
@@ -290,7 +292,7 @@ def kropki_cell_locs_fences(grid, sudoku_length):
     for fence in fences.keys():
         house = fences[fence]
 
-        if (len(house) != sudoku_length):
+        if len(house) != sudoku_length:
             raise ValueError(f"""Invalid fence length: '{fence}'""")
 
         houses.append(house)
@@ -333,12 +335,12 @@ def sudoku_cell_locs_fences(grid):
 
             array = [x for x in cell if x.isalpha()]
 
-            if (len(array) != 1):
+            if len(array) != 1:
                 continue
 
             fence = array[0]
 
-            if (fence not in fences.keys()):
+            if fence not in fences.keys():
                 fences[fence] = list()
 
             fences[fence].append(loc)

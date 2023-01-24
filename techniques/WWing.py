@@ -1,6 +1,9 @@
 from puzzles import Sudoku
 from Loc import Loc
-class WWing:
+from techniques.Technique import Technique
+
+
+class WWing(Technique):
     def solve1(self, puzzle: Sudoku, left: Loc, right: Loc) -> int:
         edits = 0
 

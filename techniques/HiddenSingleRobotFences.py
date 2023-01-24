@@ -1,7 +1,10 @@
 from puzzles import RobotFences
 from Loc import Loc
 from techniques.HiddenSingle import HiddenSingle
-class HiddenSingleRobotFences:
+from techniques.Technique import Technique
+
+
+class HiddenSingleRobotFences(Technique):
 
     @staticmethod
     def get_required_candidates(puzzle: RobotFences, house: list[Loc]) -> list[int]:
@@ -17,8 +20,7 @@ class HiddenSingleRobotFences:
 
         return list(range(temp_min, temp_max + 1))
 
-    @staticmethod
-    def solve0(puzzle: RobotFences) -> int:
+    def solve0(self, puzzle: RobotFences) -> int:
         edits = 0
         # return edits
         for cell in list(puzzle.unsolved_cells()):

@@ -398,6 +398,7 @@ class Kropki(Mathrax):
                 if len(line) == 0:
                     continue
                 temp.append(line)
+            # noinspection PyUnresolvedReferences
             self.grid.append(temp)
             array.pop(0)
 

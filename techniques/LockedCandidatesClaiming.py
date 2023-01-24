@@ -1,5 +1,8 @@
 from puzzles import Sudoku
-class LockedCandidatesClaiming:
+from techniques.Technique import Technique
+
+
+class LockedCandidatesClaiming(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

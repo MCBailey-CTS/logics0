@@ -1,7 +1,10 @@
 from colorama import Fore
 from puzzles import Sudoku
 from Loc import Loc
-class WxyzWing:
+from techniques.Technique import Technique
+
+
+class WxyzWing(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

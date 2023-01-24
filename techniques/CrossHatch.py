@@ -1,5 +1,8 @@
 from puzzles import Sudoku
-class CrossHatch:
+from techniques.Technique import Technique
+
+
+class CrossHatch(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
 

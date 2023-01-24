@@ -1,11 +1,9 @@
-from Loc import Loc
 from puzzles import Sudoku
+from techniques.Technique import Technique
 
+class LockedCandidatesPointing(Technique):
 
-class LockedCandidatesPointing:
-
-    @staticmethod
-    def solve0(puzzle: Sudoku) -> int:
+    def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
         unsolved = puzzle.unsolved_cells()
 

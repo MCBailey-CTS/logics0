@@ -1,6 +1,9 @@
 from puzzles import Parks1
 from Loc import Loc
-class Parks1FenceWing:
+from techniques.Technique import Technique
+
+
+class Parks1FenceWing(Technique):
 
     def solve0(self, puzzle: Parks1) -> int:
         edits = 0

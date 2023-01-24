@@ -2,7 +2,10 @@ from puzzles import AbstractPainting
 from typing import Optional
 from abc import abstractmethod
 from Loc import Loc
-class AbstractPaintingScraperAndHouse:
+from techniques.Technique import Technique
+
+
+class AbstractPaintingScraperAndHouse(Technique):
     @abstractmethod
     def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
         raise NotImplementedError()

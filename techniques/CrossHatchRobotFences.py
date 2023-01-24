@@ -1,7 +1,9 @@
 from puzzles import Sudoku
-class CrossHatchRobotFences:
-    @staticmethod
-    def solve0(puzzle: Sudoku) -> int:
+from techniques.Technique import Technique
+
+
+class CrossHatchRobotFences(Technique):
+    def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
         for cell in list(puzzle.unsolved_cells()):
             neighbors = set(puzzle.house_row(cell.row) + puzzle.house_col(cell.col))

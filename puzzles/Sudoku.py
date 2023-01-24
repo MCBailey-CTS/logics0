@@ -107,7 +107,6 @@ class Sudoku(Puzzle):
             return False
 
         return True
-        return True
 
     def row_chute(self, loc: Loc) -> int:
         if len(self) != 9:

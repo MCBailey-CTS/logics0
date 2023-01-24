@@ -1,6 +1,9 @@
 from puzzles import Sudoku
 from Loc import Loc
-class UniqueRectangleType2:
+from techniques.Technique import Technique
+
+
+class UniqueRectangleType2(Technique):
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
         for corner0 in list(puzzle.unsolved_cells()):

@@ -30,12 +30,4 @@ class AbstractPainting(PowerGrid):
                 return False
         return True
 
-    def __str__(self):
-        # string = f'{self.id()}\n'
-        # string += f'{self.__length}\n'
-        # for r in range(self.row_length):
-        #     for c in range(self.col_length):
-        #         string += f'{self.grid[r][c].ljust(self.__length)} '
-        #     string += '\n'
-        # return string
-        return "no implemented to string method for abstract painting"
+

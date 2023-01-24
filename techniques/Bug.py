@@ -1,8 +1,9 @@
 from Loc import Loc
 from puzzles import Sudoku
+from techniques.Technique import Technique
 
 
-class Bug:
+class Bug(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

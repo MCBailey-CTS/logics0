@@ -1,6 +1,9 @@
 from Loc import Loc
 from puzzles import Sudoku
-class HiddenSingle:
+from techniques.Technique import Technique
+
+
+class HiddenSingle(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0

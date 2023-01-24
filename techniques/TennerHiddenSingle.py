@@ -1,6 +1,9 @@
 from puzzles import Tenner
 from techniques.HiddenSingle import HiddenSingle
-class TennerHiddenSingle:
+from techniques.Technique import Technique
+
+
+class TennerHiddenSingle(Technique):
     def solve0(self, puzzle: Tenner) -> int:
         edits = 0
         for row in range(len(puzzle)):

@@ -3,7 +3,7 @@ PLUS = '+'
 MINUS = '-'
 EMPTY = '.'
 from Loc import Loc
-# from 
+from colorama import Fore, Style
 
 class Magnets:
     def __init__(self, puzzle: str) -> None:

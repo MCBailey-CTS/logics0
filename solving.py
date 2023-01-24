@@ -1,33 +1,23 @@
-import numpy
-import pytest
-
-from Constants import Constants
-from Loc import Loc
-from _defaults import default_test_puzzle, default_test_explicit_actual_expected
-from puzzles import *
 from tech import tech
 from techniques.AbstractPaintingTech import AbstractPaintingTech
-from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
-from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
+from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.CrossHatchRobotFences import CrossHatchRobotFences
 from techniques.CrossHatchSumscrapers import CrossHatchSumscrapers
+from techniques.FinnedXWing import FinnedXWing
 from techniques.HiddenSingle import HiddenSingle
 from techniques.HiddenSingleRobotFences import HiddenSingleRobotFences
 from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
+from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
+from techniques.LockedCandidatesPointing import LockedCandidatesPointing
+from techniques.NakedPair import NakedPair
 from techniques.Parks1Shapes import Parks1Shapes
 from techniques.Parks1XWing import Parks1XWing
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
-from techniques.UniqueRectangleType3 import UniqueRectangleType3
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
-from techniques.WWing import WWing
-from techniques.WxyzWing import WxyzWing
-from techniques.FinnedXWing import FinnedXWing
-from techniques.AlmostLockedCandidatesClaiming import AlmostLockedCandidatesClaiming
-from techniques.AlmostLockedCandidatesPointing import AlmostLockedCandidatesPointing
-from techniques.NakedPair import NakedPair
+
 
 class Solving:
     @staticmethod
@@ -36,13 +26,13 @@ class Solving:
             CrossHatch(),
             HiddenSingle(),
             NakedPair(),
-            tech.LockedCandidatesPointing(),
-            tech.LockedCandidatesClaiming(),
+            LockedCandidatesPointing(),
+            LockedCandidatesClaiming(),
             UniqueRectangleType1(),
             UniqueRectangleType2(),
             UniqueRectangleType4(),
             FinnedXWing(),
-            tech.Bug(),
+            Bug(),
             tech.HiddenPair(),
             tech.NakedTriple(),
             tech.XWing(),

@@ -1,7 +1,7 @@
-from puzzles import Puzzle
-from Loc import Loc
 from typing import Optional
-from colorama import Fore, Style, Back
+
+from Loc import Loc
+from puzzles import Puzzle
 
 
 class LightenUp(Puzzle):

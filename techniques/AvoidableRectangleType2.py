@@ -59,8 +59,8 @@ class AvoidableRectangleType2(BaseUniqueRectangle):
                 __intersection = __intersection + fence_house
             __remove = set(__intersection).difference(__opp_base)
             puzzle.override_loc_color(__intersection, Fore.RED)
-            puzzle.override_loc_color(__base, Fore.GREEN)
-            puzzle.override_loc_color(__opp_base, Fore.YELLOW)
+            puzzle.override_loc_color(list(__base), Fore.GREEN)
+            puzzle.override_loc_color(list(__opp_base), Fore.YELLOW)
             edits += puzzle.rem(__remove, [candidate])
 
         return edits
