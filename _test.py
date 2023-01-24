@@ -17,6 +17,7 @@ from techniques.HiddenSingleRobotFences import HiddenSingleRobotFences
 from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
 from techniques.Parks1Shapes import Parks1Shapes
 from techniques.Parks1XWing import Parks1XWing
+from techniques.RemotePair import RemotePair
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
@@ -43,7 +44,15 @@ skip_dict = {
     #     tech.Bug(),
     # ],
     # 'almost_locked_candidates_rows_center.sudoku': [],
-    # 'als_xz.sudoku': [],
+    # 'als_xz.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.LockedCandidatesClaiming(),
+    #     tech.HiddenPair(),
+    #     tech.XWing(),
+    #     tech.AlsXz()
+    # ],
     # 'alternating_inference_chain.sudoku': [],
     # 'annoying_00.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), tech.ShashimiXWing()],
     'annoying_02.sudoku': [CrossHatch(), FinnedXWing()],
@@ -145,7 +154,13 @@ skip_dict = {
     #         UniqueRectangleType4(),
     #         FinnedXWing(),
     # ],
-    # 'annoying_29.sudoku': [],
+    # 'annoying_29.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     NakedPair(),
+    #     FinnedXWing(),
+    # ],
     # 'annoying_30.sudoku': [],
     # 'annoying_32.sudoku': [],
     # 'annoying_33.sudoku': [],
@@ -235,14 +250,14 @@ skip_dict = {
         tech.XWing(),
         tech.Bug()
     ],
-    # 'difficult_04.sudoku': [
-    #     CrossHatch(),
-    #     HiddenSingle(),
-    #     tech.LockedCandidatesPointing(),
-    #     tech.LockedCandidatesClaiming(),
-    #     NakedPair(),
-    #     tech.RemotePair(),
-    # ],
+    'difficult_04.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        tech.LockedCandidatesPointing(),
+        tech.LockedCandidatesClaiming(),
+        NakedPair(),
+        RemotePair(),
+    ],
     'difficult_05.sudoku': [
         CrossHatch(),
         HiddenSingle(),
@@ -260,10 +275,34 @@ skip_dict = {
         UniqueRectangleType1(),
 
     ],
-    # 'difficult_20.sudoku': [],
-    # 'difficult_21.sudoku': [],
-    # 'difficult_31.sudoku': [],
-    # 'fiendish_0.sudoku': [],
+    'difficult_20.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        UniqueRectangleType4(),
+        tech.Bug()
+    ],
+    'difficult_21.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        tech.LockedCandidatesPointing(),
+        UniqueRectangleType4(),
+    ],
+    'difficult_31.sudoku': [
+        CrossHatch(),
+        RemotePair()
+    ],
+    # 'fiendish_0.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     tech.LockedCandidatesPointing(),
+    #     tech.HiddenPair(),
+    #     tech.LockedCandidatesClaiming(),
+    #     FinnedXWing(),
+    #     WxyzWing(),
+    #     tech.XyChain(),
+    #     tech.XyWing(),
+    #
+    # ],
     # 'finned_jellyfish_0.sudoku': [],
     # 'finned_jellyfish_1.sudoku': [],
     # 'finned_jellyfish_2.sudoku': [],
@@ -341,14 +380,14 @@ skip_dict = {
     #     tech.NakedTriple(),
     #     tech.ShashimiXWing(),
     #     tech.HiddenUniqueRectangle(),
-    #     tech.RemotePair(),
+    #     RemotePair(),
     #     tech.SwordFish(),
     #     tech.Bug()
     # ],
     'hidden_unique_rectangle_5.sudoku': [
         CrossHatch(),
         HiddenSingle(),
-        tech.RemotePair(),
+        RemotePair(),
         tech.XWing(),
         tech.HiddenUniqueRectangle(),
         tech.Bug()
@@ -513,7 +552,7 @@ skip_dict = {
     #     tech.LockedCandidatesPointing(),
     #     NakedPair(),
     #     UniqueRectangleType4(),
-    #     tech.RemotePair(),
+    #     RemotePair(),
     #     tech.SimpleColoring(),
     # ],
     # 'simple_coloring_1.sudoku': [],
@@ -624,5 +663,5 @@ def test_file_puzzle1(data):
             continue
         print(f'{tech1}: {edit_dict[tech1]}')
     print(f'Total edits: {edits}')
-    print(puzzle)
+    print(puzzle.to_string())
     assert False

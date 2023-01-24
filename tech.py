@@ -11,10 +11,6 @@ from techniques.Technique import Technique
 
 
 class tech:
-
-
-
-
     class Bug:
 
         def solve0(self, puzzle: Sudoku) -> int:
@@ -593,10 +589,26 @@ class tech:
             edits = 0
             return edits
 
-    class RemotePair:
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-            return edits
+    # class RemotePair:
+    #     def solve0(self, puzzle: Sudoku) -> int:
+    #         edits = 0
+    #         for r in range(len(puzzle)):
+    #             for c in range(len(puzzle)):
+    #                 cell = Loc(r, c)
+    #                 candidates = set(puzzle.cell_candidates(cell))
+    #                 if len(candidates) == 2 and candidates == {2, 3}:
+    #                     puzzle.override_loc_color([cell], Fore.RED)
+    #
+    #                     green = [Loc(6, 7), Loc(8, 0), Loc(7, 5)]
+    #                     puzzle.override_loc_color(green, Fore.GREEN)
+    #
+    #                     yellow = [Loc(3, 7), Loc(8, 6), Loc(7, 2), Loc(6, 5)]
+    #                     puzzle.override_loc_color(yellow, Fore.YELLOW)
+    #
+    #                     remove = [Loc(3, 0)]
+    #                     puzzle.override_loc_color(remove, Fore.RED)
+    #
+    #         return edits
 
     class NakedTriple(BaseSudokuHouseTechnique):
 
@@ -644,8 +656,6 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             return 0
 
-
-
     class HiddenTriple:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
@@ -678,7 +688,6 @@ class tech:
                 edits += puzzle.rem([house[3], house[5], house[6]], [4, 6, 7])
 
             return edits
-
 
     class HiddenQuad:
         def solve0(self, puzzle: Sudoku) -> int:
@@ -802,8 +811,6 @@ class tech:
                     # print("mssssade aaaait here")
 
             return edits
-
-
 
     class SueDeCoq:
 
@@ -1123,6 +1130,10 @@ class tech:
             edits += puzzle.rem(remove, [1])
 
             return edits
+
+    class AlsXz:
+        def solve0(self, puzzle: Sudoku):
+            return 0
 
     class XWing:
 
@@ -1624,7 +1635,6 @@ class tech:
                     edits += puzzle.rem(col_house, [self.EMPTY])
 
             return edits
-
 
     class MagnetsPair:
         def __int__(self):
@@ -3412,7 +3422,6 @@ class tech:
                     if len(fence_house) == 0:
                         edits += puzzle.rem([edge_cell], [1])
             return edits
-
 
     class Parks1HiddenSingle:
         def solve0(self, puzzle: Parks1) -> int:
