@@ -1,6 +1,9 @@
 import os
 from typing import Iterable
 
+from puzzles import Sudoku
+from colorama import Fore
+
 import numpy
 
 import temp
@@ -317,9 +320,6 @@ def temperature():
         f.close()
 
 
-from puzzles import Sudoku
-from colorama import Fore
-
 
 class FinnedXWing1:
 
@@ -459,7 +459,41 @@ def is_rectangle(corners: list[Loc]) -> bool:
     return len(rows) == 2 and len(cols) == 2
 
 
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+
+
+def prGreen(skk): print("\033[92m {}\033[00m" .format(skk))
+
+
+def prYellow(skk): print("\033[93m {}\033[00m" .format(skk))
+
+
+def prLightPurple(skk): print("\033[94m {}\033[00m" .format(skk))
+
+
+def prPurple(skk): print("\033[95m {}\033[00m" .format(skk))
+
+
+def prCyan(skk): print("\033[96m {}\033[00m" .format(skk))
+
+
+def prLightGray(skk): print("\033[97m {}\033[00m" .format(skk))
+
+
+def prBlack(skk): print("\033[98m {}\033[00m" .format(skk))
+
+
+
+
+
 if __name__ == "__main__":
+
+    prCyan("Hello World, ")
+    prYellow("It's")
+    prGreen("Geeks")
+    prRed("For")
+    prGreen("Geeks")
     from os import walk
 
     f = open('C:\\repos\\logics0\\solve_files\\' + "finned_x_wing_00.sudoku", 'r')
@@ -548,6 +582,7 @@ if __name__ == "__main__":
                                 puzzle.house_row(lower_left_loc.row) + puzzle.house_row(top_right_loc.row))
                             remove = set(house_fence00).intersection(puzzle.house_row(top_right_loc.row)).difference(
                                 containing_locs)
+
                             puzzle.override_loc_color(list(fin), Fore.BLUE)
                             puzzle.override_loc_color(list(remove), Fore.RED)
                             edits += puzzle.rem(list(remove), [candidate])
