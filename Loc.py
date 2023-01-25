@@ -1,7 +1,7 @@
 from numpy import ndarray
 from typing import Union
 class Loc:
-    def __init__(self, r: int, c: int):
+    def __init__(self, r: int, c: int) -> object:
         self._row = r
         self._col = c
 

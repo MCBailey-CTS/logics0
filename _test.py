@@ -6,42 +6,28 @@ from puzzles import *
 from solving import Solving
 # from solving import Solving
 from tech import tech
+from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.FinnedXWing import FinnedXWing
+from techniques.ShashimiXWing import ShashimiXWing
 from techniques.HiddenSingle import HiddenSingle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
-from techniques.NakedPair import NakedPair
+from techniques.NakedPair import NakedPair, NakedTriple
 from techniques.RemotePair import RemotePair
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
+from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
+from techniques.WxyzWing import WxyzWing
 
 EXPLICITLY = "EXPLICITLY"
 
 skip_dict = {
-    # 'almost_locked_candidates_col.sudoku': [],
-    # 'almost_locked_candidates_row.sudoku': [
-    #     CrossHatch(),
-    #     NakedPair(),
-    #     UniqueRectangleType1(),
-    #     AlmostLockedCandidatesPointing(),
-    #     Bug(),
-    # ],
-    # 'almost_locked_candidates_rows_center.sudoku': [],
-    # 'als_xz.sudoku': [
-    #     CrossHatch(),
-    #     HiddenSingle(),
-    #     LockedCandidatesPointing(),
-    #     LockedCandidatesClaiming(),
-    #     tech.HiddenPair(),
-    #     tech.XWing(),
-    #     tech.AlsXz()
-    # ],
-    # 'alternating_inference_chain.sudoku': [],
-    # 'annoying_00.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), tech.ShashimiXWing()],
-    'annoying_02.sudoku': [CrossHatch(), FinnedXWing()],
+
+    'annoying_00.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), ShashimiXWing()],
+    # 'annoying_02.sudoku': [CrossHatch(), FinnedXWing()],
     # 'annoying_05.sudoku': [CrossHatch(),
     #         HiddenSingle(),
     #         NakedPair(),
@@ -134,11 +120,11 @@ skip_dict = {
     # 'annoying_27.sudoku': []
     # 'annoying_28.sudoku': [
     #     CrossHatch(),
-    #         HiddenSingle(),
-    #         LockedCandidatesPointing(),
-    #         tech.NakedTriple(),
-    #         UniqueRectangleType4(),
-    #         FinnedXWing(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     tech.NakedTriple(),
+    #     UniqueRectangleType4(),
+    #     FinnedXWing(),
     # ],
     # 'annoying_29.sudoku': [
     #     CrossHatch(),
@@ -160,7 +146,8 @@ skip_dict = {
     #     UniqueRectangleType1(),
     #     AvoidableRectangleType1(),
     # ],
-    # 'avoidable_rectangle_type1_north_east_in_cols.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), LockedCandidatesPointing(), AvoidableRectangleType1()],
+    # 'avoidable_rectangle_type1_north_east_in_cols.sudoku': [CrossHatch(), HiddenSingle(), NakedPair(), LockedCandidatesPointing(), tech.XWing(), FinnedXWing(), UniqueRectangleType1(), UniqueRectangleType4(), NakedTriple(), AvoidableRectangleType1()],
+    # 'avoidable_rectangle_type1_north_east_in_rows.sudoku': [],
     # 'avoidable_rectangle_type1_north_east_in_rows.sudoku': [],
     # 'avoidable_rectangle_type1_north_west_in_cols.sudoku': [],
     # 'avoidable_rectangle_type1_north_west_in_rows.sudoku': [],
@@ -221,13 +208,69 @@ skip_dict = {
     #     tech.XyzWing(),
     #
     # ],
-    # 'devious_2.sudoku': [],
-    # 'devious_3.sudoku': [],
-    # 'devious_4.sudoku': [],
-    # 'devious_5.sudoku': [],
-    # 'devious_6.sudoku': [],
+    # 'devious_2.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     tech.HiddenPair(),
+    #     FinnedXWing(),
+    #     tech.XyWing()
+    # ],
+    # 'devious_3.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     LockedCandidatesClaiming(),
+    #     NakedPair(),
+    #     tech.XWing(),
+    #     tech.NakedTriple(),
+    #     WxyzWing()
+    # ],
+    # 'devious_4.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     UniqueRectangleType2(),
+    #     WxyzWing(),
+    #     tech.XWing(),
+    #     tech.HiddenPair(),
+    #     FinnedXWing(),
+    #     LockedCandidatesPointing(),
+    #     tech.XyzWing()
+    # ],
+    # 'devious_5.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     LockedCandidatesClaiming(),
+    #     NakedPair(),
+    #     NakedTriple(),
+    #     UniqueRectangleType4(),
+    #     tech.HiddenPair(),
+    #     tech.XWing(),
+    #     WxyzWing()
+    # ],
+    # 'devious_6.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     UniqueRectangleType1(),
+    #     NakedPair(),
+    #     NakedTriple(),
+    #     FinnedXWing(),
+    #     ShashimiXWing(),
+    #     tech.XyWing()
+    # ],
     # 'devious_7.sudoku': [],
-    # 'devious_8.sudoku': [],
+    # 'devious_8.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     NakedPair(),
+    #     FinnedXWing(),
+    #     LockedCandidatesClaiming(),
+    #     ShashimiXWing(),
+    #     tech.XyzWing()
+    # ],
     # 'diabolical_0.sudoku': [],
     'difficult_01.sudoku': [
         CrossHatch(),
@@ -357,7 +400,17 @@ skip_dict = {
     # 'hidden_unique_rectangle_0.sudoku': [],
     # 'hidden_unique_rectangle_1.sudoku': [],
     # 'hidden_unique_rectangle_2.sudoku': [],
-    # 'hidden_unique_rectangle_3.sudoku': [],
+    # 'hidden_unique_rectangle_3.sudoku': [
+    #     CrossHatch(),
+    #     NakedPair(),
+    #     LockedCandidatesClaiming(),
+    #     FinnedXWing(),
+    #     tech.HiddenUniqueRectangle(),
+    #     RemotePair(),
+    #     UniqueRectangleType4(),
+    #     tech.XWing(),
+    #     ShashimiXWing()
+    # ],
     # 'hidden_unique_rectangle_4.sudoku': [
     #     CrossHatch(),
     #     HiddenSingle(),
@@ -509,7 +562,13 @@ skip_dict = {
     #     HiddenSingle(),
     #     tech.ShashimiXWing()
     # ],
-    # 'shashimi_x_wing_02.sudoku': [],
+    # 'shashimi_x_wing_02.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     UniqueRectangleType4(),
+    #     ShashimiXWing()
+    # ],
     # 'shashimi_x_wing_03.sudoku': [
     #     CrossHatch(),
     #     HiddenSingle(),
@@ -524,7 +583,12 @@ skip_dict = {
     #
     # ],
     # 'shashimi_x_wing_05.sudoku': [],
-    # 'shashimi_x_wing_06.sudoku': [],
+    'shashimi_x_wing_06.sudoku': [
+        CrossHatch(),
+        HiddenSingle(),
+        LockedCandidatesPointing(),
+        ShashimiXWing()
+    ],
     # 'shashimi_x_wing_07.sudoku': [],
     # 'shashimi_x_wing_08.sudoku': [],
     # 'shashimi_x_wing_09.sudoku': [],
@@ -612,14 +676,37 @@ skip_dict = {
     # 'xy_wing_south_west_3_fences.sudoku': [],
     # 'x_chain.sudoku': [],
     # 'x_chain_0.sudoku': [],
-
+    # 'almost_locked_candidates_col.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     tech.XWing(),
+    #
+    # ],
+    # 'almost_locked_candidates_row.sudoku': [
+    #     CrossHatch(),
+    #     NakedPair(),
+    #     UniqueRectangleType1(),
+    #     AlmostLockedCandidatesPointing(),
+    #     Bug(),
+    # ],
+    # 'almost_locked_candidates_rows_center.sudoku': [],
+    # 'als_xz.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     LockedCandidatesPointing(),
+    #     LockedCandidatesClaiming(),
+    #     tech.HiddenPair(),
+    #     tech.XWing(),
+    #     tech.AlsXz()
+    # ],
+    # 'alternating_inference_chain.sudoku': [],
 }
 
 
 @pytest.mark.parametrize('data',
                          [filename for filename in next(walk('C:\\repos\\logics0\\solve_files'), (None, None, []))[2]])
 def test_file_puzzle1(data):
-
     if data not in skip_dict:
         pytest.skip(f'explicitly skipped: "{data}"')
     techniques = skip_dict[data]

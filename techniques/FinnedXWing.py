@@ -81,10 +81,10 @@ class FinnedXWing(Technique):
 
     def solve0(self, puzzle: Sudoku) -> int:
         edits = 0
-        for candidate in puzzle.expected_candidates():
-            for i in range(0, len(puzzle) - 1):
-                for ii in range(i + 1, len(puzzle)):
-                    edits += self.solve1(puzzle, puzzle.house_row(i), puzzle.house_row(ii), candidate)
-                    edits += self.solve1(puzzle, puzzle.house_col(i), puzzle.house_col(ii), candidate)
+        # for candidate in puzzle.expected_candidates():
+        #     for i in range(0, len(puzzle) - 1):
+        #         for ii in range(i + 1, len(puzzle)):
+        #             edits += self.solve1(puzzle, puzzle.house_row(i), puzzle.house_row(ii), candidate)
+        #             edits += self.solve1(puzzle, puzzle.house_col(i), puzzle.house_col(ii), candidate)
 
         return edits
