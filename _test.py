@@ -287,11 +287,11 @@ skip_dict = {
         NakedPair(),
         RemotePair(),
     ],
-    'difficult_05.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        Bug()
-    ],
+    # 'difficult_05.sudoku': [
+    #     CrossHatch(),
+    #     HiddenSingle(),
+    #     Bug()
+    # ],
     'difficult_08.sudoku': [
         CrossHatch(),
         HiddenSingle(),
@@ -450,38 +450,7 @@ skip_dict = {
     # 'jellyfish_2.sudoku': [],
     # 'jellyfish_of_1_in_rows.sudoku': [],
     # 'jellyfish_of_3_in_cols.sudoku': [],
-    'locked_candidates_claiming_col.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        NakedPair(),
-        LockedCandidatesPointing(),
-        LockedCandidatesClaiming(),
-        UniqueRectangleType1()
-    ],
-    'locked_candidates_claiming_row.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        NakedPair(),
-        LockedCandidatesPointing(),
-        LockedCandidatesClaiming(),
-        UniqueRectangleType1()
-    ],
-    'locked_candidates_pointing_col.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        NakedPair(),
-        LockedCandidatesPointing(),
-        LockedCandidatesClaiming(),
-        UniqueRectangleType1()
-    ],
-    'locked_candidates_pointing_row.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        NakedPair(),
-        LockedCandidatesPointing(),
-        LockedCandidatesClaiming(),
-        UniqueRectangleType1()
-    ],
+
     # 'maelstrom_0.sudoku': [],
     # 'medusa_coloring_3d.sudoku': [],
     # 'medusa_coloring_3d_0.sudoku': [],
@@ -583,12 +552,7 @@ skip_dict = {
     #
     # ],
     # 'shashimi_x_wing_05.sudoku': [],
-    'shashimi_x_wing_06.sudoku': [
-        CrossHatch(),
-        HiddenSingle(),
-        LockedCandidatesPointing(),
-        ShashimiXWing()
-    ],
+
     # 'shashimi_x_wing_07.sudoku': [],
     # 'shashimi_x_wing_08.sudoku': [],
     # 'shashimi_x_wing_09.sudoku': [],
@@ -710,6 +674,59 @@ def test_file_puzzle1(data):
     if data not in skip_dict:
         pytest.skip(f'explicitly skipped: "{data}"')
     techniques = skip_dict[data]
+    if len(techniques) == 0:
+        techniques = Solving.sudoku_techniques()
+    f = open(f'C:\\repos\\logics0\\solve_files\\{data}', 'r')
+    string = f.read()
+    f.close()
+    string = f'{data}\n{string}'
+    puzzle = Sudoku(string)
+    edits = 0
+    edit_dict = {}
+    while True:
+        original_edits = edits
+        for tech1 in techniques:
+            _edits = tech1.solve0(puzzle)
+            if tech1.__class__.__name__ not in edit_dict:
+                edit_dict[tech1.__class__.__name__] = 0
+            edit_dict[tech1.__class__.__name__] += _edits
+            edits = edits + _edits
+        if original_edits == edits:
+            break
+    if puzzle.is_solved():
+        return
+    for tech1 in edit_dict:
+        if edit_dict[tech1] == 0:
+            continue
+        print(f'{tech1}: {edit_dict[tech1]}')
+    print(f'Total edits: {edits}')
+    print(puzzle.to_string())
+    assert False
+
+
+
+@pytest.mark.parametrize('data',
+                         [
+
+                             'locked_candidates_claiming_col.sudoku',
+                             'locked_candidates_claiming_row.sudoku',
+
+                             'locked_candidates_pointing_col.sudoku',
+                             'locked_candidates_pointing_row.sudoku',
+                             'difficult_05.sudoku',
+                             'shashimi_x_wing_06.sudoku'
+                         ])
+def test_file_puzzle_all_techniques(data):
+    techniques = [
+        CrossHatch(),
+        HiddenSingle(),
+        LockedCandidatesPointing(),
+        LockedCandidatesClaiming(),
+        Bug(),
+        UniqueRectangleType1(),
+        ShashimiXWing()
+    ]
+
     if len(techniques) == 0:
         techniques = Solving.sudoku_techniques()
     f = open(f'C:\\repos\\logics0\\solve_files\\{data}', 'r')
