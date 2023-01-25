@@ -710,6 +710,66 @@ EXPLICITLY = "EXPLICITLY"
 #         RemotePair()
 #     ],
 
+
+techniques = [
+    CrossHatch(),
+    # Mild
+    HiddenSingle(),
+    # Moderate
+    LockedCandidatesPointing(),
+    # Intricate
+    LockedCandidatesClaiming(),
+    NakedPair(),
+    # Difficult
+    UniqueRectangleType1(),
+    UniqueRectangleType2(),
+    UniqueRectangleType3(),
+    UniqueRectangleType4(),
+    Bug(),
+    tech.NakedTriple(),
+    tech.HiddenPair(),
+    RemotePair(),
+    tech.XWing(),
+    # Annoying
+    FinnedXWing(),
+    ShashimiXWing(),
+    tech.SwordFish(),
+    tech.HiddenTriple(),
+    tech.FinnedSwordFish(),
+    tech.ShashimiSwordFish(),
+    WWing(),
+    # Devious
+    tech.JellyFish(),
+    # almost locked candidates
+    tech.HiddenUniqueRectangle(),
+    tech.XyzWing(),
+    tech.XyWing(),
+    AvoidableRectangleType1(),
+    AvoidableRectangleType2(),
+    WxyzWing(),
+    # Fiendish
+    tech.NakedQuad(),
+    tech.SimpleColoring(),
+    tech.HiddenQuad(),
+    tech.FinnedJellyFish(),
+    tech.ShashimiJellyFish(),
+    tech.FishyCycle(),
+    tech.XChain(),
+    tech.XyChain(),
+]
+
+
+def get_sudoku_puzzle_from_file(data)->Sudoku:
+    f = open(f'C:\\repos\\logics0\\solve_files\\{data}', 'r')
+    string = f.read()
+    f.close()
+    string = f'{data}\n{string}'
+    return Sudoku(string)
+
+
+
+
+
 @pytest.mark.parametrize('data',
                          [
                              # 'almost_locked_candidates_col.sudoku',
@@ -932,60 +992,13 @@ EXPLICITLY = "EXPLICITLY"
                              # 'x_chain_0.sudoku',
                          ])
 def test_file_puzzle_all_techniques(data):
-    techniques = [
-        CrossHatch(),
-        # Mild
-        HiddenSingle(),
-        # Moderate
-        LockedCandidatesPointing(),
-        # Intricate
-        LockedCandidatesClaiming(),
-        NakedPair(),
-        # Difficult
-        UniqueRectangleType1(),
-        UniqueRectangleType2(),
-        UniqueRectangleType3(),
-        UniqueRectangleType4(),
-        Bug(),
-        tech.NakedTriple(),
-        tech.HiddenPair(),
-        RemotePair(),
-        tech.XWing(),
-        # Annoying
-        FinnedXWing(),
-        ShashimiXWing(),
-        tech.SwordFish(),
-        tech.HiddenTriple(),
-        tech.FinnedSwordFish(),
-        tech.ShashimiSwordFish(),
-        WWing(),
-        # Devious
-        tech.JellyFish(),
-        # almost locked candidates
-        tech.HiddenUniqueRectangle(),
-        tech.XyzWing(),
-        tech.XyWing(),
-        AvoidableRectangleType1(),
-        AvoidableRectangleType2(),
-        WxyzWing(),
-        # Fiendish
-        tech.NakedQuad(),
-        tech.SimpleColoring(),
-        tech.HiddenQuad(),
-        tech.FinnedJellyFish(),
-        tech.ShashimiJellyFish(),
-        tech.FishyCycle(),
-        tech.XChain(),
-        tech.XyChain(),
-    ]
 
-    f = open(f'C:\\repos\\logics0\\solve_files\\{data}', 'r')
-    string = f.read()
-    f.close()
-    string = f'{data}\n{string}'
-    puzzle = Sudoku(string)
+    puzzle = get_sudoku_puzzle_from_file(data)
     edits = 0
     edit_dict = {}
+
+
+    edited_puzzles = []
 
     # try:
     while True:
@@ -1000,12 +1013,14 @@ def test_file_puzzle_all_techniques(data):
             break
     if puzzle.is_solved():
         return
-    # except:
-    #     print("exception")
     for tech1 in edit_dict:
         if edit_dict[tech1] == 0:
             continue
         print(f'{tech1}: {edit_dict[tech1]}')
+    # except Exception as ex:
+    #     print(ex)
+    #     print("exception")
+
     print(f'Total edits: {edits}')
     print(puzzle.to_string())
     assert False
