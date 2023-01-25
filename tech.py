@@ -134,71 +134,71 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
 
-            for candidate in puzzle.expected_candidates():
-                for i in range(0, 6):
-                    for ii in range(i + 1, 7):
-                        for iii in range(ii + 1, 8):
-                            for iiii in range(iii + 1, 9):
-                                if len({i, ii, iii, iiii}) != 4:
-                                    continue
-
-                                locs0 = [loc for loc in puzzle.house_row(i) if candidate in puzzle.cell_candidates(loc)]
-                                locs1 = [loc for loc in puzzle.house_row(ii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-                                locs2 = [loc for loc in puzzle.house_row(iii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-                                locs3 = [loc for loc in puzzle.house_row(iiii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-
-                                loc_set = set(locs0 + locs1 + locs2 + locs3)
-
-                                cols = set([loc.col for loc in loc_set])
-
-                                has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
-
-                                if any(has_solved_candidate):
-                                    continue
-
-                                if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
-                                    continue
-
-                                if len(cols) != 4:
-                                    continue
-
-                                edits += self.new_method(puzzle, candidate, locs0, locs1, locs2, locs3, cols)
-
-            for candidate in puzzle.expected_candidates():
-                for i in range(0, 6):
-                    for ii in range(i + 1, 7):
-                        for iii in range(ii + 1, 8):
-                            for iiii in range(iii + 1, 9):
-                                if len({i, ii, iii, iiii}) != 4:
-                                    continue
-
-                                locs0 = [loc for loc in puzzle.house_col(i) if candidate in puzzle.cell_candidates(loc)]
-                                locs1 = [loc for loc in puzzle.house_col(ii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-                                locs2 = [loc for loc in puzzle.house_col(iii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-                                locs3 = [loc for loc in puzzle.house_col(iiii) if
-                                         candidate in puzzle.cell_candidates(loc)]
-
-                                loc_set = set(locs0 + locs1 + locs2 + locs3)
-
-                                rows = set([loc.row for loc in loc_set])
-
-                                has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
-
-                                if any(has_solved_candidate):
-                                    continue
-
-                                if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
-                                    continue
-
-                                if len(rows) != 4:
-                                    continue
-
-                                edits += self.new_method1(puzzle, candidate, locs0, locs1, locs2, locs3, rows)
+            # for candidate in puzzle.expected_candidates():
+            #     for i in range(0, 6):
+            #         for ii in range(i + 1, 7):
+            #             for iii in range(ii + 1, 8):
+            #                 for iiii in range(iii + 1, 9):
+            #                     if len({i, ii, iii, iiii}) != 4:
+            #                         continue
+            #
+            #                     locs0 = [loc for loc in puzzle.house_row(i) if candidate in puzzle.cell_candidates(loc)]
+            #                     locs1 = [loc for loc in puzzle.house_row(ii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #                     locs2 = [loc for loc in puzzle.house_row(iii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #                     locs3 = [loc for loc in puzzle.house_row(iiii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #
+            #                     loc_set = set(locs0 + locs1 + locs2 + locs3)
+            #
+            #                     cols = set([loc.col for loc in loc_set])
+            #
+            #                     has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
+            #
+            #                     if any(has_solved_candidate):
+            #                         continue
+            #
+            #                     if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
+            #                         continue
+            #
+            #                     if len(cols) != 4:
+            #                         continue
+            #
+            #                     edits += self.new_method(puzzle, candidate, locs0, locs1, locs2, locs3, cols)
+            #
+            # for candidate in puzzle.expected_candidates():
+            #     for i in range(0, 6):
+            #         for ii in range(i + 1, 7):
+            #             for iii in range(ii + 1, 8):
+            #                 for iiii in range(iii + 1, 9):
+            #                     if len({i, ii, iii, iiii}) != 4:
+            #                         continue
+            #
+            #                     locs0 = [loc for loc in puzzle.house_col(i) if candidate in puzzle.cell_candidates(loc)]
+            #                     locs1 = [loc for loc in puzzle.house_col(ii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #                     locs2 = [loc for loc in puzzle.house_col(iii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #                     locs3 = [loc for loc in puzzle.house_col(iiii) if
+            #                              candidate in puzzle.cell_candidates(loc)]
+            #
+            #                     loc_set = set(locs0 + locs1 + locs2 + locs3)
+            #
+            #                     rows = set([loc.row for loc in loc_set])
+            #
+            #                     has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
+            #
+            #                     if any(has_solved_candidate):
+            #                         continue
+            #
+            #                     if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
+            #                         continue
+            #
+            #                     if len(rows) != 4:
+            #                         continue
+            #
+            #                     edits += self.new_method1(puzzle, candidate, locs0, locs1, locs2, locs3, rows)
 
             return edits
 
@@ -543,67 +543,67 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
 
-            for candidate in puzzle.expected_candidates():
-                for i in range(len(puzzle)):
-                    for ii in range(len(puzzle)):
-                        for iii in range(len(puzzle)):
-                            if len({i, ii, iii}) != 3:
-                                continue
-
-                            locs0 = [loc for loc in puzzle.house_row(i) if candidate in puzzle.cell_candidates(loc)]
-                            locs1 = [loc for loc in puzzle.house_row(ii) if candidate in puzzle.cell_candidates(loc)]
-                            locs2 = [loc for loc in puzzle.house_row(iii) if candidate in puzzle.cell_candidates(loc)]
-
-                            loc_set = set(locs0 + locs1 + locs2)
-
-                            rows = set([loc.col for loc in loc_set])
-
-                            has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
-
-                            if any(has_solved_candidate):
-                                continue
-
-                            if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
-                                continue
-
-                            if len(rows) != 3:
-                                continue
-
-                            for row in rows:
-                                row_set = set(puzzle.house_col(row))
-                                for loc in row_set.difference(locs0 + locs1 + locs2):
-                                    edits += puzzle.rem(loc, [candidate])
-
-            for candidate in puzzle.expected_candidates():
-                for i in range(len(puzzle)):
-                    for ii in range(len(puzzle)):
-                        for iii in range(len(puzzle)):
-                            if len({i, ii, iii}) != 3:
-                                continue
-
-                            locs0 = [loc for loc in puzzle.house_col(i) if candidate in puzzle.cell_candidates(loc)]
-                            locs1 = [loc for loc in puzzle.house_col(ii) if candidate in puzzle.cell_candidates(loc)]
-                            locs2 = [loc for loc in puzzle.house_col(iii) if candidate in puzzle.cell_candidates(loc)]
-
-                            loc_set = set(locs0 + locs1 + locs2)
-
-                            rows = set([loc.row for loc in loc_set])
-
-                            has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
-
-                            if any(has_solved_candidate):
-                                continue
-
-                            if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
-                                continue
-
-                            if len(rows) != 3:
-                                continue
-
-                            for row in rows:
-                                row_set = set(puzzle.house_row(row))
-                                for loc in row_set.difference(locs0 + locs1 + locs2):
-                                    edits += puzzle.rem(loc, [candidate])
+            # for candidate in puzzle.expected_candidates():
+            #     for i in range(len(puzzle)):
+            #         for ii in range(len(puzzle)):
+            #             for iii in range(len(puzzle)):
+            #                 if len({i, ii, iii}) != 3:
+            #                     continue
+            #
+            #                 locs0 = [loc for loc in puzzle.house_row(i) if candidate in puzzle.cell_candidates(loc)]
+            #                 locs1 = [loc for loc in puzzle.house_row(ii) if candidate in puzzle.cell_candidates(loc)]
+            #                 locs2 = [loc for loc in puzzle.house_row(iii) if candidate in puzzle.cell_candidates(loc)]
+            #
+            #                 loc_set = set(locs0 + locs1 + locs2)
+            #
+            #                 rows = set([loc.col for loc in loc_set])
+            #
+            #                 has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
+            #
+            #                 if any(has_solved_candidate):
+            #                     continue
+            #
+            #                 if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
+            #                     continue
+            #
+            #                 if len(rows) != 3:
+            #                     continue
+            #
+            #                 for row in rows:
+            #                     row_set = set(puzzle.house_col(row))
+            #                     for loc in row_set.difference(locs0 + locs1 + locs2):
+            #                         edits += puzzle.rem(loc, [candidate])
+            #
+            # for candidate in puzzle.expected_candidates():
+            #     for i in range(len(puzzle)):
+            #         for ii in range(len(puzzle)):
+            #             for iii in range(len(puzzle)):
+            #                 if len({i, ii, iii}) != 3:
+            #                     continue
+            #
+            #                 locs0 = [loc for loc in puzzle.house_col(i) if candidate in puzzle.cell_candidates(loc)]
+            #                 locs1 = [loc for loc in puzzle.house_col(ii) if candidate in puzzle.cell_candidates(loc)]
+            #                 locs2 = [loc for loc in puzzle.house_col(iii) if candidate in puzzle.cell_candidates(loc)]
+            #
+            #                 loc_set = set(locs0 + locs1 + locs2)
+            #
+            #                 rows = set([loc.row for loc in loc_set])
+            #
+            #                 has_solved_candidate = [len(puzzle.cell_candidates(loc)) == 1 for loc in loc_set]
+            #
+            #                 if any(has_solved_candidate):
+            #                     continue
+            #
+            #                 if len(locs0) < 2 or len(locs1) < 2 or len(locs2) < 2:
+            #                     continue
+            #
+            #                 if len(rows) != 3:
+            #                     continue
+            #
+            #                 for row in rows:
+            #                     row_set = set(puzzle.house_row(row))
+            #                     for loc in row_set.difference(locs0 + locs1 + locs2):
+            #                         edits += puzzle.rem(loc, [candidate])
 
             return edits
 
@@ -611,86 +611,86 @@ class tech:
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
 
-            for pivot in puzzle.unsolved_cells():
-                pivot_candidates = set(puzzle.cell_candidates(pivot))
-
-                if len(pivot_candidates) != 3:
-                    continue
-
-                pivot_fence = puzzle.cell_fence(pivot)
-
-                pivot_fence_set = set(puzzle.house_fence(pivot_fence)).difference([pivot])
-
-                for loc_in_fence in pivot_fence_set:
-                    loc_in_fence_candidates = puzzle.cell_candidates(loc_in_fence)
-
-                    if len(loc_in_fence_candidates) != 2:
-                        continue
-
-                    # print(pivot_candidates)
-
-                    if not pivot_candidates.issuperset(loc_in_fence_candidates):
-                        continue
-
-                    pivot_row_set = set(puzzle.house_row(pivot.row)).difference([pivot, loc_in_fence])
-
-                    for loc_in_row in pivot_row_set:
-                        loc_in_row_candidates = puzzle.cell_candidates(loc_in_row)
-
-                        if len(loc_in_row_candidates) != 2:
-                            continue
-
-                        if not pivot_candidates.issuperset(loc_in_row_candidates):
-                            continue
-
-                        if set(loc_in_row_candidates).issuperset(loc_in_fence_candidates):
-                            continue
-
-                        if not pivot_candidates.issuperset(list(loc_in_row_candidates) + list(loc_in_fence_candidates)):
-                            continue
-
-                        intersection = pivot_candidates.intersection(loc_in_row_candidates).intersection(
-                            loc_in_fence_candidates)
-
-                        if len(intersection) != 1:
-                            continue
-
-                        candidate_to_remove = list(intersection)[0]
-
-                        intersection_locs = pivot_fence_set.intersection(pivot_row_set)
-
-                        for loc in intersection_locs:
-                            edits += puzzle.rem(loc, [candidate_to_remove])
-
-                    pivot_col_set = set(puzzle.house_col(pivot.col)).difference([pivot, loc_in_fence])
-
-                    for loc_in_col in pivot_col_set:
-                        loc_in_col_candidates = puzzle.cell_candidates(loc_in_col)
-
-                        if len(loc_in_col_candidates) != 2:
-                            continue
-
-                        if not pivot_candidates.issuperset(loc_in_col_candidates):
-                            continue
-
-                        if set(loc_in_col_candidates).issuperset(loc_in_fence_candidates):
-                            continue
-
-                        if not pivot_candidates.issuperset(list(loc_in_col_candidates) + list(loc_in_fence_candidates)):
-                            continue
-
-                        intersection = pivot_candidates.intersection(loc_in_col_candidates).intersection(
-                            loc_in_fence_candidates)
-
-                        if len(intersection) != 1:
-                            continue
-
-                        candidate_to_remove = list(intersection)[0]
-
-                        intersection_locs = pivot_fence_set.intersection(pivot_col_set)
-
-                        for loc in intersection_locs:
-                            edits += puzzle.rem(loc, [candidate_to_remove])
+            # for pivot in puzzle.unsolved_cells():
+            #     pivot_candidates = set(puzzle.cell_candidates(pivot))
+            #
+            #     if len(pivot_candidates) != 3:
+            #         continue
+            #
+            #     pivot_fence = puzzle.cell_fence(pivot)
+            #
+            #     pivot_fence_set = set(puzzle.house_fence(pivot_fence)).difference([pivot])
+            #
+            #     for loc_in_fence in pivot_fence_set:
+            #         loc_in_fence_candidates = puzzle.cell_candidates(loc_in_fence)
+            #
+            #         if len(loc_in_fence_candidates) != 2:
+            #             continue
+            #
+            #         # print(pivot_candidates)
+            #
+            #         if not pivot_candidates.issuperset(loc_in_fence_candidates):
+            #             continue
+            #
+            #         pivot_row_set = set(puzzle.house_row(pivot.row)).difference([pivot, loc_in_fence])
+            #
+            #         for loc_in_row in pivot_row_set:
+            #             loc_in_row_candidates = puzzle.cell_candidates(loc_in_row)
+            #
+            #             if len(loc_in_row_candidates) != 2:
+            #                 continue
+            #
+            #             if not pivot_candidates.issuperset(loc_in_row_candidates):
+            #                 continue
+            #
+            #             if set(loc_in_row_candidates).issuperset(loc_in_fence_candidates):
+            #                 continue
+            #
+            #             if not pivot_candidates.issuperset(list(loc_in_row_candidates) + list(loc_in_fence_candidates)):
+            #                 continue
+            #
+            #             intersection = pivot_candidates.intersection(loc_in_row_candidates).intersection(
+            #                 loc_in_fence_candidates)
+            #
+            #             if len(intersection) != 1:
+            #                 continue
+            #
+            #             candidate_to_remove = list(intersection)[0]
+            #
+            #             intersection_locs = pivot_fence_set.intersection(pivot_row_set)
+            #
+            #             for loc in intersection_locs:
+            #                 edits += puzzle.rem(loc, [candidate_to_remove])
+            #
+            #         pivot_col_set = set(puzzle.house_col(pivot.col)).difference([pivot, loc_in_fence])
+            #
+            #         for loc_in_col in pivot_col_set:
+            #             loc_in_col_candidates = puzzle.cell_candidates(loc_in_col)
+            #
+            #             if len(loc_in_col_candidates) != 2:
+            #                 continue
+            #
+            #             if not pivot_candidates.issuperset(loc_in_col_candidates):
+            #                 continue
+            #
+            #             if set(loc_in_col_candidates).issuperset(loc_in_fence_candidates):
+            #                 continue
+            #
+            #             if not pivot_candidates.issuperset(list(loc_in_col_candidates) + list(loc_in_fence_candidates)):
+            #                 continue
+            #
+            #             intersection = pivot_candidates.intersection(loc_in_col_candidates).intersection(
+            #                 loc_in_fence_candidates)
+            #
+            #             if len(intersection) != 1:
+            #                 continue
+            #
+            #             candidate_to_remove = list(intersection)[0]
+            #
+            #             intersection_locs = pivot_fence_set.intersection(pivot_col_set)
+            #
+            #             for loc in intersection_locs:
+            #                 edits += puzzle.rem(loc, [candidate_to_remove])
             return edits
 
     class XyWing(Technique):
@@ -923,16 +923,16 @@ class tech:
 
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
-            # print("here")
-            for r in range(len(puzzle)):
-                for c in range(len(puzzle)):
-                    loc = Loc(r, c)
-
-                    if puzzle.is_cell_solved(loc):
-                        continue
-
-                    for candidate in puzzle.cell_candidates(loc):
-                        edits += self.solve_one_cell(puzzle, loc, candidate)
+            # # print("here")
+            # for r in range(len(puzzle)):
+            #     for c in range(len(puzzle)):
+            #         loc = Loc(r, c)
+            #
+            #         if puzzle.is_cell_solved(loc):
+            #             continue
+            #
+            #         for candidate in puzzle.cell_candidates(loc):
+            #             edits += self.solve_one_cell(puzzle, loc, candidate)
 
             return edits
 
