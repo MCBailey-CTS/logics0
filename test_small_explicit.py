@@ -29,6 +29,88 @@ def test_():
     assert False
 
 
+
+
+def test_almost_locked_candidates_claiming_row():
+    actual = \
+        f"""
+        __34a 12__a   ____b ____b
+        ____a ____a   12__b ____b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        __34a 12__a   ____b ____b
+        ____a ____a   12__b __34b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    assert False
+
+def test_almost_locked_candidates_pointing_row():
+    actual = \
+        f"""
+        ____a 12__a   ____b ____b
+        ____a ____a   12__b __34b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        __34a 12__a   ____b ____b
+        ____a ____a   12__b __34b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    assert False
+
+def test_ur3_north_row():
+    actual = \
+        f"""
+        123_a 12_4a   __34b ____b
+        ____a ____a   ____b ____b
+
+        ____c ____c   ____d ____d
+        12__c 12__c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        123_a 12_4a   __34b 12__b
+        ____a ____a   ____b ____b
+
+        ____c ____c   ____d ____d
+        12__c 12__c   ____d ____d
+        """
+    assert False
+
+def test_ur1_row_chute_sw():
+    actual = \
+        f"""
+        __34a ____a   __34b ____b
+        _234a ____a   __34b ____b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        __34a ____a   __34b ____b
+        _2__a ____a   __34b ____b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    assert False
+
 def test_cross_hatch():
     actual = \
         f"""
@@ -47,7 +129,6 @@ def test_cross_hatch():
         _2__c 12__c   1_34d ___4d
             """
     assert False
-
 
 def test_xy_chain_west():
     actual = \
@@ -69,7 +150,6 @@ def test_xy_chain_west():
         """
     assert False
 
-
 def test_hidden_unique_rectangle_row_chute_south_east():
     actual = \
         f"""
@@ -89,7 +169,6 @@ def test_hidden_unique_rectangle_row_chute_south_east():
         ____c ____c   ____d _234d
         """
     assert False
-
 
 def test_xyz_wing_fences2_row_chute():
     actual = \
@@ -131,7 +210,6 @@ def test_sudoku_4x4_wxyz_fences2_south():
         """
     assert False
 
-
 def test_sudoku_4x4_wxyz_fences2_north():
     actual = \
         f"""
@@ -149,5 +227,45 @@ def test_sudoku_4x4_wxyz_fences2_north():
 
         12__c 1__4c   ____d ____d
         12_4c __34c   ____d ____d
+        """
+    assert False
+
+def test_shashimi_x_wing_east_fins1():
+    actual = \
+        f"""
+        _234a ____a   234_b ____b
+        ____a ____a   ____b ____b
+
+        _234c ____c   ____d _234d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        _234a ____a   234_b ____b
+        ____a ____a   _234b ____b
+
+        _234c ____c   ____d _234d
+        ____c ____c   ____d _234d
+        """
+    assert False
+
+def test_finned_x_wing_east_fins1():
+    actual = \
+        f"""
+        _234a ____a   234_b ____b
+        ____a ____a   ____b ____b
+
+        _234c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        _234a ____a   234_b ____b
+        ____a ____a   ____b ____b
+
+        _234c ____c   ____d ____d
+        ____c ____c   ____d _234d
         """
     assert False
