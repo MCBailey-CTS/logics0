@@ -67,8 +67,8 @@ class UniqueRectangleType2(BaseUniqueRectangle):
         narray[1][1] = se
         for _ in range(4):
             narray = numpy.rot90(narray, 1)
-            temp_edits = self.solve_temp(puzzle, narray)
-            if temp_edits > 0:
-                return temp_edits
+            edits += self.solve_temp(puzzle, narray)
+            # if temp_edits > 0:
+            #     return temp_edits
             # edits +=
         return edits
