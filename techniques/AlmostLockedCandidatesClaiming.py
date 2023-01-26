@@ -16,8 +16,8 @@ class AlmostLockedCandidatesClaiming(Technique):
         fence_string = "".join(char for char in "".join(puzzle.grid[loc.row][loc.col] for loc in fence) if
                                char.isnumeric() or char == '_')
 
-        print(house_string)
-        print(fence_string)
+        # print(house_string)
+        # print(fence_string)
 
         if house_string == '__3456789__3456789__3456789__3456789__345678912_______123456789123456789123456789' and \
                 fence_string == '12345678912345678912345678912_______123456789123456789123456789123456789123456789':

@@ -892,7 +892,7 @@ def get_sudoku_puzzle_from_file(data)->Sudoku:
                              # 'medusa_coloring_3d_0.sudoku',
                              # 'naked_pair_col.sudoku',
                              # 'naked_pair_fence.sudoku',
-                             'naked_pair_row.sudoku',
+                             # 'naked_pair_row.sudoku',
                              # 'naked_quad_4.sudoku',
                              # 'naked_quad_5.sudoku',
                              # 'naked_quad_6.sudoku',

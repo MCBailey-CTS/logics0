@@ -1,6 +1,8 @@
 from puzzles import Sudoku
 from Loc import Loc
 from abc import abstractmethod
+
+
 class BaseUniqueRectangle:
 
     @abstractmethod
@@ -8,7 +10,9 @@ class BaseUniqueRectangle:
         raise NotImplementedError()
 
     def solve0(self, puzzle: Sudoku) -> int:
+
         edits = 0
+
         unsolved = puzzle.unsolved_cells()
 
         if len(unsolved) == 0:
@@ -44,5 +48,10 @@ class BaseUniqueRectangle:
                 if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
                     continue
 
-                edits += self.solve_rectangle(puzzle, list(corners))
+                temp_edits = self.solve_rectangle(puzzle, list(corners))
+
+                if temp_edits > 0:
+                    return temp_edits
+
+                # edits += self.solve_rectangle(puzzle, list(corners))
         return edits
