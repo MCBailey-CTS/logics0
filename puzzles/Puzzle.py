@@ -230,6 +230,9 @@ class Puzzle:
             raise TypeError(f'Cannot == because not a puzzle {type(other)}')
 
         if isinstance(self.grid, numpy.ndarray) and isinstance(other.grid, numpy.ndarray):
+            # print('in here')
+            print(self.grid)
+            print(other.grid)
             return (self.grid == other.grid).all()
 
         return False

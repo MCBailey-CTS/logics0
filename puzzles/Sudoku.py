@@ -176,10 +176,10 @@ class Sudoku(Puzzle):
         string = f'{self.id()}\n'
         string += f'{len(self)}\n'
         for r in range(len(self)):
-            if r == 3 or r == 6:
+            if (len(self) == 9 and (r == 3 or r == 6)) or (len(self) == 4 and (r == 2)):
                 string += '\n'
             for c in range(len(self)):
-                if c == 3 or c == 6:
+                if (len(self) == 9 and (c == 3 or c == 6)) or (len(self) == 4 and (c == 2)):
                     string += '   '
                 loc = Loc(r, c)
                 if include_colors and loc in self.color_override:

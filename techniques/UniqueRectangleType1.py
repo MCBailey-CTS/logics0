@@ -1,6 +1,10 @@
+from typing import Optional
+
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 from puzzles import Sudoku
 from Loc import Loc
+import numpy
+
 
 class UniqueRectangleType1(BaseUniqueRectangle):
     def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]) -> int:
@@ -32,4 +36,8 @@ class UniqueRectangleType1(BaseUniqueRectangle):
 
         edits += puzzle.rem([corner_unique_set.pop()], candidate_set)
 
+        return edits
+
+    def solve_grid(self, length: int, grid: numpy.ndarray, fences: Optional[numpy.ndarray]) -> int:
+        edits = 0
         return edits

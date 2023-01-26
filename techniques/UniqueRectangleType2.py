@@ -1,143 +1,115 @@
+import numpy
+from colorama import Fore
+
 from puzzles import Sudoku
 from Loc import Loc
-from techniques.Technique import Technique
+from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 
 
-class UniqueRectangleType2(Technique):
-    def solve0(self, puzzle: Sudoku) -> int:
+class UniqueRectangleType2(BaseUniqueRectangle):
+
+    def solve_temp(self, puzzle: Sudoku, narray: numpy.ndarray)->int:
         edits = 0
-        for corner0 in list(puzzle.unsolved_cells()):
-            for corner1 in list(puzzle.unsolved_cells()):
-                corners = [
-                    corner0,
-                    corner1,
-                    Loc(corner0.row, corner1.col),
-                    Loc(corner1.row, corner0.col),
-                ]
+        nw = narray[0][0]
+        ne = narray[0][1]
 
-                rows = set([loc.row for loc in corners])
-                cols = set([loc.col for loc in corners])
-                fences = set([puzzle.cell_fence(loc) for loc in corners])
-                try:
-                    if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
-                        continue
-                    length_2 = [loc for loc in corners if len(puzzle.cell_candidates(loc)) == 2]
-                    length_3 = [loc for loc in corners if len(puzzle.cell_candidates(loc)) == 3]
+        sw = narray[1][0]
+        se = narray[1][1]
 
-                    if len(length_2) != 2 or len(length_3) != 2:
-                        continue
 
-                    length_2_candidates = [puzzle.cell_candidates(loc) for loc in length_2]
-                    length_3_candidates = [puzzle.cell_candidates(loc) for loc in length_3]
+        ne_candidates = puzzle.cell_candidates(ne)
+        se_candidates = puzzle.cell_candidates(se)
 
-                    if not set(length_2_candidates[0]).issubset(length_2_candidates[1]) or \
-                            not set(length_2_candidates[0]).issuperset(length_2_candidates[1]):
-                        continue
+        nw_candidates = puzzle.cell_candidates(nw)
+        sw_candidates = puzzle.cell_candidates(sw)
 
-                    if not set(length_3_candidates[0]).issubset(length_3_candidates[1]) or not set(
-                            length_3_candidates[0]).issuperset(length_3_candidates[1]):
-                        continue
+        if len(ne_candidates) == 3 and len(se_candidates) == 3:
+            if set(ne_candidates) == set(se_candidates):
+                if len(nw_candidates) == 2 and len(sw_candidates) == 2:
+                    if set(nw_candidates) == set(sw_candidates) and set(ne_candidates).issuperset(set(sw_candidates)):
+                        puzzle.override_loc_color([nw, sw], Fore.GREEN)
+                        puzzle.override_loc_color([ne, se], Fore.YELLOW)
+                        candidate = set(ne_candidates).difference(set(sw_candidates)).pop()
 
-                    if not set(length_3_candidates[0]).issuperset(length_2_candidates[0]):
-                        continue
+                        ne_fence_house = puzzle.house_fence(puzzle.cell_fence(ne))
+                        se_fence_house = puzzle.house_fence(puzzle.cell_fence(se))
 
-                    # print(length_2_candidates[0])
-                    # print(length_3_candidates[0])
+                        remove = set(ne_fence_house).intersection(se_fence_house)
 
-                    candidate_to_remove = list(set(length_3_candidates[0]).difference(length_2_candidates[0]))[0]
+                        if ne.col == se.col:
+                            remove = remove.union(puzzle.house_col(ne.col)).difference([ne, se])
 
-                    # print(candidate_to_remove)
+                        if ne.row == se.row:
+                            remove = remove.union(puzzle.house_row(ne.row)).difference([ne, se])
 
-                    if length_3[0].col == length_3[1].col:
-                        locs_to_remove_from = set(puzzle.house_col(length_3[0].col)).difference(length_3)
-
-                        for loc in locs_to_remove_from:
-                            edits += puzzle.rem(loc, [candidate_to_remove])
-
-                    if length_3[0].row == length_3[1].row:
-                        locs_to_remove_from = set(puzzle.house_row(length_3[0].row)).difference(length_3)
-
-                        for loc in locs_to_remove_from:
-                            edits += puzzle.rem(loc, [candidate_to_remove])
-
-                    if puzzle.cell_fence(length_3[0]) == puzzle.cell_fence(length_3[1]):
-                        locs_to_remove_from = set(puzzle.house_fence(puzzle.cell_fence(length_3[0]))).difference(
-                            length_3)
-
-                        for loc in locs_to_remove_from:
-                            edits += puzzle.rem(loc, [candidate_to_remove])
-                except Exception as e:
-                    print(corners)
-                    print(puzzle)
-                    raise e
-
+                        edits += puzzle.rem(remove, [candidate])
         return edits
 
-    # def solve1(self, puzzle: Sudoku, corners: list[Loc]) -> int:
-    #     edits = 0
+    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
+        edits = 0
 
-    #     corner_set = set(corners)
+        rows = set([loc.row for loc in corners])
+        cols = set([loc.col for loc in corners])
+        fences = set([puzzle.cell_fence(loc) for loc in corners])
 
-    #     if len(corner_set) != 4:
-    #         raise ValueError(f'cannot make unique rectangle from {len(corner_set)} corner(s)')
+        if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
+            return edits
 
-    #     rows = set([loc.row for loc in corner_set])
-    #     if len(rows) != 2:
-    #         raise ValueError(f'cannot make unique rectangle from {len(rows)} row(s)')
+        # print('made it here')
 
-    #     cols = set([loc.col for loc in corner_set])
-    #     if len(cols) != 2:
-    #         raise ValueError(f'cannot make unique rectangle from {len(cols)} col(s)')
+        min_row = min(corner.row for corner in corners)
+        max_row = max(corner.row for corner in corners)
 
-    #     fences = set([puzzle.cell_fence(loc) for loc in corner_set])
-    #     if len(fences) != 2:
-    #         raise ValueError(f'cannot make unique rectangle from {len(fences)} fence(s)')
+        min_col = min(corner.col for corner in corners)
+        max_col = max(corner.col for corner in corners)
 
-    #     two_candidates = [loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 2]
-    #     three_candidates = [loc for loc in corner_set if len(puzzle.cell_candidates(loc)) == 3]
+        # nw = Loc()
 
-    #     if len(two_candidates) != 2:
-    #         return edits
+        narray = numpy.empty((2, 2), dtype=object)
 
-    #     if len(three_candidates) != 2:
-    #         return edits
+        nw = Loc(min_row, min_col)
+        ne = Loc(min_row, max_col)
+        sw = Loc(max_row, min_col)
+        se = Loc(max_row, max_col)
 
-    #     two_candidates_set0 = set(puzzle.cell_candidates(two_candidates[0]))
-    #     two_candidates_set1 = set(puzzle.cell_candidates(two_candidates[1]))
+        narray[0][0] = nw
+        narray[0][1] = ne
 
-    #     three_candidates_set0 = set(puzzle.cell_candidates(three_candidates[0]))
-    #     three_candidates_set1 = set(puzzle.cell_candidates(three_candidates[1]))
+        narray[1][0] = sw
+        narray[1][1] = se
 
-    #     if puzzle.cell_fence(two_candidates[0]) != puzzle.cell_fence(two_candidates[1]):
-    #         return edits
+        for _ in range(4):
+            narray = numpy.rot90(narray, 1)
 
-    #     if puzzle.cell_fence(three_candidates[0]) != puzzle.cell_fence(three_candidates[1]):
-    #         return edits
+            edits += self.solve_temp(puzzle, narray)
+            # print(narray)
 
-    #     # checks to see if the two_candidates are the same set
-    #     if not two_candidates_set0.issubset(two_candidates_set1):
-    #         return edits
 
-    #     # checks to see if the three_candidates are the same set
-    #     if not three_candidates_set0.issubset(three_candidates_set1):
-    #         return edits
+        # ne_candidates = puzzle.cell_candidates(ne)
+        # se_candidates = puzzle.cell_candidates(se)
+        #
+        # nw_candidates = puzzle.cell_candidates(nw)
+        # sw_candidates = puzzle.cell_candidates(sw)
+        #
+        # if len(ne_candidates) == 3 and len(se_candidates) == 3:
+        #     if set(ne_candidates) == set(se_candidates):
+        #         if len(nw_candidates) == 2 and len(sw_candidates) == 2:
+        #             if set(nw_candidates) == set(sw_candidates) and set(ne_candidates).issuperset(set(sw_candidates)):
+        #                 puzzle.override_loc_color([nw, sw], Fore.GREEN)
+        #                 puzzle.override_loc_color([ne, se], Fore.YELLOW)
+        #                 candidate = set(ne_candidates).difference(set(sw_candidates)).pop()
+        #
+        #                 ne_fence_house = puzzle.house_fence(puzzle.cell_fence(ne))
+        #                 se_fence_house = puzzle.house_fence(puzzle.cell_fence(se))
+        #
+        #                 remove = set(ne_fence_house).intersection(se_fence_house)
+        #
+        #                 if ne.col == se.col:
+        #                     remove = remove.union(puzzle.house_col(ne.col)).difference([ne, se])
+        #
+        #                 if ne.row == se.row:
+        #                     remove = remove.union(puzzle.house_row(ne.row)).difference([ne, se])
+        #
+        #                 edits += puzzle.rem(remove, [candidate])
 
-    #     # checks to see that three_candidates is a superset of two_candidates
-    #     if not three_candidates_set0.issuperset(two_candidates_set0):
-    #         return edits
-
-    #     if three_candidates[0].row == three_candidates[1].row:
-    #         row = three_candidates[0].row
-    #         fence = puzzle.cell_fence(three_candidates[0])
-    #         row_house_set = set(puzzle.house_row(row))
-    #         fence_house_set = set(puzzle.house_fence(fence))
-
-    #         row_house_set.discard(three_candidates[0])
-    #         row_house_set.discard(three_candidates[1])
-    #         fence_house_set.discard(three_candidates[0])
-    #         fence_house_set.discard(three_candidates[1])
-
-    #         for loc in list(row_house_set) + list(fence_house_set):
-    #             edits += puzzle.rem(loc, set(three_candidates_set0).difference(two_candidates_set0))
-
-    #     return edits
+        return edits
