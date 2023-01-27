@@ -3,7 +3,9 @@ from techniques.Technique import Technique
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 from Loc import Loc
 from colorama import Fore
-class AvoidableRectangleType1(BaseUniqueRectangle   ):
+
+
+class AvoidableRectangleType1(BaseUniqueRectangle):
 
     def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]) -> int:
         edits = 0
@@ -39,8 +41,6 @@ class AvoidableRectangleType1(BaseUniqueRectangle   ):
         else:
             return edits
 
-
-
         min_row = min(corner.row for corner in corners)
         max_row = max(corner.row for corner in corners)
         min_col = min(corner.col for corner in corners)
@@ -52,7 +52,8 @@ class AvoidableRectangleType1(BaseUniqueRectangle   ):
         se = Loc(max_row, max_col)
 
         # north-west -- south-east
-        if set(puzzle.cell_candidates(nw)) == {two_solved_candidate} and set(puzzle.cell_candidates(se)) == {two_solved_candidate}:
+        if set(puzzle.cell_candidates(nw)) == {two_solved_candidate} and\
+                set(puzzle.cell_candidates(se)) == {two_solved_candidate}:
             # south-west solved
             if set(puzzle.cell_candidates(sw)) == {single_solved_candidate}:
                 edits += puzzle.rem([ne], [single_solved_candidate])
@@ -61,12 +62,12 @@ class AvoidableRectangleType1(BaseUniqueRectangle   ):
                 edits += puzzle.rem([sw], [single_solved_candidate])
 
         # north-east -- south-west
-        if set(puzzle.cell_candidates(ne)) == {two_solved_candidate} and set(puzzle.cell_candidates(sw)) == {
-            two_solved_candidate}:
+        if set(puzzle.cell_candidates(ne)) == {two_solved_candidate} and\
+                set(puzzle.cell_candidates(sw)) == {two_solved_candidate}:
             # south-east solved
             if set(puzzle.cell_candidates(se)) == {single_solved_candidate}:
                 edits += puzzle.rem([nw], [single_solved_candidate])
             # north-west solved
             if set(puzzle.cell_candidates(nw)) == {single_solved_candidate}:
-                edits += puzzle.rem([nw], [single_solved_candidate])
+                edits += puzzle.rem([se], [single_solved_candidate])
         return edits

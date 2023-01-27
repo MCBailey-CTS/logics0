@@ -7,9 +7,431 @@ from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.CrossHatch import CrossHatch
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 import numpy
-
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
+from techniques.WxyzWing import WxyzWing
+
+
+def test_sudoku_4x4_ar1_row_ne():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 1234d
+            ____c __3_c   ____d ___4d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 12_4d
+            ____c __3_c   ____d ___4d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_ne_control():
+    if solve(4, f"""
+                ____a ____a   ____b ____b
+                ____a ___4a   __3_b ____b
+
+                ____c ____c   ____d 1234d
+                ____c __3_c   ____d ___4d
+                """, None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_nw():
+    if solve(4,
+             f"""
+            ____a 1234a   _2__b ____b
+            ____a _2__a   __3_b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a 12_4a   _2__b ____b
+            ____a _2__a   __3_b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_nw_control():
+    if solve(4, f"""
+            ____a 1234a   _2__b ____b
+            ____a ____a   __3_b ____b
+
+            ____c _2__c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_se():
+    if solve(4,
+             f"""
+            ____a 1___a   ____b _2__b
+            ____a _2__a   ____b 1234b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a 1___a   ____b _2__b
+            ____a _2__a   ____b _234b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_se_control():
+    if solve(4, f"""
+            ____a 1___a   ____b _2__b
+            ____a ____a   ____b 1234b
+
+            ____c _2__c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_sw():
+    if solve(4,
+             f"""
+            ____a ___4a   __3_b ____b
+            ____a 1234a   ___4b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ___4a   __3_b ____b
+            ____a 12_4a   ___4b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_sw_control():
+    if solve(4, f"""
+            ____a ____a   __3_b ____b
+            ____a 1234a   ___4b ____b
+
+            ____c ___4c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_ne():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 1234b
+
+            ____c ____c   ___4d 1___d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 123_b
+
+            ____c ____c   ___4d 1___d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_ne_control():
+    if solve(4, f"""
+            ____a 1___a   ____b 1234b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 1___d
+            ____c ____c   ____d ____d
+            """,
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_nw():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            1234a ___4a   ____b ____b
+
+            ___4c __3_c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            12_4a ___4a   ____b ____b
+
+            ___4c __3_c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_nw_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            1234a ___4a   ____b ____b
+
+            ____c __3_c   ____d ____d
+            ___4c ____c   ____d ____d
+            """,
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_se():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ___4b 1___b
+
+            ____c ____c   ____d ____d
+            ____c ____c   1___d 1234d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ___4b 1___b
+
+            ____c ____c   ____d ____d
+            ____c ____c   1___d 123_d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_se_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            ____a ___4a   ____b 1___b
+
+            ____c ____c   ____d ____d
+            ____c 1___c   ____d 1234d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_sw():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 2___b
+
+            ____c ____c   1234d 1___d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 2___b
+
+            ____c ____c   1_34d 1___d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_sw_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            ____a 1___a   ____b 2___b
+
+            ____c 1234c   ____d 1___d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_normal_east():
+    actual = \
+        f"""
+        ____a _23_a   123_b 123_b
+        ____a _23_a   ____b 123_b
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        ____a _23_a   _23_b 123_b
+        ____a _23_a   _234b 123_b
+        ____c ____c   ____d _234d
+        ____c ____c   ____d _234d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_goofy_east():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        ____a ____a   12__b 123_b
+        ____c ____c   12__d 123_d
+        ____c ____c   ____d ____d
+        """
+
+    expected = \
+        f"""
+        ____a ____a   ____b 12_4b
+        ____a ____a   12__b 123_b
+        ____c ____c   12__d 123_d
+        ____c ____c   ____d 12_4d
+        """
+
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_north():
+    actual = \
+        f"""
+        ____a 123_a   ____b ____b
+        123_a 123_a   ____b ____b
+        12__c 12__c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        12_4a 12__a   ____b ____b
+        123_a 123_a   12_4b 12_4b
+        12__c 12__c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_north():
+    actual = \
+        f"""
+        ____a 123_a   123_b ____b
+        ____a _23_a   _23_b ____b
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        _234a 123_a   123_b _234b
+        ____a _23_a   _23_b ____b
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_west():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        ____a ____a   ____b ____b
+        123_c 123_c   12__d ____d
+        ____c 123_c   12__d ____d
+        """
+    expected = \
+        f"""
+        ____a 12_4a   ____b ____b
+        ____a 12_4a   ____b ____b
+        12__c 123_c   12__d ____d
+        12_4c 123_c   12__d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_west():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        123_a 12__a   ____b ____b
+        123_c 12__c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        12_4a ____a   ____b ____b
+        123_a 12__a   ____b ____b
+        123_c 12__c   ____d ____d
+        12_4c ____c   ____d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_south():
+    actual = \
+        f"""
+        12__a 12__a   ____b ____b
+        ____a ____a   ____b ____b
+        123_c 123_c   ____d ____d
+        123_c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        12__a 12__a   ____b ____b
+        ____a ____a   ____b ____b
+        123_c 123_c   12_4d 12_4d
+        12__c 12_4c   ____d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_south():
+    actual = \
+        f"""
+        ____a 12__a   12__b ____b
+        ____a 123_a   123_b ____b
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        ____a 12__a   12__b ____b
+        12_4a 123_a   123_b 12_4b
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
 
 
 def test_sudoku_4x4_ur1_row_ne():
@@ -277,6 +699,144 @@ def test_sudoku_4x4_ur1_col_sw_control():
     assert False
 
 
+def test_cross_hatch():
+    actual = \
+        f"""
+        1___a ____a   ____b ____b
+        ____a ____a   ____b ____b
+
+        ____c ____c   ____d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = \
+        f"""
+        1___a _234a   _234b _234b
+        _234a _234a   ____b ____b
+
+        _234c ____c   ____d ____d
+        _234c ____c   ____d ____d
+            """
+    if solve(4, actual, expected, CrossHatch()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_normal_east_control():
+    actual = \
+        f"""
+        ____a _23_a   123_b 123_b
+        ____a ____a   ____b ____b
+        ____c _23_c   ____d 123_d
+        ____c ____c   ____d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_goofy_east_control():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        ____a 12__a   ____b 123_b
+        ____c 12__c   ____d 123_d
+        ____c ____c   ____d ____d
+        """
+
+    expected = None
+
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_north_control():
+    actual = \
+        f"""
+        ____a ____a   123_b ____b
+        123_a ____a   123_b ____b
+        12__c ____c   12__d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_north_control():
+    actual = \
+        f"""
+        ____a 123_a   123_b ____b
+        ____a ____a   ____b ____b
+        ____c _23_c   ____d ____d
+        ____c ____c   _23_d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_west_control():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        ____a ____a   12__b ____b
+        123_c 123_c   ____d ____d
+        ____c 123_c   12__d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_west_control():
+    actual = \
+        f"""
+        ____a ____a   ____b ____b
+        123_a ____a   12__b ____b
+        123_c ____c   12__d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_normal_south_control():
+    actual = \
+        f"""
+        12__a 12__a   ____b ____b
+        ____a ____a   ____b ____b
+        ____c 123_c   123_d ____d
+        123_c ____c   ____d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ur2_chute_goofy_south_control():
+    actual = \
+        f"""
+        ____a 12__a   12__b ____b
+        ____a ____a   ____b ____b
+        ____c 123_c   123_d ____d
+        ____c ____c   ____d ____d
+        """
+    expected = None
+    if solve(4, actual, expected, UniqueRectangleType2()):
+        return
+    assert False
+
+
 def to_sudoku(length: int, actual: str, _id: str) -> Sudoku:
     newcan = "".join(str(num + 1) for num in range(length))
 
@@ -499,27 +1059,6 @@ def test_ur3_north_row():
         return
     assert False
 
-def test_cross_hatch():
-    actual = \
-        f"""
-        1___a ____a   ____b ____b
-        ____a ____a   ____b ____b
-
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        1___a _234a   _234b _234b
-        _234a _234a   ____b ____b
-
-        _234c ____c   ____d ____d
-        _234c ____c   ____d ____d
-            """
-    if solve(4, actual, expected, CrossHatch()):
-        return
-    assert False
-
 
 @mark.skip("EXPLICITLY")
 def test_xy_chain_west():
@@ -636,7 +1175,7 @@ def test_sudoku_4x4_wxyz_fences2_north():
         12__c 1__4c   ____d ____d
         12_4c __34c   ____d ____d
         """
-    if solve(4, actual, expected, None):
+    if solve(4, actual, expected, WxyzWing()):
         return
     assert False
 
@@ -689,177 +1228,10 @@ def test_finned_x_wing_east_fins1():
     assert False
 
 
-def test_sudoku_4x4_ur2_normal_east():
-    actual = \
-        f"""
-        ____a _23_a   123_b 123_b
-        ____a _23_a   ____b 123_b
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        ____a _23_a   _23_b 123_b
-        ____a _23_a   _234b 123_b
-        ____c ____c   ____d _234d
-        ____c ____c   ____d _234d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ur2_goofy_east():
-    actual = \
-        f"""
-        ____a ____a   ____b ____b
-        ____a ____a   12__b 123_b
-        ____c ____c   12__d 123_d
-        ____c ____c   ____d ____d
-        """
-
-    expected = \
-        f"""
-        ____a ____a   ____b 12_4b
-        ____a ____a   12__b 123_b
-        ____c ____c   12__d 123_d
-        ____c ____c   ____d 12_4d
-        """
-
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-
-    assert False
-
-    # expected = \
-    #     f"""
-    #        ____a _23_a   _23_b 123_b
-    #        ____a _23_a   _234b 123_b
-    #
-    #        ____c ____c   ____d _234d
-    #        ____c ____c   ____d _234d
-    #        """
-
-
-def test_sudoku_4x4_ur2_chute_normal_north():
-    actual = \
-        f"""
-        ____a 123_a   ____b ____b
-        123_a 123_a   ____b ____b
-        12__c 12__c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        12_4a 12__a   ____b ____b
-        123_a 123_a   12_4b 12_4b
-        12__c 12__c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ur2_chute_goofy_north():
-    actual = \
-        f"""
-        ____a 123_a   123_b ____b
-        ____a _23_a   _23_b ____b
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        _234a 123_a   123_b _234b
-        ____a _23_a   _23_b ____b
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ur2_chute_normal_west():
-    actual = \
-        f"""
-        ____a ____a   ____b ____b
-        ____a ____a   ____b ____b
-        123_c 123_c   12__d ____d
-        ____c 123_c   12__d ____d
-        """
-    expected = \
-        f"""
-        ____a 12_4a   ____b ____b
-        ____a 12_4a   ____b ____b
-        12__c 123_c   12__d ____d
-        12_4c 123_c   12__d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ur2_chute_goofy_west():
-    actual = \
-        f"""
-        ____a ____a   ____b ____b
-        123_a 12__a   ____b ____b
-        123_c 12__c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        12_4a ____a   ____b ____b
-        123_a 12__a   ____b ____b
-        123_c 12__c   ____d ____d
-        12_4c ____c   ____d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-
-    assert False
-
-
-def test_sudoku_4x4_ur2_chute_normal_south():
-    actual = \
-        f"""
-        12__a 12__a   ____b ____b
-        ____a ____a   ____b ____b
-        123_c 123_c   ____d ____d
-        123_c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        12__a 12__a   ____b ____b
-        ____a ____a   ____b ____b
-        123_c 123_c   12_4d 12_4d
-        12__c 12_4c   ____d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ur2_chute_goofy_south():
-    actual = \
-        f"""
-        ____a 12__a   12__b ____b
-        ____a 123_a   123_b ____b
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    expected = \
-        f"""
-        ____a 12__a   12__b ____b
-        12_4a 123_a   123_b 12_4b
-        ____c ____c   ____d ____d
-        ____c ____c   ____d ____d
-        """
-    if solve(4, actual, expected, UniqueRectangleType2()):
-        return
-    assert False
+####################################################
+####################################################
+####################################################
+####################################################
 
 
 ####################################################
@@ -868,247 +1240,6 @@ def test_sudoku_4x4_ur2_chute_goofy_south():
 ####################################################
 
 
-def test_sudoku_4x4_ar1_row_ne():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-            
-            ____c ___4c   ____d 1234d
-            ____c __3_c   ____d ___4d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-            
-            ____c ___4c   ____d 12_4d
-            ____c __3_c   ____d ___4d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_ne_control():
-    if solve(4,
-             f"""
-                ____a ____a   ____b ____b
-                ____a ___4a   __3_b ____b
-
-                ____c ____c   ____d 1234d
-                ____c __3_c   ____d ___4d
-                """
-            ,
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_nw():
-    if solve(4,
-             f"""
-            ____a 1234a   _2__b ____b
-            ____a _2__a   __3_b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a 12_4a   _2__b ____b
-            ____a _2__a   __3_b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_nw_control():
-    if solve(4, f"""
-            ____a 1234a   _2__b ____b
-            ____a ____a   __3_b ____b
-
-            ____c _2__c   ____d ____d
-            ____c ____c   ____d ____d""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_row_se():
-    if solve(4,
-             f"""
-            ____a 1___a   ____b _2__b
-            ____a _2__a   ____b 1234b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_row_se_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_row_sw():
-    if solve(4,
-             f"""
-            ____a ___4a   __3_b ____b
-            ____a 1234a   ___4b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_row_sw_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_ne():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 1234b
-
-            ____c ____c   ___4d 1___d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_ne_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_nw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            1234a ___4a   ____b ____b
-
-            ___4c __3_c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_nw_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_se():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_se_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_sw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 2___b
-
-            ____c ____c   1234d 1___d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ar1_col_sw_control():
-    if solve(4, f"""""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
 ####################################################################
 ####################################################################
 ####################################################################
@@ -1119,7 +1250,7 @@ def test_sudoku_4x4_ar1_col_sw_control():
 
 
 @mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_ne():
+def test_sudoku_4x4_ur4_normal_north():
     if solve(4,
              f"""
             ____a ____a   ____b ____b
@@ -1138,274 +1269,265 @@ def test_sudoku_4x4_ur4_row_ne():
         return
     assert False
 
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_ne_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_nw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_nw_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_se():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-           ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_se_control():
-    if solve(4,
-             f"""
-           ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_sw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_row_sw_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_ne():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_ne_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_nw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_nw_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_se():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_se_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_sw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, UniqueRectangleType4()):
-        return
-    assert False
-
-
-@mark.skip("EXPLICITLY")
-def test_sudoku_4x4_ur4_col_sw_control():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, None, UniqueRectangleType4()):
-        return
-    assert False
-
-
-
-
-
-
-
-
-
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_ne_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_nw():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_nw_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_se():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#            ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_se_control():
+#     if solve(4,
+#              f"""
+#            ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_sw():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_row_sw_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_ne():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_ne_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_nw():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_nw_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_se():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_se_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_sw():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, UniqueRectangleType4()):
+#         return
+#     assert False
+#
+#
+# @mark.skip("EXPLICITLY")
+# def test_sudoku_4x4_ur4_col_sw_control():
+#     if solve(4,
+#              f"""
+#             ____a ____a   ____b ____b
+#             ____a ____a   ____b ____b
+#
+#             ____c ____c   ____d ____d
+#             ____c ____c   ____d ____d
+#             """, None, UniqueRectangleType4()):
+#         return
+#     assert False
 
 
 ####################################################################
