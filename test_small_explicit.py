@@ -1,3 +1,4 @@
+import pytest
 from colorama import Fore
 from pytest import mark, fail
 from Loc import Loc
@@ -7,12 +8,45 @@ from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
 from techniques.CrossHatch import CrossHatch
 from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
+from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 import numpy
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
 from techniques.WxyzWing import WxyzWing
 from techniques.XyWing import XyWing
+
+
+def test_sudoku_9x9_locked_candidates_claiming_col():
+    if solve(9,
+             f"""
+            _________a _________a _________a    _________b _________b _________b    _________c _________c _________c 
+            _________a _________a _________a    _________b _________b _________b    _________c _________c _________c 
+            _________a _________a _________a    _________b 12_456789b _________b    _________c _________c _________c 
+
+            _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+            _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+            _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+
+            _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+            _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+            _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+            """
+            , f"""
+        _________a _________a _________a    12_456789b _________b 12_456789b    _________c _________c _________c 
+        _________a _________a _________a    12_456789b _________b 12_456789b    _________c _________c _________c 
+        _________a _________a _________a    12_456789b 12_456789b 12_456789b    _________c _________c _________c 
+
+        _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+        _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+        _________d _________d _________d    _________e 12_456789e _________e    _________f _________f _________f 
+
+        _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+        _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+        _________g _________g _________g    _________h 12_456789h _________h    _________i _________i _________i 
+        """, LockedCandidatesClaiming()):
+        return
+    assert False
 
 
 def test_sudoku_4x4_ar2_normal_east():
@@ -921,264 +955,6 @@ def test_sudoku_6x6_ur4_goofy_east():
         ______d ______d   ______e ______e   ______f _23456f
         """
     if solve(6, actual, expected, UniqueRectangleType4()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_ne():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ___4c   ____d 1234d
-            ____c __3_c   ____d ___4d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ____b ____b
-
-            ____c ___4c   ____d 12_4d
-            ____c __3_c   ____d ___4d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_ne_control():
-    if solve(4, f"""
-                ____a ____a   ____b ____b
-                ____a ___4a   __3_b ____b
-
-                ____c ____c   ____d 1234d
-                ____c __3_c   ____d ___4d
-                """, None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_nw():
-    if solve(4,
-             f"""
-            ____a 1234a   _2__b ____b
-            ____a _2__a   __3_b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a 12_4a   _2__b ____b
-            ____a _2__a   __3_b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_nw_control():
-    if solve(4, f"""
-            ____a 1234a   _2__b ____b
-            ____a ____a   __3_b ____b
-
-            ____c _2__c   ____d ____d
-            ____c ____c   ____d ____d""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_se():
-    if solve(4,
-             f"""
-            ____a 1___a   ____b _2__b
-            ____a _2__a   ____b 1234b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a 1___a   ____b _2__b
-            ____a _2__a   ____b _234b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_se_control():
-    if solve(4, f"""
-            ____a 1___a   ____b _2__b
-            ____a ____a   ____b 1234b
-
-            ____c _2__c   ____d ____d
-            ____c ____c   ____d ____d""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_sw():
-    if solve(4,
-             f"""
-            ____a ___4a   __3_b ____b
-            ____a 1234a   ___4b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ___4a   __3_b ____b
-            ____a 12_4a   ___4b ____b
-
-            ____c ____c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_row_sw_control():
-    if solve(4, f"""
-            ____a ____a   __3_b ____b
-            ____a 1234a   ___4b ____b
-
-            ____c ___4c   ____d ____d
-            ____c ____c   ____d ____d""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_ne():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 1234b
-
-            ____c ____c   ___4d 1___d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 123_b
-
-            ____c ____c   ___4d 1___d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_ne_control():
-    if solve(4, f"""
-            ____a 1___a   ____b 1234b
-            ____a ____a   ____b ____b
-
-            ____c ___4c   ____d 1___d
-            ____c ____c   ____d ____d
-            """,
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_nw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            1234a ___4a   ____b ____b
-
-            ___4c __3_c   ____d ____d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            12_4a ___4a   ____b ____b
-
-            ___4c __3_c   ____d ____d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_nw_control():
-    if solve(4, f"""
-            ____a ____a   ____b ____b
-            1234a ___4a   ____b ____b
-
-            ____c __3_c   ____d ____d
-            ___4c ____c   ____d ____d
-            """,
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_se():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ___4b 1___b
-
-            ____c ____c   ____d ____d
-            ____c ____c   1___d 1234d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   ___4b 1___b
-
-            ____c ____c   ____d ____d
-            ____c ____c   1___d 123_d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_se_control():
-    if solve(4, f"""
-            ____a ____a   ____b ____b
-            ____a ___4a   ____b 1___b
-
-            ____c ____c   ____d ____d
-            ____c 1___c   ____d 1234d""",
-             None, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_sw():
-    if solve(4,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 2___b
-
-            ____c ____c   1234d 1___d
-            ____c ____c   ____d ____d
-            """,
-             f"""
-            ____a ____a   ____b ____b
-            ____a ____a   1___b 2___b
-
-            ____c ____c   1_34d 1___d
-            ____c ____c   ____d ____d
-            """, AvoidableRectangleType1()):
-        return
-    assert False
-
-
-def test_sudoku_4x4_ar1_col_sw_control():
-    if solve(4, f"""
-            ____a ____a   ____b ____b
-            ____a 1___a   ____b 2___b
-
-            ____c 1234c   ____d 1___d
-            ____c ____c   ____d ____d""",
-             None, AvoidableRectangleType1()):
         return
     assert False
 
@@ -2379,5 +2155,263 @@ def test_sudoku_4x4_xy_wing_3_fences_sw():
         ____c ____c   ____d ____d
         """
     if solve(4, actual, expected, XyWing()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_ne_control():
+    if solve(4, f"""
+                ____a ____a   ____b ____b
+                ____a ___4a   __3_b ____b
+
+                ____c ____c   ____d 1234d
+                ____c __3_c   ____d ___4d
+                """, None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_nw():
+    if solve(4,
+             f"""
+            ____a 1234a   _2__b ____b
+            ____a _2__a   __3_b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a 12_4a   _2__b ____b
+            ____a _2__a   __3_b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_nw_control():
+    if solve(4, f"""
+            ____a 1234a   _2__b ____b
+            ____a ____a   __3_b ____b
+
+            ____c _2__c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_se():
+    if solve(4,
+             f"""
+            ____a 1___a   ____b _2__b
+            ____a _2__a   ____b 1234b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a 1___a   ____b _2__b
+            ____a _2__a   ____b _234b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_se_control():
+    if solve(4, f"""
+            ____a 1___a   ____b _2__b
+            ____a ____a   ____b 1234b
+
+            ____c _2__c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_sw():
+    if solve(4,
+             f"""
+            ____a ___4a   __3_b ____b
+            ____a 1234a   ___4b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ___4a   __3_b ____b
+            ____a 12_4a   ___4b ____b
+
+            ____c ____c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_sw_control():
+    if solve(4, f"""
+            ____a ____a   __3_b ____b
+            ____a 1234a   ___4b ____b
+
+            ____c ___4c   ____d ____d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_ne():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 1234b
+
+            ____c ____c   ___4d 1___d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 123_b
+
+            ____c ____c   ___4d 1___d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_ne_control():
+    if solve(4, f"""
+            ____a 1___a   ____b 1234b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 1___d
+            ____c ____c   ____d ____d
+            """,
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_nw():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            1234a ___4a   ____b ____b
+
+            ___4c __3_c   ____d ____d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            12_4a ___4a   ____b ____b
+
+            ___4c __3_c   ____d ____d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_nw_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            1234a ___4a   ____b ____b
+
+            ____c __3_c   ____d ____d
+            ___4c ____c   ____d ____d
+            """,
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_se():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ___4b 1___b
+
+            ____c ____c   ____d ____d
+            ____c ____c   1___d 1234d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ___4b 1___b
+
+            ____c ____c   ____d ____d
+            ____c ____c   1___d 123_d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_se_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            ____a ___4a   ____b 1___b
+
+            ____c ____c   ____d ____d
+            ____c 1___c   ____d 1234d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_sw():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 2___b
+
+            ____c ____c   1234d 1___d
+            ____c ____c   ____d ____d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   1___b 2___b
+
+            ____c ____c   1_34d 1___d
+            ____c ____c   ____d ____d
+            """, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_col_sw_control():
+    if solve(4, f"""
+            ____a ____a   ____b ____b
+            ____a 1___a   ____b 2___b
+
+            ____c 1234c   ____d 1___d
+            ____c ____c   ____d ____d""",
+             None, AvoidableRectangleType1()):
+        return
+    assert False
+
+
+def test_sudoku_4x4_ar1_row_ne():
+    if solve(4,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 1234d
+            ____c __3_c   ____d ___4d
+            """,
+             f"""
+            ____a ____a   ____b ____b
+            ____a ____a   ____b ____b
+
+            ____c ___4c   ____d 12_4d
+            ____c __3_c   ____d ___4d
+            """, AvoidableRectangleType1()):
         return
     assert False
