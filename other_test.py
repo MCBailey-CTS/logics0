@@ -14,6 +14,7 @@ from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.FinnedXWing import FinnedXWing
 from techniques.HiddenSingle import HiddenSingle
+from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 # from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
@@ -26,6 +27,7 @@ from techniques.UniqueRectangleType3 import UniqueRectangleType3
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
 from techniques.WWing import WWing
 from techniques.WxyzWing import WxyzWing
+from techniques.XyWing import XyWing
 
 EXPLICITLY = "EXPLICITLY"
 from colorama import Fore
@@ -468,7 +470,7 @@ def the_data():
         elif 'avoidable_rectangle_type2' in _id:
             yield [_id, AvoidableRectangleType2()]
         elif 'hidden_unique_rectangle' in _id:
-            yield [_id, tech.HiddenUniqueRectangle()]
+            yield [_id, HiddenUniqueRectangle()]
         elif 'unique_rectangle_type1' in _id:
             yield [_id, UniqueRectangleType1()]
         elif 'unique_rectangle_type2' in _id:
@@ -504,7 +506,7 @@ def the_data():
         elif 'xy_chain' in _id:
             yield [_id, tech.XyChain()]
         elif 'xy_wing' in _id:
-            yield [_id, tech.XyWing()]
+            yield [_id, XyWing()]
         elif 'wxyz_wing' in _id:
             yield [_id, WxyzWing()]
         elif 'xyz_wing' in _id:

@@ -11,6 +11,7 @@ from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.FinnedXWing import FinnedXWing
+from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
 from techniques.ShashimiXWing import ShashimiXWing
 from techniques.HiddenSingle import HiddenSingle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
@@ -23,6 +24,7 @@ from techniques.UniqueRectangleType3 import UniqueRectangleType3
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
 from techniques.WWing import WWing
 from techniques.WxyzWing import WxyzWing
+from techniques.XyWing import XyWing
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -741,9 +743,9 @@ techniques = [
     # Devious
     tech.JellyFish(),
     # almost locked candidates
-    tech.HiddenUniqueRectangle(),
+    HiddenUniqueRectangle(),
     tech.XyzWing(),
-    tech.XyWing(),
+    XyWing(),
     AvoidableRectangleType1(),
     AvoidableRectangleType2(),
     WxyzWing(),

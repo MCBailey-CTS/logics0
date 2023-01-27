@@ -418,61 +418,61 @@ class tech:
 
             return edits
 
-    class HiddenUniqueRectangle(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-            # return 0
-            for corner0 in list(puzzle.unsolved_cells()):
-                for corner1 in list(puzzle.unsolved_cells()):
-
-                    other_opposite0 = Loc(corner0.row, corner1.col)
-                    other_opposite1 = Loc(corner1.row, corner0.col)
-                    corners = [
-                        corner0,
-                        corner1,
-                        other_opposite0,
-                        other_opposite1
-                    ]
-
-                    rows = set([loc.row for loc in corners])
-                    cols = set([loc.col for loc in corners])
-                    fences = set([puzzle.cell_fence(loc) for loc in corners])
-
-                    if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
-                        continue
-
-                    corner0_candidates = puzzle.cell_candidates(corner0)
-
-                    if len(corner0_candidates) != 2:
-                        continue
-
-                    # check to see if the other corners are a super set of corner0
-                    all_temp = all([set(puzzle.cell_candidates(loc)).issuperset(corner0_candidates) for loc in
-                                    [corner1, other_opposite0, other_opposite1]])
-
-                    if not all_temp:
-                        continue
-
-                    hidden_unique_cells = set(puzzle.house_row(corner1.row) + puzzle.house_col(corner1.col)).difference(
-                        corners)
-
-                    candidate0, candidate1 = corner0_candidates
-
-                    candidate0_any = any([candidate0 in puzzle.cell_candidates(loc) for loc in hidden_unique_cells])
-                    candidate1_any = any([candidate1 in puzzle.cell_candidates(loc) for loc in hidden_unique_cells])
-
-                    if candidate0_any and candidate1_any:
-                        continue
-
-                    if candidate0_any:
-                        edits += puzzle.rem(corner1, [candidate0])
-
-                    if candidate1_any:
-                        edits += puzzle.rem(corner1, [candidate1])
-
-                    # print("mssssade aaaait here")
-
-            return edits
+    # class HiddenUniqueRectangle(Technique):
+    #     def solve0(self, puzzle: Sudoku) -> int:
+    #         edits = 0
+    #         # return 0
+    #         for corner0 in list(puzzle.unsolved_cells()):
+    #             for corner1 in list(puzzle.unsolved_cells()):
+    #
+    #                 other_opposite0 = Loc(corner0.row, corner1.col)
+    #                 other_opposite1 = Loc(corner1.row, corner0.col)
+    #                 corners = [
+    #                     corner0,
+    #                     corner1,
+    #                     other_opposite0,
+    #                     other_opposite1
+    #                 ]
+    #
+    #                 rows = set([loc.row for loc in corners])
+    #                 cols = set([loc.col for loc in corners])
+    #                 fences = set([puzzle.cell_fence(loc) for loc in corners])
+    #
+    #                 if len(rows) != 2 or len(cols) != 2 or len(fences) != 2:
+    #                     continue
+    #
+    #                 corner0_candidates = puzzle.cell_candidates(corner0)
+    #
+    #                 if len(corner0_candidates) != 2:
+    #                     continue
+    #
+    #                 # check to see if the other corners are a super set of corner0
+    #                 all_temp = all([set(puzzle.cell_candidates(loc)).issuperset(corner0_candidates) for loc in
+    #                                 [corner1, other_opposite0, other_opposite1]])
+    #
+    #                 if not all_temp:
+    #                     continue
+    #
+    #                 hidden_unique_cells = set(puzzle.house_row(corner1.row) + puzzle.house_col(corner1.col)).difference(
+    #                     corners)
+    #
+    #                 candidate0, candidate1 = corner0_candidates
+    #
+    #                 candidate0_any = any([candidate0 in puzzle.cell_candidates(loc) for loc in hidden_unique_cells])
+    #                 candidate1_any = any([candidate1 in puzzle.cell_candidates(loc) for loc in hidden_unique_cells])
+    #
+    #                 if candidate0_any and candidate1_any:
+    #                     continue
+    #
+    #                 if candidate0_any:
+    #                     edits += puzzle.rem(corner1, [candidate0])
+    #
+    #                 if candidate1_any:
+    #                     edits += puzzle.rem(corner1, [candidate1])
+    #
+    #                 # print("mssssade aaaait here")
+    #
+    #         return edits
 
     class SueDeCoq(Technique):
 
@@ -636,148 +636,148 @@ class tech:
             #                 edits += puzzle.rem(loc, [candidate_to_remove])
             return edits
 
-    class XyWing(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
-            edits = 0
-
-            # explicit
-            pivot = Loc(8, 7)
-            fin0 = Loc(4, 7)
-            fin1 = Loc(6, 6)
-            remove = [Loc(6, 7), Loc(5, 6), Loc(4, 6), Loc(3, 6), Loc(7, 7), ]
-            if {3, 5}.issuperset(puzzle.cell_candidates(pivot)) and {1, 5}.issuperset(
-                    puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
-                puzzle.override_loc_color(remove, Fore.RED)
-                puzzle.override_loc_color([pivot], Fore.GREEN)
-                puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
-                edits += puzzle.rem(remove, [1])
-
-            # explicit
-            pivot = Loc(3, 2)
-            fin0 = Loc(5, 0)
-            fin1 = Loc(3, 6)
-            remove = [Loc(3, 0), Loc(3, 1), Loc(5, 6), Loc(5, 7), Loc(5, 8)]
-            if {1, 2}.issuperset(puzzle.cell_candidates(pivot)) and {2, 3}.issuperset(
-                    puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
-                puzzle.override_loc_color(remove, Fore.RED)
-                puzzle.override_loc_color([pivot], Fore.GREEN)
-                puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
-                edits += puzzle.rem(remove, [3])
-
-            unsolved = puzzle.unsolved_cells()
-
-            if len(unsolved) == 0:
-                return edits
-            for pivot in puzzle.unsolved_cells():
-                pivot_candidates = puzzle.cell_candidates(pivot)
-
-                pivot_fence = puzzle.cell_fence(pivot)
-
-                if len(pivot_candidates) != 2:
-                    continue
-
-                row_locs = [loc for loc in puzzle.house_row(pivot.row) if
-                            loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
-                col_locs = [loc for loc in puzzle.house_col(pivot.col) if
-                            loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
-                fence_locs = [loc for loc in puzzle.house_fence(puzzle.cell_fence(pivot)) if
-                              loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
-
-                for row_loc in row_locs:
-                    row_difference = set(puzzle.cell_candidates(row_loc)).difference(pivot_candidates)
-                    row_fence = puzzle.cell_fence(row_loc)
-                    if len(row_difference) != 1:
-                        continue
-                    for col_loc in col_locs:
-                        col_difference = set(puzzle.cell_candidates(col_loc)).difference(pivot_candidates)
-                        col_fence = puzzle.cell_fence(col_loc)
-                        if col_fence == row_fence:
-                            continue
-                        if len(col_difference) != 1:
-                            continue
-                        if not row_difference.issubset(col_difference):
-                            continue
-                        # check if three fences
-                        if row_fence != pivot_fence and col_fence != pivot_fence:
-                            other_loc = Loc(col_loc.row, row_loc.col)
-                            edits += puzzle.rem(other_loc, row_difference)
-
-            return edits
-
-        # @staticmethod
-        # def solve1(puzzle: Sudoku, locs: list[Loc]) -> int:
-        #     edits = 0
-        #     if len(locs) != 3:
-        #         return edits
-        #
-        #     candidate_set = set()
-        #
-        #     for loc in locs:
-        #         for candidate in puzzle.cell_candidates(loc):
-        #             candidate_set.add(candidate)
-        #
-        #     if len(candidate_set) != 3:
-        #         return edits
-        #
-        #     # need to find a pivot
-        #     for pivot in locs:
-        #         pincers = set(locs)
-        #         pincers.remove(pivot)
-        #         pincer0, pincer1 = pincers
-        #
-        #         pincer_fence0 = puzzle.cell_fence(pincer0)
-        #         pincer_fence1 = puzzle.cell_fence(pincer1)
-        #
-        #         if pincer_fence0 == pincer_fence1:
-        #             continue
-        #
-        #         temp_pivot0 = Loc(pincer0.row, pincer1.col)
-        #         temp_pivot1 = Loc(pincer1.row, pincer0.col)
-        #
-        #         pivot_candidates = puzzle.cell_candidates(pivot)
-        #         pincer0_candidates = set(puzzle.cell_candidates(pincer0))
-        #         pincer1_candidates = set(puzzle.cell_candidates(pincer1))
-        #
-        #         if len(pivot_candidates) != 2 or len(pincer0_candidates) != 2 or len(pincer1_candidates) != 2:
-        #             continue
-        #
-        #         if pincer0_candidates.issubset(pincer1_candidates):
-        #             continue
-        #
-        #         # print(f'{pivot} {pincer0} {pincer1}')
-        #
-        #         for candidate in pivot_candidates:
-        #             if candidate in pincer0_candidates:
-        #                 pincer0_candidates.remove(candidate)
-        #             if candidate in pincer1_candidates:
-        #                 pincer1_candidates.remove(candidate)
-        #
-        #         if len(pincer0_candidates) != 1 or len(pincer1_candidates) != 1 or not pincer1_candidates.issubset(
-        #                 pincer0_candidates):
-        #             continue
-        #
-        #         shared_candidate = list(pincer0_candidates)[0]
-        #
-        #         other_pivot = None
-        #
-        #         if pivot == temp_pivot0:
-        #             other_pivot = temp_pivot1
-        #
-        #         if pivot == temp_pivot1:
-        #             other_pivot = temp_pivot0
-        #
-        #         if other_pivot is None:
-        #             continue
-        #
-        #         if len(puzzle.cell_candidates(other_pivot)) == 1:
-        #             continue
-        #
-        #             #
-        #         # print(f'{pivot} {pincer0} {pincer1} {other_pivot}')
-        #         # print(f'{puzzle.cell_candidates(pivot)} {puzzle.cell_candidates(pincer0)} {self.cell_candidates(pincer1)} {self.cell_candidates(other_pivot)}')
-        #         edits += puzzle.rem(other_pivot, [shared_candidate])
-        #
-        #     return edits
+    # class XyWing(Technique):
+    #     def solve0(self, puzzle: Sudoku) -> int:
+    #         edits = 0
+    #
+    #         # explicit
+    #         pivot = Loc(8, 7)
+    #         fin0 = Loc(4, 7)
+    #         fin1 = Loc(6, 6)
+    #         remove = [Loc(6, 7), Loc(5, 6), Loc(4, 6), Loc(3, 6), Loc(7, 7), ]
+    #         if {3, 5}.issuperset(puzzle.cell_candidates(pivot)) and {1, 5}.issuperset(
+    #                 puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
+    #             puzzle.override_loc_color(remove, Fore.RED)
+    #             puzzle.override_loc_color([pivot], Fore.GREEN)
+    #             puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
+    #             edits += puzzle.rem(remove, [1])
+    #
+    #         # explicit
+    #         pivot = Loc(3, 2)
+    #         fin0 = Loc(5, 0)
+    #         fin1 = Loc(3, 6)
+    #         remove = [Loc(3, 0), Loc(3, 1), Loc(5, 6), Loc(5, 7), Loc(5, 8)]
+    #         if {1, 2}.issuperset(puzzle.cell_candidates(pivot)) and {2, 3}.issuperset(
+    #                 puzzle.cell_candidates(fin0)) and {1, 3}.issuperset(puzzle.cell_candidates(fin1)):
+    #             puzzle.override_loc_color(remove, Fore.RED)
+    #             puzzle.override_loc_color([pivot], Fore.GREEN)
+    #             puzzle.override_loc_color([fin0, fin1], Fore.YELLOW)
+    #             edits += puzzle.rem(remove, [3])
+    #
+    #         unsolved = puzzle.unsolved_cells()
+    #
+    #         if len(unsolved) == 0:
+    #             return edits
+    #         for pivot in puzzle.unsolved_cells():
+    #             pivot_candidates = puzzle.cell_candidates(pivot)
+    #
+    #             pivot_fence = puzzle.cell_fence(pivot)
+    #
+    #             if len(pivot_candidates) != 2:
+    #                 continue
+    #
+    #             row_locs = [loc for loc in puzzle.house_row(pivot.row) if
+    #                         loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
+    #             col_locs = [loc for loc in puzzle.house_col(pivot.col) if
+    #                         loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
+    #             fence_locs = [loc for loc in puzzle.house_fence(puzzle.cell_fence(pivot)) if
+    #                           loc != pivot and len(puzzle.cell_candidates(loc)) == 2]
+    #
+    #             for row_loc in row_locs:
+    #                 row_difference = set(puzzle.cell_candidates(row_loc)).difference(pivot_candidates)
+    #                 row_fence = puzzle.cell_fence(row_loc)
+    #                 if len(row_difference) != 1:
+    #                     continue
+    #                 for col_loc in col_locs:
+    #                     col_difference = set(puzzle.cell_candidates(col_loc)).difference(pivot_candidates)
+    #                     col_fence = puzzle.cell_fence(col_loc)
+    #                     if col_fence == row_fence:
+    #                         continue
+    #                     if len(col_difference) != 1:
+    #                         continue
+    #                     if not row_difference.issubset(col_difference):
+    #                         continue
+    #                     # check if three fences
+    #                     if row_fence != pivot_fence and col_fence != pivot_fence:
+    #                         other_loc = Loc(col_loc.row, row_loc.col)
+    #                         edits += puzzle.rem(other_loc, row_difference)
+    #
+    #         return edits
+    #
+    #     # @staticmethod
+    #     # def solve1(puzzle: Sudoku, locs: list[Loc]) -> int:
+    #     #     edits = 0
+    #     #     if len(locs) != 3:
+    #     #         return edits
+    #     #
+    #     #     candidate_set = set()
+    #     #
+    #     #     for loc in locs:
+    #     #         for candidate in puzzle.cell_candidates(loc):
+    #     #             candidate_set.add(candidate)
+    #     #
+    #     #     if len(candidate_set) != 3:
+    #     #         return edits
+    #     #
+    #     #     # need to find a pivot
+    #     #     for pivot in locs:
+    #     #         pincers = set(locs)
+    #     #         pincers.remove(pivot)
+    #     #         pincer0, pincer1 = pincers
+    #     #
+    #     #         pincer_fence0 = puzzle.cell_fence(pincer0)
+    #     #         pincer_fence1 = puzzle.cell_fence(pincer1)
+    #     #
+    #     #         if pincer_fence0 == pincer_fence1:
+    #     #             continue
+    #     #
+    #     #         temp_pivot0 = Loc(pincer0.row, pincer1.col)
+    #     #         temp_pivot1 = Loc(pincer1.row, pincer0.col)
+    #     #
+    #     #         pivot_candidates = puzzle.cell_candidates(pivot)
+    #     #         pincer0_candidates = set(puzzle.cell_candidates(pincer0))
+    #     #         pincer1_candidates = set(puzzle.cell_candidates(pincer1))
+    #     #
+    #     #         if len(pivot_candidates) != 2 or len(pincer0_candidates) != 2 or len(pincer1_candidates) != 2:
+    #     #             continue
+    #     #
+    #     #         if pincer0_candidates.issubset(pincer1_candidates):
+    #     #             continue
+    #     #
+    #     #         # print(f'{pivot} {pincer0} {pincer1}')
+    #     #
+    #     #         for candidate in pivot_candidates:
+    #     #             if candidate in pincer0_candidates:
+    #     #                 pincer0_candidates.remove(candidate)
+    #     #             if candidate in pincer1_candidates:
+    #     #                 pincer1_candidates.remove(candidate)
+    #     #
+    #     #         if len(pincer0_candidates) != 1 or len(pincer1_candidates) != 1 or not pincer1_candidates.issubset(
+    #     #                 pincer0_candidates):
+    #     #             continue
+    #     #
+    #     #         shared_candidate = list(pincer0_candidates)[0]
+    #     #
+    #     #         other_pivot = None
+    #     #
+    #     #         if pivot == temp_pivot0:
+    #     #             other_pivot = temp_pivot1
+    #     #
+    #     #         if pivot == temp_pivot1:
+    #     #             other_pivot = temp_pivot0
+    #     #
+    #     #         if other_pivot is None:
+    #     #             continue
+    #     #
+    #     #         if len(puzzle.cell_candidates(other_pivot)) == 1:
+    #     #             continue
+    #     #
+    #     #             #
+    #     #         # print(f'{pivot} {pincer0} {pincer1} {other_pivot}')
+    #     #         # print(f'{puzzle.cell_candidates(pivot)} {puzzle.cell_candidates(pincer0)} {self.cell_candidates(pincer1)} {self.cell_candidates(other_pivot)}')
+    #     #         edits += puzzle.rem(other_pivot, [shared_candidate])
+    #     #
+    #     #     return edits
 
     class XChain(Technique):
 
