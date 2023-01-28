@@ -1,6 +1,4 @@
 
-
-
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from tests_explicit.test_small_explicit import solve
 
