@@ -1,4 +1,4 @@
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 from pytest import mark
 
 @mark.skip("EXPLICITLY")

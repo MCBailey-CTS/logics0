@@ -1,5 +1,5 @@
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 from pytest import mark, fail
 
 

@@ -1,6 +1,6 @@
 from pytest import mark
 from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 
 
 def test_sudoku_4x4_hur_row_ne():

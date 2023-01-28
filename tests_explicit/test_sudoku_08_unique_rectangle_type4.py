@@ -2,7 +2,7 @@
 
 
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 
 
 def test_sudoku_6x6_ur4_normal_north_control():

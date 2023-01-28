@@ -45,6 +45,31 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     return False
 
 
+# def default_test_puzzle0(puzzle_string, constructor, techniques) -> bool:
+#     puzzle: Puzzle = constructor(puzzle_string)
+#     edits = 0
+#     edit_dict = {}
+#     while True:
+#         original_edits = edits
+#         for tech in techniques:
+#             _edits = tech.solve0(puzzle)
+#             if tech.__class__.__name__ not in edit_dict:
+#                 edit_dict[tech.__class__.__name__] = 0
+#             edit_dict[tech.__class__.__name__] += _edits
+#             edits = edits + _edits
+#         if original_edits == edits:
+#             break
+#     if puzzle.is_solved():
+#         return True
+#     for tech in edit_dict:
+#         if edit_dict[tech] == 0:
+#             continue
+#         print(f'{tech}: {edit_dict[tech]}')
+#     print(f'Total edits: {edits}')
+#     print(puzzle)
+#     return False
+
+
 
 # def test_sudoku_4x4_():
 #     actual = \

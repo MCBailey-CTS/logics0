@@ -1,5 +1,5 @@
 
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 from techniques.CrossHatch import CrossHatch
 
 def test_cross_hatch():

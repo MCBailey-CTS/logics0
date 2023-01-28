@@ -2,7 +2,7 @@ import pytest
 from colorama import Fore
 from pytest import mark, fail
 from Loc import Loc
-from puzzles import Sudoku
+from puzzles import Sudoku, Puzzle
 from tech import tech
 from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
@@ -91,6 +91,52 @@ def solve(length, actual, expected, technique):
     print(actual0.to_string())
     print(expected0.to_string())
     return False
+
+def default_test_puzzle0(puzzle_string, constructor, techniques) -> bool:
+    puzzle: Puzzle = constructor(puzzle_string)
+    edits = 0
+    edit_dict = {}
+    while True:
+        original_edits = edits
+        for tech in techniques:
+            _edits = tech.solve0(puzzle)
+            if tech.__class__.__name__ not in edit_dict:
+                edit_dict[tech.__class__.__name__] = 0
+            edit_dict[tech.__class__.__name__] += _edits
+            edits = edits + _edits
+        if original_edits == edits:
+            break
+    if puzzle.is_solved():
+        return True
+    for tech in edit_dict:
+        if edit_dict[tech] == 0:
+            continue
+        print(f'{tech}: {edit_dict[tech]}')
+    print(f'Total edits: {edits}')
+    print(puzzle)
+    return False
+
+# def solve(length, actual, expected, technique):
+#     actual0 = to_sudoku(length, actual, '_actual')
+#
+#     edits = technique.solve0(actual0)
+#
+#     if expected is None:
+#         return edits == 0
+#
+#     expected0 = to_sudoku(length, expected, '_expected')
+#
+#     if actual0 == expected0:
+#         return True
+#
+#     # for r in range(len(actual)):
+#     #     for c in range(len(actual)):
+#     #         if actual0.grid[r][c] != expected0.grid[r][c]:
+#     #             expected0.override_loc_color([Loc(r, c)], Fore.CYAN)
+#
+#     print(actual0.to_string())
+#     print(expected0.to_string())
+#     return False
 
 
 @mark.skip("EXPLICITLY")

@@ -1,6 +1,6 @@
 from pytest import mark
 from techniques.XyWing import XyWing
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 
 
 @mark.skip("EXPLICITLY")

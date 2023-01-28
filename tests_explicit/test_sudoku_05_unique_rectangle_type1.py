@@ -2,7 +2,7 @@
 
 
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
-from tests.test_small_explicit import solve
+from tests_explicit.test_small_explicit import solve
 
 
 def test_sudoku_4x4_ur1_row_ne():
