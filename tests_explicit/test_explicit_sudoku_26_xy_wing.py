@@ -1,9 +1,8 @@
-from pytest import mark
+# from pytest import mark
 from techniques.XyWing import XyWing
 from tests_explicit.test_small_explicit import solve
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_2_fences_in_rows():
     actual = \
         f"""
@@ -27,7 +26,6 @@ def test_sudoku_4x4_xy_wing_2_fences_in_rows():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_2_fences_in_cols():
     actual = \
         f"""
@@ -51,7 +49,7 @@ def test_sudoku_4x4_xy_wing_2_fences_in_cols():
     assert False
 
 
-@mark.skip("EXPLICITLY")
+# @mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_3_fences_ne():
     actual = \
         f"""
@@ -75,7 +73,6 @@ def test_sudoku_4x4_xy_wing_3_fences_ne():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_3_fences_nw():
     actual = \
         f"""
@@ -99,7 +96,6 @@ def test_sudoku_4x4_xy_wing_3_fences_nw():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_3_fences_se():
     actual = \
         f"""
@@ -123,7 +119,6 @@ def test_sudoku_4x4_xy_wing_3_fences_se():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_xy_wing_3_fences_sw():
     actual = \
         f"""

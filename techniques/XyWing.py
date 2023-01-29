@@ -5,42 +5,30 @@ from colorama import Fore
 
 
 class XyWing(Technique):
-    def solve0(self, puzzle: Sudoku) -> int:
+
+    def solve1(self, puzzle: Sudoku, pincer0: Loc)->int:
         edits = 0
 
-        length2 = []
+        # for r in range(len(puzzle)):
+        #     for c in range(len(puzzle)):
+        #         pivot = Loc(r, c)
+        #         if pivot == pincer0:
+        #             continue
+        #         if len(puzzle.cell_candidates(pincer0)) != 2:
+        #             continue
+        #
+        #         if pincer0.row != pivot.row and pincer0.col != pivot.col:
 
+
+
+
+        return edits
+
+    def solve0(self, puzzle: Sudoku) -> int:
+        edits = 0
         for r in range(len(puzzle)):
             for c in range(len(puzzle)):
-                loc = Loc(r, c)
-                if len(puzzle.cell_candidates(loc)) == 2:
-                    length2.append(loc)
-
-        for i in range(len(length2) - 2):
-            loc0 = length2[i]
-            for ii in range(i + 1, len(length2) - 1):
-                loc1 = length2[ii]
-                for iii in range(ii + 1, len(length2)):
-                    loc2 = length2[iii]
-
-                    locs = [loc0, loc1, loc2]
-
-                    for loc in locs:
-                        other0, other1 = set(locs).difference([loc])
-
-
-
-
-
-
-                    loc0_candidates = puzzle.cell_candidates(loc0)
-                    loc1_candidates = puzzle.cell_candidates(loc1)
-                    loc2_candidates = puzzle.cell_candidates(loc2)
-
-
-
-
-
-
-
+                pincer0 = Loc(r, c)
+                if len(puzzle.cell_candidates(pincer0)) == 2:
+                    edits += self.solve1(puzzle, pincer0)
         return edits
