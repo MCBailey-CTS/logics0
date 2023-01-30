@@ -25,6 +25,7 @@ from techniques.UniqueRectangleType4 import UniqueRectangleType4
 from techniques.WWing import WWing
 from techniques.WxyzWing import WxyzWing
 from techniques.XyWing import XyWing
+from techniques.XyzWing import XyzWing
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -744,7 +745,7 @@ techniques = [
     tech.JellyFish(),
     # almost locked candidates
     HiddenUniqueRectangle(),
-    tech.XyzWing(),
+    XyzWing(),
     XyWing(),
     AvoidableRectangleType1(),
     AvoidableRectangleType2(),

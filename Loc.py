@@ -1,9 +1,18 @@
 from numpy import ndarray
-from typing import Union
+from typing import Union, Optional
+
+from puzzles import Puzzle
+
+
 class Loc:
-    def __init__(self, r: int, c: int) -> object:
+    def __init__(self, r: int, c: int, fence:Optional[str]=None):
         self._row = r
         self._col = c
+        self.__fence = fence
+
+
+
+
 
     def __eq__(self, other) -> bool:
         return self._row == other._row and self._col == other._col
@@ -20,12 +29,18 @@ class Loc:
         return iter((self._row, self._col))
 
     @property
-    def row(self):
+    def row(self)->int:
         return self._row
 
     @property
-    def col(self):
+    def col(self)->int:
         return self._col
+
+    @property
+    def fence(self) -> str:
+        if self.__fence is None:
+            raise Exception(f'Loc({self._row}, {self._col}) doe snot have a fence')
+        return self.__fence
 
     def row_house_locs(self, length: int):
         for col in range(0, length):
