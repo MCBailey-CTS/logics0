@@ -13,6 +13,7 @@ from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
 from techniques.Parks1Shapes import Parks1Shapes
 from techniques.Parks1XWing import Parks1XWing
+from techniques.PowerGridLength9Power6 import PowerGridLength9Power6
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
@@ -176,9 +177,11 @@ class Solving:
     @staticmethod
     def power_grid_techniques() -> list:
         return [
-            tech.PowerGridTech(),
-            tech.PowerGridCrossHatch(),
-            tech.PowerGridHiddenPower()
+            # tech.PowerGridTech(),
+            # tech.PowerGridCrossHatch(),
+            # tech.PowerGridHiddenPower(),
+            # tech.PowerGridTechExplicit()
+            PowerGridLength9Power6()
         ]
 
     @staticmethod

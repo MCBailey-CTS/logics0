@@ -11,8 +11,6 @@ from techniques.Technique import Technique
 
 
 class tech:
-
-
     class MathraxCrossHatch(Technique):
 
         @staticmethod
@@ -127,8 +125,6 @@ class tech:
 
             return edits
 
-
-
     class JellyFish(Technique):
 
         def solve0(self, puzzle: Sudoku) -> int:
@@ -242,7 +238,6 @@ class tech:
 
             return edits
 
-
     class AlmostLockedCandidatesPointing(Technique):
 
         def solve0(self, puzzle) -> int:
@@ -252,6 +247,7 @@ class tech:
 
         def solve0(self, puzzle) -> int:
             return 0
+
     class ShashimiSwordFish(Technique):
         def solve0(self, puzzle: Sudoku) -> int:
             edits = 0
@@ -271,7 +267,6 @@ class tech:
             return edits
 
     class NakedTriple(BaseSudokuHouseTechnique):
-
 
         # def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
         #     edits = 0
@@ -314,6 +309,7 @@ class tech:
         #     return edits
         def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
             return 0
+
     class NakedQuad(Technique):
         def solve0(self, puzzle: Sudoku) -> int:
             return 0
@@ -1971,6 +1967,71 @@ class tech:
                 if left_index >= 0 and right_index < len(puzzle) and POWER not in puzzle.cell_candidates(
                         house[left_index]) and POWER not in puzzle.cell_candidates(house[right_index]):
                     edits += puzzle.rem([house[index]], [POWER])
+
+            return edits
+
+    class PowerGridTechExplicit(Technique):
+        def solve0(self, puzzle: PowerGrid) -> int:
+            edits = 0
+
+            for index in range(len(puzzle)):
+                row_house = puzzle.house_row(index)
+                row_scraper = puzzle.east_scraper(index)
+                if row_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, row_scraper, row_house)
+                col_house = puzzle.house_col(index)
+                col_scraper = puzzle.south_scraper(index)
+                if col_scraper is None:
+                    continue
+                edits += self.solve1(puzzle, col_scraper, col_house)
+            return edits
+
+        def solve1(self, puzzle: PowerGrid, power: int, house: list[Loc]) -> int:
+            edits = 0
+
+            POWER = 1
+            EMPTY = 0
+
+            if all(house[0].row == loc.row for loc in house):
+
+                if len(puzzle) == 9 and power == 6:
+                    edge_locs = [house[0], house[1], house[7], house[8]]
+                    for loc in edge_locs:
+                        north = loc.north()
+                        south = loc.south()
+                        if north.row >= 0:
+                            edits += puzzle.rem([north], [POWER])
+                        if south.row < len(puzzle):
+                            edits += puzzle.rem([south], [POWER])
+
+                if len(puzzle) == 9 and power == 5:
+                    edge_locs = [house[1], house[7]]
+                    for loc in edge_locs:
+                        north = loc.north()
+                        south = loc.south()
+                        if north.row >= 0:
+                            edits += puzzle.rem([north], [POWER])
+                        if south.row < len(puzzle):
+                            edits += puzzle.rem([south], [POWER])
+
+                if len(puzzle) == 9 and power == 5:
+                    indexes = set([index for index in range(len(house)) if
+                                   puzzle.grid[house[index].row][house[index].col] == '10'])
+                    if indexes == {0, 1, 6, 7}:
+
+                        for loc in [house[index] for index in indexes]:
+                            north = loc.north()
+                            south = loc.south()
+                            if north.row >= 0:
+                                edits += puzzle.rem([north], [POWER])
+                            if south.row < len(puzzle):
+                                edits += puzzle.rem([south], [POWER])
+
+                # pass
+
+            # if all(house[0].col == loc.col for loc in house):
+            #     pass
 
             return edits
 

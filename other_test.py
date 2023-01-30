@@ -1,16 +1,12 @@
 import numpy
 import pytest
 
-from Constants import Constants
 from Loc import Loc
-from _defaults import default_test_puzzle, default_test_explicit_actual_expected
 from puzzles import *
-from solving import Solving
 from tech import tech
 from techniques.AlmostLockedCandidatesClaiming import AlmostLockedCandidatesClaiming
 from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
-from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.FinnedXWing import FinnedXWing
 from techniques.HiddenSingle import HiddenSingle

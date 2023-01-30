@@ -77,11 +77,10 @@ class PowerGrid(Puzzle):
         return None
 
     def __str__(self):
-        return super().__str__() \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("  ", " ", -1) \
-            .replace("10", "__", -1) \
-            .replace("1_", "PP", -1) \
-            .replace("_0", "..", -1)
+        string = f'{self.id()}\n{len(self)}\n'
+        for r in range(len(self) + 1):
+            for c in range(len(self) + 1):
+                string += f'{self.grid[r][c]} '
+            string += '\n'
+        return string.replace('10', '__', -1).replace('_0', '..', -1).replace('1_', 'PP', -1)
+
