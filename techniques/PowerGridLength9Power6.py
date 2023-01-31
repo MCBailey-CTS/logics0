@@ -203,3 +203,46 @@ class PowerGridBothPowersSolved(Technique):
             edits += puzzle.rem(list(remove), [1])
 
         return edits
+
+
+class PowerGridRequirePower(Technique):
+
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
+        if len(puzzle) != 9:
+            return edits
+        for index in range(len(puzzle)):
+            col_house = puzzle.house_col(index)
+            row_house = puzzle.house_row(index)
+            for house in [row_house, col_house]:
+                unsolved = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "10"]
+                if len(unsolved) != 4:
+                    continue
+                unsolved_set = set(unsolved)
+                first = unsolved_set.pop()
+                next_gen = next((loc for loc in unsolved_set if loc.is_next_to(first)), None)
+                if next_gen is None:
+                    continue
+                left = [first, next_gen]
+                unsolved_set.remove(next_gen)
+                second = unsolved_set.pop()
+                next_gen_second = next((loc for loc in unsolved_set if loc.is_next_to(second)), None)
+                if next_gen_second is None:
+                    continue
+                right = [second, next_gen_second]
+
+                locs = right + left
+
+                if all(loc.row == row_house[0].row for loc in row_house):
+                    for loc in locs:
+                        north = loc.north()
+                        if 0 > north.row >= len(puzzle):
+                            continue
+                        edits += puzzle.rem([north], [1])
+
+                        south = loc.south()
+                        if 0 > south.row >= len(puzzle):
+                            continue
+                        edits += puzzle.rem([south], [1])
+
+        return edits
