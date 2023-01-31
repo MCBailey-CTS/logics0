@@ -2,6 +2,7 @@ from colorama import Fore
 
 from Loc import Loc
 from techniques.Technique import Technique
+
 from puzzles import PowerGrid
 
 
@@ -56,47 +57,18 @@ class PowerGridOnePowerSolvedBadMath(Technique):
 
     def solve1(self, puzzle: PowerGrid, house: list[Loc], power: int) -> int:
         edits = 0
-
         if not all(loc.row == 0 for loc in house):
             return edits
-
-        print(house)
-
-        # print("made it here")
-
-
         solved_indexes = [index for index, loc in enumerate(house) if puzzle.grid[loc.row][loc.col] == "1_"]
-
         if len(solved_indexes) != 1:
             return edits
-
-        solved = solved_indexes[0]
-
-
-
-
-
-        # for i, loc in enumerate(house):
-        #     if puzzle.grid[loc.row][loc.col] != "10":
-        #         continue
-        #
-
+        solved_index = solved_indexes[0]
         for index, loc in enumerate(house):
-            if index == solved:
+            if index == solved_index:
                 continue
-
-            print(abs(solved - index))
-
-            # minus = i - power - 1
-            # plus = i + power + 1
-        #
-        #     if minus >= 0 and 1 in puzzle.cell_candidates(house[minus]):
-        #         continue
-        #
-        #     if plus < len(house) and 1 in puzzle.cell_candidates(house[plus]):
-        #         continue
-        #
-        #     edits += puzzle.rem([loc], [1])
+            if abs(solved_index - index) - 1 == power:
+                continue
+            edits += puzzle.rem([house[index]], [1])
         return edits
 
     def solve0(self, puzzle: PowerGrid) -> int:
@@ -132,9 +104,6 @@ class PowerGridHiddenPowerPair(Technique):
         for index in range(len(puzzle)):
             col_house = puzzle.house_col(index)
 
-            # if col_scraper is not None:
-            #     edits += self.solve1(puzzle, col_house, col_scraper)
-
             row_house = puzzle.house_row(index)
 
             for house in [row_house, col_house]:
@@ -148,9 +117,54 @@ class PowerGridHiddenPowerPair(Technique):
                 if len(unsolved) != 2:
                     continue
 
-                # if row_scraper is not None:
                 edits += puzzle.rem(unsolved, [0])
 
+        return edits
+
+
+
+class PowerGrid2Solved(Technique):
+
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
+
+        if len(puzzle) != 9:
+            return edits
+
+        for index in range(len(puzzle)):
+            # col_house = puzzle.house_col(index)
+
+            row_house = puzzle.house_row(index)
+
+            # for house in [row_house, col_house]:
+            for house in [row_house]:
+                solved_power = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "1_"]
+                solved_empty = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "_0"]
+                unsolved = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "10"]
+
+                if len(solved_power) == 2:
+                    # puzzle.override_loc_color(unsolved, Fore.RED)
+
+                    edits += puzzle.rem(unsolved, [1])
+
+        return edits
+
+
+class PowerGrid1Solved1Unsolved(Technique):
+
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
+        if len(puzzle) != 9:
+            return edits
+        for index in range(len(puzzle)):
+            col_house = puzzle.house_col(index)
+            row_house = puzzle.house_row(index)
+            for house in [row_house, col_house]:
+                solved_power = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "1_"]
+                solved_empty = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "_0"]
+                unsolved = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "10"]
+                if len(solved_power) == 1 and len(unsolved) == 1:
+                    edits += puzzle.rem(unsolved, [0])
         return edits
 
 
