@@ -20,22 +20,39 @@ class PowerGridLength9Power6(Technique):
 
         return edits
 
+class PowerGridTouchingPower(Technique):
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
 
-#
-#
-# class PowerGridTouchingPower(Technique):
-#     def solve0(self, puzzle: PowerGrid) -> int:
-#         edits = 0
-#
-#         for r in range(len(puzzle)):
-#             for c in range(len(puzzle)):
-#                 loc = Loc(r, c)
-#
-#                 candidates = puzzle.cell_candidates(loc)
-#
-#                 if len(candidates) == 1 and 1 in candidates:
-#                     edits += puzzle.rem(puzzle.surrounding(loc), [1])
-#
-#
-#
-#         return edits
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
+                loc = Loc(r, c)
+
+                candidates = puzzle.cell_candidates(loc)
+
+                if len(candidates) == 1 and 1 in candidates:
+                    edits += puzzle.rem(puzzle.surrounding(loc), [1])
+
+
+
+        return edits
+
+
+class PowerGridBothPowersSolved(Technique):
+    def solve0(self, puzzle: PowerGrid) -> int:
+        edits = 0
+
+        for index in range(len(puzzle)):
+            col_house = puzzle.house_col(index)
+            col_scraper = puzzle.south_scraper(index)
+
+            # power_solved = [loc for loc in col_house if 0 not in puzzle.cell_fence(loc)]
+            #
+            # if len(power_solved) != 2:
+            #     continue
+            #
+            # remove = set(power_solved) - set(col_house)
+            #
+            # edits += puzzle.rem(remove, [1])
+
+        return edits
