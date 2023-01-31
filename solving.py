@@ -13,7 +13,8 @@ from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
 from techniques.Parks1Shapes import Parks1Shapes
 from techniques.Parks1XWing import Parks1XWing
-from techniques.PowerGridLength9Power6 import PowerGridLength9Power6, PowerGridTouchingPower,PowerGridBothPowersSolved
+from techniques.PowerGridLength9Power6 import  PowerGridTouchingPower, PowerGridBothPowersSolved, \
+    PowerGridLength9Power7, PowerGridHiddenPowerPair, PowerGridOnePowerSolvedBadMath
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
@@ -181,9 +182,13 @@ class Solving:
             # tech.PowerGridCrossHatch(),
             # tech.PowerGridHiddenPower(),
             # tech.PowerGridTechExplicit()
-            PowerGridLength9Power6(),
+            # PowerGridLength9Power5(),
+            # PowerGridLength9Power6(),
+            PowerGridLength9Power7(),
+            PowerGridHiddenPowerPair(),
             PowerGridTouchingPower(),
-            PowerGridBothPowersSolved()
+            PowerGridOnePowerSolvedBadMath(),
+            # PowerGridBothPowersSolved()
 
         ]
 
@@ -212,4 +217,3 @@ class Solving:
     @staticmethod
     def lighthouses_techniques() -> list:
         return [tech.LighthousesTech()]
-

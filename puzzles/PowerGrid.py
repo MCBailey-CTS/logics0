@@ -1,3 +1,5 @@
+from colorama import Style, Fore
+
 from puzzles import Puzzle
 from typing import Optional
 from Loc import Loc
@@ -83,4 +85,58 @@ class PowerGrid(Puzzle):
                 string += f'{self.grid[r][c]} '
             string += '\n'
         return string.replace('10', '__', -1).replace('_0', '..', -1).replace('1_', 'PP', -1)
+
+    def surrounding(self, loc: Loc) -> list[Loc]:
+        valid = []
+        directions = [
+            loc.north(),
+            loc.east(),
+            loc.south(),
+            loc.west(),
+            loc.north().east(),
+            loc.north().west(),
+            loc.south().east(),
+            loc.south().west(),
+        ]
+
+        for temp in directions:
+            if temp.row < 0 or temp.row >= len(self):
+                continue
+            if temp.col < 0 or temp.col >= len(self):
+                continue
+
+
+            # if temp.is_valid_parks(self.grid):
+            valid.append(temp)
+
+        return valid
+    def to_string(self, include_colors=True) -> str:
+        string = f'{self.id()}\n{len(self)}\n'
+        for r in range(len(self) + 1):
+            for c in range(len(self) + 1):
+                loc = Loc(r, c)
+                # string += f'{self.grid[r][c]} '
+                if include_colors and loc in self.color_override:
+                    string += f'{self.color_override[loc]}{self.grid[r][c]}{Style.RESET_ALL} '
+                    continue
+                # if len(self.cell_candidates(loc)) == 0:
+                #     string += f'{Fore.GREEN}{self.grid[r][c]}{Style.RESET_ALL} '
+                # else:
+                string += f'{self.grid[r][c]} '
+            string += '\n'
+        return string.replace('10', '__', -1).replace('_0', '..', -1).replace('1_', 'PP', -1)
+        # string = f'{self.id()}\n'
+        # string += f'{len(self)}\n'
+        # for r in range(len(self)):
+        #     for c in range(len(self)):
+        #         loc = Loc(r, c)
+        #         if include_colors and loc in self.color_override:
+        #             string += f'{self.color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
+        #             continue
+        #         if len(self.cell_candidates(loc)) == 0:
+        #             string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
+        #         else:
+        #             string += f'{self.grid[r][c].ljust(len(self))} '
+        #     string += '\n'
+        # return string
 

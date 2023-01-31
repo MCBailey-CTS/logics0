@@ -41,7 +41,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
             continue
         print(f'{tech}: {edit_dict[tech]}')
     print(f'Total edits: {edits}')
-    print(puzzle)
+    print(puzzle.to_string())
     return False
 
 
