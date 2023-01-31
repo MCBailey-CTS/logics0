@@ -6,6 +6,25 @@ from techniques.Technique import Technique
 from puzzles import PowerGrid
 
 
+def power_grid_techniques() -> list:
+    return [
+        # tech.PowerGridTech(),
+        # tech.PowerGridCrossHatch(),
+        # tech.PowerGridHiddenPower(),
+        # tech.PowerGridTechExplicit()
+        # PowerGridLength9Power5(),
+        # PowerGridLength9Power6(),
+        PowerGridLength9Power7(),
+        PowerGridHiddenPowerPair(),
+        PowerGridTouchingPower(),
+        PowerGridOnePowerSolvedBadMath(),
+        PowerGrid2Solved(),
+        PowerGrid1Solved1Unsolved(),
+        PowerGridRequirePower(),
+        # PowerGridBothPowersSolved()
+
+    ]
+
 class PowerGridLength9Power7(Technique):
 
     def solve1(self, puzzle: PowerGrid, house: list[Loc], power: int) -> int:
@@ -233,16 +252,16 @@ class PowerGridRequirePower(Technique):
 
                 locs = right + left
 
-                if all(loc.row == row_house[0].row for loc in row_house):
-                    for loc in locs:
-                        north = loc.north()
-                        if 0 > north.row >= len(puzzle):
-                            continue
-                        edits += puzzle.rem([north], [1])
-
-                        south = loc.south()
-                        if 0 > south.row >= len(puzzle):
-                            continue
-                        edits += puzzle.rem([south], [1])
+                # if all(loc.row == row_house[0].row for loc in row_house):
+                #     for loc in locs:
+                #         north = loc.north()
+                #         if 0 > north.row >= len(puzzle):
+                #             continue
+                #         edits += puzzle.rem([north], [1])
+                #
+                #         south = loc.south()
+                #         if 0 > south.row >= len(puzzle):
+                #             continue
+                #         edits += puzzle.rem([south], [1])
 
         return edits

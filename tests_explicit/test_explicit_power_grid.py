@@ -15,7 +15,7 @@
 #         return
 #     assert False
 
-from techniques.PowerGridLength9Power6 import  PowerGridTouchingPower, PowerGridBothPowersSolved, \
+from techniques.PowerGridTechniques import  PowerGridTouchingPower, PowerGridBothPowersSolved, \
     PowerGridLength9Power7, PowerGridHiddenPowerPair, PowerGridOnePowerSolvedBadMath, PowerGrid2Solved, PowerGrid1Solved1Unsolved, PowerGridRequirePower
 
 

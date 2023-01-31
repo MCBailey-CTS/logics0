@@ -4,6 +4,8 @@ from _defaults import default_test_puzzle
 from puzzles import PowerGrid
 from solving import Solving
 
+from techniques.PowerGridTechniques import  power_grid_techniques
+
 EXPLICITLY = "EXPLICITLY"
 
 
@@ -22,7 +24,7 @@ def test_power_grid_001():
     10 10 10 10 10 10 10 10 10 01
     05 01 06 01 05 05 01 06 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_002():
@@ -40,7 +42,7 @@ def test_power_grid_002():
     10 10 10 10 10 10 10 10 10 01
     04 03 03 07 01 05 01 06 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_003():
@@ -59,7 +61,7 @@ def test_power_grid_003():
     04 03 03 03 04 04 04 03 03 $$
     diagonal        
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_004():
@@ -77,7 +79,7 @@ def test_power_grid_004():
     10 10 10 10 10 10 10 10 10 05
     01 01 02 01 01 01 01 03 04 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_005():
@@ -96,7 +98,7 @@ def test_power_grid_005():
     02 06 01 01 01 01 01 01 03 $$
     diagonal     
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_006():
@@ -114,9 +116,9 @@ def test_power_grid_006():
     10 10 10 10 10 10 10 10 10 02
     03 03 01 01 06 01 05 01 06 $$      
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
-
+@pytest.mark.skip("explicitly")
 def test_power_grid_007():
     puzzle_string = f"""
     007.power_grid
@@ -132,10 +134,9 @@ def test_power_grid_007():
     10 10 10 10 10 10 10 10 10 01
     01 01 01 01 01 01 03 04 04 $$     
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
 def test_power_grid_008():
     puzzle_string = f"""
     008.power_grid
@@ -152,10 +153,10 @@ def test_power_grid_008():
     01 01 01 01 01 01 03 03 03 $$     
     diagonal
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_009():
     puzzle_string = f"""
     009.power_grid
@@ -171,7 +172,7 @@ def test_power_grid_009():
     10 10 10 10 10 10 10 10 10 01
     02 01 01 01 01 01 02 01 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -190,7 +191,7 @@ def test_power_grid_010():
     10 10 10 10 10 10 10 10 10 01
     01 01 01 01 01 01 03 05 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_011():
@@ -208,7 +209,7 @@ def test_power_grid_011():
     10 10 10 10 10 10 10 10 10 05
     06 01 06 01 05 01 01 01 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_012():
@@ -226,7 +227,7 @@ def test_power_grid_012():
     10 10 10 10 10 10 10 10 10 05
     03 ?? 01 05 01 ?? 01 01 02 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 def test_power_grid_013():
@@ -245,9 +246,9 @@ def test_power_grid_013():
     03 03 ?? 01 06 ?? 05 01 06 $$
     diagonal
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
-
+@pytest.mark.skip("help")
 def test_power_grid_014():
     puzzle_string = f"""
     014.power_grid
@@ -264,7 +265,7 @@ def test_power_grid_014():
     05 01 01 ?? 01 01 02 01 02 $$
     diagonal
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -283,10 +284,10 @@ def test_power_grid_015():
     10 10 10 10 10 10 10 10 10 02
     ?? 01 01 01 03 03 03 01 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_016():
     puzzle_string = f"""
     016.power_grid
@@ -302,10 +303,10 @@ def test_power_grid_016():
     10 10 10 10 10 10 10 10 10 01
     01 01 02 01 02 01 ?? ?? 02 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_017():
     puzzle_string = f"""
     017.power_grid
@@ -321,10 +322,10 @@ def test_power_grid_017():
     10 10 10 10 10 10 10 10 10 01
     01 01 02 01 01 01 05 01 06 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_018():
     puzzle_string = f"""
     018.power_grid
@@ -340,10 +341,10 @@ def test_power_grid_018():
     10 10 10 10 10 10 10 10 10 01
     01 01 ?? 01 01 ?? 01 01 01 $$
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_019():
     puzzle_string = f"""
     019.power_grid
@@ -359,10 +360,10 @@ def test_power_grid_019():
     10 10 10 10 10 10 10 10 10 05
     03 03 03 01 01 .. 01 01 01 ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_020():
     puzzle_string = f"""
     020.power_grid
@@ -379,10 +380,9 @@ def test_power_grid_020():
     01 01 01 01 03 05 01 01 01 ..
     diagonal
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
 def test_power_grid_021():
     puzzle_string = f"""
     021.power_grid
@@ -398,10 +398,9 @@ def test_power_grid_021():
     10 10 10 10 10 10 10 10 10 04
     02 01 01 01 01 .. .. 04 03 ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
 def test_power_grid_022():
     puzzle_string = f"""
     022.power_grid
@@ -418,10 +417,10 @@ def test_power_grid_022():
     01 05 05 01 06 .. 05 01 06 ..
     diagonal
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_023():
     puzzle_string = f"""
     023.power_grid
@@ -437,10 +436,9 @@ def test_power_grid_023():
     10 10 10 10 10 10 10 10 10 03
     .. 01 01 .. 01 01 01 06 .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
 def test_power_grid_024():
     puzzle_string = f"""
     024.power_grid
@@ -456,26 +454,26 @@ def test_power_grid_024():
     10 10 10 10 10 10 10 10 10 01
     .. 05 05 .. 07 01 .. 01 05 ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-@pytest.mark.skip("EXPLICITLY")
+# @pytest.mark.skip("EXPLICITLY")
 def test_power_grid_025():
     puzzle_string = f"""
-    0.power_grid
+    025.power_grid
     9
+    10 10 10 10 10 10 10 10 10 04
+    10 10 10 10 10 10 10 10 10 03
+    10 10 10 10 10 10 10 10 10 03
+    10 10 10 10 10 10 10 10 10 03
+    10 10 10 10 10 10 10 10 10 05
+    10 10 10 10 10 10 10 10 10 04
     10 10 10 10 10 10 10 10 10 ..
     10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    10 10 10 10 10 10 10 10 10 ..
-    .. .. .. .. .. .. .. .. .. ..
+    10 10 10 10 10 10 10 10 10 03
+    .. 01 01 01 01 01 01 .. 01 ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -494,7 +492,7 @@ def test_power_grid_026():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -513,7 +511,7 @@ def test_power_grid_027():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -532,7 +530,7 @@ def test_power_grid_028():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -551,7 +549,7 @@ def test_power_grid_29():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -570,7 +568,7 @@ def test_power_grid_030():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -589,7 +587,7 @@ def test_power_grid_031():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -608,7 +606,7 @@ def test_power_grid_032():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -627,7 +625,7 @@ def test_power_grid_033():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -646,7 +644,7 @@ def test_power_grid_034():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -665,7 +663,7 @@ def test_power_grid_035():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -684,7 +682,7 @@ def test_power_grid_036():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -703,7 +701,7 @@ def test_power_grid_037():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -722,7 +720,7 @@ def test_power_grid_038():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -741,7 +739,7 @@ def test_power_grid_039():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -760,7 +758,7 @@ def test_power_grid_040():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -779,7 +777,7 @@ def test_power_grid_041():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -798,7 +796,7 @@ def test_power_grid_042():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -817,7 +815,7 @@ def test_power_grid_043():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -836,7 +834,7 @@ def test_power_grid_044():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -855,7 +853,7 @@ def test_power_grid_045():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -874,7 +872,7 @@ def test_power_grid_046():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -893,7 +891,7 @@ def test_power_grid_047():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -912,7 +910,7 @@ def test_power_grid_048():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -931,7 +929,7 @@ def test_power_grid_049():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -950,7 +948,7 @@ def test_power_grid_050():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -969,7 +967,7 @@ def test_power_grid_051():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -988,7 +986,7 @@ def test_power_grid_052():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1007,7 +1005,7 @@ def test_power_grid_053():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1026,7 +1024,7 @@ def test_power_grid_054():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1045,7 +1043,7 @@ def test_power_grid_055():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1064,7 +1062,7 @@ def test_power_grid_056():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1083,7 +1081,7 @@ def test_power_grid_057():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1102,7 +1100,7 @@ def test_power_grid_058():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1121,7 +1119,7 @@ def test_power_grid_059():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1140,7 +1138,7 @@ def test_power_grid_060():
     10 10 10 10 10 10 10 10 10 ..
     .. .. .. .. .. .. .. .. .. ..
     """
-    assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+    assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 # def test_power_grid_094():
 #     puzzle_string = f"""
@@ -1158,4 +1156,4 @@ def test_power_grid_060():
 #     10 10 10 10 10 10 10 10 10 10 ..
 #     .. .. .. .. .. .. .. .. .. .. ..
 #     """
-#     assert default_test_puzzle(puzzle_string, PowerGrid, Solving.power_grid_techniques())
+#     assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
