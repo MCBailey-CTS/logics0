@@ -1,5 +1,4 @@
 import pytest
-
 from _defaults import default_test_puzzle
 from puzzles import *
 from solving import Solving

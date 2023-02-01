@@ -1,10 +1,3 @@
-import pytest
-
-from Constants import Constants
-from _defaults import default_test_puzzle
-from puzzles import *
-from solving import Solving
-
 # from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 # from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 
