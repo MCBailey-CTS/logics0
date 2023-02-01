@@ -56,8 +56,19 @@ EXPLICITLY = "EXPLICITLY"
 #     assert default_test_puzzle(result(), constructor, techniques)
 
 
-
-
+#
+#
+# def test_abstract_painting_002():
+#     puzzle_string = f"""
+#     002.abstractpainting
+#     4
+#     10a 10a 10e 10e 02
+#     10b 10a 10e 10e 03
+#     10b 10b 10b 10d 04
+#     10b 10c 10c 10d 02
+#     03 01 03 04 $$
+#     """
+#     assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
 
     
 # @staticmethod
