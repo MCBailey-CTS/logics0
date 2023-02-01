@@ -1,43 +1,11 @@
 import pytest
 
-from Constants import Constants
 from _defaults import default_test_puzzle
 from puzzles import *
 from solving import Solving
-
-# from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
-# from techniques.LockedCandidatesPointing import LockedCandidatesPointing
-
 EXPLICITLY = "EXPLICITLY"
 
 
-# @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
-#
-#     ('skyscrapers_001', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_002', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_003', Skyscrapers, Solving.skyscrapers_techniques()),
-#     # ('skyscrapers_004', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_005', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_tc_001', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_tc_002', Skyscrapers, Solving.skyscrapers_techniques()),
-#
-# ])
-# def test_default_puzzle(puzzle_string, constructor, techniques):
-#     assert default_test_puzzle(getattr(Constants, puzzle_string)(), constructor, techniques)
-
-
-#
-# @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
-#
-#     ('skyscrapers_001', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_002', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_003', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_004', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_005', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_tc_001', Skyscrapers, Solving.skyscrapers_techniques()),
-#     ('skyscrapers_tc_002', Skyscrapers, Solving.skyscrapers_techniques()),
-#
-# ])
 def test_skyscrapers_001():
     puzzle_string = f"""
         001.skyscrapers

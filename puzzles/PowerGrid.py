@@ -1,8 +1,9 @@
-from colorama import Style, Fore
-
-from puzzles import Puzzle
 from typing import Optional
+
+from colorama import Style
+
 from Loc import Loc
+from puzzles import Puzzle
 
 
 class PowerGrid(Puzzle):
@@ -105,11 +106,11 @@ class PowerGrid(Puzzle):
             if temp.col < 0 or temp.col >= len(self):
                 continue
 
-
             # if temp.is_valid_parks(self.grid):
             valid.append(temp)
 
         return valid
+
     def to_string(self, include_colors=True) -> str:
         string = f'{self.id()}\n{len(self)}\n'
         for r in range(len(self) + 1):
@@ -139,4 +140,3 @@ class PowerGrid(Puzzle):
         #             string += f'{self.grid[r][c].ljust(len(self))} '
         #     string += '\n'
         # return string
-

@@ -230,7 +230,6 @@ def test_sudoku_4x4_ar2_chute_goofy_south():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_ar2_chute_normal_west_control():
     actual = \
         f"""
@@ -245,7 +244,6 @@ def test_sudoku_4x4_ar2_chute_normal_west_control():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_ar2_chute_goofy_west_control():
     actual = \
         f"""
@@ -261,7 +259,6 @@ def test_sudoku_4x4_ar2_chute_goofy_west_control():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_ar2_chute_normal_south_control():
     actual = \
         f"""
@@ -276,7 +273,6 @@ def test_sudoku_4x4_ar2_chute_normal_south_control():
     assert False
 
 
-@mark.skip("EXPLICITLY")
 def test_sudoku_4x4_ar2_chute_goofy_south_control():
     actual = \
         f"""

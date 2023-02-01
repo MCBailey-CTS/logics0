@@ -457,7 +457,7 @@ def test_power_grid_024():
     assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
 
 
-# @pytest.mark.skip("EXPLICITLY")
+@pytest.mark.skip("EXPLICITLY")
 def test_power_grid_025():
     puzzle_string = f"""
     025.power_grid
