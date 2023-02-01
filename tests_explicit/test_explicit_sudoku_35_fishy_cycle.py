@@ -1,6 +1,6 @@
 from tech import tech
 from tests_explicit.test_small_explicit import solve
-
+from techniques.FishyCycle import FishyCycle
 
 def test_sudoku_explicit_fishy_cycle():
     actual = \
@@ -33,6 +33,6 @@ _23456789a _23456789a 123456789a    123456789b _23456789b _23456789b    _2345678
 _23456789g _23456789g 123456789g    _23456789h _23456789h 123456789h    _23456789i _23456789i _23456789i 
 123456789g 123456789g _23456789g    _23456789h 123456789h _23456789h    123456789i 123456789i 123456789i 
 """
-    if solve(9, actual, expected, tech.FishyCycle()):
+    if solve(9, actual, expected, FishyCycle()):
         return
     assert False

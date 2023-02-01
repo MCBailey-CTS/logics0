@@ -33,9 +33,12 @@ if __name__ == "__main__":
 
     import os, glob
 
+    string = ""
+
     path = 'C:\Repos\logics0\solve_files'
     for filename in glob.glob(os.path.join(path, '*')):
         with open(os.path.join(os.getcwd(), filename), 'r') as f:
             temp = os.path.split(filename)
-            print(temp[0])
+            # string += temp[0]
+            print(temp[1])
             print(f.read())

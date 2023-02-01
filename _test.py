@@ -6,8 +6,10 @@ from puzzles import *
 from solving import Solving
 # from solving import Solving
 from tech import tech
+from techniques.FishyCycle import FishyCycle
 from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
+from techniques.FinnedSwordfish import FinnedSwordFish
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.FinnedXWing import FinnedXWing
@@ -738,7 +740,7 @@ techniques = [
     ShashimiXWing(),
     tech.SwordFish(),
     tech.HiddenTriple(),
-    tech.FinnedSwordFish(),
+    FinnedSwordFish(),
     tech.ShashimiSwordFish(),
     WWing(),
     # Devious
@@ -756,7 +758,7 @@ techniques = [
     tech.HiddenQuad(),
     tech.FinnedJellyFish(),
     tech.ShashimiJellyFish(),
-    tech.FishyCycle(),
+    FishyCycle(),
     tech.XChain(),
     tech.XyChain(),
 ]
