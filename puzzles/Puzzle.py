@@ -215,7 +215,7 @@ class Puzzle:
                 if include_colors and loc in self.color_override:
                     string += f'{self.color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                     continue
-                if len(self.cell_candidates(loc)) == 0:
+                if self.cell_candidates(loc) is not None and  len(self.cell_candidates(loc)) == 0:
                     string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                 else:
                     string += f'{self.grid[r][c].ljust(len(self))} '
