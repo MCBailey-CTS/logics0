@@ -1,6 +1,6 @@
 from typing import Iterable
 
-class linq(list):
+class linq(Iterable):
     def __init__(self, __iterable: Iterable):
         super().__init__(__iterable)
         
@@ -45,6 +45,25 @@ class linq(list):
 
 
 
+def first_or_def(iterable, __default=None)->any:
+    return next(iter(iterable), __default)
+
+def first(iterable)->any:
+    return next(iter(iterable), None)
+
+    # item = first_or_def(iterable)
+    # if item is None:
+    #     raise Exception('empty first')
+    # return item
+
+
+if __name__ == "__main__":
+
+    temp = []
+
+
+
+    print(first(temp))
 
 
 

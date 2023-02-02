@@ -25,6 +25,8 @@ def prLightGray(skk): print("\033[97m {}\033[00m".format(skk))
 def prBlack(skk): print("\033[98m {}\033[00m".format(skk))
 
 
+
+
 if __name__ == "__main__":
     # next()
     # breakpoint()
