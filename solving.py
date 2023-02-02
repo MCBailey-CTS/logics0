@@ -19,6 +19,7 @@ from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
+from techniques.XyWing import XyWing
 
 
 class Solving:
@@ -33,12 +34,12 @@ class Solving:
             UniqueRectangleType1(),
             UniqueRectangleType2(),
             UniqueRectangleType4(),
-            FinnedXWing(),
+            # FinnedXWing(),
             Bug(),
             tech.HiddenPair(),
-            tech.NakedTriple(),
-            tech.XWing(),
-            tech.XyWing(),
+            # tech.NakedTriple(),
+            # tech.XWing(),
+            # XyWing(),
             # SwordFish(),
             # JellyFish(),
         ]
