@@ -45,31 +45,6 @@ class linq(Iterable):
 
 
 
-def first_or_def(iterable, __default=None)->any:
-    return next(iter(iterable), __default)
-
-def first(iterable)->any:
-    return next(iter(iterable), None)
-
-    # item = first_or_def(iterable)
-    # if item is None:
-    #     raise Exception('empty first')
-    # return item
-
-
-if __name__ == "__main__":
-
-    temp = []
-
-
-
-    print(first(temp))
-
-
-
-
-    
-
 # select
 # order_by
 # order_by_descending
