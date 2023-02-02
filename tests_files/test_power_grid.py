@@ -2,9 +2,7 @@ import pytest
 
 from _defaults import default_test_puzzle
 from puzzles import PowerGrid
-from solving import Solving
-
-from techniques.PowerGridTechniques import  power_grid_techniques
+from techniques.PowerGridTechniques import power_grid_techniques
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -117,6 +115,7 @@ def test_power_grid_006():
     03 03 01 01 06 01 05 01 06 $$      
     """
     assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
+
 
 @pytest.mark.skip("explicitly")
 def test_power_grid_007():
@@ -247,6 +246,7 @@ def test_power_grid_013():
     diagonal
     """
     assert default_test_puzzle(puzzle_string, PowerGrid, power_grid_techniques())
+
 
 @pytest.mark.skip("help")
 def test_power_grid_014():
