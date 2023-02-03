@@ -5,67 +5,63 @@ from puzzles import Puzzle
 
 
 class Loc:
-    def __init__(self, r: int, c: int, fence:Optional[str]=None):
-        self._row = r
-        self._col = c
+    def __init__(self, r: int, c: int, fence: Optional[str] = None):
+        self.__row = r
+        self.__col = c
         self.__fence = fence
 
-
-
-
-
     def __eq__(self, other) -> bool:
-        return self._row == other._row and self._col == other._col
+        return self.__row == other.__row and self.__col == other.__col
 
     def __hash__(self) -> int:
         hash1 = 23
-        hash1 = hash1 * 31 + self._row
-        return hash1 * 31 + self._col
+        hash1 = hash1 * 31 + self.__row
+        return hash1 * 31 + self.__col
 
     def __str__(self):
-        return f'Loc[{self._row}, {self._col}]'
+        return f'Loc[{self.__row}, {self.__col}]'
 
     def __iter__(self):
-        return iter((self._row, self._col))
+        return iter((self.__row, self.__col))
 
     @property
-    def row(self)->int:
-        return self._row
+    def row(self) -> int:
+        return self.__row
 
     @property
-    def col(self)->int:
-        return self._col
+    def col(self) -> int:
+        return self.__col
 
     @property
     def fence(self) -> str:
         if self.__fence is None:
-            raise Exception(f'Loc({self._row}, {self._col}) doe snot have a fence')
+            raise Exception(f'Loc({self.__row}, {self.__col}) doe snot have a fence')
         return self.__fence
 
     def row_house_locs(self, length: int):
         for col in range(0, length):
-            yield Loc(self._row, col)
+            yield Loc(self.__row, col)
 
     def col_house_locs(self, length: int):
         for row in range(0, length):
-            yield Loc(row, self._col)
+            yield Loc(row, self.__col)
 
     def is_valid_kropki(self, grid_length) -> bool:
-        return -1 < self._row < grid_length and -1 < self._col < grid_length
+        return -1 < self.__row < grid_length and -1 < self.__col < grid_length
 
     def is_valid_sudoku(self, length: int):
-        return -1 < self._row < length and -1 < self._col < length
+        return -1 < self.__row < length and -1 < self.__col < length
 
-    def is_valid_parks(self, grid: Union[list[list[str]],ndarray]) -> bool:
-        return -1 < self._row < len(grid) and -1 < self._col < len(grid)
+    def is_valid_parks(self, grid: Union[list[list[str]], ndarray]) -> bool:
+        return -1 < self.__row < len(grid) and -1 < self.__col < len(grid)
 
     def is_valid_tenner(self, grid: list[list[str]]) -> bool:
-        return -1 < self._row < len(grid) - 1 and -1 < self._col < len(grid) - 1
+        return -1 < self.__row < len(grid) - 1 and -1 < self.__col < len(grid) - 1
 
     def fence_house_locs(self, length: int, fence_grid: list):
         for row in range(0, length):
             for col in range(0, length):
-                if fence_grid[row][col] == fence_grid[self._row][self._col]:
+                if fence_grid[row][col] == fence_grid[self.__row][self.__col]:
                     yield Loc(row, col)
 
     def __repr__(self) -> str:
@@ -87,20 +83,20 @@ class Loc:
 
     # throw Error(`Cannot find intersection between ${loc0} and ${loc1}`);
 
-    def north(self, offset: int = 1)->'Loc':
-        return Loc(self._row - offset, self._col)
+    def north(self, offset: int = 1) -> 'Loc':
+        return Loc(self.__row - offset, self.__col)
 
-    def south(self, offset: int = 1)->'Loc':
-        return Loc(self._row + offset, self._col)
+    def south(self, offset: int = 1) -> 'Loc':
+        return Loc(self.__row + offset, self.__col)
 
-    def west(self, offset: int = 1)->'Loc':
-        return Loc(self._row, self._col - offset)
+    def west(self, offset: int = 1) -> 'Loc':
+        return Loc(self.__row, self.__col - offset)
 
-    def east(self, offset: int = 1)->'Loc':
-        return Loc(self._row, self._col + offset)
+    def east(self, offset: int = 1) -> 'Loc':
+        return Loc(self.__row, self.__col + offset)
 
-    def add(self, x_row: int, y_col: int)->'Loc':
-        return Loc(self._row + x_row, self._col + y_col)
+    def add(self, x_row: int, y_col: int) -> 'Loc':
+        return Loc(self.__row + x_row, self.__col + y_col)
 
     def add(self, vector):
         if isinstance(vector, Loc):
@@ -123,16 +119,16 @@ class Loc:
         return self.south(offset).east(offset)
 
     def in_same_row(self, other) -> bool:
-        return self._row == other.row
+        return self.__row == other.row
 
     def in_same_col(self, other) -> bool:
-        return self._col == other.col
+        return self.__col == other.col
 
     def is_next_to(self, other) -> bool:
-        if self.in_same_row(other) and abs(self._col - other.col) == 1:
+        if self.in_same_row(other) and abs(self.__col - other.col) == 1:
             return True
 
-        if self.in_same_col(other) and abs(self._row - other.row) == 1:
+        if self.in_same_col(other) and abs(self.__row - other.row) == 1:
             return True
 
         return False

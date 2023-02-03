@@ -6,18 +6,19 @@ from _defaults import default_test_puzzle
 from puzzles import Sudoku
 from solving import Solving
 from tech import tech
+from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.HiddenSingle import HiddenSingle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
+from techniques.ShashimiXWing import ShashimiXWing
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
 
 EXPLICITLY = "EXPLICITLY"
-
 
 
 @pytest.mark.skip("skipped")
@@ -155,7 +156,6 @@ def test_sudoku_almost_locked_candidates_6():
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
 
 
-
 @pytest.mark.skip("skipped")
 def test_sudoku_avoidable_rectangle_type1_00():
     puzzle_string = f"""
@@ -179,17 +179,22 @@ def test_sudoku_avoidable_rectangle_type1_01():
     puzzle_string = f"""
     avoidable_rectangle_type1_01.sudoku
     9
-    _a 9a 3a 2b 0b 0b 5c 0c 0c
-    _a 0a _a 0b 0b 4b 9c 0c 0c
-    4a _a 0a 0b 0b 0b 0c 8c 0c
-    0d 4d 9d 3e 0e 0e 0f 0f 0f
-    0d 7d 0d 9e 0e 1e 0f 5f 0f
-    0d 0d 0d 0e 0e 7e 2f 3f 0f
-    0g 8g 0g 0h 0h 0h 0i 0i 6i
-    0g 0g 1g 8h 0h 0h 0i 0i 0i
-    0g 0g 2g 0h 0h 5h 3i 1i 0i
+    _a 9a 3a   2b _b _b   5c _c _c
+    _a _a _a   _b _b 4b   9c _c _c
+    4a _a _a   _b _b _b   _c 8c _c
+    
+    _d 4d 9d   3e _e _e   _f _f _f
+    _d 7d _d   9e _e 1e   _f 5f _f
+    _d _d _d   _e _e 7e   2f 3f _f
+    
+    _g 8g _g   _h _h _h   _i _i 6i
+    _g _g 1g   8h _h _h   _i _i _i
+    _g _g 2g   _h _h 5h   3i 1i _i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku,
+                               [CrossHatch(), HiddenSingle(), LockedCandidatesPointing(), NakedPair(),
+                                UniqueRectangleType1(), ShashimiXWing(), AvoidableRectangleType1(),
+                                LockedCandidatesClaiming()])
 
 
 @pytest.mark.skip("skipped")
@@ -2024,13 +2029,6 @@ def test_sudoku_bug_0():
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
 
 
-
-
-
-
-
-
-
 def test_sudoku_hidden_pair_0():
     puzzle_string = f"""
     hidden_pair_0.sudoku
@@ -2097,8 +2095,6 @@ def test_sudoku_hidden_single_2():
     6g 1g 4g 0h 9h 0h 2i 0i 7i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), HiddenSingle()])
-
-
 
 
 def test_sudoku_locked_candidates_claiming_0():
@@ -2169,8 +2165,6 @@ def test_sudoku_locked_candidates_pointing_0():
     assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), HiddenSingle(), LockedCandidatesPointing()])
 
 
-
-
 def test_sudoku_naked_pair_0():
     puzzle_string = f"""
     naked_pair_0.sudoku
@@ -2237,7 +2231,8 @@ def test_sudoku_naked_triple_0():
     0g 1g 0g 0h 0h 7h 0i 0i 2i
     0g 0g 3g 0h 0h 0h 0i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), HiddenSingle(), LockedCandidatesPointing(), tech.NakedTriple()])
+    assert default_test_puzzle(puzzle_string, Sudoku,
+                               [CrossHatch(), HiddenSingle(), LockedCandidatesPointing(), tech.NakedTriple()])
 
 
 @pytest.mark.skip("skipped")
@@ -2399,7 +2394,8 @@ def test_sudoku_naked_triple_9():
     6g 0g 1g 0h 0h 4h 5i 0i 0i
     0g 0g 7g 6h 0h 9h 3i 4i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), HiddenSingle(), LockedCandidatesPointing(), tech.NakedTriple()])
+    assert default_test_puzzle(puzzle_string, Sudoku,
+                               [CrossHatch(), HiddenSingle(), LockedCandidatesPointing(), tech.NakedTriple()])
 
 
 @pytest.mark.skip("skipped")
@@ -2418,10 +2414,6 @@ def test_sudoku_naked_triple_row():
     0g 0g 5g 9h 0h 0h 0i 6i 4i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), tech.NakedTriple()])
-
-
-
-
 
 
 def test_sudoku_unique_rectangle_type1_00():
@@ -2510,9 +2502,6 @@ def test_sudoku_unique_rectangle_type1_04():
     _g _g 1g 5h _h _h _i 3i 4i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-
-
-
 
 
 @pytest.mark.skip("skipped")
@@ -2613,8 +2602,6 @@ def test_alternating_inference_chain():
 0g 7g 0g   0h 0h 0h   0i 5i 8i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-
-
 
 
 @pytest.mark.skip("skipped")
@@ -2815,11 +2802,6 @@ def test_avoidable_rectangle_type2_west():
 4g 0g 0g   0h 0h 3h   2i 1i 0i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-
-
-
-
-
 
 
 @pytest.mark.skip("skipped")
@@ -4047,7 +4029,6 @@ def test_locked_candidates_pointing_row():
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
 
 
-
 @pytest.mark.skip("skipped")
 def test_medusa_coloring_3d():
     puzzle_string = f"""
@@ -4372,8 +4353,6 @@ def test_naked_triple_row():
 
     """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-
-
 
 
 @pytest.mark.skip("skipped")
@@ -6257,12 +6236,6 @@ def test_x_chain_0():
     9g 4g 0g   0h 0h 5h   0i 7i 3i
     """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-
-
-
-
-
-
 
 #
 # avoidable_rectangle_type1_north_east_in_cols

@@ -4,7 +4,6 @@ from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
 from techniques.CrossHatchRobotFences import CrossHatchRobotFences
 from techniques.CrossHatchSumscrapers import CrossHatchSumscrapers
-from techniques.FinnedXWing import FinnedXWing
 from techniques.HiddenSingle import HiddenSingle
 from techniques.HiddenSingleRobotFences import HiddenSingleRobotFences
 from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
@@ -13,13 +12,11 @@ from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
 from techniques.Parks1Shapes import Parks1Shapes
 from techniques.Parks1XWing import Parks1XWing
-from techniques.PowerGridTechniques import  PowerGridTouchingPower, PowerGridBothPowersSolved, \
-    PowerGridLength9Power7, PowerGridHiddenPowerPair, PowerGridOnePowerSolvedBadMath, PowerGrid2Solved, PowerGrid1Solved1Unsolved, PowerGridRequirePower
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
-from techniques.XyWing import XyWing
+from techniques.RobotCrosswordsTech import RobotCrosswordsTech, RobotCrosswordsPowerSet
 
 
 class Solving:
@@ -174,7 +171,7 @@ class Solving:
 
     @staticmethod
     def robot_crosswords_techniques() -> list:
-        return [tech.RobotCrosswordsHouses()]
+        return [RobotCrosswordsTech(), RobotCrosswordsPowerSet()]
 
 
 

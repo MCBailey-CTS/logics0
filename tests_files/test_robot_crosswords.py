@@ -4,22 +4,6 @@ from solving import Solving
 import pytest
 
 
-# def test_robot_fences_020():
-#     puzzle_string = f"""
-#     020.robot_fences
-#     5
-#     0a 4a 5g 0h 0h
-#     0a 0e 0f 0f 0h
-#     0a 2f 0f 0f 0i
-#     1a 0c 4c 0c 5i
-#     4b 0c 0d 0d 3d
-#     """assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
-#     assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
-
-
-#
-#
-@pytest.mark.skip("skipped")
 def test_robot_crosswords_002():
     puzzle_string = f"""
     002.robot_crosswords
@@ -33,7 +17,6 @@ def test_robot_crosswords_002():
     assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
 
 
-@pytest.mark.skip("skipped")
 def test_robot_crosswords_003():
     puzzle_string = f"""
     003.robot_crosswords
@@ -61,7 +44,7 @@ def test_robot_crosswords_004():
     assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
 
 
-@pytest.mark.skip("skipped")
+# @pytest.mark.skip("skipped")
 def test_robot_crosswords_005():
     puzzle_string = f"""
     005.robot_crosswords
@@ -75,7 +58,7 @@ def test_robot_crosswords_005():
     assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
 
 
-@pytest.mark.skip("skipped")
+# @pytest.mark.skip("skipped")
 def test_robot_crosswords_006():
     puzzle_string = f"""
     006.robot_crosswords

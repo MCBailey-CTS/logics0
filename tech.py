@@ -718,47 +718,47 @@ class tech:
         def solve_two_cell(self, puzzle: Sudoku, cell0: Loc, cell1: Loc, candidate: int) -> int:
             edits = 0
 
-            if cell0.row == cell1.row:
-                for row in set(range(len(puzzle))).difference([cell0.row]):
-                    other0 = Loc(row, cell0.col)
-                    other1 = Loc(row, cell1.col)
-                    corners = [cell0, cell1, other0, other1]
-                    other_candidates0 = puzzle.cell_candidates(other0)
-                    other_candidates1 = puzzle.cell_candidates(other1)
-                    if len(other_candidates0) == 1 or \
-                            len(other_candidates1) == 1 or \
-                            candidate not in other_candidates0 or \
-                            candidate not in other_candidates1:
-                        continue
-                    other_row_house = puzzle.house_row(other0.row, candidate)
-                    if len(other_row_house) != 2:
-                        continue
-                    if {other0, other1} != set(other_row_house):
-                        continue
-                    locs_to_remove_from = set(puzzle.house_col(other0.col) + puzzle.house_col(other1.col)).difference(
-                        corners)
-                    edits += puzzle.rem(locs_to_remove_from, [candidate])
-
-            if cell0.col == cell1.col:
-                for col in set(range(len(puzzle))).difference([cell0.col]):
-                    other0 = Loc(cell0.row, col)
-                    other1 = Loc(cell1.row, col)
-                    corners = [cell0, cell1, other0, other1]
-                    other_candidates0 = puzzle.cell_candidates(other0)
-                    other_candidates1 = puzzle.cell_candidates(other1)
-                    if len(other_candidates0) == 1 or \
-                            len(other_candidates1) == 1 or \
-                            candidate not in other_candidates0 or \
-                            candidate not in other_candidates1:
-                        continue
-                    other_col_house = puzzle.house_col(other0.col, candidate)
-                    if len(other_col_house) != 2:
-                        continue
-                    if {other0, other1} != set(other_col_house):
-                        continue
-                    locs_to_remove_from = set(puzzle.house_row(other0.row) + puzzle.house_row(other1.row)).difference(
-                        corners)
-                    edits += puzzle.rem(locs_to_remove_from, [candidate])
+            # if cell0.row == cell1.row:
+            #     for row in set(range(len(puzzle))).difference([cell0.row]):
+            #         other0 = Loc(row, cell0.col)
+            #         other1 = Loc(row, cell1.col)
+            #         corners = [cell0, cell1, other0, other1]
+            #         other_candidates0 = puzzle.cell_candidates(other0)
+            #         other_candidates1 = puzzle.cell_candidates(other1)
+            #         if len(other_candidates0) == 1 or \
+            #                 len(other_candidates1) == 1 or \
+            #                 candidate not in other_candidates0 or \
+            #                 candidate not in other_candidates1:
+            #             continue
+            #         other_row_house = puzzle.house_row(other0.row, candidate)
+            #         if len(other_row_house) != 2:
+            #             continue
+            #         if {other0, other1} != set(other_row_house):
+            #             continue
+            #         locs_to_remove_from = set(puzzle.house_col(other0.col) + puzzle.house_col(other1.col)).difference(
+            #             corners)
+            #         edits += puzzle.rem(locs_to_remove_from, [candidate])
+            #
+            # if cell0.col == cell1.col:
+            #     for col in set(range(len(puzzle))).difference([cell0.col]):
+            #         other0 = Loc(cell0.row, col)
+            #         other1 = Loc(cell1.row, col)
+            #         corners = [cell0, cell1, other0, other1]
+            #         other_candidates0 = puzzle.cell_candidates(other0)
+            #         other_candidates1 = puzzle.cell_candidates(other1)
+            #         if len(other_candidates0) == 1 or \
+            #                 len(other_candidates1) == 1 or \
+            #                 candidate not in other_candidates0 or \
+            #                 candidate not in other_candidates1:
+            #             continue
+            #         other_col_house = puzzle.house_col(other0.col, candidate)
+            #         if len(other_col_house) != 2:
+            #             continue
+            #         if {other0, other1} != set(other_col_house):
+            #             continue
+            #         locs_to_remove_from = set(puzzle.house_row(other0.row) + puzzle.house_row(other1.row)).difference(
+            #             corners)
+            #         edits += puzzle.rem(locs_to_remove_from, [candidate])
 
             return edits
 
@@ -1124,71 +1124,7 @@ class tech:
             edits = 0
             return edits
 
-    class RobotCrosswordsHouses(Technique):
-        def solve0(self, puzzle: RobotCrosswords) -> int:
-            edits = 0
 
-            houses = []
-
-            for row in range(len(puzzle)):
-                house = []
-                for col in range(len(puzzle)):
-                    house.append(Loc(row, col))
-                houses.append(house)
-
-            for col in range(len(puzzle)):
-                house = []
-                for row in range(len(puzzle)):
-                    house.append(Loc(row, col))
-                houses.append(house)
-
-            for house in houses:
-
-                # temp_house = list(house)
-                #
-                #
-                #
-                #
-                #
-                #
-                # continue
-
-                string = ""
-
-                all_crosswords = []
-
-                in_crossword = False
-
-                crossword = []
-
-                for index in range(len(house)):
-                    if 'x' in puzzle.grid[house[index].row][house[index].col]:
-                        if in_crossword:
-                            all_crosswords.append(list(crossword))
-                            crossword = []
-                            in_crossword = False
-                            # continue
-                    elif in_crossword:
-                        crossword.append(house[index])
-                    else:
-                        crossword.append(house[index])
-                        in_crossword = True
-                # for cross in
-
-                print(all_crosswords)
-
-                # loc = house[index]
-
-                #     string += f'{puzzle.grid[loc.row][loc.col]} '
-                #
-                # string = string.replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).replace('xx', 'x', -1).strip()
-                # .split(" ")
-
-                # string = string.strip()
-
-                # print(string)
-
-            return edits
 
     class MagnetsFullHouse(Technique):
         def __int__(self):

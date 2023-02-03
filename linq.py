@@ -4,6 +4,7 @@ class linq(Iterable):
     def __init__(self, __iterable: Iterable):
         super().__init__(__iterable)
         
+    @overload
     def any(self, predicate)->bool:
         return any(item for item in self if predicate(item))
 
@@ -40,6 +41,8 @@ class linq(Iterable):
 
     def single_or_none(self, predicate=None):
         return self.__single_func_or_none(predicate) if predicate is not None else self.__single_or_none()
+
+    
 
 
 

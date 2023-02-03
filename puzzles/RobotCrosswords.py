@@ -1,3 +1,4 @@
+from Loc import Loc
 from puzzles import Puzzle
 
 
@@ -47,4 +48,59 @@ class RobotCrosswords(Puzzle):
         return string
 
     def is_solved(self) -> bool:
-        return False
+        for house in self.houses():
+            solved_candidates = [self.cell_candidates(loc)[0] for loc in house if len(self.cell_candidates(loc)) == 1]
+            if len(solved_candidates) != len(house):
+                return False
+            if not RobotCrosswords.is_solved_candidate_house(solved_candidates):
+                return False
+
+        return True
+
+    @staticmethod
+    def is_solved_candidate_house(candidates: list[int]) -> bool:
+        __sorted = sorted(candidates)
+        return all(__sorted[i] + 1 == __sorted[i + 1] for i in range(len(candidates) - 1))
+
+    def houses(self) -> list[list[Loc]]:
+        houses = []
+        for i in range(len(self)):
+            for house in [self.house_row(i), self.house_col(i)]:
+                actual_cells = set(
+                    [loc for index, loc in enumerate(house) if 'x' not in self.grid[loc.row][loc.col]])
+                house_chunks = []
+                while len(actual_cells) > 0:
+                    current = actual_cells.pop()
+                    current_set = {current}
+                    for other in list(actual_cells):
+                        if any(other.is_next_to(loc) for loc in current_set):
+                            actual_cells.remove(other)
+                            current_set.add(other)
+                    house_chunks.append(current_set)
+                for house0 in house_chunks:
+                    houses.append(list(house0))
+        return houses
+
+#
+# def solve0(self, puzzle: RobotCrosswords) -> int:
+#       edits = 0
+#       for i in range(len(puzzle)):
+#
+#           for house in [puzzle.house_row(i), puzzle.house_col(i)]:
+#               actual_cells = set(
+#                   [loc for index, loc in enumerate(house) if 'x' not in puzzle.grid[loc.row][loc.col]])
+#               house_chunks = []
+#               while len(actual_cells) > 0:
+#                   current = actual_cells.pop()
+#                   current_set = {current}
+#
+#                   for other in list(actual_cells):
+#                       if any(other.is_next_to(loc) for loc in current_set):
+#                           actual_cells.remove(other)
+#                           current_set.add(other)
+#
+#                   house_chunks.append(current_set)
+#               for house0 in house_chunks:
+#                   edits += self.solve1(puzzle, list(house0))
+#
+#       return edits
