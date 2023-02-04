@@ -1,4 +1,3 @@
-
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from tests_explicit.test_small_explicit import solve
 
@@ -505,3 +504,15 @@ def test_sudoku_9x9_unique_rectangle_type1_south_west_row_chute():
             """, UniqueRectangleType1()):
         return
     assert False
+
+
+# def test_():
+#     if solve(9,
+#              f"""
+#
+#             """,
+#              f"""
+#
+#             """, None):
+#         return
+#     assert False

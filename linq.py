@@ -1,21 +1,22 @@
 from typing import Iterable
 
+
 class linq(Iterable):
     def __init__(self, __iterable: Iterable):
         super().__init__(__iterable)
-        
-    @overload
-    def any(self, predicate)->bool:
+
+    # @overload
+    def any(self, predicate) -> bool:
         return any(item for item in self if predicate(item))
 
-    def all(self, predicate)->bool:
+    def all(self, predicate) -> bool:
         return all(item for item in self if predicate(item))
-        
-    def where(self, predicate):
-        return linq(item for item in self if predicate(item))        
 
-    def select(self, func)->'linq':
-        return linq(func(item) for item in self)        
+    def where(self, predicate):
+        return linq(item for item in self if predicate(item))
+
+    def select(self, func) -> 'linq':
+        return linq(func(item) for item in self)
 
     def __single(self):
         if len(self) == 1:
@@ -30,7 +31,6 @@ class linq(Iterable):
     def single(self, predicate=None):
         return self.__single_func(predicate) if predicate is not None else self.__single()
 
-
     def __single_or_none(self):
         if len(self) != 1:
             raise Exception('more than one element')
@@ -41,12 +41,6 @@ class linq(Iterable):
 
     def single_or_none(self, predicate=None):
         return self.__single_func_or_none(predicate) if predicate is not None else self.__single_or_none()
-
-    
-
-
-
-
 
 # select
 # order_by
@@ -96,5 +90,3 @@ class linq(Iterable):
 # single
 # single_or_default
 # to_dictionary
-
-

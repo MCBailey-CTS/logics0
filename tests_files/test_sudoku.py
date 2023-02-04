@@ -15,7 +15,6 @@ from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
 from techniques.ShashimiXWing import ShashimiXWing
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
-from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
 
 EXPLICITLY = "EXPLICITLY"
@@ -161,9 +160,9 @@ def test_sudoku_avoidable_rectangle_type1_00():
     puzzle_string = f"""
     avoidable_rectangle_type1_00.sudoku
     9
-    _a 0a 8a 0b 3b 0b 0c 4c 0c
-    _a 0a _a 1b 7b 6b 0c 0c 0c
-    6a _a 0a 0b 8b 0b 0c 0c 0c
+    _a _a 8a 0b 3b 0b 0c 4c 0c
+    _a _a _a 1b 7b 6b 0c 0c 0c
+    6a _a _a 0b 8b 0b 0c 0c 0c
     7d 9d 0d 0e 0e 0e 8f 0f 3f
     0d 0d 4d 0e 0e 0e 9f 0f 0f
     1d 0d 2d 0e 0e 0e 0f 5f 7f
@@ -202,9 +201,9 @@ def test_sudoku_avoidable_rectangle_type1_02():
     puzzle_string = f"""
     avoidable_rectangle_type1_02.sudoku
     9
-    _a 0a _a 8b 0b 0b 0c 0c 2c
-    _a 0a _a 0b 0b 6b 4c 0c 5c
-    1a _a 0a 2b 9b 4b 0c 0c 7c
+    _a _a _a 8b 0b 0b 0c 0c 2c
+    _a _a _a 0b 0b 6b 4c 0c 5c
+    1a _a _a 2b 9b 4b 0c 0c 7c
     0d 0d 0d 0e 0e 0e 2f 0f 9f
     0d 5d 3d 0e 0e 0e 7f 8f 0f
     8d 0d 4d 0e 0e 0e 0f 0f 0f
@@ -220,9 +219,9 @@ def test_sudoku_avoidable_rectangle_type1_03():
     puzzle_string = f"""
     avoidable_rectangle_type1_03.sudoku
     9
-    _a 0a _a 0b 7b 3b 0c 5c 0c
-    2a _a 0a 8b 0b 0b 0c 0c 3c
-    _a 0a _a 0b 2b 0b 0c 8c 0c
+    _a _a _a 0b 7b 3b 0c 5c 0c
+    2a _a _a 8b 0b 0b 0c 0c 3c
+    _a _a _a 0b 2b 0b 0c 8c 0c
     0d 1d 5d 7e 0e 0e 0f 0f 6f
     3d 2d 0d 0e 0e 0e 0f 1f 8f
     8d 0d 0d 0e 0e 2e 9f 3f 0f
@@ -238,7 +237,7 @@ def test_sudoku_avoidable_rectangle_type1_04():
     puzzle_string = f"""
     avoidable_rectangle_type1_04.sudoku
     9
-    6a _a 0a 9b 0b 0b 5c 1c 4c
+    6a _a _a 9b 0b 0b 5c 1c 4c
     5a 9a 1a 6b 4b 3b 8c 2c 7c
     7a 2a 4a 8b 5b 1b 9c 3c 6c
     8d 5d 2d 7e 6e 4e 1f 9f 3f
@@ -256,9 +255,9 @@ def test_sudoku_avoidable_rectangle_type1_05():
     puzzle_string = f"""
     avoidable_rectangle_type1_05.sudoku
     9
-    _a 0a 6a 0b 2b 8b 0c 5c 0c
+    _a _a 6a 0b 2b 8b 0c 5c 0c
     _a 8a _a 0b 0b 0b 0c 0c 0c
-    _a 0a 1a 0b 0b 6b 7c 0c 9c
+    _a _a 1a 0b 0b 6b 7c 0c 9c
     8d 0d 0d 2e 9e 0e 4f 0f 0f
     0d 0d 0d 0e 0e 0e 0f 0f 0f
     0d 0d 7d 0e 6e 1e 0f 0f 5f
@@ -274,9 +273,9 @@ def test_sudoku_avoidable_rectangle_type1_07():
     puzzle_string = f"""
     avoidable_rectangle_type1_07.sudoku
     9
-    4a _a 0a 0b 0b 6b 0c 7c 0c
+    4a _a _a 0b 0b 6b 0c 7c 0c
     1a 8a _a 0b 0b 0b 0c 0c 0c
-    3a _a 0a 0b 1b 0b 0c 8c 6c
+    3a _a _a 0b 1b 0b 0c 8c 6c
     0d 0d 7d 6e 0e 0e 0f 0f 8f
     0d 6d 0d 0e 5e 0e 0f 9f 0f
     8d 0d 0d 0e 0e 9e 2f 0f 0f
@@ -292,7 +291,7 @@ def test_sudoku_avoidable_rectangle_type1_08():
     puzzle_string = f"""
     avoidable_rectangle_type1_08.sudoku
     9
-    _a 0a 8a 2b 0b 4b 0c 0c 0c
+    _a _a 8a 2b 0b 4b 0c 0c 0c
     _a 2a _a 0b 1b 5b 0c 0c 0c
     _a 4a _a 0b 0b 0b 6c 5c 0c
     0d 0d 4d 7e 0e 0e 0f 0f 8f
@@ -310,9 +309,9 @@ def test_sudoku_avoidable_rectangle_type1_09():
     puzzle_string = f"""
     avoidable_rectangle_type1_09.sudoku
     9
-    _a 0a _a 0b 0b 4b 0c 0c 0c
+    _a _a _a 0b 0b 4b 0c 0c 0c
     4a 7a 1a 0b 0b 0b 2c 9c 0c
-    _a 0a 9a 7b 0b 0b 1c 0c 8c
+    _a _a 9a 7b 0b 0b 1c 0c 8c
     0d 0d 0d 2e 0e 8e 0f 0f 9f
     0d 0d 0d 0e 6e 0e 0f 0f 0f
     3d 0d 0d 5e 0e 7e 0f 0f 0f
@@ -329,8 +328,8 @@ def test_sudoku_avoidable_rectangle_type1_10():
     avoidable_rectangle_type1_10.sudoku
     9
     9a 7a 4a 0b 0b 5b 0c 0c 0c
-    _a 0a 8a 0b 0b 1b 2c 0c 0c
-    _a 0a _a 0b 0b 7b 4c 0c 0c
+    _a _a 8a 0b 0b 1b 2c 0c 0c
+    _a _a _a 0b 0b 7b 4c 0c 0c
     0d 2d 0d 1e 0e 0e 0f 8f 0f
     0d 0d 0d 0e 8e 0e 0f 0f 0f
     0d 1d 0d 0e 0e 9e 0f 2f 0f
@@ -364,7 +363,7 @@ def test_sudoku_avoidable_rectangle_type1_12():
     puzzle_string = f"""
     avoidable_rectangle_type1_12.sudoku
     9
-    _a 0a 3a 0b 0b 4b 0c 7c 0c
+    _a _a 3a 0b 0b 4b 0c 7c 0c
     _a 4a 2a 0b 0b 0b 0c 0c 8c
     1a 6a _a 0b 8b 0b 0c 0c 0c
     2d 0d 6d 3e 0e 0e 0f 8f 0f
@@ -400,7 +399,7 @@ def test_sudoku_avoidable_rectangle_type2_0():
     puzzle_string = f"""
     avoidable_rectangle_type2_0.sudoku
     9
-    _a 0a 5a 0b 0b 0b 6c 8c 3c
+    _a _a 5a 0b 0b 0b 6c 8c 3c
     _a 6a 4a 5b 3b 8b 9c 0c 2c
     8a 2a 3a 9b 6b 0b 0c 5c 0c
     2d 0d 0d 0e 0e 6e 5f 0f 0f
@@ -437,7 +436,7 @@ def test_sudoku_finned_x_wing_03():
     finned_x_wing_03.sudoku
     9
     _a 7a 6a 0b 8b 9b 0c 0c 0c
-    _a 0a _a 0b 0b 3b 0c 8c 6c
+    _a _a _a 0b 0b 3b 0c 8c 6c
     5a 8a 3a 0b 0b 4b 0c 0c 0c
     3d 0d 7d 8e 4e 0e 1f 0f 0f
     0d 2d 0d 0e 9e 0e 0f 4f 0f
@@ -454,9 +453,9 @@ def test_sudoku_hidden_quad_0():
     puzzle_string = f"""
     hidden_quad_0.sudoku
     9
-    8a _a 0a 1b 0b 9b 0c 4c 0c
-    _a 0a _a 0b 5b 0b 0c 6c 8c
-    _a 0a _a 7b 0b 0b 1c 9c 3c
+    8a _a _a 1b 0b 9b 0c 4c 0c
+    _a _a _a 0b 5b 0b 0c 6c 8c
+    _a _a _a 7b 0b 0b 1c 9c 3c
     1d 0d 2d 0e 0e 0e 0f 5f 0f
     0d 0d 0d 0e 0e 0e 0f 0f 0f
     0d 7d 0d 0e 0e 0e 3f 0f 4f
@@ -473,7 +472,7 @@ def test_sudoku_hidden_quad_1():
     hidden_quad_1.sudoku
     9
     3a 6a 4a 0b 0b 9b 0c 0c 0c
-    5a _a 0a 3b 0b 6b 1c 0c 0c
+    5a _a _a 3b 0b 6b 1c 0c 0c
     8a _a 1a 0b 7b 0b 0c 0c 0c
     7d 0d 0d 0e 0e 0e 6f 2f 0f
     0d 0d 0d 0e 0e 0e 0f 0f 0f
@@ -490,9 +489,9 @@ def test_sudoku_hidden_quad_2():
     puzzle_string = f"""
     hidden_quad_2.sudoku
     9
-    _a 0a _a 0b 0b 7b 0c 5c 0c
-    _a 0a _a 0b 0b 3b 0c 4c 0c
-    _a 0a _a 6b 4b 0b 0c 0c 8c
+    _a _a _a 0b 0b 7b 0c 5c 0c
+    _a _a _a 0b 0b 3b 0c 4c 0c
+    _a _a _a 6b 4b 0b 0c 0c 8c
     0d 4d 1d 0e 0e 0e 2f 9f 0f
     6d 0d 3d 0e 9e 0e 1f 0f 5f
     0d 9d 2d 0e 0e 0e 6f 8f 0f
@@ -508,9 +507,9 @@ def test_sudoku_hidden_quad_3():
     puzzle_string = f"""
     hidden_quad_3.sudoku
     9
-    _a 0a _a 6b 0b 0b 8c 0c 0c
-    _a 0a _a 0b 9b 1b 0c 4c 0c
-    _a 0a _a 3b 0b 0b 9c 0c 0c
+    _a _a _a 6b 0b 0b 8c 0c 0c
+    _a _a _a 0b 9b 1b 0c 4c 0c
+    _a _a _a 3b 0b 0b 9c 0c 0c
     5d 0d 2d 0e 0e 0e 4f 0f 1f
     3d 1d 0d 0e 2e 0e 0f 8f 7f
     7d 0d 9d 0e 0e 0e 2f 0f 5f
@@ -527,8 +526,8 @@ def test_sudoku_hidden_quad_4():
     hidden_quad_4.sudoku
     9
     3a 1a _a 4b 0b 9b 0c 0c 0c
-    _a 0a _a 1b 7b 5b 0c 0c 0c
-    _a 0a 7a 0b 3b 0b 0c 0c 0c
+    _a _a _a 1b 7b 5b 0c 0c 0c
+    _a _a 7a 0b 3b 0b 0c 0c 0c
     0d 0d 9d 0e 0e 0e 0f 8f 7f
     0d 0d 1d 0e 9e 0e 4f 0f 0f
     8d 7d 0d 0e 0e 0e 3f 0f 0f
@@ -544,9 +543,9 @@ def test_sudoku_hidden_quad_8():
     puzzle_string = f"""
     hidden_quad_8.sudoku
     9
-    _a 0a _a 5b 4b 1b 0c 9c 0c
-    _a 0a _a 7b 9b 3b 5c 0c 0c
-    _a 0a _a 2b 8b 6b 3c 0c 4c
+    _a _a _a 5b 4b 1b 0c 9c 0c
+    _a _a _a 7b 9b 3b 5c 0c 0c
+    _a _a _a 2b 8b 6b 3c 0c 4c
     0d 4d 0d 1e 0e 8e 9f 0f 5f
     0d 6d 0d 9e 2e 5e 4f 3f 0f
     9d 0d 5d 3e 0e 4e 0f 2f 0f
@@ -580,9 +579,9 @@ def test_sudoku_hidden_triple_0():
     puzzle_string = f"""
     hidden_triple_0.sudoku
     9
-    _a 0a _a 5b 0b 0b 0c 7c 9c
+    _a _a _a 5b 0b 0b 0c 7c 9c
     _a 1a _a 0b 0b 0b 0c 5c 4c
-    _a 0a 4a 0b 8b 0b 0c 0c 0c
+    _a _a 4a 0b 8b 0b 0c 0c 0c
     2d 0d 0d 9e 0e 3e 0f 0f 8f
     0d 0d 7d 0e 0e 0e 9f 0f 0f
     6d 0d 0d 2e 0e 7e 0f 0f 3f
@@ -599,8 +598,8 @@ def test_sudoku_hidden_triple_2():
     hidden_triple_2.sudoku
     9
     _a 3a _a 0b 8b 0b 0c 1c 0c
-    _a 0a _a 0b 3b 0b 8c 0c 0c
-    _a 0a _a 6b 7b 0b 0c 3c 5c
+    _a _a _a 0b 3b 0b 8c 0c 0c
+    _a _a _a 6b 7b 0b 0c 3c 5c
     7d 9d 2d 1e 6e 3e 5f 8f 4f
     5d 4d 8d 2e 9e 7e 3f 6f 1f
     3d 0d 0d 5e 4e 8e 7f 0f 0f
@@ -617,8 +616,8 @@ def test_sudoku_hidden_triple_3():
     hidden_triple_3.sudoku
     9
     _a 9a _a 2b 3b 6b 0c 1c 0c
-    5a _a 0a 1b 7b 0b 3c 0c 9c
-    _a 0a _a 5b 9b 0b 2c 0c 0c
+    5a _a _a 1b 7b 0b 3c 0c 9c
+    _a _a _a 5b 9b 0b 2c 0c 0c
     0d 0d 0d 9e 4e 2e 7f 0f 0f
     2d 4d 9d 7e 8e 5e 6f 3f 1f
     8d 7d 5d 3e 6e 1e 0f 0f 0f
@@ -634,9 +633,9 @@ def test_sudoku_hidden_triple_4():
     puzzle_string = f"""
     hidden_triple_4.sudoku
     9
-    _a 0a _a 9b 0b 0b 7c 0c 0c
+    _a _a _a 9b 0b 0b 7c 0c 0c
     _a 5a _a 6b 0b 3b 0c 4c 2c
-    _a 0a _a 0b 0b 0b 0c 0c 1c
+    _a _a _a 0b 0b 0b 0c 0c 1c
     8d 3d 0d 0e 5e 0e 9f 2f 0f
     7d 0d 0d 0e 0e 0e 0f 0f 3f
     0d 2d 5d 0e 4e 0e 0f 8f 7f
@@ -652,9 +651,9 @@ def test_sudoku_hidden_triple_5():
     puzzle_string = f"""
     hidden_triple_5.sudoku
     9
-0a _a 0a 0b 7b 0b 0c 0c 0c
-9a _a 0a 4b 2b 5b 1c 0c 0c
-4a _a 0a 0b 0b 3b 0c 2c 5c
+_a _a _a 0b 7b 0b 0c 0c 0c
+9a _a _a 4b 2b 5b 1c 0c 0c
+4a _a _a 0b 0b 3b 0c 2c 5c
 0d 5d 0d 0e 0e 0e 7f 0f 8f
 0d 6d 0d 0e 0e 0e 0f 3f 0f
 8d 0d 3d 0e 0e 0e 0f 6f 0f
@@ -671,9 +670,9 @@ def test_sudoku_hidden_triple_6():
     puzzle_string = f"""
     hidden_triple_6.sudoku
     9
-0a 9a _a 0b 0b 0b 0c 5c 4c
-0a _a 0a 0b 0b 5b 0c 6c 7c
-0a _a 4a 0b 2b 0b 0c 0c 0c
+_a 9a _a 0b 0b 0b 0c 5c 4c
+_a _a _a 0b 0b 5b 0c 6c 7c
+_a _a 4a 0b 2b 0b 0c 0c 0c
 3d 0d 0d 6e 0e 1e 0f 0f 8f
 0d 0d 6d 0e 0e 0e 7f 0f 0f
 1d 0d 9d 8e 0e 7e 6f 0f 2f
@@ -708,9 +707,9 @@ def test_sudoku_naked_quad_1():
     puzzle_string = f"""
     naked_quad_1.sudoku
     9
-    5a _a 0a 7b 0b 4b 2c 0c 0c
+    5a _a _a 7b 0b 4b 2c 0c 0c
     _a 7a _a 1b 0b 0b 9c 0c 4c
-    _a 0a _a 8b 0b 0b 0c 0c 0c
+    _a _a _a 8b 0b 0b 0c 0c 0c
     7d 0d 0d 0e 0e 0e 3f 0f 0f
     2d 0d 1d 0e 0e 0e 7f 0f 5f
     0d 0d 4d 0e 0e 0e 0f 0f 6f
@@ -726,9 +725,9 @@ def test_sudoku_naked_quad_2():
     puzzle_string = f"""
     naked_quad_2.sudoku
     9
-    5a _a 0a 1b 4b 0b 0c 7c 2c
+    5a _a _a 1b 4b 0b 0c 7c 2c
     _a 7a _a 0b 0b 6b 0c 0c 5c
-    _a 0a _a 0b 5b 0b 0c 1c 6c
+    _a _a _a 0b 5b 0b 0c 1c 6c
     0d 0d 0d 5e 0e 0e 0f 0f 0f
     8d 3d 0d 0e 0e 0e 0f 4f 7f
     0d 0d 0d 0e 0e 2e 0f 0f 0f
@@ -745,8 +744,8 @@ def test_sudoku_naked_quad_3():
     puzzle_string = f"""
     naked_quad_3.sudoku
     9
-    9a _a 0a 0b 3b 0b 6c 0c 0c
-    _a 0a _a 6b 0b 5b 0c 9c 3c
+    9a _a _a 0b 3b 0b 6c 0c 0c
+    _a _a _a 6b 0b 5b 0c 9c 3c
     _a 3a _a 9b 0b 7b 0c 0c 0c
     7d 6d 3d 0e 9e 8e 0f 0f 4f
     5d 4d 8d 7e 6e 0e 3f 0f 9f
@@ -763,7 +762,7 @@ def test_sudoku_wxyz_wing_1():
     puzzle_string = f"""
     wxyz_wing_1.sudoku
     9
-0a 4a 1a 0b 0b 0b 0c 0c 0c
+_a 4a 1a 0b 0b 0b 0c 0c 0c
 8a 7a _a 2b 4b 0b 0c 0c 0c
 2a _a 6a 0b 0b 9b 0c 0c 0c
 4d 0d 0d 7e 9e 5e 3f 0f 0f
@@ -781,7 +780,7 @@ def test_sudoku_wxyz_wing_2():
     puzzle_string = f"""
     wxyz_wing_2.sudoku
     9
-0a 4a 1a 0b 0b 0b 0c 0c 0c
+_a 4a 1a 0b 0b 0b 0c 0c 0c
 8a 7a _a 2b 4b 0b 0c 0c 0c
 2a _a 6a 0b 0b 9b 0c 0c 0c
 4d 0d 0d 7e 9e 5e 3f 0f 0f
@@ -799,7 +798,7 @@ def test_sudoku_wxyz_wing_3():
     puzzle_string = f"""
     wxyz_wing_3.sudoku
     9
-0a 4a 1a 0b 0b 0b 0c 0c 0c
+_a 4a 1a 0b 0b 0b 0c 0c 0c
 8a 7a _a 2b 4b 0b 0c 0c 0c
 2a _a 6a 0b 0b 9b 0c 0c 0c
 4d 0d 0d 7e 9e 5e 3f 0f 0f
@@ -836,7 +835,7 @@ def test_sudoku_wxyz_wing_8():
     wxyz_wing_8.sudoku
     9
 4a _a 7a 0b 0b 0b 0c 9c 8c
-0a 6a 3a 8b 0b 4b 5c 7c 2c
+_a 6a 3a 8b 0b 4b 5c 7c 2c
 5a _a 8a 0b 0b 0b 0c 1c 4c
 8d 7d 1d 5e 3e 9e 2f 4f 6f
 0d 0d 4d 2e 0e 1e 9f 0f 7f
@@ -853,9 +852,9 @@ def test_sudoku_wxyz_wing_9():
     puzzle_string = f"""
     wxyz_wing_9.sudoku
     9
-0a _a 0a 0b 0b 7b 5c 2c 0c
-0a _a 0a 0b 0b 0b 0c 9c 4c
-0a _a 0a 8b 0b 0b 1c 6c 7c
+_a _a _a 0b 0b 7b 5c 2c 0c
+_a _a _a 0b 0b 0b 0c 9c 4c
+_a _a _a 8b 0b 0b 1c 6c 7c
 0d 0d 7d 9e 0e 6e 0f 8f 0f
 0d 6d 0d 7e 0e 2e 0f 3f 0f
 0d 5d 0d 4e 8e 3e 7f 1f 6f
@@ -872,9 +871,9 @@ def test_sudoku_w_wing_type_d_1():
     puzzle_string = f"""
     w_wing_type_d_1.sudoku
     9
-7a _a 0a 9b 0b 5b 2c 0c 0c
+7a _a _a 9b 0b 5b 2c 0c 0c
 2a 5a 4a 0b 8b 7b 0c 9c 6c
-9a _a 0a 2b 0b 0b 0c 5c 7c
+9a _a _a 2b 0b 0b 0c 5c 7c
 5d 7d 9d 0e 0e 3e 6f 0f 2f
 8d 2d 0d 5e 9e 6e 0f 7f 0f
 6d 4d 0d 7e 2e 0e 5f 0f 9f
@@ -892,8 +891,8 @@ def test_sudoku_w_wing_type_d_2():
     w_wing_type_d_2.sudoku
     9
 4a _a 8a 1b 6b 0b 3c 2c 0c
-0a _a 1a 0b 0b 0b 8c 4c 0c
-0a _a 2a 8b 7b 4b 5c 1c 0c
+_a _a 1a 0b 0b 0b 8c 4c 0c
+_a _a 2a 8b 7b 4b 5c 1c 0c
 6d 1d 4d 2e 9e 8e 7f 5f 3f
 8d 0d 5d 0e 4e 1e 6f 9f 2f
 0d 2d 9d 6e 5e 0e 4f 8f 1f
@@ -910,9 +909,9 @@ def test_sudoku_w_wing_type_d_3():
     puzzle_string = f"""
     w_wing_type_d_3.sudoku
     9
-0a _a 8a 0b 2b 0b 0c 6c 0c
-0a _a 6a 4b 1b 0b 0c 0c 2c
-0a 5a _a 8b 0b 0b 0c 9c 0c
+_a _a 8a 0b 2b 0b 0c 6c 0c
+_a _a 6a 4b 1b 0b 0c 0c 2c
+_a 5a _a 8b 0b 0b 0c 9c 0c
 5d 0d 0d 0e 0e 0e 0f 0f 0f
 9d 0d 7d 0e 0e 0e 3f 0f 6f
 0d 0d 0d 0e 0e 0e 0f 0f 7f
@@ -929,7 +928,7 @@ def test_sudoku_w_wing_type_d_4():
     puzzle_string = f"""
     w_wing_type_d_4.sudoku
     9
-0a 5a _a 0b 0b 0b 9c 3c 0c
+_a 5a _a 0b 0b 0b 9c 3c 0c
 9a _a 1a 0b 8b 0b 0c 0c 0c
 6a _a 3a 0b 9b 4b 8c 1c 5c
 0d 1d 6d 0e 5e 0e 3f 7f 2f
@@ -949,8 +948,8 @@ def test_sudoku_w_wing_type_d_5():
     w_wing_type_d_5.sudoku
     9
 7a 5a 2a 3b 0b 0b 4c 1c 0c
-8a _a 0a 0b 0b 9b 0c 0c 0c
-0a _a 0a 0b 4b 0b 0c 0c 0c
+8a _a _a 0b 0b 9b 0c 0c 0c
+_a _a _a 0b 4b 0b 0c 0c 0c
 0d 6d 0d 0e 0e 0e 0f 0f 0f
 0d 9d 0d 6e 8e 3e 0f 5f 0f
 0d 0d 0d 0e 0e 0e 0f 8f 0f
@@ -967,9 +966,9 @@ def test_sudoku_xyz_wing_0():
     puzzle_string = f"""
     xyz_wing_0.sudoku
     9
-0a _a 0a 0b 0b 3b 4c 0c 5c
-0a 9a 6a 0b 0b 0b 7c 8c 0c
-0a _a 0a 0b 0b 0b 0c 2c 0c
+_a _a _a 0b 0b 3b 4c 0c 5c
+_a 9a 6a 0b 0b 0b 7c 8c 0c
+_a _a _a 0b 0b 0b 0c 2c 0c
 0d 1d 0d 0e 8e 9e 6f 0f 0f
 0d 0d 0d 4e 0e 5e 0f 0f 0f
 0d 0d 5d 1e 2e 0e 0f 4f 0f
@@ -987,8 +986,8 @@ def test_sudoku_xyz_wing_1():
     xyz_wing_1.sudoku
     9
 9a 3a _a 0b 0b 8b 0c 0c 0c
-0a _a 0a 3b 0b 0b 0c 8c 5c
-6a _a 0a 0b 1b 0b 0c 9c 4c
+_a _a _a 3b 0b 0b 0c 8c 5c
+6a _a _a 0b 1b 0b 0c 9c 4c
 0d 5d 0d 0e 0e 0e 0f 1f 9f
 0d 0d 6d 0e 0e 0e 4f 0f 0f
 1d 7d 0d 0e 0e 0e 0f 2f 0f
@@ -1005,8 +1004,8 @@ def test_sudoku_xyz_wing_2():
     xyz_wing_2.sudoku
     9
 9a 3a _a 0b 0b 8b 0c 0c 0c
-0a _a 0a 3b 0b 0b 0c 8c 5c
-6a _a 0a 0b 1b 0b 0c 9c 4c
+_a _a _a 3b 0b 0b 0c 8c 5c
+6a _a _a 0b 1b 0b 0c 9c 4c
 0d 5d 0d 0e 0e 0e 0f 1f 9f
 0d 0d 6d 0e 0e 0e 4f 0f 0f
 1d 7d 0d 0e 0e 0e 0f 2f 0f
@@ -1023,8 +1022,8 @@ def test_sudoku_xyz_wing_3():
     xyz_wing_3.sudoku
     9
 9a 3a _a 0b 0b 8b 0c 0c 0c
-0a _a 0a 3b 0b 0b 0c 8c 5c
-6a _a 0a 0b 1b 0b 0c 9c 4c
+_a _a _a 3b 0b 0b 0c 8c 5c
+6a _a _a 0b 1b 0b 0c 9c 4c
 0d 5d 0d 0e 0e 0e 0f 1f 9f
 0d 0d 6d 0e 0e 0e 4f 0f 0f
 1d 7d 0d 0e 0e 0e 0f 2f 0f
@@ -1062,8 +1061,8 @@ def test_sudoku_xyz_wing_5():
     9
     9
 9a 7a _a 4b 0b 0b 0c 5c 0c
-1a _a 0a 0b 0b 0b 0c 0c 0c
-0a 3a 8a 0b 0b 2b 0c 7c 0c
+1a _a _a 0b 0b 0b 0c 0c 0c
+_a 3a 8a 0b 0b 2b 0c 7c 0c
 5d 0d 0d 2e 3e 0e 0f 0f 0f
 0d 0d 0d 1e 0e 6e 0f 0f 0f
 0d 0d 0d 0e 4e 7e 0f 0f 8f
@@ -1081,7 +1080,7 @@ def test_sudoku_xyz_wing_6():
     9
 7a 1a 3a 8b 9b 4b 5c 6c 2c
 6a 9a 2a 3b 1b 5b 8c 4c 7c
-0a _a 5a 7b 6b 2b 3c 1c 9c
+_a _a 5a 7b 6b 2b 3c 1c 9c
 0d 0d 8d 1e 5e 9e 0f 0f 0f
 0d 0d 1d 4e 8e 7e 0f 0f 0f
 0d 0d 9d 2e 3e 6e 1f 0f 8f
@@ -1098,9 +1097,9 @@ def test_sudoku_xyz_wing_7():
     xyz_wing_7.sudoku
     9
     9
-0a 2a 9a 3b 5b 0b 1c 8c 6c
+_a 2a 9a 3b 5b 0b 1c 8c 6c
 6a 5a 8a 0b 0b 0b 3c 0c 2c
-0a _a 3a 2b 6b 8b 0c 9c 0c
+_a _a 3a 2b 6b 8b 0c 9c 0c
 8d 6d 5d 1e 4e 3e 0f 0f 0f
 9d 7d 1d 8e 2e 5e 0f 0f 3f
 0d 0d 2d 9e 7e 6e 8f 5f 1f
@@ -1116,7 +1115,7 @@ def test_sudoku_xyz_wing_8():
     puzzle_string = f"""
     xyz_wing_8.sudoku
     9
-0a _a 6a 3b 5b 8b 0c 4c 0c
+_a _a 6a 3b 5b 8b 0c 4c 0c
 5a _a 8a 4b 2b 1b 0c 0c 3c
 3a 4a 2a 9b 6b 7b 1c 5c 8c
 8d 0d 9d 7e 0e 5e 0f 2f 0f
@@ -1153,7 +1152,7 @@ def test_sudoku_xy_wing_01():
     puzzle_string = f"""
     9
 6a 9a _a 0b 7b 8b 5c 3c 2c
-0a 7a 3a 9b 2b 0b 6c 8c 4c
+_a 7a 3a 9b 2b 0b 6c 8c 4c
 2a 8a _a 0b 0b 0b 7c 1c 9c
 8d 0d 0d 0e 3e 0e 9f 0f 7f
 4d 3d 0d 7e 6e 9e 0f 5f 8f
@@ -1171,7 +1170,7 @@ def test_sudoku_xy_wing_02():
     xy_wing_02.sudoku
     9
 3a 1a 4a 9b 2b 5b 8c 7c 6c
-0a 9a 7a 1b 8b 6b 0c 0c 0c
+_a 9a 7a 1b 8b 6b 0c 0c 0c
 6a 8a _a 4b 7b 3b 0c 0c 1c
 8d 5d 6d 7e 3e 2e 0f 0f 9f
 0d 3d 9d 5e 4e 0e 7f 6f 0f
@@ -1189,7 +1188,7 @@ def test_sudoku_xy_wing_03():
     xy_wing_03.sudoku
     9
 3a 1a 4a 9b 2b 5b 8c 7c 6c
-0a 9a 7a 1b 8b 6b 0c 0c 0c
+_a 9a 7a 1b 8b 6b 0c 0c 0c
 6a 8a _a 4b 7b 3b 0c 0c 1c
 8d 5d 6d 7e 3e 2e 0f 0f 9f
 0d 3d 9d 5e 4e 0e 7f 6f 0f
@@ -1207,9 +1206,9 @@ def test_sudoku_xy_wing_04():
     puzzle_string = f"""
     xy_wing_04.sudoku
     9
-0a 6a 3a 0b 4b 5b 2c 8c 0c
-0a _a 0a 0b 0b 3b 6c 7c 4c
-4a _a 0a 0b 0b 6b 0c 5c 3c
+_a 6a 3a 0b 4b 5b 2c 8c 0c
+_a _a _a 0b 0b 3b 6c 7c 4c
+4a _a _a 0b 0b 6b 0c 5c 3c
 8d 4d 0d 0e 0e 0e 7f 0f 6f
 0d 3d 1d 4e 6e 7e 8f 0f 0f
 9d 7d 6d 0e 0e 0e 0f 0f 0f
@@ -1226,8 +1225,8 @@ def test_sudoku_xy_wing_05():
     puzzle_string = f"""
     xy_wing_05.sudoku
     9
-0a _a 6a 0b 8b 0b 1c 0c 7c
-0a _a 8a 0b 0b 0b 9c 0c 5c
+_a _a 6a 0b 8b 0b 1c 0c 7c
+_a _a 8a 0b 0b 0b 9c 0c 5c
 7a _a 5a 3b 0b 2b 6c 8c 4c
 3d 7d 9d 0e 0e 4e 2f 5f 8f
 5d 6d 1d 8e 2e 3e 4f 7f 9f
@@ -1246,8 +1245,8 @@ def test_sudoku_xy_wing_06():
     xy_wing_06.sudoku
     9
 3a _a 1a 8b 0b 0b 7c 5c 2c
-0a _a 0a 0b 0b 1b 6c 8c 9c
-0a 8a _a 7b 0b 0b 3c 1c 4c
+_a _a _a 0b 0b 1b 6c 8c 9c
+_a 8a _a 7b 0b 0b 3c 1c 4c
 0d 0d 0d 0e 0e 8e 5f 0f 1f
 1d 0d 0d 5e 2e 0e 8f 0f 3f
 8d 5d 3d 9e 1e 7e 4f 2f 6f
@@ -1285,7 +1284,7 @@ def test_sudoku_xy_wing_08():
     9
 6a 8a 9a 7b 2b 1b 4c 5c 3c
 1a 5a 2a 4b 8b 3b 9c 6c 7c
-0a 7a _a 9b 6b 5b 0c 8c 0c
+_a 7a _a 9b 6b 5b 0c 8c 0c
 0d 4d 0d 8e 3e 0e 0f 7f 5f
 7d 0d 0d 0e 4e 0e 3f 0f 8f
 0d 3d 0d 0e 7e 2e 0f 0f 4f
@@ -1319,9 +1318,9 @@ def test_sudoku_xy_wing_10():
     puzzle_string = f"""
     xy_wing_10.sudoku
     9
-0a 6a _a 4b 0b 1b 0c 8c 0c
+_a 6a _a 4b 0b 1b 0c 8c 0c
 9a 8a 4a 5b 7b 6b 2c 3c 1c
-1a _a 0a 0b 0b 9b 6c 7c 4c
+1a _a _a 0b 0b 9b 6c 7c 4c
 6d 0d 2d 0e 0e 3e 4f 0f 7f
 3d 4d 1d 7e 9e 0e 8f 6f 0f
 8d 7d 0d 6e 4e 0e 1f 0f 3f
@@ -1357,9 +1356,9 @@ def test_sudoku_x_wing_0():
     puzzle_string = f"""
     x_wing_0.sudoku
     9
-    _a 0a _a 0b 0b 0b 7c 0c 4c
-    3a _a 0a 0b 7b 0b 0c 0c 5c
-    _a 0a _a 0b 1b 8b 0c 0c 2c
+    _a _a _a 0b 0b 0b 7c 0c 4c
+    3a _a _a 0b 7b 0b 0c 0c 5c
+    _a _a _a 0b 1b 8b 0c 0c 2c
     1d 5d 0d 9e 2e 0e 8f 0f 3f
     0d 0d 0d 0e 0e 0e 0f 0f 0f
     6d 0d 8d 0e 3e 1e 0f 4f 7f
@@ -1447,7 +1446,7 @@ def test_sudoku_unique_rectangle_type1_south_west_in_cols():
         unique_rectangle_type1_south_west_in_cols.sudoku
         9
 2a 6a _a 9b 3b 0b 0c 0c 0c
-0a 8a 3a 6b 4b 0b 0c 0c 2c
+_a 8a 3a 6b 4b 0b 0c 0c 2c
 4a 9a 7a 5b 2b 8b 6c 3c 1c
 7d 4d 6d 2e 8e 9e 3f 1f 5f
 8d 5d 9d 3e 1e 6e 2f 4f 7f
@@ -1482,7 +1481,7 @@ def test_sudoku_unique_rectangle_type1_south_east_in_cols():
         unique_rectangle_type1_south_east_in_cols.sudoku
         9
 8a 3a 7a 4b 0b 0b 5c 6c 1c
-0a _a 9a 5b 3b 6b 2c 7c 8c
+_a _a 9a 5b 3b 6b 2c 7c 8c
 5a 2a 6a 1b 7b 8b 9c 0c 0c
 2d 0d 8d 9e 4e 3e 0f 1f 5f
 3d 0d 5d 8e 6e 1e 0f 2f 9f
@@ -1533,8 +1532,8 @@ def test_sudoku_unique_rectangle_type1_north_west_in_cols():
     puzzle_string = f"""
         unique_rectangle_type1_north_west_in_cols.sudoku
         9
-0a 9a 7a 2b 0b 0b 0c 3c 0c
-0a 3a 4a 0b 0b 7b 0c 2c 0c
+_a 9a 7a 2b 0b 0b 0c 3c 0c
+_a 3a 4a 0b 0b 7b 0c 2c 0c
 2a 5a 8a 0b 6b 0b 0c 1c 7c
 7d 2d 5d 0e 0e 0e 3f 6f 9f
 4d 1d 6d 0e 7e 0e 2f 5f 8f
@@ -1570,8 +1569,8 @@ def test_sudoku_unique_rectangle_type2_east():
         unique_rectangle_type2_east.sudoku
         9
 7a 2a 3a 0b 5b 4b 9c 8c 0c
-0a 8a 4a 0b 9b 2b 0c 0c 3c
-0a 9a 1a 8b 0b 3b 0c 2c 4c
+_a 8a 4a 0b 9b 2b 0c 0c 3c
+_a 9a 1a 8b 0b 3b 0c 2c 4c
 3d 4d 5d 0e 1e 8e 0f 9f 2f
 8d 0d 6d 3e 2e 9e 4f 0f 5f
 9d 0d 2d 4e 0e 5e 8f 3f 0f
@@ -1586,8 +1585,8 @@ def test_sudoku_unique_rectangle_type2_south():
     puzzle_string = f"""
         unique_rectangle_type2_south.sudoku
         9
-0a 8a _a 0b 3b 0b 2c 7c 4c
-0a 4a 2a 0b 0b 7b 0c 5c 3c
+_a 8a _a 0b 3b 0b 2c 7c 4c
+_a 4a 2a 0b 0b 7b 0c 5c 3c
 3a 7a _a 0b 2b 0b 9c 1c 0c
 4d 1d 3d 7e 9e 8e 5f 6f 2f
 6d 5d 7d 0e 4e 0e 3f 8f 9f
@@ -1603,9 +1602,9 @@ def test_sudoku_unique_rectangle_type2_west():
     puzzle_string = f"""
         unique_rectangle_type2_west.sudoku
         9
-2a _a 0a 6b 0b 1b 3c 5c 7c
+2a _a _a 6b 0b 1b 3c 5c 7c
 1a 5a 6a 7b 2b 3b 9c 8c 4c
-0a 7a 3a 9b 5b 0b 2c 6c 1c
+_a 7a 3a 9b 5b 0b 2c 6c 1c
 9d 3d 2d 4e 6e 5e 7f 1f 8f
 5d 4d 8d 1e 7e 9e 6f 3f 2f
 7d 6d 1d 8e 3e 2e 4f 9f 5f
@@ -1621,8 +1620,8 @@ def test_sudoku_unique_rectangle_type4_south_rows():
         unique_rectangle_type4_south_rows.sudoku
         9
 3a _a 5a 8b 2b 0b 1c 7c 9c
-0a _a 0a 0b 1b 0b 4c 0c 6c
-0a _a 1a 0b 9b 0b 2c 0c 0c
+_a _a _a 0b 1b 0b 4c 0c 6c
+_a _a 1a 0b 9b 0b 2c 0c 0c
 5d 1d 6d 4e 8e 9e 7f 2f 3f
 7d 8d 4d 0e 3e 0e 6f 9f 1f
 2d 9d 3d 6e 7e 1e 8f 0f 0f
@@ -1638,9 +1637,9 @@ def test_sudoku_unique_rectangle_type4_south_cols():
     puzzle_string = f"""
         unique_rectangle_type4_south_cols.sudoku
         9
-0a 6a _a 8b 2b 5b 7c 1c 9c
-7a _a 0a 4b 1b 6b 3c 5c 0c
-0a 5a _a 3b 7b 9b 6c 0c 4c
+_a 6a _a 8b 2b 5b 7c 1c 9c
+7a _a _a 4b 1b 6b 3c 5c 0c
+_a 5a _a 3b 7b 9b 6c 0c 4c
 5d 1d 7d 6e 0e 0e 0f 3f 0f
 0d 0d 0d 7e 0e 0e 1f 0f 5f
 0d 8d 0d 1e 5e 3e 0f 7f 6f
@@ -1675,8 +1674,8 @@ def test_sudoku_unique_rectangle_type4_west_rows():
         unique_rectangle_type4_west_rows.sudoku
         9        
         6a 9a 1a 0b 4b 8b 2c 7c 0c
-0a _a 7a 0b 0b 0b 0c 9c 0c
-0a _a 0a 0b 9b 7b 0c 4c 0c
+_a _a 7a 0b 0b 0b 0c 9c 0c
+_a _a _a 0b 9b 7b 0c 4c 0c
 7d 8d 6d 9e 1e 2e 3f 5f 4f
 9d 0d 0d 0e 3e 0e 7f 8f 1f
 5d 1d 3d 7e 8e 4e 9f 2f 6f
@@ -1693,7 +1692,7 @@ def test_sudoku_unique_rectangle_type4_west_cols():
         9
 6a 1a _a 5b 7b 4b 0c 0c 2c
 2a _a 5a 1b 9b 8b 0c 0c 0c
-0a 7a _a 6b 3b 2b 1c 0c 5c
+_a 7a _a 6b 3b 2b 1c 0c 5c
 0d 0d 0d 3e 0e 6e 0f 0f 9f
 3d 5d 6d 9e 2e 7e 8f 1f 4f
 0d 0d 0d 8e 0e 1e 0f 0f 0f
@@ -1708,8 +1707,8 @@ def test_sudoku_unique_rectangle_type4_east_cols():
     puzzle_string = f"""
         unique_rectangle_type4_east_cols.sudoku
         9
-2a _a 0a 0b 0b 0b 7c 9c 5c
-0a 5a 7a 9b 0b 0b 6c 1c 4c
+2a _a _a 0b 0b 0b 7c 9c 5c
+_a 5a 7a 9b 0b 0b 6c 1c 4c
 9a 1a 6a 7b 4b 5b 3c 8c 2c
 7d 6d 1d 2e 8e 4e 5f 3f 9f
 0d 0d 0d 5e 9e 1e 8f 6f 7f
@@ -1726,7 +1725,7 @@ def test_sudoku_bug():
         bug.sudoku
         9
         4a 6a 5a 1b 3b 2b 9c 7c 8c
-        _a 0a _a 8b 6b 4b 3c 1c 5c
+        _a _a _a 8b 6b 4b 3c 1c 5c
         1a 3a 8a 5b 9b 7b 4c 2c 6c
         6d 8d 0d 3e 4e 0e 0f 5f 0f
         5d 0d 3d 2e 7e 0e 6f 8f 4f
@@ -1743,9 +1742,9 @@ def test_sudoku_hidden_triple_row():
     puzzle_string = f"""
         hidden_triple_row.sudoku
         9
-0a 3a 5a 7b 2b 1b 8c 4c 0c
-7a _a 0a 3b 4b 6b 2c 0c 5c
-0a 4a 2a 8b 5b 9b 0c 3c 0c
+_a 3a 5a 7b 2b 1b 8c 4c 0c
+7a _a _a 3b 4b 6b 2c 0c 5c
+_a 4a 2a 8b 5b 9b 0c 3c 0c
 0d 5d 6d 9e 0e 2e 3f 0f 4f
 0d 0d 0d 0e 3e 0e 5f 0f 0f
 3d 0d 4d 6e 0e 5e 1f 0f 0f
@@ -1782,7 +1781,7 @@ def test_sudoku_hidden_triple_col():
         9
 3a _a 5a 0b 0b 0b 0c 0c 0c
 6a 1a 2a 8b 0b 4b 9c 3c 0c
-0a 7a 8a 0b 3b 1b 6c 0c 0c
+_a 7a 8a 0b 3b 1b 6c 0c 0c
 8d 2d 0d 0e 0e 9e 0f 0f 6f
 1d 6d 0d 0e 0e 0e 0f 7f 0f
 7d 5d 0d 4e 0e 0e 0f 0f 2f
@@ -1799,8 +1798,8 @@ def test_sudoku_hidden_triple_fence():
     puzzle_string = f"""
         hidden_triple_fence.sudoku
         9
-0a _a 1a 0b 7b 6b 0c 0c 0c
-0a 9a _a 0b 3b 1b 0c 4c 0c
+_a _a 1a 0b 7b 6b 0c 0c 0c
+_a 9a _a 0b 3b 1b 0c 4c 0c
 8a _a 3a 4b 5b 9b 0c 0c 0c
 3d 1d 8d 7e 9e 4e 0f 0f 0f
 2d 5d 6d 3e 1e 8e 4f 7f 9f
@@ -1818,7 +1817,7 @@ def test_sudoku_hidden_quad_row():
     puzzle_string = f"""
         hidden_quad_row.sudoku
         9
-0a _a 0a 0b 0b 0b 0c 0c 0c
+_a _a _a 0b 0b 0b 0c 0c 0c
 1a 6a _a 0b 9b 2b 0c 8c 3c
 5a 9a _a 0b 6b 0b 0c 0c 7c
 0d 3d 0d 0e 2e 1e 0f 0f 0f
@@ -1855,7 +1854,7 @@ def test_sudoku_x_wing_row():
     puzzle_string = f"""
         x_wing_row.sudoku
         9
-0a 7a 9a 1b 0b 8b 2c 4c 0c
+_a 7a 9a 1b 0b 8b 2c 4c 0c
 4a 5a _a 9b 2b 0b 0c 8c 0c
 8a _a 2a 4b 0b 0b 0c 0c 0c
 2d 4d 5d 3e 7e 1e 9f 6f 8f
@@ -1873,7 +1872,7 @@ def test_sudoku_x_wing_col():
     puzzle_string = f"""
         x_wing_col.sudoku
         9
-0a 9a 6a 0b 0b 5b 4c 2c 7c
+_a 9a 6a 0b 0b 5b 4c 2c 7c
 7a _a 4a 2b 0b 6b 5c 1c 9c
 2a 1a 5a 7b 4b 9b 6c 8c 3c
 9d 4d 7d 5e 6e 1e 8f 3f 2f
@@ -1892,8 +1891,8 @@ def test_sudoku_w_wing_row():
         w_wing_row.sudoku
         9
 3a 1a 5a 4b 9b 8b 2c 6c 7c
-8a _a 0a 0b 0b 0b 4c 3c 1c
-0a 7a _a 3b 1b 2b 9c 8c 5c
+8a _a _a 0b 0b 0b 4c 3c 1c
+_a 7a _a 3b 1b 2b 9c 8c 5c
 0d 8d 7d 2e 0e 3e 0f 1f 9f
 9d 3d 0d 0e 8e 0e 0f 2f 0f
 5d 0d 0d 0e 0e 9e 8f 0f 3f
@@ -1910,9 +1909,9 @@ def test_sudoku_w_wing_col():
     puzzle_string = f"""
         w_wing_col.sudoku
         9
-0a 4a 5a 0b 6b 9b 7c 3c 2c
-0a 3a _a 0b 5b 0b 4c 8c 9c
-0a _a 2a 3b 4b 0b 5c 1c 6c
+_a 4a 5a 0b 6b 9b 7c 3c 2c
+_a 3a _a 0b 5b 0b 4c 8c 9c
+_a _a 2a 3b 4b 0b 5c 1c 6c
 4d 0d 0d 0e 7e 1e 3f 0f 5f
 5d 2d 0d 6e 3e 4e 9f 7f 0f
 0d 0d 3d 5e 9e 0e 0f 0f 4f
@@ -1949,7 +1948,7 @@ def test_sudoku_xyz_wing_cols():
         9
 1a 8a 2a 0b 0b 0b 9c 0c 7c
 5a 9a _a 7b 8b 0b 2c 1c 3c
-7a _a 0a 9b 2b 1b 0c 5c 0c
+7a _a _a 9b 2b 1b 0c 5c 0c
 8d 2d 1d 3e 4e 7e 0f 0f 0f
 3d 6d 5d 1e 9e 8e 7f 0f 0f
 9d 0d 0d 5e 6e 2e 3f 8f 1f
@@ -1985,8 +1984,8 @@ def test_sudoku_w_wing_left_col():
         w_wing_left_col.sudoku
         9
 2a _a 6a 3b 1b 0b 5c 7c 4c
-0a _a 7a 0b 2b 4b 6c 1c 9c
-4a _a 0a 0b 6b 0b 2c 3c 8c
+_a _a 7a 0b 2b 4b 6c 1c 9c
+4a _a _a 0b 6b 0b 2c 3c 8c
 0d 2d 0d 9e 5e 0e 4f 6f 0f
 7d 6d 0d 2e 4e 1e 3f 0f 5f
 0d 0d 4d 0e 3e 6e 0f 2f 0f
@@ -2016,8 +2015,8 @@ def test_sudoku_bug_0():
     puzzle_string = f"""
     bug_0.sudoku
     9
-    _a 0a _a 9b 0b 8b 2c 0c 0c
-    _a 0a _a 0b 1b 0b 0c 7c 0c
+    _a _a _a 9b 0b 8b 2c 0c 0c
+    _a _a _a 0b 1b 0b 0c 7c 0c
     6a _a 2a 0b 0b 0b 4c 0c 0c
     0d 2d 0d 0e 0e 9e 8f 0f 0f
     0d 0d 1d 4e 0e 5e 3f 0f 0f
@@ -2068,7 +2067,7 @@ def test_sudoku_hidden_single_1():
     hidden_single_1.sudoku
     9
     _a 4a _a 0b 0b 3b 0c 2c 6c
-    1a _a 0a 0b 0b 0b 0c 0c 0c
+    1a _a _a 0b 0b 0b 0c 0c 0c
     _a 2a _a 0b 6b 7b 5c 0c 4c
     0d 0d 6d 0e 0e 1e 0f 0f 5f
     4d 1d 0d 0e 0e 0e 0f 7f 9f
@@ -2086,7 +2085,7 @@ def test_sudoku_hidden_single_2():
     9
     2a _a 7a 0b 0b 0b 8c 9c 0c
     _a 9a _a 7b 4b 5b 3c 6c 2c
-    _a 0a 3a 9b 2b 8b 7c 0c 0c
+    _a _a 3a 9b 2b 8b 7c 0c 0c
     9d 0d 0d 3e 0e 4e 5f 0f 0f
     4d 0d 0d 5e 0e 2e 9f 0f 3f
     7d 3d 5d 0e 0e 9e 4f 2f 0f
@@ -2101,9 +2100,9 @@ def test_sudoku_locked_candidates_claiming_0():
     puzzle_string = f"""
     locked_candidates_claiming_0.sudoku
     9
-    _a 0a _a 9b 0b 0b 0c 0c 4c
+    _a _a _a 9b 0b 0b 0c 0c 4c
     4a _a 6a 0b 0b 8b 7c 0c 3c
-    _a 0a _a 0b 0b 0b 0c 2c 0c
+    _a _a _a 0b 0b 0b 0c 2c 0c
     0d 8d 9d 1e 0e 0e 0f 0f 0f
     6d 0d 7d 0e 0e 0e 9f 0f 5f
     0d 0d 0d 0e 0e 9e 8f 3f 0f
@@ -2118,9 +2117,9 @@ def test_sudoku_locked_candidates_claiming_1():
     puzzle_string = f"""
     locked_candidates_claiming_1.sudoku
     9
-    _a 0a _a 0b 0b 0b 3c 0c 4c
+    _a _a _a 0b 0b 0b 3c 0c 4c
     8a 5a _a 6b 0b 0b 0c 0c 0c
-    _a 0a _a 1b 2b 0b 0c 6c 9c
+    _a _a _a 1b 2b 0b 0c 6c 9c
     0d 0d 8d 0e 0e 0e 2f 7f 0f
     9d 0d 0d 0e 0e 0e 0f 0f 6f
     0d 6d 2d 0e 0e 0e 4f 0f 0f
@@ -2136,8 +2135,8 @@ def test_sudoku_locked_candidates_claiming_2():
     locked_candidates_claiming_2.sudoku
     9
     _a 8a _a 0b 0b 2b 0c 0c 0c
-    2a _a 0a 0b 6b 0b 8c 3c 0c
-    _a 0a _a 7b 0b 3b 0c 0c 0c
+    2a _a _a 0b 6b 0b 8c 3c 0c
+    _a _a _a 7b 0b 3b 0c 0c 0c
     4d 0d 0d 0e 0e 7e 6f 1f 0f
     0d 0d 8d 0e 0e 0e 9f 0f 0f
     0d 1d 6d 4e 0e 0e 0f 0f 2f
@@ -2153,7 +2152,7 @@ def test_sudoku_locked_candidates_pointing_0():
     locked_candidates_pointing_0.sudoku
     9
     _a 3a _a 0b 0b 0b 0c 6c 0c
-    _a 0a _a 0b 0b 3b 9c 0c 0c
+    _a _a _a 0b 0b 3b 9c 0c 0c
     _a 4a 2a 6b 0b 0b 0c 8c 0c
     0d 0d 0d 0e 3e 2e 8f 0f 0f
     0d 7d 0d 4e 0e 6e 0f 5f 0f
@@ -2188,7 +2187,7 @@ def test_sudoku_naked_pair_1():
     9
     6a 1a _a 8b 5b 3b 0c 0c 9c
     9a _a 8a 0b 4b 0b 6c 3c 5c
-    5a _a 0a 9b 0b 6b 0c 1c 8c
+    5a _a _a 9b 0b 6b 0c 1c 8c
     3d 8d 9d 0e 0e 4e 1f 0f 6f
     2d 6d 1d 0e 3e 8e 0f 9f 4f
     7d 4d 5d 6e 0e 0e 3f 8f 2f
@@ -2203,9 +2202,9 @@ def test_sudoku_naked_pair_2():
     puzzle_string = f"""
     naked_pair_2.sudoku
     9
-    _a 0a 1a 2b 0b 9b 0c 7c 0c
-    6a _a 0a 4b 5b 7b 8c 3c 1c
-    _a 0a 7a 8b 1b 0b 9c 2c 0c
+    _a _a 1a 2b 0b 9b 0c 7c 0c
+    6a _a _a 4b 5b 7b 8c 3c 1c
+    _a _a 7a 8b 1b 0b 9c 2c 0c
     2d 0d 5d 7e 0e 0e 1f 0f 8f
     0d 0d 0d 0e 2e 0e 0f 5f 3f
     3d 0d 4d 0e 8e 5e 7f 0f 2f
@@ -2222,8 +2221,8 @@ def test_sudoku_naked_triple_0():
     naked_triple_0.sudoku
     9
     _a 4a _a 0b 0b 0b 3c 0c 0c
-    2a _a 0a 7b 0b 0b 0c 6c 0c
-    _a 0a 9a 8b 0b 0b 0c 0c 0c
+    2a _a _a 7b 0b 0b 0c 6c 0c
+    _a _a 9a 8b 0b 0b 0c 0c 0c
     0d 0d 8d 0e 0e 0e 0f 9f 6f
     9d 0d 0d 2e 0e 4e 0f 0f 1f
     7d 2d 0d 0e 0e 0e 5f 0f 0f
@@ -2240,8 +2239,8 @@ def test_sudoku_naked_triple_1():
     puzzle_string = f"""
     naked_triple_1.sudoku
     9
-    _a 0a _a 9b 0b 0b 0c 0c 0c
-    _a 0a _a 0b 3b 6b 0c 4c 9c
+    _a _a _a 9b 0b 0b 0c 0c 0c
+    _a _a _a 0b 3b 6b 0c 4c 9c
     3a 5a _a 0b 0b 1b 0c 0c 0c
     0d 0d 0d 2e 0e 0e 8f 0f 6f
     5d 6d 0d 0e 0e 0e 0f 7f 4f
@@ -2258,9 +2257,9 @@ def test_sudoku_naked_triple_2():
     puzzle_string = f"""
     naked_triple_2.sudoku
     9
-    _a 0a _a 0b 2b 0b 0c 0c 0c
+    _a _a _a 0b 2b 0b 0c 0c 0c
     _a 3a 5a 6b 0b 0b 2c 0c 0c
-    4a _a 0a 5b 0b 0b 0c 0c 8c
+    4a _a _a 5b 0b 0b 0c 0c 8c
     0d 0d 8d 0e 9e 7e 0f 0f 0f
     0d 0d 2d 8e 0e 6e 1f 0f 0f
     0d 0d 0d 4e 1e 0e 5f 0f 0f
@@ -2276,9 +2275,9 @@ def test_sudoku_naked_triple_3():
     puzzle_string = f"""
     naked_triple_3.sudoku
     9
-    6a _a 0a 0b 0b 0b 0c 0c 7c
-    _a 0a 5a 0b 6b 0b 0c 9c 0c
-    8a _a 0a 4b 0b 0b 2c 0c 0c
+    6a _a _a 0b 0b 0b 0c 0c 7c
+    _a _a 5a 0b 6b 0b 0c 9c 0c
+    8a _a _a 4b 0b 0b 2c 0c 0c
     0d 3d 0d 0e 0e 0e 7f 0f 0f
     0d 1d 0d 9e 0e 7e 0f 3f 0f
     0d 0d 8d 0e 0e 0e 0f 1f 0f
@@ -2294,9 +2293,9 @@ def test_sudoku_naked_triple_4():
     puzzle_string = f"""
     naked_triple_4.sudoku
     9
-    _a 0a _a 0b 0b 0b 6c 9c 8c
-    _a 0a _a 0b 2b 6b 0c 0c 0c
-    1a _a 0a 9b 0b 0b 0c 0c 5c
+    _a _a _a 0b 0b 0b 6c 9c 8c
+    _a _a _a 0b 2b 6b 0c 0c 0c
+    1a _a _a 9b 0b 0b 0c 0c 5c
     0d 0d 7d 0e 4e 0e 0f 3f 2f
     0d 0d 0d 0e 0e 0e 0f 0f 0f
     3d 6d 0d 0e 5e 0e 8f 0f 0f
@@ -2385,7 +2384,7 @@ def test_sudoku_naked_triple_9():
     naked_triple_9.sudoku
     9
     _a 4a 2a 7b 0b 0b 0c 0c 0c
-    _a 0a 3a 9b 0b 0b 7c 0c 4c
+    _a _a 3a 9b 0b 0b 7c 0c 4c
     5a 7a _a 0b 4b 0b 0c 0c 0c
     7d 0d 5d 0e 6e 2e 4f 0f 0f
     0d 0d 0d 0e 9e 0e 0f 0f 0f
@@ -2404,7 +2403,7 @@ def test_sudoku_naked_triple_row():
     naked_triple_row.sudoku
     9
     7a 8a 2a 3b 5b 4b 1c 9c 6c
-    _a 0a _a 2b 6b 7b 4c 5c 8c
+    _a _a _a 2b 6b 7b 4c 5c 8c
     4a 5a 6a 8b 9b 1b 3c 2c 7c
     0d 0d 1d 5e 0e 0e 6f 0f 0f
     5d 7d 0d 6e 0e 9e 2f 0f 1f
@@ -2421,8 +2420,8 @@ def test_sudoku_unique_rectangle_type1_00():
     unique_rectangle_type1_00.sudoku
     9
     _a 6a 4a 0b 3b 7b 0c 0c 0c
-    1a _a 0a 0b 0b 0b 0c 0c 0c
-    5a _a 0a 4b 0b 0b 3c 0c 9c
+    1a _a _a 0b 0b 0b 0c 0c 0c
+    5a _a _a 4b 0b 0b 3c 0c 9c
     0d 0d 0d 9e 5e 0e 2f 0f 0f
     0d 9d 0d 0e 0e 0e 0f 8f 0f
     0d 0d 8d 0e 4e 1e 0f 0f 0f
@@ -2457,8 +2456,8 @@ def test_sudoku_unique_rectangle_type1_02():
     unique_rectangle_type1_02.sudoku
     9
     _a 3a _a 8b 0b 5b 4c 6c 0c
-    _a 0a _a 0b 0b 0b 0c 3c 0c
-    _a 0a _a 6b 4b 0b 1c 0c 2c
+    _a _a _a 0b 0b 0b 0c 3c 0c
+    _a _a _a 6b 4b 0b 1c 0c 2c
     6d 0d 9d 0e 0e 0e 0f 2f 0f
     0d 1d 4d 0e 0e 0e 9f 8f 0f
     0d 2d 0d 0e 0e 0e 6f 0f 1f
@@ -2473,9 +2472,9 @@ def test_sudoku_unique_rectangle_type1_03():
     puzzle_string = f"""
     unique_rectangle_type1_03.sudoku
     9
-    _a 0a _a 8b 0b 0b 7c 2c 0c
-    _a 0a 8a 0b 4b 0b 0c 0c 0c
-    _a 0a 3a 1b 7b 2b 9c 0c 0c
+    _a _a _a 8b 0b 0b 7c 2c 0c
+    _a _a 8a 0b 4b 0b 0c 0c 0c
+    _a _a 3a 1b 7b 2b 9c 0c 0c
     0d 3d 0d 0e 0e 0e 0f 0f 8f
     0d 0d 4d 0e 0e 0e 1f 0f 0f
     2d 0d 0d 0e 0e 0e 0f 7f 0f
@@ -2529,9 +2528,9 @@ def test_almost_locked_candidates_row():
     puzzle_string = f"""
     almost_locked_candidates_row.sudoku
     9
-0a 2a 9a   7b 0b 0b   0c 4c 0c
-0a 7a 8a   0b 9b 0b   0c 0c 6c
-0a 5a 1a   3b 0b 0b   7c 0c 9c
+_a 2a 9a   7b 0b 0b   0c 4c 0c
+_a 7a 8a   0b 9b 0b   0c 0c 6c
+_a 5a 1a   3b 0b 0b   7c 0c 9c
 
 1d 6d 2d   5e 8e 9e   4f 7f 3f
 8d 9d 7d   0e 3e 0e   0f 0f 0f
@@ -2550,7 +2549,7 @@ def test_almost_locked_candidates_rows_center():
     almost_locked_candidates_rows_center.sudoku
     9
 6a 2a _a   0b 0b 4b   9c 3c 1c
-0a _a 5a   6b 0b 3b   2c 8c 4c
+_a _a 5a   6b 0b 3b   2c 8c 4c
 3a 4a _a   0b 9b 0b   6c 5c 7c
 
 0d 1d 0d   0e 2e 0e   8f 6f 5f
@@ -2569,8 +2568,8 @@ def test_als_xz():
     puzzle_string = f"""
     als_xz.sudoku
     9
-4a _a 0a   0b 0b 0b   5c 0c 0c
-6a _a 0a   4b 5b 2b   8c 0c 0c
+4a _a _a   0b 0b 0b   5c 0c 0c
+6a _a _a   4b 5b 2b   8c 0c 0c
 3a 5a _a   0b 0b 7b   4c 1c 0c
 
 9d 0d 0d   0e 0e 6e   0f 5f 0f
@@ -2589,9 +2588,9 @@ def test_alternating_inference_chain():
     puzzle_string = f"""
     alternating_inference_chain.sudoku
     9
-0a 5a _a   0b 0b 0b   0c 3c 0c
-0a 3a 2a   4b 1b 0b   5c 9c 7c
-0a 1a 9a   0b 3b 5b   0c 8c 0c
+_a 5a _a   0b 0b 0b   0c 3c 0c
+_a 3a 2a   4b 1b 0b   5c 9c 7c
+_a 1a 9a   0b 3b 5b   0c 8c 0c
 
 0d 2d 0d   8e 0e 1e   9f 6f 0f
 9d 6d 0d   0e 0e 0e   8f 1f 0f
@@ -2609,9 +2608,9 @@ def test_avoidable_rectangle_type1_0():
     puzzle_string = f"""
     avoidable_rectangle_type1_0.sudoku
     9
-0a 6a _a   0b 0b 0b   0c 3c 9c
-0a 8a _a   3b 2b 0b   0c 0c 0c
-9a _a 0a   5b 0b 6b   0c 0c 0c
+_a 6a _a   0b 0b 0b   0c 3c 9c
+_a 8a _a   3b 2b 0b   0c 0c 0c
+9a _a _a   5b 0b 6b   0c 0c 0c
 
 2d 0d 0d   0e 0e 4e   6f 0f 0f
 0d 0d 7d   0e 5e 0e   2f 0f 0f
@@ -2629,9 +2628,9 @@ def test_avoidable_rectangle_type2_1():
     puzzle_string = f"""
     avoidable_rectangle_type2_1.sudoku
     9
-0a _a 2a   0b 0b 0b   0c 3c 0c
-0a _a 6a   0b 3b 1b   0c 4c 0c
-3a _a 0a   0b 0b 9b   2c 7c 0c
+_a _a 2a   0b 0b 0b   0c 3c 0c
+_a _a 6a   0b 3b 1b   0c 4c 0c
+3a _a _a   0b 0b 9b   2c 7c 0c
 
 0d 0d 7d   0e 0e 2e   0f 0f 0f
 2d 0d 0d   0e 0e 0e   0f 0f 6f
@@ -2649,8 +2648,8 @@ def test_avoidable_rectangle_type2_2():
     puzzle_string = f"""
     avoidable_rectangle_type2_2.sudoku
     9
-0a _a 0a   0b 0b 0b   0c 0c 1c
-0a 6a _a   3b 0b 8b   0c 0c 7c
+_a _a _a   0b 0b 0b   0c 0c 1c
+_a 6a _a   3b 0b 8b   0c 0c 7c
 5a _a 3a   4b 0b 0b   0c 0c 2c
 
 0d 0d 0d   0e 8e 0e   6f 7f 0f
@@ -2669,8 +2668,8 @@ def test_avoidable_rectangle_type2_3():
     puzzle_string = f"""
     avoidable_rectangle_type2_3.sudoku
     9
-0a _a 0a   0b 0b 0b   0c 0c 1c
-0a 6a _a   3b 0b 8b   0c 0c 7c
+_a _a _a   0b 0b 0b   0c 0c 1c
+_a 6a _a   3b 0b 8b   0c 0c 7c
 5a _a 3a   4b 0b 0b   0c 0c 2c
 
 0d 0d 0d   0e 8e 0e   6f 7f 0f
@@ -2689,9 +2688,9 @@ def test_avoidable_rectangle_type2_4():
     puzzle_string = f"""
     avoidable_rectangle_type2_4.sudoku
     9
-0a _a 3a   0b 0b 0b   0c 7c 0c
-0a _a 0a   3b 0b 0b   0c 0c 4c
-0a _a 5a   2b 4b 9b   6c 0c 0c
+_a _a 3a   0b 0b 0b   0c 7c 0c
+_a _a _a   3b 0b 0b   0c 0c 4c
+_a _a 5a   2b 4b 9b   6c 0c 0c
 
 3d 0d 0d   1e 0e 0e   0f 0f 0f
 6d 0d 7d   0e 0e 0e   4f 0f 3f
@@ -2709,9 +2708,9 @@ def test_avoidable_rectangle_type2_5():
     puzzle_string = f"""
     avoidable_rectangle_type2_5.sudoku
     9
-0a _a 0a   9b 0b 0b   2c 0c 0c
-9a _a 0a   0b 0b 4b   0c 1c 7c
-0a 7a _a   0b 6b 8b   5c 0c 0c
+_a _a _a   9b 0b 0b   2c 0c 0c
+9a _a _a   0b 0b 4b   0c 1c 7c
+_a 7a _a   0b 6b 8b   5c 0c 0c
 
 0d 4d 0d   0e 0e 0e   0f 6f 8f
 0d 0d 8d   0e 0e 0e   4f 0f 0f
@@ -2729,8 +2728,8 @@ def test_avoidable_rectangle_type2_6():
     puzzle_string = f"""
     avoidable_rectangle_type2_6.sudoku
     9
-0a _a 0a   0b 0b 0b   0c 0c 7c
-0a 6a _a   2b 0b 3b   0c 0c 4c
+_a _a _a   0b 0b 0b   0c 0c 7c
+_a 6a _a   2b 0b 3b   0c 0c 4c
 9a _a 1a   0b 0b 4b   0c 0c 8c
 
 0d 4d 7d   0e 9e 0e   0f 0f 0f
@@ -2749,8 +2748,8 @@ def test_avoidable_rectangle_type2_north():
     puzzle_string = f"""
     avoidable_rectangle_type2_north.sudoku
     9
-0a 7a 5a   4b 0b 0b   0c 2c 0c
-0a 1a _a   0b 0b 0b   0c 0c 6c
+_a 7a 5a   4b 0b 0b   0c 2c 0c
+_a 1a _a   0b 0b 0b   0c 0c 6c
 4a _a 9a   0b 6b 8b   7c 0c 0c
 
 9d 0d 0d   1e 0e 0e   0f 8f 0f
@@ -2769,9 +2768,9 @@ def test_avoidable_rectangle_type2_south():
     puzzle_string = f"""
     avoidable_rectangle_type2_south.sudoku
     9
-0a _a 5a   0b 0b 0b   0c 0c 4c
-0a _a 7a   3b 9b 6b   2c 0c 0c
-0a _a 0a   0b 0b 5b   0c 9c 0c
+_a _a 5a   0b 0b 0b   0c 0c 4c
+_a _a 7a   3b 9b 6b   2c 0c 0c
+_a _a _a   0b 0b 5b   0c 9c 0c
 
 0d 5d 0d   0e 0e 1e   0f 0f 0f
 0d 2d 4d   0e 0e 0e   9f 5f 0f
@@ -2789,9 +2788,9 @@ def test_avoidable_rectangle_type2_west():
     puzzle_string = f"""
     avoidable_rectangle_type2_west.sudoku
     9
-0a 9a 4a   1b 0b 0b   0c 0c 3c
-5a _a 0a   0b 4b 0b   0c 0c 0c
-0a _a 0a   0b 0b 0b   7c 4c 2c
+_a 9a 4a   1b 0b 0b   0c 0c 3c
+5a _a _a   0b 4b 0b   0c 0c 0c
+_a _a _a   0b 0b 0b   7c 4c 2c
 
 3d 7d 0d   4e 0e 0e   0f 0f 0f
 0d 5d 0d   0e 0e 0e   0f 3f 0f
@@ -2810,9 +2809,9 @@ def test_finned_jellyfish_0():
     finned_jellyfish_0.sudoku
     9
 
-4a _a 0a   2b 0b 9b   0c 7c 8c
-0a 9a _a   8b 0b 0b   4c 0c 0c
-8a _a 0a   4b 6b 0b   1c 9c 0c
+4a _a _a   2b 0b 9b   0c 7c 8c
+_a 9a _a   8b 0b 0b   4c 0c 0c
+8a _a _a   4b 6b 0b   1c 9c 0c
 
 0d 0d 0d   3e 0e 4e   0f 8f 0f
 0d 0d 9d   0e 8e 0e   2f 0f 0f
@@ -2832,9 +2831,9 @@ def test_finned_jellyfish_1():
     finned_jellyfish_1.sudoku
     9
 
-0a _a 0a   1b 0b 0b   9c 0c 0c
-0a 9a _a   0b 0b 8b   0c 0c 7c
-0a 1a _a   0b 4b 0b   5c 0c 8c
+_a _a _a   1b 0b 0b   9c 0c 0c
+_a 9a _a   0b 0b 8b   0c 0c 7c
+_a 1a _a   0b 4b 0b   5c 0c 8c
 
 9d 0d 0d   8e 0e 6e   0f 0f 0f
 0d 0d 8d   0e 1e 0e   2f 0f 0f
@@ -2854,9 +2853,9 @@ def test_finned_jellyfish_2():
     finned_jellyfish_2.sudoku
     9
 
-0a _a 0a   4b 0b 3b   8c 0c 5c
+_a _a _a   4b 0b 3b   8c 0c 5c
 8a 5a _a   0b 0b 0b   6c 3c 4c
-0a 4a 3a   6b 5b 8b   7c 0c 9c
+_a 4a 3a   6b 5b 8b   7c 0c 9c
 
 3d 0d 7d   8e 0e 4e   2f 5f 0f
 5d 0d 0d   0e 3e 0e   0f 0f 0f
@@ -2876,7 +2875,7 @@ def test_finned_jellyfish_3():
     finned_jellyfish_3.sudoku
     9
 
-0a 6a 5a   3b 2b 0b   9c 7c 8c
+_a 6a 5a   3b 2b 0b   9c 7c 8c
 9a 2a _a   7b 0b 8b   0c 0c 0c
 8a 3a 7a   0b 5b 0b   0c 0c 0c
 
@@ -2898,9 +2897,9 @@ def test_finned_swordfish_0():
     finned_swordfish_0.sudoku
     9
 
-0a _a 0a   0b 4b 0b   5c 9c 0c
-0a 5a 9a   0b 0b 0b   1c 4c 2c
-0a 1a _a   5b 9b 0b   0c 8c 0c
+_a _a _a   0b 4b 0b   5c 9c 0c
+_a 5a 9a   0b 0b 0b   1c 4c 2c
+_a 1a _a   5b 9b 0b   0c 8c 0c
 
 6d 2d 5d   7e 1e 8e   9f 3f 4f
 0d 0d 8d   6e 5e 3e   2f 7f 1f
@@ -2920,9 +2919,9 @@ def test_finned_swordfish_1():
     finned_swordfish_1.sudoku
     9
 
-2a _a 0a   0b 6b 1b   9c 0c 0c
-0a _a 0a   3b 0b 0b   0c 0c 5c
-0a 5a _a   0b 0b 9b   0c 6c 0c
+2a _a _a   0b 6b 1b   9c 0c 0c
+_a _a _a   3b 0b 0b   0c 0c 5c
+_a 5a _a   0b 0b 9b   0c 6c 0c
 
 0d 1d 0d   0e 7e 8e   0f 0f 0f
 0d 0d 4d   0e 0e 0e   6f 0f 0f
@@ -2944,7 +2943,7 @@ def test_finned_swordfish_2():
 
 8a _a 5a   9b 0b 0b   0c 0c 0c
 7a 4a 1a   0b 0b 8b   9c 0c 0c
-0a 9a _a   0b 1b 5b   0c 7c 8c
+_a 9a _a   0b 1b 5b   0c 7c 8c
 
 0d 0d 0d   8e 0e 0e   6f 9f 0f
 0d 8d 0d   1e 9e 2e   0f 4f 0f
@@ -2987,7 +2986,7 @@ def test_finned_x_wing_00():
     9
 
 4a 5a 6a   9b 8b 7b   3c 1c 2c
-0a 9a _a   4b 3b 2b   6c 7c 5c
+_a 9a _a   4b 3b 2b   6c 7c 5c
 2a 3a 7a   0b 1b 0b   0c 9c 0c
 
 0d 4d 0d   8e 0e 0e   0f 2f 0f
@@ -3008,9 +3007,9 @@ def test_finned_x_wing_04():
     finned_x_wing_04.sudoku
     9
 
-0a _a 8a   0b 0b 9b   3c 5c 2c
+_a _a 8a   0b 0b 9b   3c 5c 2c
 5a _a 3a   0b 2b 8b   0c 1c 0c
-0a 4a _a   3b 5b 0b   8c 7c 0c
+_a 4a _a   3b 5b 0b   8c 7c 0c
 
 0d 2d 0d   0e 0e 5e   0f 3f 8f
 6d 8d 0d   2e 9e 3e   0f 4f 0f
@@ -3030,8 +3029,8 @@ def test_finned_x_wing_05():
     finned_x_wing_05.sudoku
     9
 
-0a _a 0a   5b 9b 1b   3c 4c 8c
-0a _a 0a   7b 4b 2b   0c 0c 6c
+_a _a _a   5b 9b 1b   3c 4c 8c
+_a _a _a   7b 4b 2b   0c 0c 6c
 4a _a 5a   8b 6b 3b   7c 2c 0c
 
 1d 0d 0d   9e 0e 8e   6f 0f 5f
@@ -3052,9 +3051,9 @@ def test_finned_x_wing_06():
     finned_x_wing_06.sudoku
     9
 
-0a 1a _a   3b 0b 7b   0c 4c 9c
-0a _a 0a   0b 0b 0b   0c 0c 0c
-0a _a 8a   5b 0b 0b   3c 6c 0c
+_a 1a _a   3b 0b 7b   0c 4c 9c
+_a _a _a   0b 0b 0b   0c 0c 0c
+_a _a 8a   5b 0b 0b   3c 6c 0c
 
 0d 0d 7d   0e 0e 3e   0f 0f 4f
 4d 0d 6d   0e 0e 0e   1f 0f 3f
@@ -3075,8 +3074,8 @@ def test_finned_x_wing_07():
     9
 
 1a 4a _a   0b 0b 0b   9c 0c 8c
-0a 2a _a   0b 9b 4b   1c 0c 6c
-0a _a 6a   5b 1b 0b   2c 3c 4c
+_a 2a _a   0b 9b 4b   1c 0c 6c
+_a _a 6a   5b 1b 0b   2c 3c 4c
 
 0d 0d 4d   0e 0e 0e   0f 8f 2f
 0d 5d 2d   0e 0e 0e   4f 0f 1f
@@ -3096,9 +3095,9 @@ def test_finned_x_wing_08():
     finned_x_wing_08.sudoku
     9
 
-0a _a 0a   9b 0b 7b   0c 3c 0c
-0a _a 0a   0b 2b 0b   0c 8c 7c
-0a _a 1a   0b 0b 3b   0c 6c 0c
+_a _a _a   9b 0b 7b   0c 3c 0c
+_a _a _a   0b 2b 0b   0c 8c 7c
+_a _a 1a   0b 0b 3b   0c 6c 0c
 
 0d 0d 0d   0e 0e 0e   3f 9f 4f
 2d 0d 0d   0e 0e 0e   0f 0f 8f
@@ -3119,7 +3118,7 @@ def test_finned_x_wing_09():
     9
 
 3a 7a 8a   5b 6b 2b   1c 9c 4c
-0a 2a 4a   0b 0b 0b   0c 0c 5c
+_a 2a 4a   0b 0b 0b   0c 0c 5c
 5a _a 9a   4b 0b 8b   0c 0c 3c
 
 2d 0d 0d   0e 4e 0e   5f 0f 7f
@@ -3140,9 +3139,9 @@ def test_finned_x_wing_10():
     finned_x_wing_10.sudoku
     9
 
-3a _a 0a   0b 2b 6b   0c 5c 0c
-0a _a 6a   8b 5b 0b   3c 1c 9c
-0a 5a _a   0b 1b 0b   2c 6c 0c
+3a _a _a   0b 2b 6b   0c 5c 0c
+_a _a 6a   8b 5b 0b   3c 1c 9c
+_a 5a _a   0b 1b 0b   2c 6c 0c
 
 5d 0d 2d   6e 0e 0e   7f 3f 0f
 4d 8d 0d   2e 3e 0e   5f 9f 6f
@@ -3162,8 +3161,8 @@ def test_finned_x_wing_11():
     finned_x_wing_11.sudoku
     9
 
-0a 2a _a   0b 0b 0b   0c 0c 9c
-0a _a 9a   0b 0b 1b   0c 6c 3c
+_a 2a _a   0b 0b 0b   0c 0c 9c
+_a _a 9a   0b 0b 1b   0c 6c 3c
 7a 3a _a   0b 0b 0b   4c 0c 0c
 
 0d 0d 3d   7e 1e 0e   0f 0f 2f
@@ -3184,9 +3183,9 @@ def test_finned_x_wing_12():
     finned_x_wing_12.sudoku
     9
 
-0a 7a 2a   0b 0b 0b   0c 0c 0c
-3a _a 0a   6b 9b 0b   4c 5c 0c
-6a _a 0a   2b 0b 0b   0c 0c 0c
+_a 7a 2a   0b 0b 0b   0c 0c 0c
+3a _a _a   6b 9b 0b   4c 5c 0c
+6a _a _a   2b 0b 0b   0c 0c 0c
 
 0d 0d 6d   0e 0e 0e   0f 0f 5f
 0d 5d 1d   7e 0e 6e   3f 2f 0f
@@ -3206,9 +3205,9 @@ def test_finned_x_wing_13():
     finned_x_wing_13.sudoku
     9
 
-1a _a 0a   3b 8b 0b   0c 0c 0c
-0a 7a _a   0b 0b 0b   0c 0c 1c
-0a 2a _a   1b 0b 4b   3c 0c 7c
+1a _a _a   3b 8b 0b   0c 0c 0c
+_a 7a _a   0b 0b 0b   0c 0c 1c
+_a 2a _a   1b 0b 4b   3c 0c 7c
 
 0d 0d 0d   0e 0e 1e   0f 0f 5f
 8d 0d 0d   5e 0e 3e   0f 0f 6f
@@ -3228,8 +3227,8 @@ def test_finned_x_wing_14():
     finned_x_wing_14.sudoku
     9
 
-2a _a 0a   7b 4b 1b   5c 3c 6c
-0a _a 0a   5b 2b 3b   0c 0c 7c
+2a _a _a   7b 4b 1b   5c 3c 6c
+_a _a _a   5b 2b 3b   0c 0c 7c
 3a 5a 7a   6b 9b 8b   4c 2c 1c
 
 4d 2d 0d   0e 7e 9e   0f 0f 5f
@@ -3274,7 +3273,7 @@ def test_finned_x_wing_16():
 
 7a 4a 9a   8b 1b 3b   2c 5c 6c
 6a 5a 3a   9b 7b 2b   4c 1c 8c
-0a 1a _a   0b 0b 0b   9c 3c 7c
+_a 1a _a   0b 0b 0b   9c 3c 7c
 
 3d 0d 7d   0e 0e 8e   5f 9f 0f
 1d 0d 5d   0e 0e 0e   8f 7f 4f
@@ -3294,9 +3293,9 @@ def test_finned_x_wing_17():
     finned_x_wing_17.sudoku
     9
 
-3a _a 0a   7b 4b 8b   5c 0c 0c
-0a _a 1a   5b 2b 6b   3c 0c 4c
-0a _a 0a   1b 3b 9b   0c 0c 8c
+3a _a _a   7b 4b 8b   5c 0c 0c
+_a _a 1a   5b 2b 6b   3c 0c 4c
+_a _a _a   1b 3b 9b   0c 0c 8c
 
 0d 0d 8d   3e 0e 2e   0f 0f 7f
 2d 0d 0d   0e 0e 4e   0f 0f 6f
@@ -3316,9 +3315,9 @@ def test_finned_x_wing_cols_1_fin():
     finned_x_wing_cols_1_fin.sudoku
     9
 
-0a _a 0a   4b 0b 6b   0c 8c 9c
-0a _a 6a   0b 7b 0b   0c 2c 4c
-0a _a 9a   0b 0b 5b   0c 6c 0c
+_a _a _a   4b 0b 6b   0c 8c 9c
+_a _a 6a   0b 7b 0b   0c 2c 4c
+_a _a 9a   0b 0b 5b   0c 6c 0c
 
 1d 7d 2d   0e 0e 0e   6f 0f 0f
 6d 0d 0d   7e 1e 2e   0f 0f 8f
@@ -3338,7 +3337,7 @@ def test_finned_x_wing_rows_1_fin():
     finned_x_wing_rows_1_fin.sudoku
     9
 
-6a _a 0a   0b 7b 5b   0c 3c 0c
+6a _a _a   0b 7b 5b   0c 3c 0c
 9a 8a 3a   4b 6b 0b   5c 0c 0c
 5a _a 7a   0b 9b 0b   0c 0c 6c
 
@@ -3361,7 +3360,7 @@ def test_fishy_cycle():
     9
 
 3a _a 8a   5b 0b 1b   2c 9c 7c
-0a _a 9a   7b 3b 0b   1c 8c 5c
+_a _a 9a   7b 3b 0b   1c 8c 5c
 5a 7a 1a   8b 2b 9b   3c 4c 6c
 
 0d 0d 6d   0e 0e 5e   0f 0f 8f
@@ -3382,9 +3381,9 @@ def test_fishy_cycle_0():
     fishy_cycle_0.sudoku
     9
 
-0a 3a _a   0b 0b 0b   0c 8c 6c
-1a _a 0a   6b 0b 5b   0c 0c 0c
-2a _a 0a   0b 0b 1b   3c 0c 0c
+_a 3a _a   0b 0b 0b   0c 8c 6c
+1a _a _a   6b 0b 5b   0c 0c 0c
+2a _a _a   0b 0b 1b   3c 0c 0c
 
 7d 0d 0d   2e 0e 0e   0f 9f 0f
 0d 0d 0d   5e 0e 8e   0f 0f 0f
@@ -3405,7 +3404,7 @@ def test_fishy_cycle_1():
     9
 
 7a 8a 3a   9b 5b 6b   1c 4c 2c
-6a _a 0a   3b 2b 0b   9c 8c 7c
+6a _a _a   3b 2b 0b   9c 8c 7c
 9a 2a _a   8b 0b 7b   6c 3c 5c
 
 8d 0d 0d   0e 0e 9e   0f 0f 4f
@@ -3467,7 +3466,7 @@ def test_hidden_pair_fence():
     hidden_pair_fence.sudoku
     9
 
-0a 9a 6a   0b 2b 0b   7c 3c 1c
+_a 9a 6a   0b 2b 0b   7c 3c 1c
 8a 1a _a   0b 6b 3b   2c 0c 5c
 2a 3a _a   1b 0b 0b   6c 0c 8c
 
@@ -3510,9 +3509,9 @@ def test_hidden_quad_5():
     hidden_quad_5.sudoku
     9
 
-0a _a 0a   2b 0b 0b   0c 0c 0c
-0a _a 1a   9b 0b 4b   8c 0c 0c
-0a _a 2a   0b 8b 0b   4c 3c 7c
+_a _a _a   2b 0b 0b   0c 0c 0c
+_a _a 1a   9b 0b 4b   8c 0c 0c
+_a _a 2a   0b 8b 0b   4c 3c 7c
 
 0d 0d 0d   0e 0e 0e   0f 0f 1f
 0d 2d 3d   0e 0e 0e   6f 9f 0f
@@ -3576,9 +3575,9 @@ def test_hidden_unique_rectangle_0():
     hidden_unique_rectangle_0.sudoku
     9
 
-0a _a 0a   0b 0b 9b   3c 0c 6c
-0a _a 0a   0b 8b 0b   4c 1c 0c
-0a 6a _a   0b 0b 0b   0c 0c 2c
+_a _a _a   0b 0b 9b   3c 0c 6c
+_a _a _a   0b 8b 0b   4c 1c 0c
+_a 6a _a   0b 0b 0b   0c 0c 2c
 
 0d 4d 0d   5e 0e 0e   6f 0f 0f
 1d 0d 2d   0e 0e 0e   5f 0f 9f
@@ -3599,8 +3598,8 @@ def test_hidden_unique_rectangle_1():
     9
 
 6a 4a _a   0b 7b 3b   9c 8c 5c
-0a 3a _a   0b 9b 0b   2c 6c 7c
-0a 7a 9a   0b 0b 6b   4c 1c 3c
+_a 3a _a   0b 9b 0b   2c 6c 7c
+_a 7a 9a   0b 0b 6b   4c 1c 3c
 
 9d 2d 7d   6e 0e 0e   3f 5f 1f
 3d 5d 8d   0e 1e 0e   6f 7f 4f
@@ -3620,9 +3619,9 @@ def test_hidden_unique_rectangle_2():
     hidden_unique_rectangle_2.sudoku
     9
 
-0a _a 0a   0b 0b 0b   9c 0c 0c
-0a _a 1a   6b 0b 2b   7c 0c 0c
-0a 3a _a   9b 5b 0b   0c 0c 4c
+_a _a _a   0b 0b 0b   9c 0c 0c
+_a _a 1a   6b 0b 2b   7c 0c 0c
+_a 3a _a   9b 5b 0b   0c 0c 4c
 
 0d 0d 2d   3e 0e 0e   0f 0f 6f
 0d 7d 0d   0e 0e 0e   0f 8f 0f
@@ -3642,8 +3641,8 @@ def test_hidden_unique_rectangle_3():
     hidden_unique_rectangle_3.sudoku
     9
 
-0a _a 3a   1b 0b 9b   5c 6c 8c
-0a _a 0a   0b 6b 8b   2c 0c 3c
+_a _a 3a   1b 0b 9b   5c 6c 8c
+_a _a _a   0b 6b 8b   2c 0c 3c
 6a 8a _a   3b 2b 5b   0c 0c 0c
 
 0d 0d 0d   0e 0e 6e   9f 0f 2f
@@ -3664,9 +3663,9 @@ def test_hidden_unique_rectangle_4():
     hidden_unique_rectangle_4.sudoku
     9
 
-0a 2a _a   7b 0b 0b   4c 0c 0c
-0a _a 0a   0b 6b 0b   0c 9c 5c
-0a _a 0a   0b 1b 5b   8c 0c 7c
+_a 2a _a   7b 0b 0b   4c 0c 0c
+_a _a _a   0b 6b 0b   0c 9c 5c
+_a _a _a   0b 1b 5b   8c 0c 7c
 
 0d 0d 0d   5e 0e 0e   0f 0f 9f
 0d 0d 8d   0e 0e 0e   3f 0f 0f
@@ -3708,9 +3707,9 @@ def test_hidden_unique_rectangle_nec():
     hidden_unique_rectangle_nec.sudoku
     9
 
-0a _a 4a   0b 0b 5b   6c 7c 8c
-0a 8a _a   0b 6b 0b   4c 0c 2c
-6a _a 0a   0b 0b 8b   3c 0c 9c
+_a _a 4a   0b 0b 5b   6c 7c 8c
+_a 8a _a   0b 6b 0b   4c 0c 2c
+6a _a _a   0b 0b 8b   3c 0c 9c
 
 1d 9d 3d   8e 0e 2e   7f 6f 0f
 0d 0d 8d   0e 3e 0e   1f 2f 0f
@@ -3731,8 +3730,8 @@ def test_hidden_unique_rectangle_nwc():
     9
 
 3a 8a 9a   2b 1b 5b   4c 0c 0c
-0a _a 4a   8b 9b 0b   1c 3c 0c
-0a 1a _a   4b 0b 3b   8c 0c 0c
+_a _a 4a   8b 9b 0b   1c 3c 0c
+_a 1a _a   4b 0b 3b   8c 0c 0c
 
 4d 5d 2d   0e 3e 1e   9f 8f 0f
 1d 3d 0d   9e 8e 2e   5f 0f 4f
@@ -3753,8 +3752,8 @@ def test_hidden_unique_rectangle_sec():
     9
 
 2a 1a _a   0b 0b 5b   0c 0c 0c
-0a 7a 4a   0b 2b 0b   6c 5c 9c
-0a _a 0a   7b 4b 0b   1c 8c 2c
+_a 7a 4a   0b 2b 0b   6c 5c 9c
+_a _a _a   7b 4b 0b   1c 8c 2c
 
 1d 4d 9d   0e 0e 0e   7f 2f 5f
 0d 6d 0d   2e 1e 7e   9f 3f 4f
@@ -3774,9 +3773,9 @@ def test_hidden_unique_rectangle_ser():
     hidden_unique_rectangle_ser.sudoku
     9
 
-0a _a 2a   4b 8b 0b   0c 1c 3c
+_a _a 2a   4b 8b 0b   0c 1c 3c
 8a 7a 4a   1b 3b 6b   2c 5c 9c
-0a _a 0a   0b 0b 2b   8c 4c 0c
+_a _a _a   0b 0b 2b   8c 4c 0c
 
 1d 2d 7d   0e 4e 9e   0f 8f 5f
 0d 8d 5d   0e 0e 0e   9f 2f 0f
@@ -3796,8 +3795,8 @@ def test_hidden_unique_rectangle_swc():
     hidden_unique_rectangle_swc.sudoku
     9
 
-0a 2a 9a   3b 1b 6b   4c 0c 5c
-0a _a 3a   7b 0b 2b   9c 1c 6c
+_a 2a 9a   3b 1b 6b   4c 0c 5c
+_a _a 3a   7b 0b 2b   9c 1c 6c
 6a _a 1a   4b 0b 0b   3c 2c 0c
 
 0d 0d 2d   8e 0e 0e   1f 6f 3f
@@ -3818,7 +3817,7 @@ def test_hidden_unique_rectangle_swr():
     hidden_unique_rectangle_swr.sudoku
     9
 
-0a 8a _a   0b 3b 0b   0c 5c 1c
+_a 8a _a   0b 3b 0b   0c 5c 1c
 1a _a 9a   5b 7b 0b   4c 6c 0c
 5a 6a _a   0b 0b 0b   0c 0c 0c
 
@@ -3840,8 +3839,8 @@ def test_jellyfish_0():
     jellyfish_0.sudoku
     9
 
-0a _a 1a   9b 0b 2b   5c 0c 0c
-0a _a 6a   0b 0b 0b   0c 0c 0c
+_a _a 1a   9b 0b 2b   5c 0c 0c
+_a _a 6a   0b 0b 0b   0c 0c 0c
 2a 9a _a   0b 5b 0b   0c 0c 1c
 
 5d 0d 0d   6e 0e 0e   3f 1f 9f
@@ -3862,7 +3861,7 @@ def test_jellyfish_1():
     jellyfish_1.sudoku
     9
 
-0a _a 0a   4b 5b 9b   0c 0c 0c
+_a _a _a   4b 5b 9b   0c 0c 0c
 5a _a 9a   3b 2b 0b   0c 7c 4c
 4a 2a _a   7b 6b 0b   9c 3c 5c
 
@@ -3885,8 +3884,8 @@ def test_jellyfish_2():
     9
 
 9a 3a _a   0b 7b 0b   6c 8c 5c
-7a _a 0a   8b 0b 6b   0c 0c 3c
-0a _a 0a   0b 9b 3b   7c 0c 1c
+7a _a _a   8b 0b 6b   0c 0c 3c
+_a _a _a   0b 9b 3b   7c 0c 1c
 
 1d 7d 0d   9e 6e 0e   5f 3f 2f
 0d 9d 0d   0e 3e 0e   1f 6f 0f
@@ -3908,7 +3907,7 @@ def test_jellyfish_of_1_in_rows():
 
 6a _a 9a   5b 7b 3b   0c 8c 2c
 8a 7a _a   0b 9b 0b   6c 3c 5c
-0a _a 5a   0b 6b 0b   9c 0c 7c
+_a _a 5a   0b 6b 0b   9c 0c 7c
 
 7d 6d 0d   9e 4e 2e   0f 5f 8f
 9d 0d 0d   7e 8e 5e   0f 6f 0f
@@ -3928,9 +3927,9 @@ def test_jellyfish_of_3_in_cols():
     jellyfish_of_3_in_cols.sudoku
     9
 
-2a _a 0a   4b 7b 5b   0c 0c 0c
+2a _a _a   4b 7b 5b   0c 0c 0c
 9a _a 7a   0b 6b 8b   2c 5c 4c
-0a 5a _a   9b 2b 0b   7c 0c 0c
+_a 5a _a   9b 2b 0b   7c 0c 0c
 
 5d 7d 0d   6e 9e 2e   0f 1f 8f
 0d 2d 1d   8e 5e 7e   0f 9f 6f
@@ -3949,9 +3948,9 @@ def test_locked_candidates_claiming_col():
     locked_candidates_claiming_col.sudoku
     9
 
-5a _a 0a   9b 8b 2b   1c 4c 3c
+5a _a _a   9b 8b 2b   1c 4c 3c
 2a 9a 8a   4b 3b 1b   0c 0c 0c
-4a _a 0a   6b 7b 5b   2c 8c 9c
+4a _a _a   6b 7b 5b   2c 8c 9c
 
 9d 0d 2d   5e 4e 7e   0f 0f 0f
 0d 0d 0d   2e 9e 0e   0f 0f 0f
@@ -3972,8 +3971,8 @@ def test_locked_candidates_claiming_row():
     9
 
 6a 9a 2a   3b 7b 8b   5c 1c 4c
-0a _a 5a   6b 2b 0b   0c 3c 0c
-0a 3a 8a   0b 4b 0b   2c 0c 0c
+_a _a 5a   6b 2b 0b   0c 3c 0c
+_a 3a 8a   0b 4b 0b   2c 0c 0c
 
 0d 0d 9d   0e 3e 0e   0f 0f 1f
 0d 0d 1d   0e 5e 0e   3f 0f 0f
@@ -4013,8 +4012,8 @@ def test_locked_candidates_pointing_row():
     locked_candidates_pointing_row.sudoku
     9
 
-9a _a 0a   2b 4b 0b   8c 3c 0c
-6a _a 0a   7b 8b 3b   2c 1c 9c
+9a _a _a   2b 4b 0b   8c 3c 0c
+6a _a _a   7b 8b 3b   2c 1c 9c
 8a 2a 3a   1b 0b 9b   4c 0c 0c
 
 0d 0d 0d   0e 9e 2e   0f 8f 0f
@@ -4035,9 +4034,9 @@ def test_medusa_coloring_3d():
     medusa_coloring_3d.sudoku
     9
 
-0a 3a 8a   0b 1b 0b   0c 0c 0c
+_a 3a 8a   0b 1b 0b   0c 0c 0c
 4a 5a 2a   7b 9b 6b   1c 8c 3c
-1a _a 0a   0b 0b 8b   5c 0c 0c
+1a _a _a   0b 0b 8b   5c 0c 0c
 
 0d 2d 1d   0e 0e 7e   4f 9f 6f
 7d 4d 5d   9e 6e 2e   8f 3f 1f
@@ -4057,9 +4056,9 @@ def test_medusa_coloring_3d_0():
     medusa_coloring_3d_0.sudoku
     9
 
-3a _a 0a   0b 0b 0b   8c 0c 0c
-0a _a 4a   0b 9b 0b   0c 7c 0c
-0a 7a 9a   0b 0b 2b   0c 0c 1c
+3a _a _a   0b 0b 0b   8c 0c 0c
+_a _a 4a   0b 9b 0b   0c 7c 0c
+_a 7a 9a   0b 0b 2b   0c 0c 1c
 
 0d 6d 0d   7e 0e 0e   0f 0f 4f
 0d 0d 8d   0e 6e 0e   7f 0f 0f
@@ -4141,9 +4140,9 @@ def test_naked_quad_4():
     naked_quad_4.sudoku
     9
 
-0a _a 0a   0b 7b 0b   0c 0c 0c
-0a _a 0a   2b 5b 0b   7c 0c 0c
-7a _a 0a   1b 0b 0b   2c 9c 6c
+_a _a _a   0b 7b 0b   0c 0c 0c
+_a _a _a   2b 5b 0b   7c 0c 0c
+7a _a _a   1b 0b 0b   2c 9c 6c
 
 2d 0d 0d   0e 0e 0e   6f 0f 4f
 0d 4d 7d   0e 0e 0e   5f 1f 0f
@@ -4165,7 +4164,7 @@ def test_naked_quad_5():
 
 9a 4a _a   0b 3b 5b   0c 6c 0c
 3a 5a _a   6b 0b 0b   0c 0c 0c
-0a 8a _a   0b 4b 0b   0c 0c 5c
+_a 8a _a   0b 4b 0b   0c 0c 5c
 
 6d 0d 0d   1e 0e 0e   0f 0f 0f
 0d 0d 0d   0e 7e 0e   0f 0f 0f
@@ -4185,9 +4184,9 @@ def test_naked_quad_6():
     naked_quad_6.sudoku
     9
 
-0a _a 0a   0b 1b 0b   0c 5c 7c
-0a _a 0a   0b 0b 8b   4c 0c 0c
-0a _a 0a   9b 0b 5b   1c 0c 3c
+_a _a _a   0b 1b 0b   0c 5c 7c
+_a _a _a   0b 0b 8b   4c 0c 0c
+_a _a _a   9b 0b 5b   1c 0c 3c
 
 0d 1d 2d   0e 0e 0e   0f 7f 6f
 0d 0d 0d   0e 0e 0e   0f 0f 0f
@@ -4207,9 +4206,9 @@ def test_naked_quad_7():
     naked_quad_7.sudoku
     9
 
-0a _a 1a   2b 0b 5b   0c 9c 0c
+_a _a 1a   2b 0b 5b   0c 9c 0c
 5a _a 6a   0b 0b 4b   2c 7c 0c
-2a _a 0a   0b 0b 3b   0c 0c 0c
+2a _a _a   0b 0b 3b   0c 0c 0c
 
 0d 0d 5d   0e 0e 0e   0f 8f 0f
 0d 4d 9d   0e 0e 0e   1f 5f 0f
@@ -4229,9 +4228,9 @@ def test_naked_quad_col():
     naked_quad_col.sudoku
     9
 
-0a _a 1a   4b 0b 0b   0c 0c 0c
-0a _a 5a   2b 1b 8b   0c 9c 0c
-0a 2a _a   9b 5b 0b   0c 0c 0c
+_a _a 1a   4b 0b 0b   0c 0c 0c
+_a _a 5a   2b 1b 8b   0c 9c 0c
+_a 2a _a   9b 5b 0b   0c 0c 0c
 
 4d 0d 7d   0e 0e 9e   0f 0f 0f
 0d 5d 0d   7e 2e 1e   0f 8f 0f
@@ -4251,9 +4250,9 @@ def test_naked_quad_fence():
     naked_quad_fence.sudoku
     9
 
-0a 5a _a   0b 0b 3b   0c 0c 0c
+_a 5a _a   0b 0b 3b   0c 0c 0c
 3a _a 9a   0b 4b 8b   0c 0c 0c
-0a 1a _a   6b 0b 0b   0c 0c 0c
+_a 1a _a   6b 0b 0b   0c 0c 0c
 
 0d 9d 6d   0e 3e 0e   4f 0f 8f
 0d 3d 8d   0e 0e 0e   7f 0f 0f
@@ -4273,9 +4272,9 @@ def test_naked_quad_row():
     naked_quad_row.sudoku
     9
 
-0a _a 9a   0b 3b 0b   0c 2c 6c
-0a _a 0a   0b 0b 0b   0c 0c 0c
-0a 6a _a   0b 2b 0b   5c 1c 4c
+_a _a 9a   0b 3b 0b   0c 2c 6c
+_a _a _a   0b 0b 0b   0c 0c 0c
+_a 6a _a   0b 2b 0b   5c 1c 4c
 
 0d 0d 7d   0e 0e 5e   0f 6f 0f
 0d 8d 0d   0e 0e 0e   0f 3f 5f
@@ -4296,8 +4295,8 @@ def test_naked_triple_col():
     9
 
 7a 9a _a   5b 0b 0b   8c 0c 6c
-0a _a 8a   6b 0b 7b   0c 0c 0c
-0a 6a _a   8b 1b 0b   0c 0c 4c
+_a _a 8a   6b 0b 7b   0c 0c 0c
+_a 6a _a   8b 1b 0b   0c 0c 4c
 
 6d 0d 0d   2e 0e 0e   0f 0f 0f
 2d 0d 0d   1e 0e 8e   0f 0f 5f
@@ -4317,9 +4316,9 @@ def test_naked_triple_fence():
     naked_triple_fence.sudoku
     9
 
-0a 3a _a   0b 0b 5b   1c 0c 0c
-0a 7a 1a   9b 0b 4b   6c 2c 0c
-0a _a 4a   0b 0b 0b   0c 0c 0c
+_a 3a _a   0b 0b 5b   1c 0c 0c
+_a 7a 1a   9b 0b 4b   6c 2c 0c
+_a _a 4a   0b 0b 0b   0c 0c 0c
 
 0d 0d 5d   6e 4e 9e   0f 7f 0f
 0d 0d 7d   5e 2e 1e   9f 0f 6f
@@ -4340,7 +4339,7 @@ def test_naked_triple_row():
     9
 
 7a 8a 2a   3b 5b 4b   1c 9c 6c
-0a _a 0a   2b 6b 7b   4c 5c 8c
+_a _a _a   2b 6b 7b   4c 5c 8c
 4a 5a 6a   8b 9b 1b   3c 2c 7c
 
 0d 0d 1d   5e 0e 0e   6f 0f 0f
@@ -4361,8 +4360,8 @@ def test_remote_pair_0():
     remote_pair_0.sudoku
     9
 
-0a _a 2a   0b 0b 5b   0c 0c 6c
-0a _a 0a   6b 0b 2b   0c 0c 9c
+_a _a 2a   0b 0b 5b   0c 0c 6c
+_a _a _a   6b 0b 2b   0c 0c 9c
 3a 1a _a   0b 0b 0b   0c 0c 0c
 
 2d 0d 4d   0e 8e 0e   0f 5f 0f
@@ -4383,8 +4382,8 @@ def test_remote_pair_1():
     remote_pair_1.sudoku
     9
 
-0a 8a 6a   4b 3b 9b   0c 0c 2c
-0a 4a 1a   7b 8b 2b   0c 9c 6c
+_a 8a 6a   4b 3b 9b   0c 0c 2c
+_a 4a 1a   7b 8b 2b   0c 9c 6c
 2a _a 9a   1b 5b 6b   4c 0c 8c
 
 8d 1d 5d   3e 7e 4e   2f 6f 9f
@@ -4471,9 +4470,9 @@ def test_shashimi_jellyfish_1():
     shashimi_jellyfish_1.sudoku
     9
 
-0a _a 2a   0b 7b 0b   0c 0c 0c
-6a _a 0a   0b 1b 8b   0c 0c 4c
-0a _a 0a   0b 0b 0b   3c 7c 0c
+_a _a 2a   0b 7b 0b   0c 0c 0c
+6a _a _a   0b 1b 8b   0c 0c 4c
+_a _a _a   0b 0b 0b   3c 7c 0c
 
 0d 7d 0d   1e 0e 0e   6f 0f 8f
 0d 0d 9d   0e 0e 0e   4f 0f 0f
@@ -4494,9 +4493,9 @@ def test_shashimi_jellyfish_2():
     shashimi_jellyfish_2.sudoku
     9
 
-0a _a 5a   0b 0b 7b   8c 6c 0c
-0a _a 6a   0b 0b 0b   5c 0c 0c
-4a _a 0a   0b 5b 6b   2c 0c 7c
+_a _a 5a   0b 0b 7b   8c 6c 0c
+_a _a 6a   0b 0b 0b   5c 0c 0c
+4a _a _a   0b 5b 6b   2c 0c 7c
 
 0d 0d 0d   3e 4e 0e   6f 5f 8f
 5d 0d 0d   7e 6e 8e   0f 0f 2f
@@ -4516,7 +4515,7 @@ def test_shashimi_jellyfish_3():
     shashimi_jellyfish_3.sudoku
     9
 
-0a 2a _a   6b 3b 0b   5c 8c 0c
+_a 2a _a   6b 3b 0b   5c 8c 0c
 8a 5a 6a   1b 0b 2b   3c 7c 0c
 9a 3a _a   7b 8b 5b   0c 6c 2c
 
@@ -4538,9 +4537,9 @@ def test_shashimi_swordfish_0():
     shashimi_swordfish_0.sudoku
     9
 
-0a _a 9a   0b 6b 4b   0c 0c 7c
-8a _a 0a   1b 0b 0b   5c 0c 0c
-1a _a 0a   3b 0b 5b   0c 9c 0c
+_a _a 9a   0b 6b 4b   0c 0c 7c
+8a _a _a   1b 0b 0b   5c 0c 0c
+1a _a _a   3b 0b 5b   0c 9c 0c
 
 0d 0d 0d   9e 0e 0e   0f 0f 5f
 0d 0d 1d   0e 0e 0e   7f 0f 0f
@@ -4560,8 +4559,8 @@ def test_shashimi_swordfish_1():
     shashimi_swordfish_1.sudoku
     9
 
-0a _a 0a   0b 3b 0b   0c 0c 8c
-0a _a 3a   0b 9b 0b   0c 2c 0c
+_a _a _a   0b 3b 0b   0c 0c 8c
+_a _a 3a   0b 9b 0b   0c 2c 0c
 9a 4a _a   8b 0b 6b   5c 3c 0c
 
 2d 3d 1d   6e 0e 0e   0f 7f 9f
@@ -4582,8 +4581,8 @@ def test_shashimi_swordfish_2():
     shashimi_swordfish_2.sudoku
     9
 
-0a _a 0a   0b 0b 0b   0c 5c 0c
-0a _a 6a   0b 1b 0b   0c 0c 2c
+_a _a _a   0b 0b 0b   0c 5c 0c
+_a _a 6a   0b 1b 0b   0c 0c 2c
 3a 5a _a   0b 0b 2b   1c 0c 0c
 
 0d 1d 3d   0e 0e 5e   0f 6f 9f
@@ -4604,8 +4603,8 @@ def test_shashimi_swordfish_3():
     shashimi_swordfish_3.sudoku
     9
 
-0a _a 6a   2b 8b 5b   0c 1c 0c
-0a 9a _a   0b 1b 3b   8c 0c 7c
+_a _a 6a   2b 8b 5b   0c 1c 0c
+_a 9a _a   0b 1b 3b   8c 0c 7c
 8a 1a _a   7b 0b 9b   5c 3c 0c
 
 0d 6d 0d   5e 0e 0e   0f 0f 1f
@@ -4626,7 +4625,7 @@ def test_shashimi_swordfish_4():
     shashimi_swordfish_4.sudoku
     9
 
-0a 2a 7a   3b 9b 6b   5c 4c 0c
+_a 2a 7a   3b 9b 6b   5c 4c 0c
 5a 6a 8a   8b 0b 0b   9c 0c 2c
 4a 9a _a   0b 2b 5b   0c 6c 3c
 
@@ -4670,9 +4669,9 @@ def test_shashimi_sword_fish_cols_1_fin():
     shashimi_sword_fish_cols_1_fin.sudoku
     9
 
-0a 4a 7a   2b 3b 0b   8c 9c 6c
-0a 9a 3a   6b 8b 0b   0c 0c 1c
-0a 6a _a   0b 9b 0b   0c 0c 3c
+_a 4a 7a   2b 3b 0b   8c 9c 6c
+_a 9a 3a   6b 8b 0b   0c 0c 1c
+_a 6a _a   0b 9b 0b   0c 0c 3c
 
 6d 3d 0d   0e 7e 0e   9f 1f 8f
 0d 7d 1d   9e 6e 8e   3f 5f 0f
@@ -4692,9 +4691,9 @@ def test_shashimi_sword_fish_cols_2_fins():
     shashimi_sword_fish_cols_2_fins.sudoku
     9
 
-0a _a 0a   8b 4b 0b   5c 2c 0c
+_a _a _a   8b 4b 0b   5c 2c 0c
 5a _a 4a   3b 0b 0b   9c 0c 8c
-0a 8a _a   0b 0b 5b   0c 0c 4c
+_a 8a _a   0b 0b 5b   0c 0c 4c
 
 4d 5d 9d   0e 7e 0e   0f 0f 1f
 8d 0d 0d   0e 0e 0e   0f 4f 5f
@@ -4715,8 +4714,8 @@ def test_shashimi_sword_fish_rows_1_fin():
     9
 
 5a 8a 6a   2b 4b 1b   3c 9c 7c
-0a _a 9a   7b 8b 0b   2c 0c 6c
-0a 2a 7a   9b 0b 6b   8c 0c 0c
+_a _a 9a   7b 8b 0b   2c 0c 6c
+_a 2a 7a   9b 0b 6b   8c 0c 0c
 
 6d 0d 8d   0e 9e 0e   7f 0f 0f
 2d 9d 0d   6e 0e 7e   0f 8f 0f
@@ -4736,8 +4735,8 @@ def test_shashimi_sword_fish_rows_2_fins():
     shashimi_sword_fish_rows_2_fins.sudoku
     9
 
-0a 7a _a   9b 1b 0b   2c 6c 3c
-0a _a 0a   0b 0b 6b   0c 7c 1c
+_a 7a _a   9b 1b 0b   2c 6c 3c
+_a _a _a   0b 0b 6b   0c 7c 1c
 1a 6a _a   0b 3b 0b   5c 8c 0c
 
 0d 2d 0d   0e 0e 0e   8f 3f 0f
@@ -4758,9 +4757,9 @@ def test_shashimi_x_wing_00():
     shashimi_x_wing_00.sudoku
     9
 
-1a _a 0a   0b 8b 0b   6c 0c 0c
-0a _a 0a   6b 0b 0b   8c 0c 0c
-0a 6a _a   1b 0b 3b   0c 0c 2c
+1a _a _a   0b 8b 0b   6c 0c 0c
+_a _a _a   6b 0b 0b   8c 0c 0c
+_a 6a _a   1b 0b 3b   0c 0c 2c
 
 0d 0d 0d   7e 0e 0e   0f 0f 9f
 4d 0d 9d   0e 0e 0e   1f 0f 3f
@@ -4781,8 +4780,8 @@ def test_shashimi_x_wing_01():
     9
 
 1a _a 8a   0b 0b 5b   0c 0c 4c
-0a _a 5a   7b 0b 4b   0c 8c 9c
-0a _a 0a   0b 0b 0b   5c 0c 0c
+_a _a 5a   7b 0b 4b   0c 8c 9c
+_a _a _a   0b 0b 0b   5c 0c 0c
 
 0d 0d 0d   0e 0e 7e   0f 0f 2f
 0d 9d 0d   0e 8e 0e   0f 7f 0f
@@ -4802,9 +4801,9 @@ def test_shashimi_x_wing_02():
     shashimi_x_wing_02.sudoku
     9
 
-0a 9a _a   5b 0b 0b   0c 0c 0c
-0a 6a _a   0b 7b 2b   8c 0c 4c
-0a _a 0a   9b 8b 4b   0c 0c 0c
+_a 9a _a   5b 0b 0b   0c 0c 0c
+_a 6a _a   0b 7b 2b   8c 0c 4c
+_a _a _a   9b 8b 4b   0c 0c 0c
 
 3d 2d 0d   0e 0e 0e   4f 0f 6f
 0d 0d 6d   0e 0e 0e   2f 0f 0f
@@ -4824,9 +4823,9 @@ def test_shashimi_x_wing_03():
     shashimi_x_wing_03.sudoku
     9
 
-5a _a 0a   0b 2b 0b   1c 0c 9c
+5a _a _a   0b 2b 0b   1c 0c 9c
 2a _a 9a   3b 0b 0b   0c 5c 4c
-0a _a 0a   0b 0b 8b   0c 0c 6c
+_a _a _a   0b 0b 8b   0c 0c 6c
 
 0d 1d 0d   0e 0e 4e   0f 0f 0f
 0d 0d 7d   0e 0e 0e   5f 0f 0f
@@ -4847,8 +4846,8 @@ def test_shashimi_x_wing_04():
     9
 
 7a 2a 8a   0b 1b 0b   9c 0c 5c
-0a 9a _a   0b 0b 0b   8c 0c 0c
-0a _a 3a   0b 9b 8b   0c 4c 0c
+_a 9a _a   0b 0b 0b   8c 0c 0c
+_a _a 3a   0b 9b 8b   0c 4c 0c
 
 0d 0d 9d   8e 2e 0e   7f 0f 3f
 8d 7d 0d   0e 3e 9e   0f 5f 0f
@@ -4869,7 +4868,7 @@ def test_shashimi_x_wing_05():
     9
 
 5a 9a _a   4b 0b 0b   8c 3c 2c
-0a _a 4a   0b 0b 2b   7c 1c 5c
+_a _a 4a   0b 0b 2b   7c 1c 5c
 1a 2a _a   8b 5b 0b   6c 9c 4c
 
 2d 7d 0d   1e 0e 0e   0f 4f 6f
@@ -4956,8 +4955,8 @@ def test_shashimi_x_wing_09():
     shashimi_x_wing_09.sudoku
     9
 
-1a _a 0a   0b 9b 7b   5c 0c 4c
-0a 4a 9a   5b 1b 6b   7c 2c 0c
+1a _a _a   0b 9b 7b   5c 0c 4c
+_a 4a 9a   5b 1b 6b   7c 2c 0c
 5a 7a _a   0b 0b 4b   0c 9c 1c
 
 2d 9d 8d   4e 6e 5e   1f 0f 0f
@@ -4979,8 +4978,8 @@ def test_shashimi_x_wing_col_1_fin():
     9
 
 3a _a 4a   6b 1b 0b   0c 7c 0c
-0a _a 1a   0b 0b 0b   6c 4c 9c
-0a 6a 8a   0b 4b 0b   0c 0c 0c
+_a _a 1a   0b 0b 0b   6c 4c 9c
+_a 6a 8a   0b 4b 0b   0c 0c 0c
 
 1d 4d 6d   0e 0e 8e   9f 2f 7f
 0d 3d 0d   0e 2e 6e   4f 5f 0f
@@ -5022,8 +5021,8 @@ def test_shashimi_x_wing_row_1_fin():
     shashimi_x_wing_row_1_fin.sudoku
     9
 
-7a _a 0a   0b 0b 9b   0c 3c 2c
-0a 9a 3a   2b 0b 0b   5c 6c 7c
+7a _a _a   0b 0b 9b   0c 3c 2c
+_a 9a 3a   2b 0b 0b   5c 6c 7c
 2a _a 6a   7b 3b 0b   0c 4c 0c
 
 0d 1d 9d   4e 8e 7e   2f 5f 0f
@@ -5044,9 +5043,9 @@ def test_shashimi_x_wing_row_2_fins():
     shashimi_x_wing_row_2_fins.sudoku
     9
 
-0a 9a 7a   1b 0b 4b   0c 0c 3c
-4a _a 0a   0b 3b 7b   0c 9c 0c
-0a 3a _a   6b 0b 9b   4c 8c 7c
+_a 9a 7a   1b 0b 4b   0c 0c 3c
+4a _a _a   0b 3b 7b   0c 9c 0c
+_a 3a _a   6b 0b 9b   4c 8c 7c
 
 7d 0d 0d   0e 9e 8e   0f 0f 0f
 9d 5d 0d   2e 6e 0e   0f 7f 4f
@@ -5068,7 +5067,7 @@ def test_simple_coloring_0():
 
 3a 5a 6a   2b 0b 0b   9c 0c 4c
 4a 2a 9a   5b 3b 0b   0c 6c 0c
-0a _a 7a   9b 4b 6b   5c 2c 3c
+_a _a 7a   9b 4b 6b   5c 2c 3c
 
 0d 0d 5d   4e 0e 0e   0f 0f 0f
 6d 9d 3d   1e 7e 2e   4f 5f 8f
@@ -5110,9 +5109,9 @@ def test_simple_coloring_trap_0():
     simple_coloring_trap_0.sudoku
     9
 
-5a _a 0a   0b 2b 7b   0c 0c 4c
-0a _a 4a   0b 0b 0b   5c 0c 0c
-0a 7a 6a   0b 0b 4b   0c 3c 0c
+5a _a _a   0b 2b 7b   0c 0c 4c
+_a _a 4a   0b 0b 0b   5c 0c 0c
+_a 7a 6a   0b 0b 4b   0c 3c 0c
 
 0d 0d 0d   0e 0e 0e   0f 2f 3f
 0d 0d 7d   0e 3e 0e   6f 0f 0f
@@ -5132,9 +5131,9 @@ def test_sue_de_coq_0():
     sue_de_coq_0.sudoku
     9
 
-0a 7a _a   0b 9b 6b   4c 0c 0c
-0a _a 0a   0b 0b 5b   6c 0c 0c
-0a _a 0a   0b 0b 0b   0c 2c 0c
+_a 7a _a   0b 9b 6b   4c 0c 0c
+_a _a _a   0b 0b 5b   6c 0c 0c
+_a _a _a   0b 0b 0b   0c 2c 0c
 
 0d 0d 0d   6e 0e 4e   0f 5f 1f
 0d 4d 0d   8e 0e 1e   0f 9f 0f
@@ -5154,9 +5153,9 @@ def test_sue_de_coq_1():
     sue_de_coq_1.sudoku
     9
 
-0a _a 8a   0b 0b 0b   0c 0c 0c
-0a 4a 2a   0b 8b 0b   6c 0c 0c
-0a 9a _a   5b 0b 4b   0c 1c 0c
+_a _a 8a   0b 0b 0b   0c 0c 0c
+_a 4a 2a   0b 8b 0b   6c 0c 0c
+_a 9a _a   5b 0b 4b   0c 1c 0c
 
 0d 0d 5d   0e 0e 9e   1f 4f 0f
 0d 0d 0d   0e 0e 0e   0f 0f 0f
@@ -5176,9 +5175,9 @@ def test_sue_de_coq_2():
     sue_de_coq_2.sudoku
     9
 
-0a _a 0a   0b 5b 8b   0c 2c 0c
+_a _a _a   0b 5b 8b   0c 2c 0c
 2a 8a _a   6b 1b 0b   0c 0c 0c
-0a _a 1a   2b 9b 0b   0c 3c 8c
+_a _a 1a   2b 9b 0b   0c 3c 8c
 
 7d 6d 2d   5e 8e 1e   4f 9f 3f
 5d 1d 4d   0e 2e 0e   7f 8f 6f
@@ -5198,9 +5197,9 @@ def test_sue_de_coq_col():
     sue_de_coq_col.sudoku
     9
 
-0a _a 0a   0b 9b 3b   0c 6c 0c
+_a _a _a   0b 9b 3b   0c 6c 0c
 3a 9a 1a   0b 6b 0b   0c 4c 0c
-0a _a 6a   0b 0b 0b   9c 0c 3c
+_a _a 6a   0b 0b 0b   9c 0c 3c
 
 4d 1d 7d   9e 5e 2e   8f 3f 6f
 0d 3d 0d   0e 4e 0e   0f 2f 0f
@@ -5220,9 +5219,9 @@ def test_sue_de_coq_row():
     sue_de_coq_row.sudoku
     9
 
-0a 4a _a   0b 9b 8b   7c 5c 6c
+_a 4a _a   0b 9b 8b   7c 5c 6c
 8a 9a 7a   6b 4b 5b   3c 1c 2c
-0a _a 5a   1b 0b 7b   4c 9c 8c
+_a _a 5a   1b 0b 7b   4c 9c 8c
 
 0d 0d 4d   5e 8e 0e   0f 7f 0f
 0d 8d 0d   0e 0e 0e   0f 6f 4f
@@ -5242,7 +5241,7 @@ def test_swordfish_0():
     swordfish_0.sudoku
     9
 
-2a _a 0a   0b 0b 0b   0c 0c 0c
+2a _a _a   0b 0b 0b   0c 0c 0c
 7a _a 5a   0b 0b 6b   0c 0c 1c
 3a _a 9a   0b 8b 0b   2c 0c 7c
 
@@ -5266,7 +5265,7 @@ def test_swordfish_1():
     
 8a 3a 4a   7b 2b 0b   0c 1c 5c
 2a 1a 5a   8b 0b 0b   0c 7c 0c
-0a 9a _a   0b 5b 1b   0c 2c 8c
+_a 9a _a   0b 5b 1b   0c 2c 8c
 
 0d 7d 2d   6e 3e 5e   0f 8f 4f
 0d 4d 3d   9e 8e 7e   0f 5f 2f
@@ -5286,8 +5285,8 @@ def test_swordfish_2():
     swordfish_2.sudoku
     9
 
-2a _a 0a   0b 0b 0b   0c 0c 0c
-0a _a 4a   9b 0b 6b   0c 3c 0c
+2a _a _a   0b 0b 0b   0c 0c 0c
+_a _a 4a   9b 0b 6b   0c 3c 0c
 6a 3a _a   0b 0b 4b   0c 0c 5c
 
 0d 0d 0d   0e 0e 3e   0f 1f 6f
@@ -5310,7 +5309,7 @@ def test_swordfish_3():
 
 5a 7a 1a   3b 0b 0b   0c 0c 0c
 6a 2a _a   0b 4b 0b   0c 0c 0c
-4a _a 0a   0b 0b 7b   1c 0c 0c
+4a _a _a   0b 0b 7b   1c 0c 0c
 
 0d 0d 4d   0e 1e 0e   0f 2f 0f
 7d 0d 0d   8e 0e 5e   0f 0f 4f
@@ -5330,8 +5329,8 @@ def test_swordfish_4():
     swordfish_4.sudoku
     9
 
-0a _a 0a   7b 0b 0b   0c 0c 5c
-0a 5a _a   0b 6b 0b   9c 0c 0c
+_a _a _a   7b 0b 0b   0c 0c 5c
+_a 5a _a   0b 6b 0b   9c 0c 0c
 4a _a 9a   0b 8b 0b   0c 7c 0c
 
 8d 0d 7d   0e 0e 0e   0f 0f 0f
@@ -5352,9 +5351,9 @@ def test_swordfish_5():
     swordfish_5.sudoku
     9
 
-0a _a 1a   8b 7b 9b   0c 0c 5c
+_a _a 1a   8b 7b 9b   0c 0c 5c
 5a 9a 8a   0b 0b 3b   7c 2c 1c
-0a 7a 6a   5b 2b 1b   8c 9c 0c
+_a 7a 6a   5b 2b 1b   8c 9c 0c
 
 0d 1d 9d   7e 0e 5e   3f 0f 0f
 7d 0d 5d   0e 0e 0e   0f 1f 0f
@@ -5374,7 +5373,7 @@ def test_swordfish_6():
     swordfish_6.sudoku
     9
 
-0a _a 6a   3b 9b 0b   7c 0c 4c
+_a _a 6a   3b 9b 0b   7c 0c 4c
 4a 2a 1a   0b 7b 8b   3c 0c 9c
 7a 9a 3a   0b 0b 4b   8c 0c 0c
 
@@ -5397,7 +5396,7 @@ def test_swordfish_of_5_in_rows():
     9
 
 3a _a 6a   0b 4b 8b   2c 7c 9c
-9a _a 0a   7b 2b 6b   0c 0c 3c
+9a _a _a   7b 2b 6b   0c 0c 3c
 2a 8a 7a   3b 9b 0b   6c 0c 4c
 
 8d 9d 1d   6e 3e 4e   7f 2f 5f
@@ -5419,7 +5418,7 @@ def test_swordfish_of_8_in_cols():
     9
 
 6a 8a _a   0b 3b 4b   0c 0c 2c
-3a _a 0a   0b 0b 0b   0c 0c 0c
+3a _a _a   0b 0b 0b   0c 0c 0c
 5a 7a _a   0b 9b 2b   0c 3c 6c
 
 0d 0d 0d   2e 0e 3e   0f 0f 0f
@@ -5441,8 +5440,8 @@ def test_unique_rectangle_type3_00():
     9
 
 9a 3a _a   0b 0b 8b   0c 0c 0c
-0a _a 0a   3b 0b 0b   0c 8c 5c
-6a _a 0a   0b 1b 0b   0c 9c 4c
+_a _a _a   3b 0b 0b   0c 8c 5c
+6a _a _a   0b 1b 0b   0c 9c 4c
 
 0d 5d 0d   0e 0e 0e   0f 1f 9f
 0d 0d 6d   0e 0e 0e   4f 0f 0f
@@ -5462,9 +5461,9 @@ def test_unique_rectangle_type3_01():
     unique_rectangle_type3_01.sudoku
     9
 
-8a _a 0a   2b 0b 0b   6c 1c 0c
-0a _a 5a   0b 0b 1b   0c 0c 0c
-0a _a 7a   0b 3b 0b   0c 0c 0c
+8a _a _a   2b 0b 0b   6c 1c 0c
+_a _a 5a   0b 0b 1b   0c 0c 0c
+_a _a 7a   0b 3b 0b   0c 0c 0c
 
 0d 6d 0d   4e 0e 0e   0f 0f 8f
 0d 0d 3d   0e 9e 0e   1f 0f 0f
@@ -5484,9 +5483,9 @@ def test_unique_rectangle_type3_02():
     unique_rectangle_type3_02.sudoku
     9
 
-0a _a 5a   0b 6b 0b   0c 4c 0c
+_a _a 5a   0b 6b 0b   0c 4c 0c
 2a 4a 7a   0b 0b 0b   0c 1c 0c
-6a _a 0a   4b 0b 0b   0c 0c 9c
+6a _a _a   4b 0b 0b   0c 0c 9c
 
 0d 0d 9d   0e 0e 0e   0f 0f 2f
 4d 0d 0d   3e 0e 6e   0f 0f 7f
@@ -5506,8 +5505,8 @@ def test_unique_rectangle_type3_03():
     unique_rectangle_type3_03.sudoku
     9
 
-0a _a 3a   0b 0b 0b   7c 0c 0c
-0a _a 0a   0b 0b 8b   0c 0c 0c
+_a _a 3a   0b 0b 0b   7c 0c 0c
+_a _a _a   0b 0b 8b   0c 0c 0c
 5a 4a _a   0b 0b 0b   6c 3c 0c
 
 1d 7d 0d   0e 0e 6e   0f 5f 0f
@@ -5528,9 +5527,9 @@ def test_unique_rectangle_type3_04():
     unique_rectangle_type3_04.sudoku
     9
 
-0a _a 0a   8b 0b 0b   0c 6c 1c
+_a _a _a   8b 0b 0b   0c 6c 1c
 8a 1a _a   0b 0b 3b   0c 0c 0c
-0a 3a _a   0b 4b 0b   0c 9c 5c
+_a 3a _a   0b 4b 0b   0c 9c 5c
 
 7d 0d 0d   0e 0e 0e   0f 3f 9f
 0d 0d 2d   0e 0e 0e   5f 0f 0f
@@ -5550,9 +5549,9 @@ def test_unique_rectangle_type3_05():
     unique_rectangle_type3_05.sudoku
     9
 
-0a _a 5a   2b 0b 0b   0c 0c 0c
-0a 9a _a   0b 0b 7b   4c 0c 2c
-0a _a 3a   0b 6b 0b   0c 0c 0c
+_a _a 5a   2b 0b 0b   0c 0c 0c
+_a 9a _a   0b 0b 7b   4c 0c 2c
+_a _a 3a   0b 6b 0b   0c 0c 0c
 
 4d 0d 0d   0e 0e 1e   0f 9f 0f
 0d 0d 6d   0e 8e 0e   2f 0f 0f
@@ -5572,9 +5571,9 @@ def test_unique_rectangle_type3_06():
     unique_rectangle_type3_06.sudoku
     9
 
-8a _a 0a   7b 0b 0b   0c 0c 2c
-0a _a 0a   5b 2b 6b   0c 0c 0c
-0a 5a 7a   0b 0b 4b   0c 0c 3c
+8a _a _a   7b 0b 0b   0c 0c 2c
+_a _a _a   5b 2b 6b   0c 0c 0c
+_a 5a 7a   0b 0b 4b   0c 0c 3c
 
 7d 0d 0d   0e 0e 0e   5f 0f 0f
 0d 8d 0d   0e 0e 0e   0f 3f 0f
@@ -5594,7 +5593,7 @@ def test_unique_rectangle_type3_07():
     unique_rectangle_type3_07.sudoku
     9
 
-0a 9a _a   2b 0b 0b   7c 6c 1c
+_a 9a _a   2b 0b 0b   7c 6c 1c
 4a 7a 1a   8b 9b 6b   3c 2c 5c
 6a 3a 2a   1b 5b 7b   9c 8c 4c
 
@@ -5616,7 +5615,7 @@ def test_unique_rectangle_type3_east_col():
     unique_rectangle_type3_east_col.sudoku
     9
 
-6a _a 0a   2b 8b 5b   3c 0c 0c
+6a _a _a   2b 8b 5b   3c 0c 0c
 7a 3a 2a   1b 9b 6b   5c 8c 4c
 8a _a 5a   3b 4b 7b   0c 6c 2c
 
@@ -5661,7 +5660,7 @@ def test_unique_rectangle_type3_north_row():
     9
 
 9a 8a _a   0b 0b 0b   5c 7c 1c
-3a _a 0a   8b 0b 0b   2c 9c 6c
+3a _a _a   8b 0b 0b   2c 9c 6c
 7a 2a _a   0b 9b 0b   8c 3c 4c
 
 8d 0d 9d   0e 0e 0e   4f 1f 2f
@@ -5682,9 +5681,9 @@ def test_unique_rectangle_type3_south_row():
     unique_rectangle_type3_south_row.sudoku
     9
 
-0a 9a 3a   0b 5b 0b   6c 0c 7c
-0a 6a _a   9b 0b 0b   1c 0c 5c
-4a _a 0a   0b 0b 6b   8c 0c 9c
+_a 9a 3a   0b 5b 0b   6c 0c 7c
+_a 6a _a   9b 0b 0b   1c 0c 5c
+4a _a _a   0b 0b 6b   8c 0c 9c
 
 6d 0d 0d   7e 2e 9e   3f 5f 8f
 3d 7d 8d   0e 4e 0e   9f 6f 2f
@@ -5726,8 +5725,8 @@ def test_wxyz_wing_0():
     wxyz_wing_0.sudoku
     9
 
-0a 6a 7a   0b 3b 1b   0c 0c 9c
-0a 3a _a   0b 0b 0b   0c 4c 0c
+_a 6a 7a   0b 3b 1b   0c 0c 9c
+_a 3a _a   0b 0b 0b   0c 4c 0c
 8a _a 4a   0b 0b 0b   0c 0c 0c
 
 4d 0d 0d   2e 0e 0e   0f 0f 0f
@@ -5770,8 +5769,8 @@ def test_wxyz_wing_4():
     wxyz_wing_4.sudoku
     9
 
-0a _a 0a   0b 0b 0b   0c 2c 0c
-0a _a 0a   0b 5b 2b   1c 0c 9c
+_a _a _a   0b 0b 0b   0c 2c 0c
+_a _a _a   0b 5b 2b   1c 0c 9c
 9a 4a _a   3b 0b 0b   0c 0c 0c
 
 5d 0d 0d   0e 0e 0e   0f 6f 1f
@@ -5792,8 +5791,8 @@ def test_wxyz_wing_5():
     wxyz_wing_5.sudoku
     9
 
-0a _a 2a   4b 0b 0b   0c 8c 9c
-0a _a 0a   8b 3b 2b   0c 4c 1c
+_a _a 2a   4b 0b 0b   0c 8c 9c
+_a _a _a   8b 3b 2b   0c 4c 1c
 8a 4a _a   0b 0b 5b   3c 2c 7c
 
 4d 0d 3d   0e 0e 0e   9f 0f 8f
@@ -5814,8 +5813,8 @@ def test_wxyz_wing_6():
     wxyz_wing_6.sudoku
     9
 
-0a _a 0a   0b 0b 0b   8c 7c 4c
-0a _a 3a   0b 0b 4b   9c 5c 6c
+_a _a _a   0b 0b 0b   8c 7c 4c
+_a _a 3a   0b 0b 4b   9c 5c 6c
 9a 4a _a   0b 0b 8b   2c 1c 3c
 
 3d 0d 0d   1e 4e 9e   7f 2f 8f
@@ -5860,7 +5859,7 @@ def test_wxyz_wing_cols_3_fences():
 
 9a _a 7a   2b 0b 0b   5c 0c 0c
 6a 2a _a   5b 7b 8b   1c 9c 0c
-0a 5a 1a   0b 0b 0b   0c 0c 7c
+_a 5a 1a   0b 0b 0b   0c 0c 7c
 
 0d 9d 0d   0e 4e 0e   7f 0f 0f
 0d 0d 0d   3e 0e 5e   0f 0f 9f
@@ -5881,7 +5880,7 @@ def test_wxyz_wing_rows_2_fences():
     9
 
 5a 7a 3a   0b 0b 2b   4c 8c 1c
-0a _a 9a   7b 4b 5b   2c 3c 6c
+_a _a 9a   7b 4b 5b   2c 3c 6c
 4a 6a 2a   3b 1b 8b   5c 7c 9c
 
 0d 5d 1d   0e 7e 0e   6f 0f 8f
@@ -5902,9 +5901,9 @@ def test_wxyz_wing_rows_3_fences():
     wxyz_wing_rows_3_fences.sudoku
     9
 
-8a _a 0a   7b 9b 0b   0c 2c 0c
-0a 9a 5a   0b 1b 2b   7c 0c 0c
-0a 7a 2a   3b 0b 0b   9c 0c 0c
+8a _a _a   7b 9b 0b   0c 2c 0c
+_a 9a 5a   0b 1b 2b   7c 0c 0c
+_a 7a 2a   3b 0b 0b   9c 0c 0c
 
 0d 0d 9d   2e 0e 1e   0f 0f 0f
 0d 0d 0d   0e 5e 9e   0f 0f 0f
@@ -5924,9 +5923,9 @@ def test_w_wing_type_d_0():
     w_wing_type_d_0.sudoku
     9
 
-0a _a 0a   8b 0b 0b   2c 0c 0c
+_a _a _a   8b 0b 0b   2c 0c 0c
 3a 6a _a   0b 0b 5b   1c 4c 7c
-0a _a 0a   0b 3b 0b   0c 0c 0c
+_a _a _a   0b 3b 0b   0c 0c 0c
 
 0d 2d 0d   0e 0e 0e   0f 0f 0f
 0d 4d 0d   5e 2e 9e   0f 8f 0f
@@ -5947,8 +5946,8 @@ def test_w_wing_type_d_6():
     9
 
 7a _a 6a   0b 0b 3b   9c 1c 8c
-0a _a 9a   0b 0b 6b   7c 0c 0c
-0a 5a _a   9b 7b 0b   6c 2c 0c
+_a _a 9a   0b 0b 6b   7c 0c 0c
+_a 5a _a   9b 7b 0b   6c 2c 0c
 
 0d 0d 0d   8e 6e 0e   4f 7f 0f
 0d 0d 0d   3e 9e 7e   0f 0f 0f
@@ -5968,9 +5967,9 @@ def test_xy_chain():
     xy_chain.sudoku
     9
 
-6a _a 0a   1b 9b 5b   0c 3c 2c
+6a _a _a   1b 9b 5b   0c 3c 2c
 2a 1a 3a   7b 0b 8b   5c 0c 9c
-0a 9a 5a   0b 0b 2b   1c 0c 0c
+_a 9a 5a   0b 0b 2b   1c 0c 0c
 
 0d 3d 1d   4e 0e 7e   0f 0f 0f
 4d 0d 6d   5e 0e 9e   0f 0f 3f
@@ -5992,7 +5991,7 @@ def test_xy_chain_0():
 
 6a _a 1a   3b 9b 8b   2c 5c 0c
 9a 5a 2a   4b 7b 1b   6c 8c 3c
-0a 3a _a   2b 5b 6b   9c 0c 0c
+_a 3a _a   2b 5b 6b   9c 0c 0c
 
 5d 0d 3d   9e 6e 4e   7f 2f 0f
 2d 0d 7d   1e 3e 5e   4f 0f 0f
@@ -6014,7 +6013,7 @@ def test_xy_chain_1():
 
 5a 7a 1a   3b 2b 4b   8c 9c 6c
 9a 6a 3a   0b 0b 8b   7c 2c 4c
-0a 8a _a   6b 7b 9b   3c 1c 5c
+_a 8a _a   6b 7b 9b   3c 1c 5c
 
 3d 9d 7d   0e 0e 5e   0f 4f 0f
 1d 5d 0d   0e 3e 2e   0f 7f 0f
@@ -6034,9 +6033,9 @@ def test_xy_chain_2():
     xy_chain_2.sudoku
     9
 
-0a _a 1a   0b 0b 0b   0c 0c 0c
-0a _a 8a   4b 0b 0b   6c 3c 0c
-0a 2a 9a   0b 0b 1b   0c 7c 0c
+_a _a 1a   0b 0b 0b   0c 0c 0c
+_a _a 8a   4b 0b 0b   6c 3c 0c
+_a 2a 9a   0b 0b 1b   0c 7c 0c
 
 0d 6d 0d   0e 0e 3e   0f 0f 0f
 5d 0d 0d   0e 0e 0e   0f 0f 2f
@@ -6056,8 +6055,8 @@ def test_xy_wing_00():
     xy_wing_00.sudoku
     9
 
-0a _a 0a   3b 9b 0b   0c 7c 6c
-9a _a 0a   0b 0b 0b   2c 8c 0c
+_a _a _a   3b 9b 0b   0c 7c 6c
+9a _a _a   0b 0b 0b   2c 8c 0c
 8a 3a _a   0b 0b 0b   1c 0c 0c
 
 0d 6d 0d   0e 2e 0e   0f 0f 0f
@@ -6100,9 +6099,9 @@ def test_xy_wing_north_east_3_fences():
     xy_wing_north_east_3_fences.sudoku
     9
 
-7a _a 0a   8b 3b 0b   6c 1c 2c
+7a _a _a   8b 3b 0b   6c 1c 2c
 6a 1a 3a   2b 4b 7b   5c 8c 9c
-8a _a 0a   1b 0b 6b   3c 4c 7c
+8a _a _a   1b 0b 6b   3c 4c 7c
 
 0d 8d 6d   0e 0e 0e   0f 5f 3f
 5d 9d 7d   6e 1e 3e   8f 2f 4f
@@ -6143,7 +6142,7 @@ def test_xy_wing_rows_2_fences():
     puzzle_string = f"""
     xy_wing_rows_2_fences.sudoku
     9
-2a _a 0a   3b 5b 4b   0c 0c 1c
+2a _a _a   3b 5b 4b   0c 0c 1c
 4a 8a 6a   9b 1b 7b   3c 2c 5c
 1a 5a 3a   2b 6b 8b   9c 7c 4c
 
@@ -6163,9 +6162,9 @@ def test_xy_wing_south_east_3_fences():
     puzzle_string = f"""
     xy_wing_south_east_3_fences.sudoku
     9
-0a 5a _a   4b 9b 2b   0c 0c 8c
-0a 8a 9a   1b 7b 5b   0c 2c 3c
-0a _a 0a   3b 6b 8b   0c 5c 9c
+_a 5a _a   4b 9b 2b   0c 0c 8c
+_a 8a 9a   1b 7b 5b   0c 2c 3c
+_a _a _a   3b 6b 8b   0c 5c 9c
 
 0d 2d 0d   5e 1e 3e   9f 4f 7f
 9d 0d 5d   7e 8e 0e   2f 0f 1f
@@ -6185,7 +6184,7 @@ def test_xy_wing_south_west_3_fences():
     9
 3a 4a 2a   5b 8b 1b   6c 9c 7c
 6a 8a 1a   0b 0b 7b   0c 0c 3c
-0a 9a _a   6b 0b 3b   0c 1c 0c
+_a 9a _a   6b 0b 3b   0c 1c 0c
 
 8d 0d 6d   0e 0e 4e   2f 0f 1f
 0d 1d 9d   8e 7e 0e   3f 6f 4f
@@ -6225,7 +6224,7 @@ def test_x_chain_0():
     9
     4a 8a _a   1b 0b 0b   0c 9c 7c
     _a 3a _a   0b 0b 2b   0c 1c 0c
-    _a 0a _a   0b 0b 0b   5c 0c 6c
+    _a _a _a   0b 0b 0b   5c 0c 6c
     
     0d 0d 0d   5e 2e 0e   0f 0f 0f
     7d 0d 0d   6e 0e 1e   0f 0f 8f
@@ -6239,9 +6238,9 @@ def test_x_chain_0():
 
 #
 # avoidable_rectangle_type1_north_east_in_cols
-# _a 0a _a   2b 5b 0b   6c 0c 0c
-# _a 0a 6a   0b 0b 8b   0c 0c 0c
-# _a 0a _a   7b 0b 9b   0c 0c 1c
+# _a _a _a   2b 5b 0b   6c 0c 0c
+# _a _a 6a   0b 0b 8b   0c 0c 0c
+# _a _a _a   7b 0b 9b   0c 0c 1c
 #
 # 0d 8d 0d   0e 0e 0e   0f 1f 0f
 # 1d 2d 5d   0e 0e 0e   3f 9f 6f
@@ -6252,8 +6251,8 @@ def test_x_chain_0():
 # 0g 0g 3g   0h 8h 6h   0i 0i 0i
 #
 # avoidable_rectangle_type1_north_east_in_rows
-# _a 0a 7a   0b 1b 6b   0c 2c 0c
-# _a 0a _a   0b 0b 0b   6c 0c 0c
+# _a _a 7a   0b 1b 6b   0c 2c 0c
+# _a _a _a   0b 0b 0b   6c 0c 0c
 # 8a 5a _a   0b 0b 2b   0c 9c 0c
 #
 # 7d 0d 0d   0e 2e 9e   0f 5f 0f
@@ -6265,9 +6264,9 @@ def test_x_chain_0():
 # 0g 8g 0g   9h 4h 0h   7i 0i 0i
 #
 # avoidable_rectangle_type1_north_west_in_cols
-# _a 0a 9a   0b 7b 3b   0c 0c 0c
-# 2a _a 0a   4b 0b 8b   0c 0c 0c
-# _a 0a _a   6b 0b 0b   9c 0c 0c
+# _a _a 9a   0b 7b 3b   0c 0c 0c
+# 2a _a _a   4b 0b 8b   0c 0c 0c
+# _a _a _a   6b 0b 0b   9c 0c 0c
 #
 # 0d 8d 0d   0e 0e 0e   0f 1f 0f
 # 9d 4d 5d   0e 0e 0e   7f 3f 2f
@@ -6306,8 +6305,8 @@ def test_x_chain_0():
 #
 #
 # avoidable_rectangle_type1_south_east_in_rows
-# _a 0a _a   3b 0b 2b   0c 1c 0c
-# _a 0a _a   0b 9b 4b   0c 0c 3c
+# _a _a _a   3b 0b 2b   0c 1c 0c
+# _a _a _a   0b 9b 4b   0c 0c 3c
 # 4a 7a _a   0b 0b 0b   0c 0c 2c
 #
 # 0d 0d 1d   5e 0e 0e   0f 2f 0f
@@ -6320,7 +6319,7 @@ def test_x_chain_0():
 #
 # avoidable_rectangle_type1_south_west_in_rows
 # 8a 4a _a   0b 0b 7b   0c 0c 0c
-# _a 0a 3a   0b 0b 5b   0c 0c 6c
+# _a _a 3a   0b 0b 5b   0c 0c 6c
 # 1a _a 7a   6b 0b 0b   0c 4c 0c
 #
 # 0d 0d 0d   0e 0e 9e   0f 8f 0f
@@ -6334,7 +6333,7 @@ def test_x_chain_0():
 # avoidable_rectangle_type1_0
 # _a 6a _a   0b 0b 0b   0c 3c 9c
 # _a 8a _a   3b 2b 0b   0c 0c 0c
-# 9a _a 0a   5b 0b 6b   0c 0c 0c
+# 9a _a _a   5b 0b 6b   0c 0c 0c
 #
 # 2d 0d 0d   0e 0e 4e   6f 0f 0f
 # 0d 0d 7d   0e 5e 0e   2f 0f 0f
