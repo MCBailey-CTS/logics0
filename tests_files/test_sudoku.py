@@ -13,10 +13,10 @@ from techniques.HiddenSingle import HiddenSingle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
-from techniques.ShashimiXWing import ShashimiXWing
+from techniques.SashimiXWing import SashimiXWing
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
-
+from techniques import *
 EXPLICITLY = "EXPLICITLY"
 
 

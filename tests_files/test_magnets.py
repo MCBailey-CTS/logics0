@@ -1,14 +1,39 @@
 import pytest
 
 from _defaults import default_test_puzzle
-from puzzles import Magnets
+from puzzles import Magnets, Puzzle
 from solving import Solving
 
+
+
+def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
+    puzzle: Puzzle = constructor(puzzle_string)
+    edits = 0
+    edit_dict = {}
+    while True:
+        original_edits = edits
+        for tech in techniques:
+            _edits = tech.solve0(puzzle)
+            if tech.__class__.__name__ not in edit_dict:
+                edit_dict[tech.__class__.__name__] = 0
+            edit_dict[tech.__class__.__name__] += _edits
+            edits = edits + _edits
+        if original_edits == edits:
+            break
+    if puzzle.is_solved():
+        return True
+    for tech in edit_dict:
+        if edit_dict[tech] == 0:
+            continue
+        print(f'{tech}: {edit_dict[tech]}')
+    print(f'Total edits: {edits}')
+    print(puzzle)
+    return False
 
 # @pytest.mark.skip("skip")
 
 
-@pytest.mark.skip("skip")
+# @pytest.mark.skip("skip")
 def test_magnets_001():
     # ┼────┼────┼────┼────┼
     # │+-. │+-. │+-.  +-. │02 02
@@ -1148,18 +1173,18 @@ def test_magnets_119():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
+# @pytest.mark.skip("skip")
 def test_magnets_026():
     puzzle_string = f"""
     026.magnets
     6
-    a a f g i i ? 3
-    b b f g h h ? 3
-    c c d d e e ? ?
-    j k l m n n 1 2
-    j k l m o o ? 1
-    p p q q r r ? 2
-    2 3 ? 3 ? 3 + .
-    3 2 ? 2 ? ? . -
+    +-.a +-.a +-.f +-.g +-.i +-.i ? 3
+    +-.b +-.b +-.f +-.g +-.h +-.h ? 3
+    +-.c +-.c +-.d +-.d +-.e +-.e ? ?
+    +-.j +-.k +-.l +-.m +-.n +-.n 1 2
+    +-.j +-.k +-.l +-.m +-.o +-.o ? 1
+    +-.p +-.p +-.q +-.q +-.r +-.r ? 2
+    2    3    ?    3    ?    3    + .
+    3    2    ?    2    ?    ?    . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())

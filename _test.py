@@ -1,35 +1,28 @@
-from os import walk
-
-import pytest
-
-from puzzles import *
-from solving import Solving
-# from solving import Solving
-from tech import tech
-from techniques.FishyCycle import FishyCycle
-from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
-from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
-from techniques.FinnedSwordfish import FinnedSwordFish
-from techniques.Bug import Bug
-from techniques.CrossHatch import CrossHatch
-from techniques.FinnedXWing import FinnedXWing
-from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
-from techniques.ShashimiXWing import ShashimiXWing
-from techniques.HiddenSingle import HiddenSingle
-from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
-from techniques.LockedCandidatesPointing import LockedCandidatesPointing
-from techniques.NakedPair import NakedPair, NakedTriple
-from techniques.RemotePair import RemotePair
-from techniques.UniqueRectangleType1 import UniqueRectangleType1
-from techniques.UniqueRectangleType2 import UniqueRectangleType2
-from techniques.UniqueRectangleType3 import UniqueRectangleType3
-from techniques.UniqueRectangleType4 import UniqueRectangleType4
-from techniques.WWing import WWing
-from techniques.WxyzWing import WxyzWing
-from techniques.XyWing import XyWing
-from techniques.XyzWing import XyzWing
-
-EXPLICITLY = "EXPLICITLY"
+# # from solving import Solving
+# from tech import tech
+# from techniques import *
+# from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
+# from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
+# from techniques.Bug import Bug
+# from techniques.CrossHatch import CrossHatch
+# from techniques.FinnedSwordfish import FinnedSwordFish
+# from techniques.FishyCycle import FishyCycle
+# from techniques.HiddenSingle import HiddenSingle
+# from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
+# from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
+# from techniques.LockedCandidatesPointing import LockedCandidatesPointing
+# from techniques.NakedPair import NakedPair
+# from techniques.RemotePair import RemotePair
+# from techniques.UniqueRectangleType1 import UniqueRectangleType1
+# from techniques.UniqueRectangleType2 import UniqueRectangleType2
+# from techniques.UniqueRectangleType3 import UniqueRectangleType3
+# from techniques.UniqueRectangleType4 import UniqueRectangleType4
+# from techniques.WWing import WWing
+# from techniques.WxyzWing import WxyzWing
+# from techniques.XyWing import XyWing
+# from techniques.XyzWing import XyzWing
+#
+# EXPLICITLY = "EXPLICITLY"
 
 
 #
@@ -715,53 +708,53 @@ EXPLICITLY = "EXPLICITLY"
 #         RemotePair()
 #     ],
 
-
-techniques = [
-    CrossHatch(),
-    # Mild
-    HiddenSingle(),
-    # Moderate
-    LockedCandidatesPointing(),
-    # Intricate
-    LockedCandidatesClaiming(),
-    NakedPair(),
-    # Difficult
-    UniqueRectangleType1(),
-    UniqueRectangleType2(),
-    UniqueRectangleType3(),
-    UniqueRectangleType4(),
-    Bug(),
-    tech.NakedTriple(),
-    tech.HiddenPair(),
-    RemotePair(),
-    tech.XWing(),
-    # Annoying
-    FinnedXWing(),
-    ShashimiXWing(),
-    tech.SwordFish(),
-    tech.HiddenTriple(),
-    FinnedSwordFish(),
-    tech.ShashimiSwordFish(),
-    WWing(),
-    # Devious
-    tech.JellyFish(),
-    # almost locked candidates
-    HiddenUniqueRectangle(),
-    XyzWing(),
-    XyWing(),
-    AvoidableRectangleType1(),
-    AvoidableRectangleType2(),
-    WxyzWing(),
-    # Fiendish
-    tech.NakedQuad(),
-    tech.SimpleColoring(),
-    tech.HiddenQuad(),
-    tech.FinnedJellyFish(),
-    tech.ShashimiJellyFish(),
-    FishyCycle(),
-    tech.XChain(),
-    tech.XyChain(),
-]
+#
+# techniques = [
+#     CrossHatch(),
+#     # Mild
+#     HiddenSingle(),
+#     # Moderate
+#     LockedCandidatesPointing(),
+#     # Intricate
+#     LockedCandidatesClaiming(),
+#     NakedPair(),
+#     # Difficult
+#     UniqueRectangleType1(),
+#     UniqueRectangleType2(),
+#     UniqueRectangleType3(),
+#     UniqueRectangleType4(),
+#     Bug(),
+#     tech.NakedTriple(),
+#     tech.HiddenPair(),
+#     RemotePair(),
+#     tech.XWing(),
+#     # Annoying
+#     FinnedXWing(),
+#     SashimiXWing(),
+#     tech.SwordFish(),
+#     tech.HiddenTriple(),
+#     FinnedSwordFish(),
+#     tech.ShashimiSwordFish(),
+#     WWing(),
+#     # Devious
+#     tech.JellyFish(),
+#     # almost locked candidates
+#     HiddenUniqueRectangle(),
+#     XyzWing(),
+#     XyWing(),
+#     AvoidableRectangleType1(),
+#     AvoidableRectangleType2(),
+#     WxyzWing(),
+#     # Fiendish
+#     tech.NakedQuad(),
+#     tech.SimpleColoring(),
+#     tech.HiddenQuad(),
+#     tech.FinnedJellyFish(),
+#     tech.ShashimiJellyFish(),
+#     FishyCycle(),
+#     tech.XChain(),
+#     tech.XyChain(),
+# ]
 
 #
 # def get_sudoku_puzzle_from_file(data)->Sudoku:

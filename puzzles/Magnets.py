@@ -1,3 +1,4 @@
+from puzzles import Puzzle
 
 PLUS = '+'
 MINUS = '-'
@@ -22,6 +23,11 @@ class Magnets:
             line = array[0].strip().replace("  ", " ", -1).split(" ")
             self.__grid.append(line)
             array.pop(0)
+
+        print(self.__grid)
+
+    def __len__(self):
+        return self.__length
 
     def is_solved(self):
         return False
@@ -53,15 +59,16 @@ class Magnets:
     def __str__(self) -> str:
         string = f'{self.__id}\n'
         string += f'{self.__length}\n'
-        for r in range(self.__length + 2):
-            for c in range(self.__length + 2):
-                if r == 0 and c == 0:
-                    string += f'{Fore.RED}{self.__grid[r][c]}{Style.RESET_ALL} '
-                elif r == self.__length + 2 - 1 and c == self.__length + 2 - 1:
-                    string += f'{Fore.BLUE}{self.__grid[r][c]}{Style.RESET_ALL} '
-                else:
-                    string += f'{self.__grid[r][c]} '
+        for r in range(self.__length):
+            for c in range(self.__length):
+                string += f'{self.__grid[r][c]} '
+            string += f'{self.__grid[r][len(self)]} '
+            string += f'{self.__grid[r][len(self) + 1]} '
             string += '\n'
+
+        print(self.__length)
+        for c in range(self.__length):
+            string += f'{self.__grid[len(self)][c]} '
         return string
 
     # def unsolved_cells(self) -> set[Loc]:

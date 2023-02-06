@@ -1,16 +1,21 @@
-# def test_():
-#     actual = \
-#         f"""
-#
-#         """
-#
-#     expected = \
-#         f"""
-#
-#         """
-#     if solve(9, actual, expected, UniqueRectangleType4()):
-#         return
-#     assert False
+from techniques.FinnedXWing import FinnedXWing
+from tests_explicit.test_small_explicit import solve
+
+import pytest
+@pytest.mark.skip("EXPLICITLY")
+def test_():
+    actual = \
+        f"""
+
+        """
+
+    expected = \
+        f"""
+
+        """
+    if solve(9, actual, expected, FinnedXWing()):
+        return
+    assert False
 
 # sudoku_explicit_finned_sword_fish_cols_actual
 # 1234567_9a 123456789a 123456789a    123456789b _______89b 123456789b    123456789c 123456789c 1234567_9c
@@ -39,7 +44,20 @@
 # _2_4__78_g 123456789g 123456789g    123456789h 1234567_9h 123456789h    123456789i 123456789i ______78_i
 # 1234567_9g 123456789g 123456789g    123456789h 1234567_9h 123456789h    123456789i 123456789i 1234567_9i
 #
-#
+@pytest.mark.skip("EXPLICITLY")
+def test_():
+    actual = \
+        f"""
+
+        """
+
+    expected = \
+        f"""
+
+        """
+    if solve(9, actual, expected, FinnedXWing()):
+        return
+    assert False
 # sudoku_explicit_finned_sword_fish_rows_actual
 # 123456789a 123456789a 123456789a    123456789b 123456789b 123456789b    123456789c 123456789c 123456789c
 # 123456789a 123456789a 123456789a    123456789b 123456789b 123456789b    123456789c 123456789c 123456789c
