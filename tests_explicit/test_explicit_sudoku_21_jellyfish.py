@@ -1,3 +1,17 @@
+
+# def test_():
+#     actual = \
+#         f"""
+#
+#         """
+#
+#     expected = \
+#         f"""
+#
+#         """
+#     if solve(9, actual, expected, UniqueRectangleType4()):
+#         return
+#     assert False
 # sudoku_explicit_jelly_fish_cols_actual
 # 123456789a __34_____a 123456789a    123456789b 123456789b _______8_b    _____6___c 123456789c __34_____c
 # 123456789a 1_3_5____a 123456789a    123456789b 123456789b _____6___b    1_3______c 123456789c _______8_c

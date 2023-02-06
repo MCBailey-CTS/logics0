@@ -1,3 +1,17 @@
+# def test_():
+#     actual = \
+#         f"""
+#
+#         """
+#
+#     expected = \
+#         f"""
+#
+#         """
+#     if solve(9, actual, expected, UniqueRectangleType4()):
+#         return
+#     assert False
+
 # sudoku_explicit_naked_triple_cols_actual
 # 1__4__7__a 123456789a 123456789a    123456789b 123456789b 123456789b    123456789c 123456789c 123456789c
 # 123456789a 123456789a 123456789a    123456789b 123456789b 123456789b    123456789c 123456789c 123456789c

@@ -1,3 +1,17 @@
+# def test_():
+#     actual = \
+#         f"""
+#
+#         """
+#
+#     expected = \
+#         f"""
+#
+#         """
+#     if solve(9, actual, expected, UniqueRectangleType4()):
+#         return
+#     assert False
+
 # sudoku_explicit_shashimi_sword_fish_1_fin_cols_actual
 # _______8_a 123456789a 123456789a    _2_______b 123456789b 123456789b    ______7__c 123456789c 123456789c
 # 1________a 123456789a 123456789a    __3__67__b 123456789b 123456789b    ____5____c 123456789c 123456789c

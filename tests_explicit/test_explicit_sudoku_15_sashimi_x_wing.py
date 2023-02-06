@@ -1,3 +1,16 @@
+# def test_():
+#     actual = \
+#         f"""
+#
+#         """
+#
+#     expected = \
+#         f"""
+#
+#         """
+#     if solve(9, actual, expected, UniqueRectangleType4()):
+#         return
+#     assert False
 #
 #
 #

@@ -1619,16 +1619,15 @@ def test_sudoku_unique_rectangle_type4_south_rows():
     puzzle_string = f"""
         unique_rectangle_type4_south_rows.sudoku
         9
-3a _a 5a 8b 2b 0b 1c 7c 9c
-_a _a _a 0b 1b 0b 4c 0c 6c
-_a _a 1a 0b 9b 0b 2c 0c 0c
-5d 1d 6d 4e 8e 9e 7f 2f 3f
-7d 8d 4d 0e 3e 0e 6f 9f 1f
-2d 9d 3d 6e 7e 1e 8f 0f 0f
-0g 5g 0g 0h 6h 0h 3i 0i 7i
-1g 0g 7g 0h 5h 0h 9i 6i 0i
-6g 3g 0g 0h 4h 0h 5i 0i 2i
-
+        3a _a 5a 8b 2b _b 1c 7c 9c
+        _a _a _a _b 1b _b 4c _c 6c
+        _a _a 1a _b 9b _b 2c _c _c
+        5d 1d 6d 4e 8e 9e 7f 2f 3f
+        7d 8d 4d _e 3e _e 6f 9f 1f
+        2d 9d 3d 6e 7e 1e 8f _f _f
+        _g 5g _g _h 6h _h 3i _i 7i
+        1g _g 7g _h 5h _h 9i 6i _i
+        6g 3g _g _h 4h _h 5i _i 2i
         """
     assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
 
