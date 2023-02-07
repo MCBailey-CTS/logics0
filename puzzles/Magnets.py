@@ -5,26 +5,37 @@ MINUS = '-'
 EMPTY = '.'
 from Loc import Loc
 from colorama import Fore, Style
-
+import numpy
 class Magnets:
-    def __init__(self, puzzle: str) -> None:
-        array = []
-        for line in puzzle.split("\n"):
+    def __init__(self, __puzzle: str) -> None:
+        # print('made it here')
+        __array = []
+
+        self.__string = ""
+
+        for line in __puzzle.replace('\n', ' ', -1).split(' '):
             temp = line.strip()
             if len(temp) == 0:
                 continue
-            array.append(temp)
-        self.__id = array[0]
-        self.__length = int(array[1])
-        array.pop(0)
-        array.pop(0)
-        self.__grid = []
-        for r in range(self.__length + 2):
-            line = array[0].strip().replace("  ", " ", -1).split(" ")
-            self.__grid.append(line)
-            array.pop(0)
+            __array += temp
+            # for word in
+        #     array.append(temp)
+        # self.__id = array[0]
+        # self.__length = int(array[1])
+        # array.pop(0)
+        # array.pop(0)
+        # self.__grid = []
+        # for r in range(self.__length + 2):
+        #     line = array[0].strip().replace("  ", " ", -1).split(" ")
+        #     if len(line) == 0:
+        #         continue
+        #     self.__grid.append(line)
+        #     array.pop(0)
+        #
+        print(__array)
 
-        print(self.__grid)
+    def __str__(self) -> str:
+        return self.__string
 
     def __len__(self):
         return self.__length
@@ -56,20 +67,7 @@ class Magnets:
             lst.append(EMPTY)
         return lst
 
-    def __str__(self) -> str:
-        string = f'{self.__id}\n'
-        string += f'{self.__length}\n'
-        for r in range(self.__length):
-            for c in range(self.__length):
-                string += f'{self.__grid[r][c]} '
-            string += f'{self.__grid[r][len(self)]} '
-            string += f'{self.__grid[r][len(self) + 1]} '
-            string += '\n'
 
-        print(self.__length)
-        for c in range(self.__length):
-            string += f'{self.__grid[len(self)][c]} '
-        return string
 
     # def unsolved_cells(self) -> set[Loc]:
     #     return self.__un_solved_locs
