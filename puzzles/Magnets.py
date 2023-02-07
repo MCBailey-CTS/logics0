@@ -1,3 +1,5 @@
+from typing import Optional
+
 from puzzles import Puzzle
 
 PLUS = '+'
@@ -6,36 +8,43 @@ EMPTY = '.'
 from Loc import Loc
 from colorama import Fore, Style
 import numpy
+
+
 class Magnets:
     def __init__(self, __puzzle: str) -> None:
-        # print('made it here')
         __array = []
-
-        self.__string = ""
-
         for line in __puzzle.replace('\n', ' ', -1).split(' '):
-            temp = line.strip()
-            if len(temp) == 0:
-                continue
-            __array += temp
-            # for word in
-        #     array.append(temp)
-        # self.__id = array[0]
-        # self.__length = int(array[1])
-        # array.pop(0)
-        # array.pop(0)
-        # self.__grid = []
-        # for r in range(self.__length + 2):
-        #     line = array[0].strip().replace("  ", " ", -1).split(" ")
-        #     if len(line) == 0:
-        #         continue
-        #     self.__grid.append(line)
-        #     array.pop(0)
-        #
-        print(__array)
+            if len(line) > 0:
+                __array.append(line)
+        self.__id = __array[0]
+        self.__length = int(__array[1])
+        __array.pop(0)
+        __array.pop(0)
+        self.__grid = numpy.reshape(__array, (self.__length + 2, self.__length + 2))
 
     def __str__(self) -> str:
-        return self.__string
+        __string = f'{self.__id}\n'
+        __string += f'{self.__length}\n'
+
+        for r in range(len(self)):
+            for c in range(len(self) + 2):
+                loc = Loc(r, c)
+                __string += f'{self.__grid[loc.row][loc.col]} '
+            __string += '\n'
+
+        for c in range(len(self)):
+            __string += f'{self.__grid[len(self)][c].strip().ljust(4)} '
+        __string += f'{self.__grid[len(self)][len(self)]} '
+        __string += f'{self.__grid[len(self)][len(self) + 1]} '
+        __string += '\n'
+
+        for c in range(len(self)):
+            __string += f'{self.__grid[len(self) + 1][c].ljust(4)} '
+        __string += f'{self.__grid[len(self) + 1][len(self)]} '
+        __string += f'{self.__grid[len(self) + 1][len(self) + 1]} '
+        __string += '\n'
+
+        return __string
 
     def __len__(self):
         return self.__length
@@ -67,8 +76,6 @@ class Magnets:
             lst.append(EMPTY)
         return lst
 
-
-
     # def unsolved_cells(self) -> set[Loc]:
     #     return self.__un_solved_locs
 
@@ -85,40 +92,40 @@ class Magnets:
     def length(self) -> int:
         return self.__length
 
-    def plus_row_value(self, row_index: int) -> int:
-        string: str = self.__grid[row_index + 1][0]
+    def plus_row_value(self, row_index: int) -> Optional[int]:
+        string: str = self.__grid[row_index][len(self)]
         if not string.isnumeric():
-            return -1
+            return None
         return int(string)
 
-    def minus_row_value(self, row_index: int) -> int:
-        string: str = self.__grid[row_index + 1][self.__length + 1]
+    def minus_row_value(self, row_index: int) -> Optional[int]:
+        string: str = self.__grid[row_index][len(self) + 1]
         if not string.isnumeric():
-            return -1
+            return None
         return int(string)
 
     def house_row(self, row_index: int) -> list[Loc]:
         house = []
         for i in range(0, self.__length):
-            house.append(Loc(row_index + 1, i + 1))
+            house.append(Loc(row_index, i))
         return house
 
-    def plus_col_value(self, col_index: int) -> int:
-        string: str = self.__grid[0][col_index + 1].replace(".", "", -1)
+    def plus_col_value(self, col_index: int) -> Optional[int]:
+        string: str = self.__grid[len(self)][col_index].replace(".", "", -1)
         if not string.isnumeric():
-            return -1
+            return None
         return int(string)
 
-    def minus_col_value(self, col_index: int) -> int:
-        string: str = self.__grid[self.__length + 1][col_index + 1].replace(".", "", -1)
+    def minus_col_value(self, col_index: int) -> Optional[int]:
+        string: str = self.__grid[len(self) + 1][col_index].replace(".", "", -1)
         if not string.isnumeric():
-            return -1
+            return None
         return int(string)
 
     def house_col(self, col_index: int) -> list[Loc]:
         house = []
         for i in range(0, self.__length):
-            house.append(Loc(i + 1, col_index + 1))
+            house.append(Loc(i, col_index))
         return house
 
     def house_fence(self, loc: Loc) -> str:
@@ -137,17 +144,19 @@ class Magnets:
         dct = {}
         for r in range(self.__length):
             for c in range(self.__length):
-                loc = Loc(r + 1, c + 1)
-                print(loc)
+                loc = Loc(r, c)
+                # print(loc)
                 fence = self.house_fence(loc)
                 if fence not in dct:
                     dct[fence] = []
                 dct[fence].append(loc)
 
-        print(dct)
+        # print(dct)
 
         houses = []
         for fence in dct:
             houses.append(dct[fence])
         return houses
 
+    def cell_fence(self, loc: Loc) -> str:
+        return "".join([s for s in self.__grid[loc.row][loc.col] if s.isalpha()])

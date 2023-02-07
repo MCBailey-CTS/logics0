@@ -1,4 +1,5 @@
 from tech import tech
+from techniques import *
 from techniques.AbstractPaintingTech import AbstractPaintingTech
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
@@ -191,7 +192,7 @@ class Solving:
 
     @staticmethod
     def magnets_techniques() -> list:
-        return []
+        return [MagnetsTech()]
 
     @staticmethod
     def lightenup_techniques() -> list:

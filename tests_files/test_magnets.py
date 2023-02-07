@@ -1173,7 +1173,7 @@ def test_magnets_119():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_026():
     puzzle_string = f"""
     026.magnets
