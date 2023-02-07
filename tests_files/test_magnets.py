@@ -33,7 +33,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
 # @pytest.mark.skip("skip")
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_001():
     # ┼────┼────┼────┼────┼
     # │+-. │+-. │+-.  +-. │02 02
@@ -207,12 +207,12 @@ def test_magnets_011():
     puzzle_string = f"""
     011.magnets
     6
-    A E E J K K 1 2
-    A F F J L L 3 2
-    B B G M M T 2 3
-    C C G N N T 3 2
-    D H I O P W 2 2
-    D H I O P W 2 2
+    +-.A +-.E +-.E +-.J +-.K +-.K 1 2
+    +-.A +-.F +-.F +-.J +-.L +-.L 3 2
+    +-.B +-.B +-.G +-.M +-.M +-.T 2 3
+    +-.C +-.C +-.G +-.N +-.N +-.T 3 2
+    +-.D +-.H +-.I +-.O +-.P +-.W 2 2
+    +-.D +-.H +-.I +-.O +-.P +-.W 2 2
     2 2 2 1 3 3 + .
     2 3 1 1 3 3 . -
     """

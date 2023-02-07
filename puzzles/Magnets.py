@@ -50,7 +50,15 @@ class Magnets:
         return self.__length
 
     def is_solved(self):
-        return False
+        for fence_house in self.house_fences():
+            loc0_candidates = self.cell_candidates(fence_house[0])
+            loc1_candidates = self.cell_candidates(fence_house[1])
+
+            if len(loc0_candidates) > 1 or len(loc1_candidates) > 1:
+                return False
+
+
+        return True
 
     def rem(self, locs: list[Loc], candidates: list) -> int:
         edits = 0
