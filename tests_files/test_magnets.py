@@ -5,7 +5,6 @@ from puzzles import Magnets, Puzzle
 from solving import Solving
 
 
-
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     puzzle: Puzzle = constructor(puzzle_string)
     edits = 0
@@ -30,10 +29,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     print(puzzle)
     return False
 
-# @pytest.mark.skip("skip")
 
-
-@pytest.mark.skip("skip")
 def test_magnets_001():
     # ┼────┼────┼────┼────┼
     # │+-. │+-. │+-.  +-. │02 02
@@ -59,7 +55,6 @@ def test_magnets_001():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_002():
     puzzle_string = f"""
     002.magnets
@@ -74,7 +69,6 @@ def test_magnets_002():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_003():
     puzzle_string = f"""
     003.magnets
@@ -90,7 +84,6 @@ def test_magnets_003():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_004():
     puzzle_string = f"""
     004.magnets
@@ -106,16 +99,15 @@ def test_magnets_004():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_005():
     puzzle_string = f"""
     005.magnets
     5
-    A E F F # ? ?
-    A E G H I ? 0
-    B D G H I ? ?
-    B D J K L ? ?
-    C C J K L 2 ?
+    +-.A +-.E +-.F +-.F #### ? ?
+    +-.A +-.E +-.G +-.H +-.I ? 0
+    +-.B +-.D +-.G +-.H +-.I ? ?
+    +-.B +-.D +-.J +-.K +-.L ? ?
+    +-.C +-.C +-.J +-.K +-.L 2 ?
     2 1 2 ? 2 + $
     ? ? ? 2 2 $ -
     """
@@ -127,45 +119,43 @@ def test_magnets_006():
     puzzle_string = f"""
     006.magnets
     5
-    # C D D F ? ?
-    A C E E F ? 3
-    A G G K L ? 2
-    B H H K L ? ?
-    B I I J J 2 ?
+    #### +-.C +-.D +-.D +-.F ? ?
+    +-.A +-.C +-.E +-.E +-.F ? 3
+    +-.A +-.G +-.G +-.K +-.L ? 2
+    +-.B +-.H +-.H +-.K +-.L ? ?
+    +-.B +-.I +-.I +-.J +-.J 2 ?
     ? ? 3 ? ? + $
     ? 2 2 2 2 $ -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_007():
     puzzle_string = f"""
     007.magnets
     5
-    A A G H I 1 1
-    B D G H I 1 2
-    B D F F # 2 1
-    C E J J L 2 1
-    C E K K L 1 2
+    +-.A +-.A +-.G +-.H +-.I 1 1
+    +-.B +-.D +-.G +-.H +-.I 1 2
+    +-.B +-.D +-.F +-.F #### 2 1
+    +-.C +-.E +-.J +-.J +-.L 2 1
+    +-.C +-.E +-.K +-.K +-.L 1 2
     2 1 1 1 2 + $
     2 1 2 0 2 $ -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_008():
     puzzle_string = f"""
     008.magnets
     5
-    +-a +-a +-b +-b ### 2 2
-    +-c +-c +-d +-d +-l 1 2
-    +-e +-e +-i +-j +-l 2 1
-    +-f +-g +-i +-j +-k 2 2
-    +-f +-g +-h +-h +-k 1 1
-    02  01  01  02  02  + $
-    02  01  02  01  02  $ -
+    +-.a +-.a +-.b +-.b #### 2 2
+    +-.c +-.c +-.d +-.d +-.l 1 2
+    +-.e +-.e +-.i +-.j +-.l 2 1
+    +-.f +-.g +-.i +-.j +-.k 2 2
+    +-.f +-.g +-.h +-.h +-.k 1 1
+    02   01   01   02   02   + $
+    02   01   02   01   02   $ -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
@@ -175,11 +165,11 @@ def test_magnets_009():
     puzzle_string = f"""
     009.magnets
     5
-    # a a i j ? ?
-    b b h i j ? ?
-    c c h k k 1 ?
-    d d g g l ? 1
-    e e f f l 2 2
+    #### +-.a +-.a +-.i +-.j ? ?
+    +-.b +-.b +-.h +-.i +-.j ? ?
+    +-.c +-.c +-.h +-.k +-.k 1 ?
+    +-.d +-.d +-.g +-.g +-.l ? 1
+    +-.e +-.e +-.f +-.f +-.l 2 2
     1 ? ? ? ? + .
     2 ? ? 2 2 . -
     """
@@ -191,18 +181,17 @@ def test_magnets_010():
     puzzle_string = f"""
     010.magnets
     5
-    a g h h j ? ?
-    a g i i j ? 1
-    b k k l l 2 2
-    b # e e f ? 2
-    c c d d f ? ?
+    +-.a +-.g +-.h +-.h +-.j ? ?
+    +-.a +-.g +-.i +-.i +-.j ? 1
+    +-.b +-.k +-.k +-.l +-.l 2 2
+    +-.b #### +-.e +-.e +-.f ? 2
+    +-.c +-.c +-.d +-.d +-.f ? ?
     ? ? ? ? ? + .
     2 ? 2 2 ? . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_011():
     puzzle_string = f"""
     011.magnets
@@ -236,17 +225,16 @@ def test_magnets_012():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_013():
     puzzle_string = f"""
     013.magnets
     6
-    a b c d e f 3 2
-    a b c d e f 2 3
-    g g h h i i 2 2
-    j j k k l l 2 2
-    m m n n o o 0 0
-    p p q q r r 3 3
+    +-.a +-.b +-.c +-.d +-.e +-.f 3 2
+    +-.a +-.b +-.c +-.d +-.e +-.f 2 3
+    +-.g +-.g +-.h +-.h +-.i +-.i 2 2
+    +-.j +-.j +-.k +-.k +-.l +-.l 2 2
+    +-.m +-.m +-.n +-.n +-.o +-.o 0 0
+    +-.p +-.p +-.q +-.q +-.r +-.r 3 3
     3 2 2 1 2 2 + .
     2 3 2 1 2 2 . -
     """
@@ -258,12 +246,12 @@ def test_magnets_014():
     puzzle_string = f"""
     014.magnets
     6
-    a i j k l l ? ?
-    a i j k q r 3 2
-    b m m o q r ? ?
-    b n n o p p 3 3
-    c f f g g h 2 1
-    c d d e e h 2 ?
+    +-.a +-.i +-.j +-.k +-.l +-.l ? ?
+    +-.a +-.i +-.j +-.k +-.q +-.r 3 2
+    +-.b +-.m +-.m +-.o +-.q +-.r ? ?
+    +-.b +-.n +-.n +-.o +-.p +-.p 3 3
+    +-.c +-.f +-.f +-.g +-.g +-.h 2 1
+    +-.c +-.d +-.d +-.e +-.e +-.h 2 ?
     ? ? ? 2 3 ? + .
     ? ? 2 2 3 ? . -
     """
@@ -275,29 +263,28 @@ def test_magnets_015():
     puzzle_string = f"""
     015.magnets
     6
-    a i i j j p 2 2
-    a h k l o p ? 2
-    b h k l o q ? 3
-    b g g m n q ? 2
-    c d e m n r 2 3
-    c d e f f r 3 1
+    +-.a +-.i +-.i +-.j +-.j +-.p 2 2
+    +-.a +-.h +-.k +-.l +-.o +-.p ? 2
+    +-.b +-.h +-.k +-.l +-.o +-.q ? 3
+    +-.b +-.g +-.g +-.m +-.n +-.q ? 2
+    +-.c +-.d +-.e +-.m +-.n +-.r 2 3
+    +-.c +-.d +-.e +-.f +-.f +-.r 3 1
     ? ? ? ? 0 ? + .
     ? ? ? ? ? ? . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_016():
     puzzle_string = f"""
     016.magnets
     6
-    a b c d d k 2 3
-    a b c i j k 3 1
-    e f f i j l 1 3
-    e g g h h l 2 1
-    m m o p r r 1 2
-    n n o p q q 3 2
+    +-.a +-.b +-.c +-.d +-.d +-.k 2 3
+    +-.a +-.b +-.c +-.i +-.j +-.k 3 1
+    +-.e +-.f +-.f +-.i +-.j +-.l 1 3
+    +-.e +-.g +-.+-.g +-.h +-.h +-.l 2 1
+    +-.m +-.m +-.o +-.p +-.r +-.r 1 2
+    +-.n +-.n +-.o +-.p +-.q +-.q 3 2
     2 3 2 2 2 1 + .
     3 2 2 1 3 1 . -
     """
@@ -309,29 +296,28 @@ def test_magnets_017():
     puzzle_string = f"""
     017.magnets
     6
-    a a b b f g 2 1
-    c d e e f g 2 2
-    c d m n n q 1 1
-    h h m o p q 2 3
-    i l l o p e 2 1
-    i j j k k e 1 2
+    +-.a +-.a +-.b +-.b +-.f +-.g 2 1
+    +-.c +-.d +-.e +-.e +-.f +-.g 2 2
+    +-.c +-.d +-.m +-.n +-.n +-.q 1 1
+    +-.h +-.h +-.m +-.o +-.p +-.q 2 3
+    +-.i +-.l +-.l +-.o +-.p +-.e 2 1
+    +-.i +-.j +-.j +-.k +-.k +-.e 1 2
     2 2 0 2 2 2 + .
     2 1 2 1 2 2 . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
 def test_magnets_018():
     puzzle_string = f"""
     018.magnets
     6
-    a n n p q q 2 3
-    a o o p r r 2 1
-    b b c c d d 1 1
-    e k k l l m 2 3
-    e i i j j m 2 1
-    f f g g h h 2 2
+    +-.a +-.n +-.n +-.p +-.q +-.q 2 3
+    +-.a +-.o +-.o +-.p +-.r +-.r 2 1
+    +-.b +-.b +-.c +-.c +-.d +-.d 1 1
+    +-.e +-.k +-.k +-.l +-.l +-.m 2 3
+    +-.e +-.i +-.i +-.j +-.j +-.m 2 1
+    +-.f +-.f +-.g +-.g +-.h +-.h 2 2
     2 3 2 1 3 0 + .
     3 2 2 0 1 3 . -
     """
@@ -343,12 +329,12 @@ def test_magnets_019():
     puzzle_string = f"""
     019.magnets
     6
-    A A G N N P 3 2
-    B E G O O P 2 3
-    B E H M Q Q 3 2
-    C F H M R R 2 3
-    C F I I K K 2 2
-    D D J J L L 2 2
+    +-.A +-.A +-.G +-.N +-.N +-.P 3 2
+    +-.B +-.E +-.G +-.O +-.O +-.P 2 3
+    +-.B +-.E +-.H +-.M +-.Q +-.Q 3 2
+    +-.C +-.F +-.H +-.M +-.R +-.R 2 3
+    +-.C +-.F +-.I +-.I +-.K +-.K 2 2
+    +-.D +-.D +-.J +-.J +-.L +-.L 2 2
     3 3 2 1 2 3 + .
     3 3 1 2 3 2 . -
     """
@@ -360,29 +346,29 @@ def test_magnets_020():
     puzzle_string = f"""
     020.magnets
     6
-    a f g g q r 3 2
-    a f h i q r 2 2
-    b e h i p p 2 3
-    b e j k o o 2 1
-    c d j k n n 2 2
-    c d l l m m 1 2
+    +-.a +-.f +-.g +-.g +-.q +-.r 3 2
+    +-.a +-.f +-.h +-.i +-.q +-.r 2 2
+    +-.b +-.e +-.h +-.i +-.p +-.p 2 3
+    +-.b +-.e +-.j +-.k +-.o +-.o 2 1
+    +-.c +-.d +-.j +-.k +-.n +-.n 2 2
+    +-.c +-.d +-.l +-.l +-.m +-.m 1 2
     1 3 1 2 2 3 + .
     1 3 2 1 3 2 . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
+# @pytest.mark.skip("skip")
 def test_magnets_021():
     puzzle_string = f"""
     021.magnets
     6
-    a a i j j p 3 3
-    b b i k l p 3 3
-    c c h k l q 2 2
-    d d h m n q 1 1
-    e f g m n r 1 1
-    e f g o o r 2 2
+    +-.a +-.a +-.i +-.j +-.j +-.p 3 3
+    +-.b +-.b +-.i +-.k +-.l +-.p 3 3
+    +-.c +-.c +-.h +-.k +-.l +-.q 2 2
+    +-.d +-.d +-.h +-.m +-.n +-.q 1 1
+    +-.e +-.f +-.g +-.m +-.n +-.r 1 1
+    +-.e +-.f +-.g +-.o +-.o +-.r 2 2
     2 3 1 1 3 2 + .
     2 3 1 3 1 2 . -
     """
@@ -1131,7 +1117,7 @@ def test_magnets_082():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-@pytest.mark.skip("skip")
+# @pytest.mark.skip("skip")
 def test_magnets_083():
     puzzle_string = f"""
     083.magnets
@@ -1157,18 +1143,18 @@ def test_magnets_119():
     puzzle_string = f"""
     119.magnets
     10
-    A A D E E G H H I I 5 5
-    B C D F F G e f f h 4 ?
-    B C Y Z a a e g g h 5 4
-    J K Y Z b b i i w x ? 4
-    J K X X c c j k w x 5 4
-    L L W W d d j k v v 4 ?
-    M S S V V l n p t u 2 ?
-    M R R T U l n p t u ? ?
-    N N P T U m o q s s 4 3
-    O O P Q Q m o q r r 4 5
-    ? 5 ? 5 ? 3 3 5 5 ?
-    4 3 ? 4 ? 2 ? 4 5 ?
+    +-.A +-.A +-.D +-.E +-.E +-.G +-.H +-.H +-.I +-.I 5 5
+    +-.B +-.C +-.D +-.F +-.F +-.G +-.e +-.f +-.f +-.h 4 ?
+    +-.B +-.C +-.Y +-.Z +-.a +-.a +-.e +-.g +-.g +-.h 5 4
+    +-.J +-.K +-.Y +-.Z +-.b +-.b +-.i +-.i +-.w +-.x ? 4
+    +-.J +-.K +-.X +-.X +-.c +-.c +-.j +-.k +-.w +-.x 5 4
+    +-.L +-.L +-.W +-.W +-.d +-.d +-.j +-.k +-.v +-.v 4 ?
+    +-.M +-.S +-.S +-.V +-.V +-.l +-.n +-.p +-.t +-.u 2 ?
+    +-.M +-.R +-.R +-.T +-.U +-.l +-.n +-.p +-.t +-.u ? ?
+    +-.N +-.N +-.P +-.T +-.U +-.m +-.o +-.q +-.s +-.s 4 3
+    +-.O +-.O +-.P +-.Q +-.Q +-.m +-.o +-.q +-.r +-.r 4 5
+    ? 5 ? 5 ? 3 3 5 5 ? + .
+    4 3 ? 4 ? 2 ? 4 5 ? . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 

@@ -20,16 +20,41 @@ class Magnets:
         self.__length = int(__array[1])
         __array.pop(0)
         __array.pop(0)
+
+        # __temp = []
+        #
+        # for item in __array:
+
         self.__grid = numpy.reshape(__array, (self.__length + 2, self.__length + 2))
 
-    def __str__(self) -> str:
+        # for r in range(len(self)):
+        #     for c in range(len(self)):
+        #         string: str = self.__grid[r][c]
+        #
+        #         if len(string) == 4:
+        #             continue
+        #
+        #         if '#' in string:
+        #             self.__grid[r][c] = '####'
+        #
+        #         if len(string) == 1 and string.isalpha():
+        #             self.__grid[r][c] = f'+-.{string}'
+
+    def to_string(self, color=True) -> str:
         __string = f'{self.__id}\n'
         __string += f'{self.__length}\n'
 
         for r in range(len(self)):
             for c in range(len(self) + 2):
                 loc = Loc(r, c)
-                __string += f'{self.__grid[loc.row][loc.col]} '
+                __temp: str = self.__grid[loc.row][loc.col]
+
+                if color and __temp.startswith('+__'):
+                    __string += f'{Fore.RED}{__temp}{Fore.RESET} '
+                elif color and __temp.startswith('_-_'):
+                    __string += f'{Fore.CYAN}{__temp}{Fore.RESET} '
+                else:
+                    __string += f'{__temp} '
             __string += '\n'
 
         for c in range(len(self)):
@@ -46,6 +71,9 @@ class Magnets:
 
         return __string
 
+    def __str__(self) -> str:
+        return self.to_string()
+
     def __len__(self):
         return self.__length
 
@@ -56,7 +84,6 @@ class Magnets:
 
             if len(loc0_candidates) > 1 or len(loc1_candidates) > 1:
                 return False
-
 
         return True
 
@@ -136,6 +163,9 @@ class Magnets:
             house.append(Loc(i, col_index))
         return house
 
+    def is_magnet_cell(self, loc: Loc) -> bool:
+        return '#' not in self.__grid[loc.row][loc.col]
+
     def house_fence(self, loc: Loc) -> str:
         fence = self.__grid[loc.row][loc.col] \
             .replace(PLUS, "") \
@@ -153,7 +183,8 @@ class Magnets:
         for r in range(self.__length):
             for c in range(self.__length):
                 loc = Loc(r, c)
-                # print(loc)
+                if not self.is_magnet_cell(loc):
+                    continue
                 fence = self.house_fence(loc)
                 if fence not in dct:
                     dct[fence] = []

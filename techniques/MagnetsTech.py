@@ -53,48 +53,55 @@ class MagnetsTech(Technique):
 
         no_plus = [loc for loc in house if '+' not in puzzle.cell_candidates(loc)]
         no_minus = [loc for loc in house if '-' not in puzzle.cell_candidates(loc)]
-        no_empty: list[Loc] = [loc for loc in house if '.' not in puzzle.cell_candidates(loc)]
+        no_empty = [loc for loc in house if '.' not in puzzle.cell_candidates(loc)]
 
+        if minus is not None and minus == len(has_minus):
+            edits += puzzle.rem(has_minus, ['+', '.'])
 
         if plus is not None and minus is not None and len(no_empty) == plus + minus:
             edits += puzzle.rem(list(set(house).difference(no_empty)), ['+', '-'])
 
+        if plus is not None and minus is not None and plus + minus == len(puzzle) and (
+                plus + minus) % 2 != 0 and plus > minus:
+            edits += puzzle.rem([house[0]], ['-'])
 
-        if plus is not None and minus is not None and plus != minus and len(no_empty) == plus + minus and len(no_empty) % 2 != 3:
+        if plus is not None and \
+                minus is not None and \
+                plus != minus and \
+                len(no_empty) == plus + minus and \
+                len(no_empty) == 3:
+            loc0: Loc
+            loc1: Loc
+            loc2: Loc
             loc0, loc1, loc2 = no_empty
-
             minor = '-' if plus > minus else '+'
-
-            if no_empty[0].is_next_to(no_empty[1]) and not no_empty[1].is_next_to(no_empty[2]):
+            if loc0.is_next_to(loc1) and not loc1.is_next_to(loc2):
                 edits += puzzle.rem([loc2], [minor])
 
-        # if plus is None and minus == 1:
-            # if any no empties exist
-            # loc0, loc1, loc2 = no_empty
-            #
-            # minor = '-' if plus > minus else '+'
-            #
-            # if no_empty[0].is_next_to(no_empty[1]) and not no_empty[1].is_next_to(no_empty[2]):
-            #     edits += puzzle.rem([loc2], [minor])
+            if not loc0.is_next_to(loc1) and loc1.is_next_to(loc2):
+                edits += puzzle.rem([loc0], [minor])
 
+            if loc0.is_next_to(loc1) and loc1.is_next_to(loc2):
+                edits += puzzle.rem([loc1], [minor])
 
+        if plus is not None and \
+                minus is not None and \
+                plus != minus and \
+                len(no_empty) == plus + minus and \
+                len(no_empty) == 3:
+            loc0: Loc
+            loc1: Loc
+            loc2: Loc
+            loc0, loc1, loc2 = no_empty
+            minor = '-' if plus > minus else '+'
+            if loc0.is_next_to(loc1) and not loc1.is_next_to(loc2):
+                edits += puzzle.rem([loc2], [minor])
 
-            # print(loc0)
-            # print(loc1)
-            # print(loc2)
+            if not loc0.is_next_to(loc1) and loc1.is_next_to(loc2):
+                edits += puzzle.rem([loc0], [minor])
 
-
-
-
-            # since we have three then possibles are
-            #  $ $ $, $$ $, $ $$, $$$
-
-            # check if none of them are next to each other
-
-
-            # print('hello')
-            # edits += puzzle.rem(list(set(house).difference(no_empty)), ['+', '-'])
-
+            if loc0.is_next_to(loc1) and loc1.is_next_to(loc2):
+                edits += puzzle.rem([loc1], [minor])
 
         for loc in house:
             __candidates = puzzle.cell_candidates(loc)
@@ -145,6 +152,9 @@ class MagnetsTech(Technique):
         if minus is not None and minus == 0:
             edits += puzzle.rem(house, ['-'])
 
+        if minus is not None and minus == len(solved_empty):
+            edits += puzzle.rem(unsolved, ['-'])
+
         if plus is not None and minus is not None:
             total = plus + minus
             if total == len(puzzle):
@@ -156,4 +166,19 @@ class MagnetsTech(Technique):
                 for fence in fence_dict:
                     if len(fence_dict[fence]) == 2:
                         edits += puzzle.rem(fence_dict[fence], ['.'])
+
+        if plus is not None and \
+                minus is not None and \
+                plus + minus == 3 and \
+                set(has_plus) == set(has_minus) and \
+                len(has_plus) == 3:
+            edits += puzzle.rem(has_plus, ['.'])
+
+        if plus is not None and \
+                minus is not None and \
+                plus + minus % 2 != 0 and \
+                set(has_plus) == set(has_minus) and \
+                len(has_plus) == 3:
+            edits += puzzle.rem(has_plus, ['.'])
+
         return edits
