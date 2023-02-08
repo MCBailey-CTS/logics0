@@ -32,7 +32,7 @@ def test_difficult_01():
     6g 5g _g   4h 3h _h   7i 2i 9i
     7g 3g _g   _h _h _h   _i 5i _i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), UniqueRectangleType4(), tech.XWing()])
+    assert default_test_puzzle(puzzle_string, Sudoku, [CrossHatch(), LockedCandidatesPointing(), LockedCandidatesClaiming(), UniqueRectangleType4(), tech.XWing()])
 
 
 @pytest.mark.skip("skipped")

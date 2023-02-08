@@ -6,7 +6,7 @@ PLUS = '+'
 MINUS = '-'
 EMPTY = '.'
 from Loc import Loc
-from colorama import Fore, Style
+from colorama import Fore, Style, Back
 import numpy
 
 
@@ -44,13 +44,23 @@ class Magnets:
         __string = f'{self.__id}\n'
         __string += f'{self.__length}\n'
 
+
+
+
+
         for r in range(len(self)):
             for c in range(len(self) + 2):
                 loc = Loc(r, c)
                 __temp: str = self.__grid[loc.row][loc.col]
 
+                # if color and __temp.startswith('+__'):
+                #     __string += f'{Back.GREEN}{Fore.RED}{__temp}{Fore.RESET}{Back.RESET} '
+                # elif color and __temp.startswith('_-_'):
+                #     __string += f'{Fore.CYAN}{__temp}{Fore.RESET} '
+                # else:
+                #     __string += f'{__temp} '
                 if color and __temp.startswith('+__'):
-                    __string += f'{Fore.RED}{__temp}{Fore.RESET} '
+                    __string += f'{Back.GREEN}{Fore.RED}{__temp}{Fore.RESET}{Back.RESET} '
                 elif color and __temp.startswith('_-_'):
                     __string += f'{Fore.CYAN}{__temp}{Fore.RESET} '
                 else:
