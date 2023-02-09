@@ -40,13 +40,102 @@ class Magnets:
         #         if len(string) == 1 and string.isalpha():
         #             self.__grid[r][c] = f'+-.{string}'
 
+    def to_string_with_grid(self) -> str:
+        #  ┼────┼────┼────┼────┼
+
+        g = self.__grid
+
+        # ┴
+        # │
+        # ┼
+        # ┬
+        # └
+        # ├
+        # ┐
+        # ┤
+        # ┘
+        # ┌
+        # ─
+
+        # string = ''
+        # string += f'┌────┬────┬────┬────┐\n'
+        # string += f'│{g[0][0]}│{g[0][1]}│{g[0][2]}│{g[0][3]}│ {g[0][4]} {g[0][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[1][0]}│{g[1][1]}│{g[1][2]}│{g[1][3]}│ {g[1][4]} {g[1][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[2][0]}│{g[2][1]}│{g[2][2]}│{g[2][3]}│ {g[2][4]} {g[2][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[3][0]}│{g[3][1]}│{g[3][2]}│{g[3][3]}│ {g[3][4]} {g[3][5]}\n'
+        # string += f'└────┴────┴────┴────┘\n'
+        # string += f'  {g[4][0]}   {g[4][1]}   {g[4][2]}   {g[4][3]}   {g[4][4]}  {g[4][5]}\n'
+        # string += f'  {g[5][0]}   {g[5][1]}   {g[5][2]}   {g[5][3]}   {g[5][4]}  {g[5][5]}\n'
+
+        def to_row_cell_string(puzzle: Magnets, __r: int) -> str:
+            __string0 = '│'
+            __row = puzzle.house_row(__r)
+            for i in range(len(puzzle) - 1):
+                l0 = __row[i]
+                l1 = __row[i + 1]
+                __string0 += f'{puzzle.__grid[l0.row][l0.col]}'
+                __string0 += ' ' if self.cell_fence(l0) == self.cell_fence(l1) else '│'
+            __string0 += f'{puzzle.__grid[__row[-1].row][__row[-1].col]}'
+            return f'{__string0}│ {puzzle.__grid[__r][len(self)]} {puzzle.__grid[__r][len(self) + 1]}\n'
+
+        def get_top_row_border(puzzle: Magnets) -> str:
+            __string0 = '┌'
+            for i in range(len(puzzle) - 1):
+                __string0 += '────┬'
+            return f'{__string0}────┐\n'
+
+        def get_bottom_row_border(puzzle: Magnets) -> str:
+            __string0 = '└'
+            for i in range(len(puzzle) - 1):
+                __string0 += '────┴'
+            return f'{__string0}────┘\n'
+
+        def get_inner_row_border(puzzle: Magnets, __r: int) -> str:
+            __string = '├'
+
+            __row0 = puzzle.house_row(__r)
+            __row1 = puzzle.house_row(__r + 1)
+
+            for l0, l1 in zip(__row0, __row1):
+                f0 = puzzle.cell_fence(l0)
+                f1 = puzzle.cell_fence(l1)
+
+                # __string += '    ' if f0 == f1 else '┼────'
+                __string += '    ' if f0 == f1 else '────'
+
+            return __string + '\n'
+
+            # return f'├────┼────┼────┼────┤\n'
+
+        def get_southern_magnet_numbers(puzzle: Magnets, __r: int) -> str:
+            __string = "  "
+            __string += "".join(f'{puzzle.__grid[__r][i]}   ' for i in range(len(puzzle)))
+            __string = __string.strip()
+            return f'  {__string}   {puzzle.__grid[__r][len(puzzle)]}  {puzzle.__grid[__r][len(puzzle) + 1]}\n'
+
+        string = get_top_row_border(self)
+
+        for __r in range(len(self) - 1):
+            string += to_row_cell_string(self, __r)
+            string += get_inner_row_border(self, __r)
+
+        string += to_row_cell_string(self, len(self) - 1)
+        string += get_bottom_row_border(self)
+        string += get_southern_magnet_numbers(self, len(self))
+        string += get_southern_magnet_numbers(self, len(self) + 1)
+
+        return string
+
     def to_string(self, color=True) -> str:
+
+        if self.__id == "001.magnets":
+            return self.to_string_with_grid()
+
         __string = f'{self.__id}\n'
         __string += f'{self.__length}\n'
-
-
-
-
 
         for r in range(len(self)):
             for c in range(len(self) + 2):

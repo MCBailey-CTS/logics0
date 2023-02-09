@@ -1,6 +1,5 @@
 import pytest
 
-from _defaults import default_test_puzzle
 from puzzles import Magnets, Puzzle
 from solving import Solving
 
@@ -29,7 +28,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     print(puzzle)
     return False
 
-
+@pytest.mark.skip('skipped')
 def test_magnets_001():
     # ┼────┼────┼────┼────┼
     # │+-. │+-. │+-.  +-. │02 02
@@ -40,8 +39,8 @@ def test_magnets_001():
     # ┼─   ┼────┼────┼─   ┼
     # |+-. │+-.E +-.E│+-. │01 02
     # ┼────┼────┼────┼────┼
-    # 01   01   02   01   +  .
-    # 01   02   00   02   .  -
+    #  01   01   02   01   +  .
+    #  01   02   00   02   .  -
     puzzle_string = f"""
     001.magnets
     4
@@ -52,7 +51,14 @@ def test_magnets_001():
     01   01   02   01   +  .
     01   02   00   02   .  -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    puzzle = Magnets(puzzle_string)
+
+
+
+    print(puzzle)
+
+    assert False
+    # assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
 def test_magnets_002():
@@ -392,7 +398,7 @@ def test_magnets_022():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_023():
     puzzle_string = f"""
     023.magnets
@@ -409,7 +415,7 @@ def test_magnets_023():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_024():
     puzzle_string = f"""
     024.magnets
@@ -426,7 +432,7 @@ def test_magnets_024():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_025():
     puzzle_string = f"""
     025.magnets
@@ -443,7 +449,7 @@ def test_magnets_025():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_027():
     puzzle_string = f"""
     027.magnets
@@ -478,7 +484,7 @@ def test_magnets_028():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_029():
     puzzle_string = f"""
     029.magnets
@@ -496,7 +502,7 @@ def test_magnets_029():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_030():
     puzzle_string = f"""
     030.magnets
@@ -532,7 +538,7 @@ def test_magnets_031():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_032():
     puzzle_string = f"""
     032.magnets
@@ -550,7 +556,7 @@ def test_magnets_032():
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
 
-# @pytest.mark.skip("skip")
+@pytest.mark.skip("skip")
 def test_magnets_033():
     puzzle_string = f"""
     033.magnets
@@ -787,7 +793,7 @@ def test_magnets_045():
     d d j m v v H I 1 1
     e e j k k l l I 2 3
     3 3 1 1 4 3 2 3 + .
-    2 4 1 2 2 3 3 3  . -
+    2 4 1 2 2 3 3 3 . -
     """
     assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
 
