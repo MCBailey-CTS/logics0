@@ -86,6 +86,14 @@ class Loc:
     def north(self, offset: int = 1) -> 'Loc':
         return Loc(self.__row - offset, self.__col)
 
+    def north_locs(self) -> 'list[Loc]':
+        __locs = []
+        __next = self.north()
+        while __next.row >= 0:
+            __locs.append(__next)
+            __next = __next.north()
+        return __locs
+
     def south(self, offset: int = 1) -> 'Loc':
         return Loc(self.__row + offset, self.__col)
 
