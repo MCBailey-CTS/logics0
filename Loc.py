@@ -38,6 +38,14 @@ class Loc:
             raise Exception(f'Loc({self.__row}, {self.__col}) doe snot have a fence')
         return self.__fence
 
+    @staticmethod
+    def house_row(__row: int, col_length: int) -> 'list[Loc]':
+        return [Loc(__row, __col) for __col in range(col_length)]
+
+    @staticmethod
+    def house_col(__col: int, row_length: int) -> 'list[Loc]':
+        return [Loc(__row, __col) for __row in range(row_length)]
+
     def row_house_locs(self, length: int):
         for col in range(0, length):
             yield Loc(self.__row, col)
@@ -94,6 +102,30 @@ class Loc:
             __next = __next.north()
         return __locs
 
+    def south_locs(self, stop_row) -> 'list[Loc]':
+        __locs = []
+        __next = self.south()
+        while __next.row < stop_row:
+            __locs.append(__next)
+            __next = __next.south()
+        return __locs
+
+    def east_locs(self, stop_col) -> 'list[Loc]':
+        __locs = []
+        __next = self.east()
+        while __next.col < stop_col:
+            __locs.append(__next)
+            __next = __next.east()
+        return __locs
+
+    def west_locs(self) -> 'list[Loc]':
+        __locs = []
+        __next = self.west()
+        while __next.col >= 0:
+            __locs.append(__next)
+            __next = __next.west()
+        return __locs
+
     def south(self, offset: int = 1) -> 'Loc':
         return Loc(self.__row + offset, self.__col)
 
@@ -140,6 +172,25 @@ class Loc:
             return True
 
         return False
+
+    def surrounding(self, stop) -> 'list[Loc]':
+        valid = []
+        directions = [
+            self.north(),
+            self.east(),
+            self.south(),
+            self.west(),
+            self.north().east(),
+            self.north().west(),
+            self.south().east(),
+            self.south().west(),
+        ]
+
+        for temp in directions:
+            if temp.row < stop and temp.col < stop:
+                valid.append(temp)
+
+        return valid
 
     # @staticmethod
     # def row_chute(loc) -> int:

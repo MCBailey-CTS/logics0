@@ -65,67 +65,98 @@ class BotanicalPark:
 
                 match __cell_string:
                     case 'nn':
-                        __string += f'{Fore.CYAN}⇑⇑{Fore.RESET} '
+                        __string += f'{Fore.CYAN}nn{Fore.RESET} '
+                    case 'ee':
+                        __string += f'{Fore.CYAN}ee{Fore.RESET} '
                     case '+_':
                         __string += f'{Fore.GREEN}TT{Fore.RESET} '
+                    case '_-':
+                        __string += f'.. '
                     case _:
                         __string += f'{self.__grid[__r][__c]} '
             __string += '\n'
         __string += f'{self.__trees}'
         return __string
 
+    def pointing_arrows_hidden_single(self) -> int:
+        edits = 0
+        for _r in range(len(self)):
+            for _c in range(len(self)):
+                _loc = Loc(_r, _c)
+
+                _cell_string = self.__grid[_r][_c]
+
+                match _cell_string:
+                    case 'nn':
+                        pass
+                        __north = _loc.north_locs()
+
+                        if len(__north) == 1:
+                            edits += self.rem([__north[0]], [MINUS])
+
+                    case 'ee':
+                        __east = [__loc for __loc in _loc.east_locs(len(self)) if
+                                  len(self.cell_candidates(__loc)) > 0 and PLUS in self.cell_candidates(__loc)]
+
+                        if len(__east) == 1:
+                            edits += self.rem([__east[0]], [MINUS])
+
+                    case _:
+                        pass
+        return edits
+
+    def cross_hatch(self) -> int:
+        edits = 0
+
+        for __index in range(len(self)):
+
+            row_col_houses = [
+                Loc.house_row(__index, len(self)),
+                Loc.house_col(__index, len(self))
+            ]
+
+            for house in row_col_houses:
+
+                __loc = next((__loc for __loc in house if
+                              MINUS not in self.cell_candidates(__loc) and len(self.cell_candidates(__loc)) > 0), None)
+
+                if __loc is None:
+                    continue
+
+                house.remove(__loc)
+
+                edits += self.rem(house, [PLUS])
+
+        return edits
+
+    def cross_hatch_touching(self) -> int:
+        edits = 0
+
+        for _r in range(len(self)):
+            for _c in range(len(self)):
+                _loc = Loc(_r, _c)
+
+                if MINUS in self.cell_candidates(_loc):
+                    continue
+
+                if PLUS in self.cell_candidates(_loc):
+
+                    edits += self.rem(_loc.surrounding(len(self)), [PLUS])
+
+        return edits
+
     def solve(self) -> int:
         edits = 0
         while True:
             current_edits = 0
 
+            # edits += current_edits
+
+            current_edits += self.pointing_arrows_hidden_single()
+            current_edits += self.cross_hatch()
+            current_edits += self.cross_hatch_touching()
+
             edits += current_edits
-
-            for __r in range(len(self)):
-                for __c in range(len(self)):
-                    __loc = Loc(__r, __c)
-
-                    __cell_string = self.__grid[__r][__c]
-
-                    match __cell_string:
-                        case 'nn':
-                            pass
-                            __north = __loc.north_locs()
-
-                            if len(__north) == 1:
-                                edits += self.rem([__north[0]], [MINUS])
-
-                        case _:
-                            pass
-
-            temp = [Loc(0, __c) for __c in range(len(self))]
-
-            temp_string = "".join(self.__grid[__l.row][__l.col] for __l in temp)
-
-            print(temp_string)
-
-            # for __index in range(len(self)):
-            #     row_col_houses = [
-            #         # Loc.row_house_locs(len(self))
-            #         [Loc(__index, __c) for __c in range(len(self))]
-            #     ]
-            #
-            #     for house in row_col_houses:
-            #
-            #         # print(house)
-            #
-            #         solved_as_trees = [__loc for __loc in house if MINUS not in self.cell_candidates(__loc)]
-            #
-            #         print(solved_as_trees)
-            #
-            #         if len(solved_as_trees) != self.__trees:
-            #             continue
-            #
-            #         ttt = list(set(solved_as_trees).difference(house))
-            #
-            #         print(ttt)
-
-            # edits += self.rem(, [PLUS])
 
             if current_edits == 0:
                 break
