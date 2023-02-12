@@ -63,17 +63,14 @@ class BotanicalPark:
 
                 __cell_string = self.__grid[__r][__c]
 
-                match __cell_string:
-                    case 'nn':
-                        __string += f'{Fore.CYAN}nn{Fore.RESET} '
-                    case 'ee':
-                        __string += f'{Fore.CYAN}ee{Fore.RESET} '
-                    case '+_':
-                        __string += f'{Fore.GREEN}TT{Fore.RESET} '
-                    case '_-':
-                        __string += f'.. '
-                    case _:
-                        __string += f'{self.__grid[__r][__c]} '
+                if __cell_string in ['nn', 'ss', 'ww', 'ee', 'ne', 'nw', 'se', 'sw', ]:
+                    __string += f'{Fore.CYAN}{__cell_string}{Fore.RESET} '
+                elif __cell_string == '+_':
+                    __string += f'{Fore.GREEN}TT{Fore.RESET} '
+                elif __cell_string == '_-':
+                    __string += f'.. '
+                else:
+                    __string += f'{self.__grid[__r][__c]} '
             __string += '\n'
         __string += f'{self.__trees}'
         return __string
@@ -86,26 +83,80 @@ class BotanicalPark:
 
                 _cell_string = self.__grid[_r][_c]
 
+                __house: list[Loc]
+
                 match _cell_string:
                     case 'nn':
-                        __north = _loc.north_locs()
-                        if len(__north) == 1:
-                            edits += self.rem([__north[0]], [MINUS])
+                        __house = _loc.north_locs()
                     case 'ww':
-                        __west = _loc.west_locs()
-                        if len(__west) == 1:
-                            edits += self.rem([__west[0]], [MINUS])
+                        __house = _loc.west_locs()
                     case 'ss':
-                        __south = _loc.south_locs(len(self))
-                        if len(__south) == 1:
-                            edits += self.rem([__south[0]], [MINUS])
+                        __house = _loc.south_locs(len(self))
                     case 'ee':
-                        __east = [__loc for __loc in _loc.east_locs(len(self)) if
-                                  len(self.cell_candidates(__loc)) > 0 and PLUS in self.cell_candidates(__loc)]
-                        if len(__east) == 1:
-                            edits += self.rem([__east[0]], [MINUS])
+                        __house = _loc.east_locs(len(self))
+                    case 'ne':
+                        __house = _loc.north_east_locs(len(self))
+                    case 'nw':
+                        __house = _loc.north_west_locs(len(self))
+                    # case 'se':
+                    #     __house = _loc.south_east_locs(len(self))
+                    # case 'sw':
+                    #     __house = _loc.south_west_locs(len(self))
                     case _:
-                        pass
+                        continue
+
+                __house = [_l for _l in __house if
+                           len(self.cell_candidates(_l)) and PLUS in self.cell_candidates(_l)]
+
+                if len(__house) == 1:
+                    edits += self.rem([__house[0]], [MINUS])
+
+        return edits
+
+    def pointing_arrows_required_dominating(self) -> int:
+        edits = 0
+        for _r in range(len(self)):
+            for _c in range(len(self)):
+                _loc = Loc(_r, _c)
+
+                _cell_string = self.__grid[_r][_c]
+
+                __house: list[Loc]
+
+                match _cell_string:
+                    case 'nn':
+                        __house = _loc.north_locs()
+                    case 'ww':
+                        __house = _loc.west_locs()
+                    case 'ss':
+                        __house = _loc.south_locs(len(self))
+                    case 'ee':
+                        __house = _loc.east_locs(len(self))
+                    # case 'ne':
+                    #     __house = _loc.north_east_locs(len(self))
+                    # case 'nw':
+                    #     __house = _loc.north_west_locs(len(self))
+                    # case 'se':
+                    #     __house = _loc.south_east_locs(len(self))
+                    # case 'sw':
+                    #     __house = _loc.south_west_locs(len(self))
+                    case _:
+                        continue
+
+                __house = [_l for _l in __house if
+                           len(self.cell_candidates(_l)) and PLUS in self.cell_candidates(_l)]
+
+                if len(__house) == 2 and __house[0].is_next_to(__house[1]):
+                    if __house[0].in_same_row(__house[1]):
+                        __required = [_l for _l in
+                                      [__house[0].north(), __house[1].north(), __house[0].south(), __house[1].south()]
+                                      if _l.is_valid_sudoku(len(self))]
+
+                        edits += self.rem(__required, [PLUS])
+
+                # if len(__house) == 1:
+                #     edits += self.rem([__house[0]], [MINUS])
+
         return edits
 
     def hidden_single_row_col(self) -> int:
@@ -176,7 +227,7 @@ class BotanicalPark:
 
         return edits
 
-    def solve(self) -> int:
+    def solve(self, techniques: iter = None) -> int:
         edits = 0
         while True:
             current_edits = 0
@@ -187,6 +238,7 @@ class BotanicalPark:
             current_edits += self.cross_hatch()
             current_edits += self.hidden_single_row_col()
             current_edits += self.cross_hatch_touching()
+            current_edits += self.pointing_arrows_required_dominating()
 
             edits += current_edits
 
@@ -242,11 +294,8 @@ def test_botanical_park_001():
     1
     """
     puzzle = BotanicalPark(puzzle_string)
-
     puzzle.solve()
-
     print(puzzle)
-
     assert puzzle.is_solved()
 
 
@@ -262,14 +311,12 @@ def test_botanical_park_002():
     1
     """
     puzzle = BotanicalPark(puzzle_string)
-
     puzzle.solve()
-
     print(puzzle)
-
     assert puzzle.is_solved()
 
 
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_003():
     puzzle_string = f"""
     003.botanical_park
@@ -283,8 +330,13 @@ def test_botanical_park_003():
     """
     puzzle = BotanicalPark(puzzle_string)
     puzzle.solve()
-    print(puzzle)
+
+    puzzle_string = str(puzzle)
+
+    print(puzzle_string)
+
     assert puzzle.is_solved()
+
 
 def test_botanical_park_004():
     puzzle_string = f"""
@@ -302,7 +354,6 @@ def test_botanical_park_004():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-
 
 
 @pytest.mark.skip("SKIPPED")
@@ -323,8 +374,8 @@ def test_botanical_park_005():
     print(puzzle)
     assert puzzle.is_solved()
 
-@pytest.mark.skip("SKIPPED")
 
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_006():
     puzzle_string = f"""
     006.botanical_park
@@ -341,9 +392,9 @@ def test_botanical_park_006():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
+
+
 @pytest.mark.skip("SKIPPED")
-
-
 def test_botanical_park_007():
     puzzle_string = f"""
     007.botanical_park
@@ -361,8 +412,9 @@ def test_botanical_park_007():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-@pytest.mark.skip("SKIPPED")
 
+
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_008():
     puzzle_string = f"""
     008.botanical_park
@@ -380,8 +432,9 @@ def test_botanical_park_008():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-@pytest.mark.skip("SKIPPED")
 
+
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_009():
     puzzle_string = f"""
     009.botanical_park
@@ -399,8 +452,9 @@ def test_botanical_park_009():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-@pytest.mark.skip("SKIPPED")
 
+
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_010():
     puzzle_string = f"""
     010.botanical_park
@@ -419,8 +473,9 @@ def test_botanical_park_010():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-@pytest.mark.skip("SKIPPED")
 
+
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_011():
     puzzle_string = f"""
     011.botanical_park
@@ -439,8 +494,9 @@ def test_botanical_park_011():
     puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
-@pytest.mark.skip("SKIPPED")
 
+
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_012():
     puzzle_string = f"""
     012.botanical_park

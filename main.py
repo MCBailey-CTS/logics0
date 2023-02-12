@@ -53,9 +53,16 @@ def prBlack(skk): print("\033[98m {}\033[00m".format(skk))
  #            print(result)
 
 if __name__ == "__main__":
-
-
-
-
-
-    print('hello world')
+    puzzle_string = f"""
+       003.botanical_park
+       5
+       +- +- +- +- +-
+       +- +- ww +- +-
+       +- +- +- +- +-
+       +- +- +- +- +-
+       +- +- nw +- nn
+       1
+       """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)

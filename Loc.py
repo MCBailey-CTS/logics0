@@ -118,6 +118,22 @@ class Loc:
             __next = __next.east()
         return __locs
 
+    def north_east_locs(self, stop_col) -> 'list[Loc]':
+        __locs = []
+        __next = self.east().north()
+        while __next.col < stop_col and __next.row >= 0:
+            __locs.append(__next)
+            __next = __next.east().north()
+        return __locs
+
+    def north_west_locs(self, stop_row) -> 'list[Loc]':
+        __locs = []
+        __next = self.west().north()
+        while __next.col >= 0 and __next.row >= 0:
+            __locs.append(__next)
+            __next = __next.west().north()
+        return __locs
+
     def west_locs(self) -> 'list[Loc]':
         __locs = []
         __next = self.west()
@@ -125,6 +141,7 @@ class Loc:
             __locs.append(__next)
             __next = __next.west()
         return __locs
+
 
 
     def vector_locs(self, vector: 'Loc', stop_predicate)->'list[Loc]':
