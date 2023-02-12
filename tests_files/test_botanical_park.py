@@ -88,21 +88,53 @@ class BotanicalPark:
 
                 match _cell_string:
                     case 'nn':
-                        pass
                         __north = _loc.north_locs()
-
                         if len(__north) == 1:
                             edits += self.rem([__north[0]], [MINUS])
-
+                    case 'ww':
+                        __west = _loc.west_locs()
+                        if len(__west) == 1:
+                            edits += self.rem([__west[0]], [MINUS])
+                    case 'ss':
+                        __south = _loc.south_locs(len(self))
+                        if len(__south) == 1:
+                            edits += self.rem([__south[0]], [MINUS])
                     case 'ee':
                         __east = [__loc for __loc in _loc.east_locs(len(self)) if
                                   len(self.cell_candidates(__loc)) > 0 and PLUS in self.cell_candidates(__loc)]
-
                         if len(__east) == 1:
                             edits += self.rem([__east[0]], [MINUS])
-
                     case _:
                         pass
+        return edits
+
+    def hidden_single_row_col(self) -> int:
+        edits = 0
+
+        for __index in range(len(self)):
+
+            row_col_houses = [
+                Loc.house_row(__index, len(self)),
+                Loc.house_col(__index, len(self))
+            ]
+
+            for house in row_col_houses:
+
+                __has_plus = [_l for _l in house if PLUS in self.cell_candidates(_l)]
+
+                if len(__has_plus) == 1:
+                    edits += self.rem(__has_plus, [MINUS])
+
+                # __loc = next((__loc for __loc in house if
+                #               MINUS not in self.cell_candidates(__loc) and len(self.cell_candidates(__loc)) > 0), None)
+                #
+                # if __loc is None:
+                #     continue
+                #
+                # house.remove(__loc)
+                #
+                # edits += self.rem(house, [PLUS])
+
         return edits
 
     def cross_hatch(self) -> int:
@@ -140,7 +172,6 @@ class BotanicalPark:
                     continue
 
                 if PLUS in self.cell_candidates(_loc):
-
                     edits += self.rem(_loc.surrounding(len(self)), [PLUS])
 
         return edits
@@ -154,6 +185,7 @@ class BotanicalPark:
 
             current_edits += self.pointing_arrows_hidden_single()
             current_edits += self.cross_hatch()
+            current_edits += self.hidden_single_row_col()
             current_edits += self.cross_hatch_touching()
 
             edits += current_edits
@@ -162,6 +194,15 @@ class BotanicalPark:
                 break
 
         return edits
+
+    def is_solved(self) -> bool:
+        expected = {'_-', '+_', 'nn', 'ee', 'ww', 'ss', 'ne', 'nw', 'se', 'sw'}
+        for _r in range(len(self)):
+            for _c in range(len(self)):
+                if self.__grid[_r][_c] not in expected:
+                    print(f'"{self.__grid[_r][_c]}" not in expected')
+                    return False
+        return True
 
 
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
@@ -189,7 +230,6 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     return False
 
 
-# @pytest.mark.skip("SKIPPED")
 def test_botanical_park_001():
     puzzle_string = f"""
     001.botanical_park
@@ -207,169 +247,215 @@ def test_botanical_park_001():
 
     print(puzzle)
 
-    assert False
-#     return f"""
+    assert puzzle.is_solved()
 
-#     1
-#     """
 
-# @staticmethod
-# def botanical_park_002():
-#     return f"""
-#     002.botanical_park
-#     5
-#     +- +- +- +- +-
-#     +- +- ne +- +-
-#     +- +- +- +- +-
-#     +- +- nw +- +-
-#     +- +- +- +- +-
-#     1
-#     """
+def test_botanical_park_002():
+    puzzle_string = f"""
+    002.botanical_park
+    5
+    +- +- +- +- +-
+    +- +- ne +- +-
+    +- +- +- +- +-
+    +- +- nw +- +-
+    +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
 
-# @staticmethod
-# def botanical_park_003():
-#     return f"""
-#     003.botanical_park
-#     5
-#     +- +- +- +- +-
-#     +- +- ww +- +-
-#     +- +- +- +- +-
-#     +- +- +- +- +-
-#     +- +- nw +- nn
-#     1
-#     """
+    puzzle.solve()
 
-# @staticmethod
-# def botanical_park_004():
-#     return f"""
-#     004.botanical_park
-#     6
-#     +- +- +- +- +- +-
-#     +- +- +- +- +- +-
-#     ne +- ww +- +- +-
-#     +- +- +- +- +- +-
-#     +- +- +- +- ss +-
-#     +- +- +- +- +- +-
-#     1
-#     """
+    print(puzzle)
 
-# @staticmethod
-# def botanical_park_005():
-#     return f"""
-#     005.botanical_park
-#     6
-#     +- +- +- +- +- sw
-#     +- +- +- +- +- +-
-#     +- +- +- +- ne +-
-#     +- +- +- ss +- +-
-#     +- +- +- +- +- +-
-#     +- +- +- +- +- nw
-#     1
-#     """
+    assert puzzle.is_solved()
 
-# @staticmethod
-# def botanical_park_006():
-#     return f"""
-#     006.botanical_park
-#     6
-#     +- +- +- +- +- +-
-#     +- +- +- +- +- +-
-#     +- +- +- +- +- +-
-#     +- +- +- +- +- nw
-#     +- nw +- +- +- +-
-#     +- +- +- +- nw +-
-#     1
-#     """
 
-# @staticmethod
-# def botanical_park_007():
-#     return f"""
-#     007.botanical_park
-#     7
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- +- +- ne +- nn +-
-#     +- +- +- nw +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- ss +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     1
-#     """
+def test_botanical_park_003():
+    puzzle_string = f"""
+    003.botanical_park
+    5
+    +- +- +- +- +-
+    +- +- ww +- +-
+    +- +- +- +- +-
+    +- +- +- +- +-
+    +- +- nw +- nn
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
 
-# @staticmethod
-# def botanical_park_008():
-#     return f"""
-#     008.botanical_park
-#     7
-#     +- +- +- +- +- ww +-
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- +- nn sw +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- ee +- +- nw +- nw
-#     1
-#     """
+def test_botanical_park_004():
+    puzzle_string = f"""
+    004.botanical_park
+    6
+    +- +- +- +- +- +-
+    +- +- +- +- +- +-
+    ne +- ww +- +- +-
+    +- +- +- +- +- +-
+    +- +- +- +- ss +-
+    +- +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
 
-# @staticmethod
-# def botanical_park_009():
-#     return f"""
-#     009.botanical_park
-#     7
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     ne +- +- +- nw +- +-
-#     +- ne +- nn +- +- ww
-#     +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +-
-#     1
-#     """
 
-# @staticmethod
-# def botanical_park_010():
-#     return f"""
-#     010.botanical_park
-#     8
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     ne se +- ww +- +- +- +-
-#     +- +- +- +- nw +- ww sw
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     1
-#     """
 
-# @staticmethod
-# def botanical_park_011():
-#     return f"""
-#     011.botanical_park
-#     8
-#     +- +- +- +- +- +- +- sw
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     +- +- +- +- +- +- +- sw
-#     +- ne +- +- +- +- +- +-
-#     +- +- ww +- +- +- +- +-
-#     +- +- +- ww +- +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     1
-#     """
+@pytest.mark.skip("SKIPPED")
+def test_botanical_park_005():
+    puzzle_string = f"""
+    005.botanical_park
+    6
+    +- +- +- +- +- sw
+    +- +- +- +- +- +-
+    +- +- +- +- ne +-
+    +- +- +- ss +- +-
+    +- +- +- +- +- +-
+    +- +- +- +- +- nw
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
 
-# @staticmethod
-# def botanical_park_012():
-#     return f"""
-#     012.botanical_park
-#     8
-#     +- +- se +- +- +- +- +-
-#     +- ww +- +- +- +- +- +-
-#     se +- +- +- +- +- +- +-
-#     +- +- +- +- ss +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     +- ne +- +- nn +- +- +-
-#     +- +- +- +- +- +- +- +-
-#     +- +- nn +- +- +- +- +-
-#     1
-#     """
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_006():
+    puzzle_string = f"""
+    006.botanical_park
+    6
+    +- +- +- +- +- +-
+    +- +- +- +- +- +-
+    +- +- +- +- +- +-
+    +- +- +- +- +- nw
+    +- nw +- +- +- +-
+    +- +- +- +- nw +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+
+def test_botanical_park_007():
+    puzzle_string = f"""
+    007.botanical_park
+    7
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    +- +- +- ne +- nn +-
+    +- +- +- nw +- +- +-
+    +- +- +- +- +- +- +-
+    +- ss +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_008():
+    puzzle_string = f"""
+    008.botanical_park
+    7
+    +- +- +- +- +- ww +-
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    +- +- nn sw +- +- +-
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    +- ee +- +- nw +- nw
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_009():
+    puzzle_string = f"""
+    009.botanical_park
+    7
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    ne +- +- +- nw +- +-
+    +- ne +- nn +- +- ww
+    +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_010():
+    puzzle_string = f"""
+    010.botanical_park
+    8
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    ne se +- ww +- +- +- +-
+    +- +- +- +- nw +- ww sw
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_011():
+    puzzle_string = f"""
+    011.botanical_park
+    8
+    +- +- +- +- +- +- +- sw
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    +- +- +- +- +- +- +- sw
+    +- ne +- +- +- +- +- +-
+    +- +- ww +- +- +- +- +-
+    +- +- +- ww +- +- +- +-
+    +- +- +- +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()
+@pytest.mark.skip("SKIPPED")
+
+def test_botanical_park_012():
+    puzzle_string = f"""
+    012.botanical_park
+    8
+    +- +- se +- +- +- +- +-
+    +- ww +- +- +- +- +- +-
+    se +- +- +- +- +- +- +-
+    +- +- +- +- ss +- +- +-
+    +- +- +- +- +- +- +- +-
+    +- ne +- +- nn +- +- +-
+    +- +- +- +- +- +- +- +-
+    +- +- nn +- +- +- +- +-
+    1
+    """
+    puzzle = BotanicalPark(puzzle_string)
+    puzzle.solve()
+    print(puzzle)
+    assert puzzle.is_solved()

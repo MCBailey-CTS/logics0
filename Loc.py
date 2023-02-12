@@ -126,6 +126,19 @@ class Loc:
             __next = __next.west()
         return __locs
 
+
+    def vector_locs(self, vector: 'Loc', stop_predicate)->'list[Loc]':
+        __return: 'list[Loc]' = []
+
+        __loc = self
+
+        while not stop_predicate(__loc):
+            __return.append(__loc)
+            __loc = Loc(__loc.row + vector.row, __loc.col + vector.col)
+
+
+        return __return
+
     def south(self, offset: int = 1) -> 'Loc':
         return Loc(self.__row + offset, self.__col)
 
