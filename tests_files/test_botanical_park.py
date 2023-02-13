@@ -12,33 +12,24 @@ MINUS = '-'
 
 
 class BotanicalPark:
-    def __init__(self, __puzzle: str | dict) -> None:
-        if isinstance(__puzzle, str):
-            self.__is_json = False
-            __array = []
-            for line in __puzzle.replace('\n', ' ', -1).split(' '):
-                if len(line) > 0:
-                    __array.append(line)
-            self.__id = __array.pop(0)
-            self.__length = int(__array.pop(0))
-            self.__trees = int(__array.pop(len(__array) - 1))
+    def __init__(self, __json) -> None:
+            self.__json = __json
+            self.id = self.__json['id']
+            self.trees = self.__json['trees']
 
-            self.__grid = numpy.reshape(__array, (len(self), len(self)))
-        else:
-            self.__is_json = True
-            self.__json = __puzzle
-            self.grid = self.__json['grid']
-            self.__id = self.__json['id']
-            # self.grid =   self.__grid
+
+            temp = self.__json['grid']
+
+            self.grid = []
+            for k in temp:
+                self.grid.append(k)
 
     def __len__(self) -> int:
-        if self.__is_json:
-            return int(self.__json['length'])
-        return self.__length
+        return int(self.__json['length'])
 
-    @property
-    def trees(self) -> int:
-        return int(self.__json['trees'])
+    # @property
+    # def trees(self) -> int:
+    #     return int(self.__json['trees'])
 
     # def cell_candidates(self, loc: Loc) -> list[str]:
     #     # string = self.__grid[loc.row][loc.col]
@@ -79,22 +70,11 @@ class BotanicalPark:
     #     return edits
 
     def __str__(self) -> str:
-        __string = f'{self.__id}\n'
+        __string = f'{self.id}\n'
         __string += f'{len(self)}\n'
         for __r in range(len(self)):
             for __c in range(len(self)):
-                __loc = Loc(__r, __c)
-
-                __cell_string = self.__grid[__r][__c]
-
-                if __cell_string in ['nn', 'ss', 'ww', 'ee', 'ne', 'nw', 'se', 'sw', ]:
-                    __string += f'{Fore.CYAN}{__cell_string}{Fore.RESET} '
-                elif __cell_string == '+_':
-                    __string += f'{Fore.GREEN}TT{Fore.RESET} '
-                elif __cell_string == '_-':
-                    __string += f'.. '
-                else:
-                    __string += f'{self.__grid[__r][__c]}'.ljust(11) + ' '
+                __string += f'{self.grid[__r][__c]}'.ljust(11) + ' '
             __string += '\n'
         __string += f'{self.trees}'
         return __string
@@ -350,8 +330,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
 # )
 
 
-def test_botanical_park_001():
-    t = json.loads(
+botanical_park_001 = json.loads(
         '{ '
         '   "id"     : "001.botanical_park", '
         '   "length" : 5, '
@@ -366,11 +345,20 @@ def test_botanical_park_001():
         '       ]'
         '}'
     )
-    puzzle = BotanicalPark(t)
-    puzzle.solve()
-    if puzzle.is_solved():
-        return
-    print(puzzle.grid)
+
+def test_botanical_park_001():
+    puzzle = BotanicalPark(botanical_park_001)
+    # # puzzle.solve()
+    # # if puzzle.is_solved():
+    # #     return
+    #
+    #
+    # # puzzle.grid
+    #
+    # puzzle.grid[0][0].remove('+')
+    #
+    #
+    # print(puzzle)
     assert False
 
 

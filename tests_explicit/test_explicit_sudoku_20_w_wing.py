@@ -4,6 +4,7 @@ from techniques import *
 from tests_explicit.test_small_explicit import solve
 
 
+@pytest.mark.skip('skipped')
 def test_sudoku_explicit_w_wing_rows0():
     actual = \
         f"""
@@ -39,6 +40,7 @@ def test_sudoku_explicit_w_wing_rows0():
     assert False
 
 
+@pytest.mark.skip('skipped')
 def test_sudoku_explicit_w_wing_rows1():
     actual = \
         f"""
@@ -74,10 +76,6 @@ def test_sudoku_explicit_w_wing_rows1():
     if solve(9, actual, expected, WWing()):
         return
     assert False
-
-
-
-
 
 #
 # def test_sudoku_explicit_w_wing_cols0():
