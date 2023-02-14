@@ -225,7 +225,7 @@ class Loc:
         ]
 
         for temp in directions:
-            if temp.row < stop and temp.col < stop:
+            if 0 <= temp.row < stop and 0 <= temp.col < stop:
                 valid.append(temp)
 
         return valid
