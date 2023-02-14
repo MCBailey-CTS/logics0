@@ -134,6 +134,14 @@ class Loc:
             __next = __next.west().north()
         return __locs
 
+    def south_west_locs(self, stop_row) -> 'list[Loc]':
+        __locs = []
+        __next = self.west().south()
+        while __next.col >= 0 and __next.row < stop_row:
+            __locs.append(__next)
+            __next = __next.west().south()
+        return __locs
+
     def west_locs(self) -> 'list[Loc]':
         __locs = []
         __next = self.west()
