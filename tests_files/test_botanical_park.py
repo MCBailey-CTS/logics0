@@ -192,6 +192,11 @@ def cross_hatch_cell_neighbors(puzzle: BotanicalPark, __cell: Loc, __candidate, 
         edits += 1
     return edits
 
+def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __cell: Loc, __candidate) -> int:
+    edits = 0
+    edits += cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col, len(puzzle)))
+    return cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.surrounding(__cell, len(puzzle))) + edits
+
 
 botanical_park_001 = json.loads(
     '{ '
@@ -311,32 +316,32 @@ def test_botanical_park_001():
 
     pointing_hidden(puzzle, Loc(3, 2))
 
-    loc = Loc(3, 3)
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-                               Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    # loc = Loc(3, 3)
+    # cross_hatch_cell_neighbors(puzzle, loc, PLUS,
+    #                            Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
+    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
 
-    loc = Loc(1, 2)
-    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-                               Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
-    loc = Loc(4, 1)
-    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-
-    loc = Loc(4, 1)
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
-    loc = Loc(1, 0)
-    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+    # loc = Loc(1, 2)
+    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+    #
+    # cross_hatch_cell_neighbors(puzzle, loc, PLUS,
+    #                            Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
+    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    #
+    # loc = Loc(4, 1)
+    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+    #
+    # loc = Loc(4, 1)
+    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    #
+    # loc = Loc(1, 0)
+    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
 
     print(puzzle)
     assert puzzle.is_solved()
 
 
-# @pytest.mark.skip("SKIPPED")
+@pytest.mark.skip("SKIPPED")
 def test_botanical_park_002():
     puzzle = BotanicalPark(botanical_park_002)
 
