@@ -1,18 +1,222 @@
-# from typing import Union
+import json
 from typing import Optional
 
-import numpy
 import pytest
-from colorama import Fore
 
 from Loc import Loc
-import json
+
+botanical_park_001 = json.loads(
+    '{ '
+    '   "id"     : "001.botanical_park", '
+    '   "length" : 5, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn"      ], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "ee",       ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
+    '       ]'
+    '}'
+)
+
+botanical_park_003 = json.loads(
+    '{ '
+    '   "id"     : "003.botanical_park", '
+    '   "length" : 5, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "nn"      ]  '
+    '       ]'
+    '}'
+)
+
+botanical_park_002 = json.loads(
+    '{ '
+    '   "id"     : "002.botanical_park", '
+    '   "length" : 5, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "ne",       ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "nw",       ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
+    '       ]'
+    '}'
+)
+
+botanical_park_004 = json.loads(
+    '{ '
+    '   "id"     : "004.botanical_park", '
+    '   "length" : 6, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           ["ne"      , ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]] '
+    '       ]'
+    '}'
+)
+
+botanical_park_005 = json.loads(
+    '{ '
+    '   "id"     : "005.botanical_park", '
+    '   "length" : 6, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ne"      , ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ] '
+    '       ]'
+    '}'
+)
+
+botanical_park_006 = json.loads(
+    '{ '
+    '   "id"     : "006.botanical_park", '
+    '   "length" : 6, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ], '
+    '           [["+", "-"], "nw"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"]] '
+    '       ]'
+    '}'
+)
+
+botanical_park_007 = json.loads(
+    '{ '
+    '   "id"     : "007.botanical_park", '
+    '   "length" : 7, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], "ne"      , ["+", "-"], "nn"      , ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], "ss"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]] '
+    '       ]'
+    '}'
+)
+
+botanical_park_008 = json.loads(
+    '{ '
+    '   "id"     : "008.botanical_park", '
+    '   "length" : 7, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ww"      , ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], "nn"      , "sw"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+    '           [["+", "-"], "ee"      , ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "nw"      ] '
+    '       ]'
+    '}'
+)
+
+botanical_park_009 = json.loads(
+    '{ '
+    '   "id"     : "009.botanical_park", '
+    '   "length" : 7, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           ["ne"      , ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], "ne"      , ["+", "-"], "nn"      , ["+", "-"], ["+", "-"], "ww"      ],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
+    '       ]'
+    '}'
+)
+
+botanical_park_010 = json.loads(
+    '{ '
+    '   "id"     : "010.botanical_park", '
+    '   "length" : 8, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           ["ne"      , "se"      , ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "ww"      , "sw"      ],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
+    '       ]'
+    '}'
+)
+
+botanical_park_011 = json.loads(
+    '{ '
+    '   "id"     : "011.botanical_park", '
+    '   "length" : 8, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ],'
+    '           [["+", "-"], "ne"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
+    '       ]'
+    '}'
+)
+
+botanical_park_012 = json.loads(
+    '{ '
+    '   "id"     : "012.botanical_park", '
+    '   "length" : 8, '
+    '   "trees"  : 1, '
+    '   "grid"   : '
+    '       ['
+    '           [["+", "-"], ["+", "-"], "se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], "ww",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           ["se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss",       ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], "ne",       ["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
+    '           [["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
+    '       ]'
+    '}'
+)
 
 PLUS = '+'
 MINUS = '-'
-
-
-
 
 
 class BotanicalPark:
@@ -21,7 +225,7 @@ class BotanicalPark:
         self.id = self.__json['id']
         self.trees = self.__json['trees']
         temp = self.__json['grid']
-        self.grid = []
+        self.grid: list[list[list]] = []
         for k in temp:
             self.grid.append(k)
 
@@ -38,7 +242,31 @@ class BotanicalPark:
                     return False
         return True
 
+    def __str__(self):
+        string = f'{self.id}\n{len(self)}\n'
+        for r in range(len(self)):
+            for c in range(len(self)):
+                string += f'{str(self.grid[r][c]).ljust(10)} '
+            string += '\n'
+        return string
 
+
+class BotanicalParkPointingHiddenSingle:
+    def __int__(self, __loc: Optional[Loc] = None):
+        self.__loc = __loc
+
+    def solve_cell(self, __loc: Loc) -> int:
+        edits = 0
+
+        return edits
+
+    def solve(self) -> int:
+        edits = 0
+
+        if self.__loc is not None:
+            return self.solve_cell(self.__loc)
+
+        return edits
 
 
 def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
@@ -72,10 +300,6 @@ def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
             case _:
                 return edits
 
-
-
-
-
         __house = [_l for _l in __house if
                    len(puzzle.grid[_l.row][_l.col]) and PLUS in puzzle.grid[_l.row][_l.col]]
 
@@ -88,7 +312,6 @@ def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
             # edits += puzzle.rem([__house[0]], [MINUS])
 
     return edits
-
 
 
 def pointing_required(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
@@ -162,6 +385,42 @@ def pointing_required(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int
     return edits
 
 
+def pointing_opposite_nsew(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
+    edits = 0
+
+    if __loc is not None:
+        _cell_string = puzzle.grid[__loc.row][__loc.col]
+
+        __house: list[Loc]
+
+        # print(_cell_string)
+
+        match _cell_string:
+            case 'nn':
+                __house = __loc.south_locs(len(puzzle))
+            case 'ww':
+                __house = __loc.east_locs(len(puzzle))
+            case 'ss':
+                __house = __loc.north_locs()
+            case 'ee':
+                __house = __loc.west_locs()
+            case _:
+                return edits
+
+        for __l in __house:
+            if PLUS in puzzle.grid[__l.row][__l.col]:
+                puzzle.grid[__l.row][__l.col].remove(PLUS)
+                edits += 1
+
+        # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+        #     temp: list = puzzle.grid[__house[0].row][__house[0].col]
+        #     temp.remove(MINUS)
+        #     edits += 1
+        #     # edits += puzzle.rem([__house[0]], [MINUS])
+
+    return edits
+
+
 def hidden_single_cell_neighbors(puzzle: BotanicalPark, __candidate, __neighbors: list[Loc]) -> int:
     edits = 0
     iterator = (__loc for __loc in __neighbors if __candidate in puzzle.grid[__loc.row][__loc.col])
@@ -192,116 +451,12 @@ def cross_hatch_cell_neighbors(puzzle: BotanicalPark, __cell: Loc, __candidate, 
         edits += 1
     return edits
 
+
 def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __cell: Loc, __candidate) -> int:
     edits = 0
-    edits += cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col, len(puzzle)))
+    edits += cross_hatch_cell_neighbors(puzzle, __cell, PLUS,
+                                        Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col, len(puzzle)))
     return cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.surrounding(__cell, len(puzzle))) + edits
-
-
-botanical_park_001 = json.loads(
-    '{ '
-    '   "id"     : "001.botanical_park", '
-    '   "length" : 5, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn"      ], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "ee",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
-    '       ]'
-    '}'
-)
-
-botanical_park_002 = json.loads(
-    '{ '
-    '   "id"     : "002.botanical_park", '
-    '   "length" : 5, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "ne",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "nw",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
-    '       ]'
-    '}'
-)
-
-
-botanical_park_004 = json.loads(
-    '{ '
-    '   "id"     : "004.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           ["ne"      , ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]] '
-    '       ]'
-    '}'
-)
-
-botanical_park_005 = json.loads(
-    '{ '
-    '   "id"     : "005.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ne"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ] '
-    '       ]'
-    '}'
-)
-
-botanical_park_006 = json.loads(
-    '{ '
-    '   "id"     : "006.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ], '
-    '           [["+", "-"], "nw"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"]] '
-    '       ]'
-    '}'
-)
-
-
-
-botanical_park_012 = json.loads(
-    '{ '
-    '   "id"     : "012.botanical_park", '
-    '   "length" : 8, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], "se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], "ww",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           ["se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss",       ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], "ne",       ["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
-    '       ]'
-    '}'
-)
 
 
 def test_botanical_park_001():
@@ -309,327 +464,295 @@ def test_botanical_park_001():
 
     pointing_hidden(puzzle, Loc(1, 4))
 
-    loc = Loc(0, 4)
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-                               Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 4), PLUS)
 
     pointing_hidden(puzzle, Loc(3, 2))
 
-    # loc = Loc(3, 3)
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-    #                            Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 3), PLUS)
 
-    # loc = Loc(1, 2)
-    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-    #
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-    #                            Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-    #
-    # loc = Loc(4, 1)
-    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-    #
-    # loc = Loc(4, 1)
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-    #
-    # loc = Loc(1, 0)
-    # hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+    loc = Loc(1, 2)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+
+    cross_hatch_cell_row_col_touching(puzzle, loc, PLUS)
+
+    loc = Loc(4, 1)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
+
+    loc = Loc(4, 1)
+    cross_hatch_cell_row_col_touching(puzzle, loc, PLUS)
+
+    loc = Loc(1, 0)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
 
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_002():
     puzzle = BotanicalPark(botanical_park_002)
 
-    loc = Loc(1, 2)
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-    #                            Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
+    pointing_hidden(puzzle, Loc(1, 2))
 
-    pointing_hidden(puzzle, loc)
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 3), PLUS)
 
-    # puzzle.solve()
+    puzzle.grid[2][0].remove(PLUS)
+    puzzle.grid[1][1].remove(PLUS)
+
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(1, len(puzzle)))
+
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0), PLUS)
+
+    puzzle.grid[4][2].remove(PLUS)
+
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(2, len(puzzle)))
+
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 2), PLUS)
+
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(1, len(puzzle)))
+
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 1), PLUS)
+
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(4, len(puzzle)))
+
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_003():
-    puzzle_string = f"""
-    003.botanical_park
-    5
-    +- +- +- +- +-
-    +- +- ww +- +-
-    +- +- +- +- +-
-    +- +- +- +- +-
-    +- +- nw +- nn
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
-
-    puzzle_string = str(puzzle)
-
-    print(puzzle_string)
-
+    puzzle = BotanicalPark(botanical_park_003)
+    pointing_opposite_nsew(puzzle, Loc(1, 2))
+    pointing_required(puzzle, Loc(1, 2))
+    pointing_hidden(puzzle, Loc(4, 2))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 1), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(0, len(puzzle)))
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(2, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 2), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(4, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(3, len(puzzle)))
+    print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_004():
     puzzle = BotanicalPark(botanical_park_004)
-
     pointing_hidden(puzzle, Loc(2, 2))
     pointing_hidden(puzzle, Loc(4, 4))
-
-    loc = Loc(2, 1)
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-                               Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 1), PLUS)
     pointing_hidden(puzzle, Loc(2, 0))
-
-    loc = Loc(5, 4)
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS,
-                               Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 4), PLUS)
     loc = Loc(0, 2)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(4, len(puzzle)))
-
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(1, len(puzzle)))
-
     loc = Loc(1, 5)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(3, len(puzzle)))
-
-    # # puzzle.solve()
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_005():
     puzzle = BotanicalPark(botanical_park_005)
-
     pointing_hidden(puzzle, Loc(2, 4))
-
     loc = Loc(1, 5)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
     pointing_required(puzzle, Loc(3, 3))
-
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(4, len(puzzle)))
-
     loc = Loc(3, 4)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
     loc = Loc(3, 3)
-
     pointing_hidden(puzzle, loc)
-
     loc = Loc(5, 3)
-
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
-    # loc =
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(4, len(puzzle)))
-
     pointing_hidden(puzzle, Loc(0, 5))
-
     loc = Loc(4, 1)
-
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
     pointing_hidden(puzzle, Loc(5, 5))
-
-    # explicit
-
     puzzle.grid[0][0].remove(MINUS)
-
     loc = Loc(0, 0)
-    #
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-    # cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(2, len(puzzle)))
-
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_006():
     puzzle = BotanicalPark(botanical_park_006)
-
-    pointing_hidden(puzzle, Loc(4,1))
+    pointing_hidden(puzzle, Loc(4, 1))
     loc = Loc(3, 0)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
-
-    # print(Loc.surrounding(loc, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
-    pointing_hidden(puzzle, Loc(5,4))
+    pointing_hidden(puzzle, Loc(5, 4))
     loc = Loc(4, 3)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
                                Loc.house_row(loc.row, len(puzzle)) + Loc.house_col(loc.col, len(puzzle)))
     cross_hatch_cell_neighbors(puzzle, loc, PLUS, Loc.surrounding(loc, len(puzzle)))
-
-
+    puzzle.grid[2][2].remove(PLUS)
+    puzzle.grid[0][1].remove(PLUS)
+    puzzle.grid[1][1].remove(PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(1, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 1), PLUS)
+    puzzle.grid[1][4].remove(PLUS)
+    puzzle.grid[1][5].remove(PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(1, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 2), PLUS)
+    pointing_hidden(puzzle, Loc(3, 5))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(0, len(puzzle)))
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_007():
-    puzzle_string = f"""
-    007.botanical_park
-    7
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    +- +- +- ne +- nn +-
-    +- +- +- nw +- +- +-
-    +- +- +- +- +- +- +-
-    +- ss +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
+    puzzle = BotanicalPark(botanical_park_007)
+    pointing_required(puzzle, Loc(2, 5))
+    pointing_hidden(puzzle, Loc(2, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 5), PLUS)
+    pointing_hidden(puzzle, Loc(5, 1))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(6, 1), PLUS)
+    pointing_hidden(puzzle, Loc(3, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 2), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(1, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0), PLUS)
+    puzzle.grid[4][4].remove(PLUS)
+    puzzle.grid[5][4].remove(PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(4, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(4, len(puzzle)))
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(3, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 3), PLUS)
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_008():
-    puzzle_string = f"""
-    008.botanical_park
-    7
-    +- +- +- +- +- ww +-
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    +- +- nn sw +- +- +-
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    +- ee +- +- nw +- nw
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
+    puzzle = BotanicalPark(botanical_park_008)
+    pointing_opposite_nsew(puzzle, Loc(0, 5))
+    pointing_opposite_nsew(puzzle, Loc(3, 2))
+    pointing_opposite_nsew(puzzle, Loc(6, 1))
+    pointing_hidden(puzzle, Loc(3, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 1), PLUS)
+    pointing_hidden(puzzle, Loc(6, 4))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 0), PLUS)
+    puzzle.grid[0][3].remove(PLUS)
+    puzzle.grid[1][3].remove(PLUS)
+    pointing_hidden(puzzle, Loc(6, 6))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(3, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 6), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(0, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 2), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(1, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 5), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(6, len(puzzle)))
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_009():
-    puzzle_string = f"""
-    009.botanical_park
-    7
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    ne +- +- +- nw +- +-
-    +- ne +- nn +- +- ww
-    +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +-
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
+    puzzle = BotanicalPark(botanical_park_009)
+    puzzle.grid[0][1].remove(PLUS)
+    puzzle.grid[2][3].remove(PLUS)
+    pointing_hidden(puzzle, Loc(3, 4))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 2), PLUS)
+    pointing_hidden(puzzle, Loc(4, 1))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 5), PLUS)
+    pointing_hidden(puzzle, Loc(4, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 3), PLUS)
+    pointing_hidden(puzzle, Loc(4, 6))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 0), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(2, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(2, 6), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(5, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(6, len(puzzle)))
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_010():
-    puzzle_string = f"""
-    010.botanical_park
-    8
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    ne se +- ww +- +- +- +-
-    +- +- +- +- nw +- ww sw
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
+    puzzle = BotanicalPark(botanical_park_010)
+    # puzzle.solve()
+    pointing_hidden(puzzle, Loc(3, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 2), PLUS)
+    pointing_hidden(puzzle, Loc(3, 0))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 3), PLUS)
+    pointing_hidden(puzzle, Loc(4, 4))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 1), PLUS)
+    puzzle.grid[7][4].remove(PLUS)
+    puzzle.grid[6][5].remove(PLUS)
+    pointing_hidden(puzzle, Loc(4, 7))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 6), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(4, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 0), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(6, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(6, 4), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(7, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(7, 7), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(2, len(puzzle)))
     print(puzzle)
     assert puzzle.is_solved()
 
 
-@pytest.mark.skip("SKIPPED")
 def test_botanical_park_011():
-    puzzle_string = f"""
-    011.botanical_park
-    8
-    +- +- +- +- +- +- +- sw
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    +- +- +- +- +- +- +- sw
-    +- ne +- +- +- +- +- +-
-    +- +- ww +- +- +- +- +-
-    +- +- +- ww +- +- +- +-
-    +- +- +- +- +- +- +- +-
-    1
-    """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
+    puzzle = BotanicalPark(botanical_park_011)
+    pointing_required(puzzle, Loc(5, 2))
+    pointing_opposite_nsew(puzzle, Loc(5, 2))
+    pointing_hidden(puzzle, Loc(6, 3))
+    pointing_opposite_nsew(puzzle, Loc(6, 3))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(6, 2), PLUS)
+    pointing_hidden(puzzle, Loc(5, 2))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 2), PLUS)
+    pointing_hidden(puzzle, Loc(3, 7))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 6), PLUS)
+    puzzle.grid[2][5].remove(PLUS)
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 0), PLUS)
+    pointing_hidden(puzzle, Loc(0, 7))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(3, 4), PLUS)
+    pointing_hidden(puzzle, Loc(4, 1))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 5), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(3, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 3), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(7, len(puzzle)))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(7, 7), PLUS)
+    hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(2, len(puzzle)))
+
     print(puzzle)
     assert puzzle.is_solved()
-
-
-class BotanicalParkPointingHiddenSingle:
-    def __int__(self, __loc: Optional[Loc] = None):
-        self.__loc = __loc
-
-    def solve_cell(self, __loc: Loc) -> int:
-        edits = 0
-
-        return edits
-
-    def solve(self) -> int:
-        edits = 0
-
-        if self.__loc is not None:
-            return self.solve_cell(self.__loc)
-
-        return edits
-
-
-
 
 
 @pytest.mark.skip("SKIPPED")
 def test_botanical_park_012():
-    # from Loc import Loc
     puzzle = BotanicalPark(botanical_park_012)
-
     pointing_hidden(puzzle, Loc(1, 1))
-    cross_hatch_cell_neighbors(puzzle, Loc(1, 0), PLUS, Loc.house_row(1, len(puzzle)) + Loc.house_col(0, len(puzzle)))
-    cross_hatch_cell_neighbors(puzzle, Loc(1, 0), PLUS, Loc.surrounding(Loc(1, 0), len(puzzle)))
-
+    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0), PLUS)
+    pointing_opposite_nsew(puzzle, Loc(3, 4))
+    pointing_opposite_nsew(puzzle, Loc(5, 4))
+    pointing_hidden(puzzle, Loc(5, 4))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 4), PLUS)
+    pointing_hidden(puzzle, Loc(5, 1))
+    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 6), PLUS)
+    puzzle.grid[5][7].remove(MINUS)
+    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 7), PLUS)
+    puzzle.grid[2][2].remove(PLUS)
+    puzzle.grid[7][1].remove(PLUS)
+    # x-wing
+    puzzle.grid[6][3].remove(PLUS)
+    puzzle.grid[6][5].remove(PLUS)
     print(puzzle)
     assert puzzle.is_solved()
-# 573
