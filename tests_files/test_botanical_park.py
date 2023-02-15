@@ -538,3 +538,6 @@ def test_botanical_park_012():
     puzzle.grid[6][5].remove(PLUS)
     print(puzzle)
     assert puzzle.is_solved()
+
+
+
