@@ -4,216 +4,25 @@ from typing import Optional
 import pytest
 
 from Loc import Loc
+from Constants import Constants
 
-botanical_park_001 = json.loads(
-    '{ '
-    '   "id"     : "001.botanical_park", '
-    '   "length" : 5, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn"      ], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "ee",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
-    '       ]'
-    '}'
-)
 
-botanical_park_003 = json.loads(
-    '{ '
-    '   "id"     : "003.botanical_park", '
-    '   "length" : 5, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "nn"      ]  '
-    '       ]'
-    '}'
-)
 
-botanical_park_002 = json.loads(
-    '{ '
-    '   "id"     : "002.botanical_park", '
-    '   "length" : 5, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "ne",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "nw",       ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
-    '       ]'
-    '}'
-)
-
-botanical_park_004 = json.loads(
-    '{ '
-    '   "id"     : "004.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           ["ne"      , ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]] '
-    '       ]'
-    '}'
-)
-
-botanical_park_005 = json.loads(
-    '{ '
-    '   "id"     : "005.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ne"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], "ss"      , ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ] '
-    '       ]'
-    '}'
-)
-
-botanical_park_006 = json.loads(
-    '{ '
-    '   "id"     : "006.botanical_park", '
-    '   "length" : 6, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      ], '
-    '           [["+", "-"], "nw"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"]] '
-    '       ]'
-    '}'
-)
-
-botanical_park_007 = json.loads(
-    '{ '
-    '   "id"     : "007.botanical_park", '
-    '   "length" : 7, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], "ne"      , ["+", "-"], "nn"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], "ss"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]] '
-    '       ]'
-    '}'
-)
-
-botanical_park_008 = json.loads(
-    '{ '
-    '   "id"     : "008.botanical_park", '
-    '   "length" : 7, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ww"      , ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], "nn"      , "sw"      , ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
-    '           [["+", "-"], "ee"      , ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "nw"      ] '
-    '       ]'
-    '}'
-)
-
-botanical_park_009 = json.loads(
-    '{ '
-    '   "id"     : "009.botanical_park", '
-    '   "length" : 7, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           ["ne"      , ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], "ne"      , ["+", "-"], "nn"      , ["+", "-"], ["+", "-"], "ww"      ],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
-    '       ]'
-    '}'
-)
-
-botanical_park_010 = json.loads(
-    '{ '
-    '   "id"     : "010.botanical_park", '
-    '   "length" : 8, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           ["ne"      , "se"      , ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nw"      , ["+", "-"], "ww"      , "sw"      ],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
-    '       ]'
-    '}'
-)
-
-botanical_park_011 = json.loads(
-    '{ '
-    '   "id"     : "011.botanical_park", '
-    '   "length" : 8, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "sw"      ],'
-    '           [["+", "-"], "ne"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], "ww"      , ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
-    '       ]'
-    '}'
-)
-
-botanical_park_012 = json.loads(
-    '{ '
-    '   "id"     : "012.botanical_park", '
-    '   "length" : 8, '
-    '   "trees"  : 1, '
-    '   "grid"   : '
-    '       ['
-    '           [["+", "-"], ["+", "-"], "se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], "ww",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           ["se",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "ss",       ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], "ne",       ["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],'
-    '           [["+", "-"], ["+", "-"], "nn",       ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]'
-    '       ]'
-    '}'
-)
+# hidden_stars_001 = json.loads(
+#     '{ '
+#     '   "id"     : "001.hidden_stars", '
+#     '   "length" : 4, '
+#     '   "stars"  : 0, '
+#     '   "grid"   : '
+#     '       ['
+#     '           [["+", "-"], ["+", "-"], ["+", "-"], "ww"      , 2], '
+#     '           [["+", "-"], "se"      , ["+", "-"], ["+", "-"], 1], '
+#     '           [["+", "-"], ["+", "-"], "ww"      , ["+", "-"], 1], '
+#     '           ["ne"      , ["+", "-"], "nn"      , ["+", "-"], 1], '
+#     '           [1,          2,          1,          1,          $], '
+#     '       ]'
+#     '}'
+# )
 
 PLUS = '+'
 MINUS = '-'
@@ -250,23 +59,6 @@ class BotanicalPark:
             string += '\n'
         return string
 
-
-class BotanicalParkPointingHiddenSingle:
-    def __int__(self, __loc: Optional[Loc] = None):
-        self.__loc = __loc
-
-    def solve_cell(self, __loc: Loc) -> int:
-        edits = 0
-
-        return edits
-
-    def solve(self) -> int:
-        edits = 0
-
-        if self.__loc is not None:
-            return self.solve_cell(self.__loc)
-
-        return edits
 
 
 def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
@@ -460,36 +252,26 @@ def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __cell: Loc, __cand
 
 
 def test_botanical_park_001():
-    puzzle = BotanicalPark(botanical_park_001)
-
+    puzzle = BotanicalPark(Constants.botanical_park_001)
     pointing_hidden(puzzle, Loc(1, 4))
-
     cross_hatch_cell_row_col_touching(puzzle, Loc(0, 4), PLUS)
-
     pointing_hidden(puzzle, Loc(3, 2))
-
     cross_hatch_cell_row_col_touching(puzzle, Loc(3, 3), PLUS)
-
     loc = Loc(1, 2)
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-
     cross_hatch_cell_row_col_touching(puzzle, loc, PLUS)
-
     loc = Loc(4, 1)
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-
     loc = Loc(4, 1)
     cross_hatch_cell_row_col_touching(puzzle, loc, PLUS)
-
     loc = Loc(1, 0)
     hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(loc.col, len(puzzle)))
-
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_002():
-    puzzle = BotanicalPark(botanical_park_002)
+    puzzle = BotanicalPark(Constants.botanical_park_002)
 
     pointing_hidden(puzzle, Loc(1, 2))
 
@@ -519,7 +301,7 @@ def test_botanical_park_002():
 
 
 def test_botanical_park_003():
-    puzzle = BotanicalPark(botanical_park_003)
+    puzzle = BotanicalPark(Constants.botanical_park_003)
     pointing_opposite_nsew(puzzle, Loc(1, 2))
     pointing_required(puzzle, Loc(1, 2))
     pointing_hidden(puzzle, Loc(4, 2))
@@ -535,7 +317,7 @@ def test_botanical_park_003():
 
 
 def test_botanical_park_004():
-    puzzle = BotanicalPark(botanical_park_004)
+    puzzle = BotanicalPark(Constants.botanical_park_004)
     pointing_hidden(puzzle, Loc(2, 2))
     pointing_hidden(puzzle, Loc(4, 4))
     cross_hatch_cell_row_col_touching(puzzle, Loc(2, 1), PLUS)
@@ -556,7 +338,7 @@ def test_botanical_park_004():
 
 
 def test_botanical_park_005():
-    puzzle = BotanicalPark(botanical_park_005)
+    puzzle = BotanicalPark(Constants.botanical_park_005)
     pointing_hidden(puzzle, Loc(2, 4))
     loc = Loc(1, 5)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
@@ -591,7 +373,7 @@ def test_botanical_park_005():
 
 
 def test_botanical_park_006():
-    puzzle = BotanicalPark(botanical_park_006)
+    puzzle = BotanicalPark(Constants.botanical_park_006)
     pointing_hidden(puzzle, Loc(4, 1))
     loc = Loc(3, 0)
     cross_hatch_cell_neighbors(puzzle, loc, PLUS,
@@ -619,7 +401,7 @@ def test_botanical_park_006():
 
 
 def test_botanical_park_007():
-    puzzle = BotanicalPark(botanical_park_007)
+    puzzle = BotanicalPark(Constants.botanical_park_007)
     pointing_required(puzzle, Loc(2, 5))
     pointing_hidden(puzzle, Loc(2, 3))
     cross_hatch_cell_row_col_touching(puzzle, Loc(0, 5), PLUS)
@@ -641,7 +423,7 @@ def test_botanical_park_007():
 
 
 def test_botanical_park_008():
-    puzzle = BotanicalPark(botanical_park_008)
+    puzzle = BotanicalPark(Constants.botanical_park_008)
     pointing_opposite_nsew(puzzle, Loc(0, 5))
     pointing_opposite_nsew(puzzle, Loc(3, 2))
     pointing_opposite_nsew(puzzle, Loc(6, 1))
@@ -665,7 +447,7 @@ def test_botanical_park_008():
 
 
 def test_botanical_park_009():
-    puzzle = BotanicalPark(botanical_park_009)
+    puzzle = BotanicalPark(Constants.botanical_park_009)
     puzzle.grid[0][1].remove(PLUS)
     puzzle.grid[2][3].remove(PLUS)
     pointing_hidden(puzzle, Loc(3, 4))
@@ -686,7 +468,7 @@ def test_botanical_park_009():
 
 
 def test_botanical_park_010():
-    puzzle = BotanicalPark(botanical_park_010)
+    puzzle = BotanicalPark(Constants.botanical_park_010)
     # puzzle.solve()
     pointing_hidden(puzzle, Loc(3, 3))
     cross_hatch_cell_row_col_touching(puzzle, Loc(3, 2), PLUS)
@@ -710,7 +492,7 @@ def test_botanical_park_010():
 
 
 def test_botanical_park_011():
-    puzzle = BotanicalPark(botanical_park_011)
+    puzzle = BotanicalPark(Constants.botanical_park_011)
     pointing_required(puzzle, Loc(5, 2))
     pointing_opposite_nsew(puzzle, Loc(5, 2))
     pointing_hidden(puzzle, Loc(6, 3))
@@ -738,7 +520,7 @@ def test_botanical_park_011():
 
 @pytest.mark.skip("SKIPPED")
 def test_botanical_park_012():
-    puzzle = BotanicalPark(botanical_park_012)
+    puzzle = BotanicalPark(Constants.botanical_park_012)
     pointing_hidden(puzzle, Loc(1, 1))
     cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0), PLUS)
     pointing_opposite_nsew(puzzle, Loc(3, 4))
