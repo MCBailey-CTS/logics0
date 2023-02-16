@@ -4,7 +4,6 @@ import numpy as np
 from colorama import Fore
 
 from Loc import Loc
-from puzzles import *
 from techniques.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques.NakedPair import NakedPair
 from techniques.Technique import Technique
@@ -15,7 +14,7 @@ from techniques.Technique import Technique
 
 class tech:
     class FinnedJellyFish(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             house0 = puzzle.house_col(1)
             house1 = puzzle.house_col(3)
@@ -63,7 +62,7 @@ class tech:
 
     class JellyFish(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             # for candidate in puzzle.expected_candidates():
@@ -152,7 +151,7 @@ class tech:
 
     class SimpleColoring(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             row = puzzle.house_row(2)
@@ -185,7 +184,7 @@ class tech:
             return 0
 
     class ShashimiSwordFish(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             # house0 = puzzle.house_col(1)
@@ -198,13 +197,13 @@ class tech:
             return edits
 
     class ShashimiJellyFish(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             return edits
 
     class NakedTriple(BaseSudokuHouseTechnique):
 
-        # def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+        # def solve_house(self, puzzle, house: list[Loc]) -> int:
         #     edits = 0
         #
         #     naked_count = 3
@@ -243,21 +242,21 @@ class tech:
         #                     if j not in indexes:
         #                         edits += puzzle.rem([house[j]], list(candidate_set))
         #     return edits
-        def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+        def solve_house(self, puzzle, house: list[Loc]) -> int:
             return 0
 
     class NakedQuad(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             return 0
 
     class HiddenTriple(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             edits += self.explicit(puzzle)
             return edits
 
         @staticmethod
-        def explicit(puzzle: Sudoku) -> int:
+        def explicit(puzzle) -> int:
             edits = 0
 
             house = puzzle.house_col(0)
@@ -284,7 +283,7 @@ class tech:
             return edits
 
     class HiddenQuad(Technique):
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             edits += self.explicit(puzzle)
 
@@ -309,7 +308,7 @@ class tech:
             return edits
 
         @staticmethod
-        def explicit(puzzle: Sudoku) -> int:
+        def explicit(puzzle) -> int:
             edits = 0
 
             house = puzzle.house_row(8)
@@ -329,7 +328,7 @@ class tech:
 
     class HiddenPair(BaseSudokuHouseTechnique):
 
-        def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+        def solve_house(self, puzzle, house: list[Loc]) -> int:
             edits = 0
             expected = puzzle.expected_candidates()
             for i in range(len(expected) - 1):
@@ -351,7 +350,7 @@ class tech:
             return edits
 
     # class HiddenUniqueRectangle(Technique):
-    #     def solve0(self, puzzle: Sudoku) -> int:
+    #     def solve0(self, puzzle) -> int:
     #         edits = 0
     #         # return 0
     #         for corner0 in list(puzzle.unsolved_cells()):
@@ -408,14 +407,14 @@ class tech:
 
     class SueDeCoq(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             return edits
 
     class SwordFish(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             # for candidate in puzzle.expected_candidates():
@@ -483,13 +482,13 @@ class tech:
             return edits
 
     # class XyzWing(Technique):
-    #     def solve0(self, puzzle: Sudoku) -> int:
+    #     def solve0(self, puzzle) -> int:
     #         edits = 0
     #
     #         return edits
 
     # class XyWing(Technique):
-    #     def solve0(self, puzzle: Sudoku) -> int:
+    #     def solve0(self, puzzle) -> int:
     #         edits = 0
     #
     #         # explicit
@@ -557,7 +556,7 @@ class tech:
     #         return edits
     #
     #     # @staticmethod
-    #     # def solve1(puzzle: Sudoku, locs: list[Loc]) -> int:
+    #     # def solve1(puzzle, locs: list[Loc]) -> int:
     #     #     edits = 0
     #     #     if len(locs) != 3:
     #     #         return edits
@@ -633,7 +632,7 @@ class tech:
 
     class XChain(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             remove = [Loc(0, 1), Loc(1, 1), Loc(6, 2), Loc(8, 2)]
@@ -646,12 +645,12 @@ class tech:
             return edits
 
     class AlsXz(Technique):
-        def solve0(self, puzzle: Sudoku):
+        def solve0(self, puzzle):
             return 0
 
     class XWing(Technique):
 
-        def solve_two_cell(self, puzzle: Sudoku, cell0: Loc, cell1: Loc, candidate: int) -> int:
+        def solve_two_cell(self, puzzle, cell0: Loc, cell1: Loc, candidate: int) -> int:
             edits = 0
 
             # if cell0.row == cell1.row:
@@ -698,7 +697,7 @@ class tech:
 
             return edits
 
-        def solve_one_cell(self, puzzle: Sudoku, cell0: Loc, candidate: int) -> int:
+        def solve_one_cell(self, puzzle, cell0: Loc, candidate: int) -> int:
 
             edits = 0
             # need to find the next cell to form a base
@@ -716,7 +715,7 @@ class tech:
 
             return edits
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             # # print("here")
             # for r in range(len(puzzle)):
@@ -733,7 +732,7 @@ class tech:
 
     class XyChain(Technique):
 
-        def solve0(self, puzzle: Sudoku) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             end_loc0 = Loc(2, 2)
@@ -1165,13 +1164,13 @@ class tech:
 
     class MathraxHiddenSingle(Technique):
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             return edits
 
     class MathraxMathAddition(Technique):
         @staticmethod
-        def get_valid_and_number(puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+        def get_valid_and_number(puzzle, loc: Loc) -> tuple[bool, Optional[int]]:
             string = puzzle.grid[loc.row][loc.col]
             if '+' in string:
                 return True, int(string.replace('+', ''))
@@ -1180,7 +1179,7 @@ class tech:
         def math_predicate(self, number: int, candidate: int, candidates1) -> bool:
             return number - candidate in candidates1
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(1, len(puzzle) * 2 - 1, 2):
                 for c in range(1, len(puzzle) * 2 - 1, 2):
@@ -1197,7 +1196,7 @@ class tech:
                         edits += self.solve_math(puzzle, number, bl, tr)
             return edits
 
-        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def solve_math(self, puzzle, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
             for candidate in puzzle.expected_candidates():
@@ -1207,7 +1206,7 @@ class tech:
             return edits
 
     class MathraxMathSubtraction(MathraxMathAddition):
-        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+        def get_valid_and_number(self, puzzle, loc: Loc) -> tuple[bool, Optional[int]]:
             string = puzzle.grid[loc.row][loc.col]
             if '-' in string:
                 return True, int(string.replace('-', ''))
@@ -1218,7 +1217,7 @@ class tech:
 
     class MathraxMathMultiplication(MathraxMathAddition):
 
-        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+        def get_valid_and_number(self, puzzle, loc: Loc) -> tuple[bool, Optional[int]]:
             string = puzzle.grid[loc.row][loc.col]
             if 'x' in string:
                 return True, int(string.replace('x', ''))
@@ -1228,19 +1227,19 @@ class tech:
             return number % candidate == 0 and int(number / candidate) in candidates1
 
     class MathraxMathDivision(MathraxMathAddition):
-        def get_valid_and_number(self, puzzle: Mathrax, loc: Loc) -> tuple[bool, Optional[int]]:
+        def get_valid_and_number(self, puzzle, loc: Loc) -> tuple[bool, Optional[int]]:
             string = puzzle.grid[loc.row][loc.col]
             if '/' in string:
                 return True, int(string.replace('/', ''))
             return False, None
 
-        def solve_math(self, puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def solve_math(self, puzzle, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = self.__solve_division(puzzle, number, cell0, cell1)
             edits += self.__solve_division(puzzle, number, cell1, cell0)
             return edits
 
         @staticmethod
-        def __solve_division(puzzle: Mathrax, number: int, cell0: Loc, cell1: Loc) -> int:
+        def __solve_division(puzzle, number: int, cell0: Loc, cell1: Loc) -> int:
             edits = 0
             candidates1 = set(puzzle.cell_candidates(cell1))
             if number == 2:
@@ -1300,7 +1299,7 @@ class tech:
 
     class MathraxMath04XWing(Technique):
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1323,7 +1322,7 @@ class tech:
             return edits
 
     class MathraxOdd(Technique):
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1341,7 +1340,7 @@ class tech:
             return edits
 
     class MathraxEven(Technique):
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1360,7 +1359,7 @@ class tech:
 
     class MathraxMath01MinusXWing(Technique):
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1391,7 +1390,7 @@ class tech:
 
     class MathraxMath02MinusXWing(Technique):
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1422,7 +1421,7 @@ class tech:
 
     class MathraxMath04MinusXWing(Technique):
 
-        def solve0(self, puzzle: Mathrax) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle) * 2 - 1):
                 for c in range(len(puzzle) * 2 - 1):
@@ -1907,7 +1906,7 @@ class tech:
 
     class KropkiBb(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
 
             for center_cell in puzzle.iterate_cells():
@@ -2003,7 +2002,7 @@ class tech:
             return edits
 
     class KropkiBlack(Technique):
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle)):
                 for c in range(len(puzzle)):
@@ -2026,10 +2025,10 @@ class tech:
                         edits += self.solve1(puzzle, loc, other)
             return edits
 
-        def solve1(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve1(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             return self.solve2(puzzle, loc0, loc1) + self.solve2(puzzle, loc1, loc0)
 
-        def solve2(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve2(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             edits = 0
             other_candidates = set(puzzle.cell_candidates(loc1))
             for candidate in puzzle.cell_candidates(loc0):
@@ -2042,7 +2041,7 @@ class tech:
 
     class KropkiBw(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for center_cell in puzzle.iterate_cells():
                 directions = [
@@ -2105,7 +2104,7 @@ class tech:
     class KropkiDiamondEbww(Technique):
         edits = 0
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             black_empty = [5, 7, 9]
             black_white = [1, 5, 7, 9]
             white_empty = [3, 5, 7, 9]
@@ -2147,7 +2146,7 @@ class tech:
     class KropkiDiamondEwbw(Technique):
         edits = 0
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             # black_empty = [5, 7, 9]
             black_white = [1]
             # white_empty = [3, 5, 7, 9]
@@ -2182,7 +2181,7 @@ class tech:
     class KropkiDiamond(Technique):
         edits = 0
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             black_black = [1, 8]
             black_white = [1]
 
@@ -2308,7 +2307,7 @@ class tech:
 
             return edits
 
-        def solve_bwwe(self, puzzle: Kropki, loc: Loc) -> int:
+        def solve_bwwe(self, puzzle, loc: Loc) -> int:
             edits = 0
             north = puzzle.grid[loc.north().row][loc.north().col]
             east = puzzle.grid[loc.east().row][loc.east().col]
@@ -2394,7 +2393,7 @@ class tech:
 
             return edits
 
-        def solve_wwwe(self, puzzle: Kropki, white_empty, white_white) -> int:
+        def solve_wwwe(self, puzzle, white_empty, white_white) -> int:
             edits = 0
             # white_empty
             edits += puzzle.rem(white_empty, [3])
@@ -2403,7 +2402,7 @@ class tech:
             return edits
 
     class KropkiDiamondWwwe(Technique):
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(puzzle.grid_length):
                 for c in range(puzzle.grid_length):
@@ -2453,7 +2452,7 @@ class tech:
 
     class KropkiDominatingEmpty(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for cell in puzzle.iterate_cells():
                 directions = [
@@ -2513,7 +2512,7 @@ class tech:
 
     class KropkiEmpty(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             # print("in here")
             edits = 0
             for r in range(len(puzzle)):
@@ -2538,10 +2537,10 @@ class tech:
                         edits += self.solve1(puzzle, loc, other)
             return edits
 
-        def solve1(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve1(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             return self.solve2(puzzle, loc0, loc1) + self.solve2(puzzle, loc1, loc0)
 
-        def solve2(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve2(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             edits = 0
 
             loc0_candidates = puzzle.cell_candidates(loc0)
@@ -2565,7 +2564,7 @@ class tech:
 
     class KropkiWhite(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             for r in range(len(puzzle)):
                 for c in range(len(puzzle)):
@@ -2588,10 +2587,10 @@ class tech:
                         edits += self.solve1(puzzle, loc, other)
             return edits
 
-        def solve1(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve1(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             return self.solve2(puzzle, loc0, loc1) + self.solve2(puzzle, loc1, loc0)
 
-        def solve2(self, puzzle: Kropki, loc0: Loc, loc1: Loc) -> int:
+        def solve2(self, puzzle, loc0: Loc, loc1: Loc) -> int:
             edits = 0
             other_candidates = set(puzzle.cell_candidates(loc1))
             for candidate in puzzle.cell_candidates(loc0):
@@ -2604,7 +2603,7 @@ class tech:
 
     class KropkiWw(Technique):
 
-        def solve0(self, puzzle: Kropki) -> int:
+        def solve0(self, puzzle) -> int:
             edits = 0
             return edits
 

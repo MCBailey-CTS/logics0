@@ -1,6 +1,7 @@
-from puzzles import Sudoku
 from Loc import Loc
 from abc import abstractmethod
+
+from tests_files.test_sudoku import Sudoku
 
 
 class BaseUniqueRectangle:

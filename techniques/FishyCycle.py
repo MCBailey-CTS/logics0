@@ -1,5 +1,4 @@
 from techniques.Technique import Technique
-from puzzles import Sudoku
 from Loc import Loc
 from colorama import Fore, Style
 class FishyCycle(Technique):

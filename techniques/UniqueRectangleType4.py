@@ -1,5 +1,4 @@
 from Loc import Loc
-from puzzles import Sudoku
 
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 import numpy
@@ -8,7 +7,7 @@ from colorama import Fore
 
 class UniqueRectangleType4(BaseUniqueRectangle):
 
-    def solve_temp(self, puzzle: Sudoku, narray: numpy.ndarray) -> int:
+    def solve_temp(self, puzzle, narray: numpy.ndarray) -> int:
         edits = 0
         nw = narray[0][0]
         ne = narray[0][1]

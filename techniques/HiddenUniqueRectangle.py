@@ -1,11 +1,10 @@
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
-from puzzles.Sudoku import Sudoku
 from Loc import Loc
 from colorama import Fore
 
 
 class HiddenUniqueRectangle(BaseUniqueRectangle):
-    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
+    def solve_rectangle(self, puzzle, corners: list[Loc]):
         edits: int = 0
         length_2 = [loc for loc in corners if len(puzzle.cell_candidates(loc)) == 2]
         if len(length_2) != 1:

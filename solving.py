@@ -1,5 +1,4 @@
 from tech import tech
-from techniques import MagnetsTech
 from techniques.AbstractPaintingTech import AbstractPaintingTech
 from techniques.Bug import Bug
 from techniques.CrossHatch import CrossHatch
@@ -9,8 +8,6 @@ from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
-from techniques.Parks1Shapes import Parks1Shapes
-from techniques.Parks1XWing import Parks1XWing
 from techniques.RobotCrosswordsTech import RobotCrosswordsTech, RobotCrosswordsPowerSet
 from techniques.TennerHiddenSingle import TennerHiddenSingle
 from techniques.UniqueRectangleType1 import UniqueRectangleType1

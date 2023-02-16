@@ -1,12 +1,11 @@
 from colorama import Fore
 
-from puzzles import Sudoku
 from techniques.Technique import Technique
 from itertools import combinations
 
 class FinnedXWing(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for row0, row1 in combinations(list(range(len(puzzle))), 2):
             for candidate in puzzle.expected_candidates():

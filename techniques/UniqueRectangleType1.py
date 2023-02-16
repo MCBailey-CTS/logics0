@@ -1,13 +1,12 @@
 from typing import Optional
 
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
-from puzzles import Sudoku
 from Loc import Loc
 import numpy
 
 
 class UniqueRectangleType1(BaseUniqueRectangle):
-    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]) -> int:
+    def solve_rectangle(self, puzzle, corners: list[Loc]) -> int:
         edits = 0
         corner_set = set(corners)
 

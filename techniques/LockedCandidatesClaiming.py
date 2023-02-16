@@ -1,10 +1,9 @@
-from puzzles import Sudoku
 from techniques.Technique import Technique
 
 
 class LockedCandidatesClaiming(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         unsolved = puzzle.unsolved_cells()
 

@@ -1,11 +1,11 @@
-from puzzles import Sudoku
 from Loc import Loc
 from techniques.Technique import Technique
 from colorama import Fore
 
+
 class WWing(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         # house0 = puzzle.house_row(3)
@@ -17,10 +17,10 @@ class WWing(Technique):
         left = Loc(3, 2)
         right = Loc(4, 6)
 
-        if set(puzzle.cell_candidates(left)) == {1,2} and set(puzzle.cell_candidates(right)) == {1,2}:
-            chute = [Loc(3,3), Loc(3,4), Loc(3,5), Loc(4,3), Loc(4,4), Loc(4,5)]
-            bottom = [Loc(5,3),Loc(5,4),Loc(5,5)]
-            remove = [Loc(4,0),Loc(4,1),Loc(4,2),Loc(3,6),Loc(3,7),Loc(3,8)]
+        if set(puzzle.cell_candidates(left)) == {1, 2} and set(puzzle.cell_candidates(right)) == {1, 2}:
+            chute = [Loc(3, 3), Loc(3, 4), Loc(3, 5), Loc(4, 3), Loc(4, 4), Loc(4, 5)]
+            bottom = [Loc(5, 3), Loc(5, 4), Loc(5, 5)]
+            remove = [Loc(4, 0), Loc(4, 1), Loc(4, 2), Loc(3, 6), Loc(3, 7), Loc(3, 8)]
             __candidate = 2
             puzzle.override_loc_color([left, right], Fore.YELLOW)
             puzzle.override_loc_color(chute, Fore.BLUE)
@@ -41,9 +41,6 @@ class WWing(Technique):
             puzzle.override_loc_color(bottom, Fore.GREEN)
             puzzle.override_loc_color(remove, Fore.RED)
             edits += puzzle.rem(remove, [__candidate])
-
-
-
 
         return edits
 

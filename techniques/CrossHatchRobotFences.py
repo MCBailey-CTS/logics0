@@ -1,4 +1,3 @@
-from puzzles import Sudoku
 from techniques.Technique import Technique
 
 

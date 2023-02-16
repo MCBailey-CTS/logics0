@@ -1,12 +1,11 @@
 
-from puzzles import Sudoku
 from techniques.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from Loc import Loc
 
 
 class NakedPair(BaseSudokuHouseTechnique):
     @staticmethod
-    def static_solve_house(puzzle: Sudoku, house: list[Loc]) -> int:
+    def static_solve_house(puzzle, house: list[Loc]) -> int:
         edits = 0
         # print(f'{len(house)} {len(puzzle)}')
         # print(house)
@@ -31,7 +30,7 @@ class NakedPair(BaseSudokuHouseTechnique):
                         edits += puzzle.rem([house[j]], list(candidate_set))
         return edits
 
-    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+    def solve_house(self, puzzle, house: list[Loc]) -> int:
         return NakedPair.static_solve_house(puzzle, house)
 
 
@@ -40,7 +39,7 @@ class NakedPair(BaseSudokuHouseTechnique):
 
 class NakedTriple(BaseSudokuHouseTechnique):
 
-    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+    def solve_house(self, puzzle, house: list[Loc]) -> int:
         edits = 0
 
         naked_count = 3

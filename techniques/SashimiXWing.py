@@ -1,13 +1,12 @@
 from unittest import TestCase
 from techniques.Technique import Technique
-from puzzles import Sudoku
 from Loc import Loc
 from colorama import Fore
 
 
 class SashimiXWing(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         edits += self.solve_row_col(puzzle, puzzle.house_row(2), puzzle.house_row(4), 2)
@@ -25,7 +24,7 @@ class SashimiXWing(Technique):
 
         return edits
 
-    def solve_row_col(self, puzzle: Sudoku, house0: list[Loc], house1: list[Loc], __candidate: int) -> int:
+    def solve_row_col(self, puzzle, house0: list[Loc], house1: list[Loc], __candidate: int) -> int:
         edits = 0
         if __candidate != 1:
             return edits

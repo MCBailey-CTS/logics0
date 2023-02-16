@@ -1,11 +1,10 @@
 from Loc import Loc
-from puzzles import Sudoku
 from techniques.Technique import Technique
 
 
 class HiddenSingle(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         unsolved = puzzle.unsolved_cells()
@@ -18,7 +17,7 @@ class HiddenSingle(Technique):
         return edits
 
     @staticmethod
-    def solve1(puzzle: Sudoku, house: list[Loc]) -> int:
+    def solve1(puzzle, house: list[Loc]) -> int:
         edits = 0
         for cand in puzzle.expected_candidates():
             locs_with_candidate = []

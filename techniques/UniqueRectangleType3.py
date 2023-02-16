@@ -1,4 +1,3 @@
-from puzzles import Sudoku
 from Loc import Loc
 from colorama import Fore
 
@@ -6,7 +5,7 @@ from techniques.Technique import Technique
 
 
 class UniqueRectangleType3(Technique):
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         base0 = Loc(3, 6)

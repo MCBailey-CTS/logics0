@@ -1,11 +1,10 @@
 from Loc import Loc
-from puzzles import Sudoku
 from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 
 
 class AvoidableRectangleType1(BaseUniqueRectangle):
 
-    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]) -> int:
+    def solve_rectangle(self, puzzle, corners: list[Loc]) -> int:
         edits = 0
 
         rows = set([loc.row for loc in corners])

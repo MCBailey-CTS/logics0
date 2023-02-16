@@ -1,11 +1,12 @@
 from abc import abstractmethod
 
 from techniques.Technique import Technique
-from puzzles import Sudoku
 from Loc import Loc
+
+
 class BaseSudokuHouseTechnique(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         unsolved = puzzle.unsolved_cells()
         if len(unsolved) == 0:
@@ -17,5 +18,5 @@ class BaseSudokuHouseTechnique(Technique):
         return edits
 
     @abstractmethod
-    def solve_house(self, puzzle: Sudoku, house: list[Loc]) -> int:
+    def solve_house(self, puzzle, house: list[Loc]) -> int:
         raise NotImplementedError()

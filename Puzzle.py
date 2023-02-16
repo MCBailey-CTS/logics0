@@ -7,9 +7,9 @@ import numpy
 
 class Puzzle:
     def __init__(self,
-                 puzzle: Union[str, numpy.ndarray],
-                 length: Optional[int] = None,
-                 id: Optional[str] = None) -> None:
+                 puzzle: str | numpy.ndarray,
+                 length: int | None = None,
+                 id: str | None = None) -> None:
         self.grid = []
         self.color_override = {}
 
@@ -27,10 +27,9 @@ class Puzzle:
                 continue
             array.append(temp)
         self.__id = array[0]
-        self.__length = int(array[1].replace("$","",-1))
+        self.__length = int(array[1].replace("$", "", -1))
         array.pop(0)
         array.pop(0)
-
 
         for line in array:
             self.grid.append(
@@ -215,7 +214,7 @@ class Puzzle:
                 if include_colors and loc in self.color_override:
                     string += f'{self.color_override[loc]}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                     continue
-                if self.cell_candidates(loc) is not None and  len(self.cell_candidates(loc)) == 0:
+                if self.cell_candidates(loc) is not None and len(self.cell_candidates(loc)) == 0:
                     string += f'{Fore.GREEN}{self.grid[r][c].ljust(len(self))}{Style.RESET_ALL} '
                 else:
                     string += f'{self.grid[r][c].ljust(len(self))} '
