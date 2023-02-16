@@ -1,10 +1,9 @@
 from Loc import Loc
-from puzzles import Sudoku
 from techniques.Technique import Technique
 from colorama import Fore
 
 class XyzWing(Technique):
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for r in range(len(puzzle)):
             for c in range(len(puzzle)):

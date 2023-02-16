@@ -1,12 +1,11 @@
 from techniques.Technique import Technique
-from puzzles import Sudoku
 from Loc import Loc
 from colorama import Fore
 
 
 class XyWing(Technique):
 
-    # def solve1(self, puzzle: Sudoku, pincer0: Loc)->int:
+    # def solve1(self, puzzle, pincer0: Loc)->int:
     #     edits = 0
     #
     #     for r in range(len(puzzle)):
@@ -24,7 +23,7 @@ class XyWing(Technique):
     #
     #     return edits
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         unsolved = puzzle.unsolved_cells()

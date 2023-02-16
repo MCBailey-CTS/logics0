@@ -1,16 +1,15 @@
 from Loc import Loc
 from abc import abstractmethod
 
-from tests_files.test_sudoku import Sudoku
 
 
 class BaseUniqueRectangle:
 
     @abstractmethod
-    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
+    def solve_rectangle(self, puzzle, corners: list[Loc]):
         raise NotImplementedError()
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
 
         edits = 0
 

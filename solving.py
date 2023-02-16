@@ -16,26 +16,26 @@ from techniques.UniqueRectangleType4 import UniqueRectangleType4
 
 
 class Solving:
-    @staticmethod
-    def sudoku_techniques() -> list:
-        return [
-            CrossHatch(),
-            HiddenSingle(),
-            NakedPair(),
-            LockedCandidatesPointing(),
-            LockedCandidatesClaiming(),
-            UniqueRectangleType1(),
-            UniqueRectangleType2(),
-            UniqueRectangleType4(),
-            # FinnedXWing(),
-            Bug(),
-            tech.HiddenPair(),
-            # tech.NakedTriple(),
-            # tech.XWing(),
-            # XyWing(),
-            # SwordFish(),
-            # JellyFish(),
-        ]
+    # @staticmethod
+    # def sudoku_techniques() -> list:
+    #     return [
+    #         CrossHatch(),
+    #         HiddenSingle(),
+    #         NakedPair(),
+    #         LockedCandidatesPointing(),
+    #         LockedCandidatesClaiming(),
+    #         UniqueRectangleType1(),
+    #         UniqueRectangleType2(),
+    #         UniqueRectangleType4(),
+    #         # FinnedXWing(),
+    #         Bug(),
+    #         tech.HiddenPair(),
+    #         # tech.NakedTriple(),
+    #         # tech.XWing(),
+    #         # XyWing(),
+    #         # SwordFish(),
+    #         # JellyFish(),
+    #     ]
 
     @staticmethod
     def kropki_techniques() -> list:

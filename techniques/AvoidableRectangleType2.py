@@ -45,7 +45,7 @@ class AvoidableRectangleType2(BaseUniqueRectangle):
                                 edits += puzzle.rem(remove, [extra_candidate])
         return edits
 
-    def solve_rectangle(self, puzzle: Sudoku, corners: list[Loc]):
+    def solve_rectangle(self, puzzle, corners: list[Loc]):
         edits = 0
         # if puzzle.
         rows = set([loc.row for loc in corners])
