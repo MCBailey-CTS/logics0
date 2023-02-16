@@ -62,7 +62,7 @@ class BotanicalPark:
         return string
 
 
-def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
+def pointing_hidden(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
     edits = 0
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
@@ -87,19 +87,31 @@ def pointing_hidden(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
             case _:
                 return edits
         __house = [_l for _l in __house if
-                   len(puzzle.grid[_l.row][_l.col]) and PLUS in puzzle.grid[_l.row][_l.col]]
-        if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
-            temp: list = puzzle.grid[__house[0].row][__house[0].col]
-            temp.remove(MINUS)
+                   len(puzzle.grid[_l.row][_l.col]) and __candidate in puzzle.grid[_l.row][_l.col]]
+
+        if len(__house) != 1:
+            return edits
+        # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+        #     temp: list = puzzle.grid[__house[0].row][__house[0].col]
+        #     temp.remove(MINUS)
+        #     edits += 1
+
+        for __other in list(puzzle.grid[__house[0].row][__house[0].col]):
+            if __other == __candidate:
+                continue
+
+            # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+            #     temp: list =
+            puzzle.grid[__house[0].row][__house[0].col].remove(__other)
             edits += 1
         return edits
     for r in range(len(puzzle)):
         for c in range(len(puzzle)):
-            edits += pointing_hidden(puzzle, Loc(r, c))
+            edits += pointing_hidden(puzzle, __candidate, Loc(r, c))
     return edits
 
 
-def pointing_required(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
+def pointing_required(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
     edits = 0
 
     if __loc is not None:
@@ -144,18 +156,18 @@ def pointing_required(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int
                 for __loc in __remove:
                     __candidates: list = puzzle.grid[__loc.row][__loc.col]
 
-                    if PLUS in __candidates:
-                        __candidates.remove(PLUS)
+                    if __candidate in __candidates:
+                        __candidates.remove(__candidate)
                         edits += 1
 
         return edits
     for r in range(len(puzzle)):
         for c in range(len(puzzle)):
-            edits += pointing_required(puzzle, Loc(r, c))
+            edits += pointing_required(puzzle, __candidate, Loc(r, c))
     return edits
 
 
-def pointing_opposite_nsew(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -> int:
+def pointing_opposite_nsew(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
     edits = 0
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
@@ -172,13 +184,13 @@ def pointing_opposite_nsew(puzzle: BotanicalPark, __loc: Optional[Loc] = None) -
             case _:
                 return edits
         for __l in __house:
-            if PLUS in puzzle.grid[__l.row][__l.col]:
-                puzzle.grid[__l.row][__l.col].remove(PLUS)
+            if __candidate in puzzle.grid[__l.row][__l.col]:
+                puzzle.grid[__l.row][__l.col].remove(__candidate)
                 edits += 1
         return edits
     for r in range(len(puzzle)):
         for c in range(len(puzzle)):
-            edits += pointing_opposite_nsew(puzzle, Loc(r, c))
+            edits += pointing_opposite_nsew(puzzle, __candidate, Loc(r, c))
     return edits
 
 
@@ -236,185 +248,92 @@ def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __candidate, __cell
     return edits
 
 
-# def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
-#     puzzle: Puzzle = constructor(puzzle_string)
-#     edits = 0
-#     edit_dict = {}
-#     while True:
-#         original_edits = edits
-#         for tech in techniques:
-#             _edits = tech.solve0(puzzle)
-#             if tech.__class__.__name__ not in edit_dict:
-#                 edit_dict[tech.__class__.__name__] = 0
-#             edit_dict[tech.__class__.__name__] += _edits
-#             edits = edits + _edits
-#         if original_edits == edits:
-#             break
-#     if puzzle.is_solved():
-#         return True
-#     for tech in edit_dict:
-#         if edit_dict[tech] == 0:
-#             continue
-#         print(f'{tech}: {edit_dict[tech]}')
-#     print(f'Total edits: {edits}')
-#     print(puzzle.to_string())
-#     return False
+
+techs = [
+    cross_hatch_cell_row_col_touching,
+    pointing_hidden,
+    hidden_single_row_col,
+    pointing_required,
+    pointing_opposite_nsew
+]
+
 
 def test_botanical_park_001():
     puzzle = BotanicalPark(Constants.botanical_park_001)
 
-    # techs = [
-    #     cross_hatch_cell_row_col_touching,
-    #     pointing_hidden
-    # ]
-    #
-    # while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-    #     pass
-
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_002():
     puzzle = BotanicalPark(Constants.botanical_park_002)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[2][0].remove(PLUS)
     puzzle.grid[1][1].remove(PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[4][2].remove(PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_003():
     puzzle = BotanicalPark(Constants.botanical_park_003)
-    pointing_opposite_nsew(puzzle)
-    pointing_required(puzzle)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_004():
     puzzle = BotanicalPark(Constants.botanical_park_004)
-    pointing_hidden(puzzle)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_005():
     puzzle = BotanicalPark(Constants.botanical_park_005)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_required(puzzle)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
     puzzle.grid[0][0].remove(MINUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_006():
     puzzle = BotanicalPark(Constants.botanical_park_006)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[2][2].remove(PLUS)
     puzzle.grid[0][1].remove(PLUS)
     puzzle.grid[1][1].remove(PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[1][4].remove(PLUS)
     puzzle.grid[1][5].remove(PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_007():
     puzzle = BotanicalPark(Constants.botanical_park_007)
-    pointing_required(puzzle)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[4][4].remove(PLUS)
     puzzle.grid[5][4].remove(PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_008():
     puzzle = BotanicalPark(Constants.botanical_park_008)
-    pointing_opposite_nsew(puzzle)
-    pointing_opposite_nsew(puzzle)
-    pointing_opposite_nsew(puzzle)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[0][3].remove(PLUS)
     puzzle.grid[1][3].remove(PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
+
     print(puzzle)
     assert puzzle.is_solved()
 
@@ -423,68 +342,27 @@ def test_botanical_park_009():
     puzzle = BotanicalPark(Constants.botanical_park_009)
     puzzle.grid[0][1].remove(PLUS)
     puzzle.grid[2][3].remove(PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_010():
     puzzle = BotanicalPark(Constants.botanical_park_010)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[7][4].remove(PLUS)
     puzzle.grid[6][5].remove(PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
 
 def test_botanical_park_011():
     puzzle = BotanicalPark(Constants.botanical_park_011)
-    pointing_required(puzzle)
-    pointing_opposite_nsew(puzzle)
-    pointing_hidden(puzzle)
-    pointing_opposite_nsew(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
     puzzle.grid[2][5].remove(PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    pointing_hidden(puzzle)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
-    cross_hatch_cell_row_col_touching(puzzle, PLUS)
-    hidden_single_row_col(puzzle, PLUS)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
 
@@ -494,8 +372,8 @@ def test_botanical_park_012():
     puzzle = BotanicalPark(Constants.botanical_park_012)
     pointing_hidden(puzzle, Loc(1, 1))
     cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0))
-    pointing_opposite_nsew(puzzle)
-    pointing_opposite_nsew(puzzle)
+    pointing_opposite_nsew(puzzle, PLUS)
+    pointing_opposite_nsew(puzzle, PLUS)
     pointing_hidden(puzzle, Loc(5, 4))
     cross_hatch_cell_row_col_touching(puzzle, Loc(4, 4))
     pointing_hidden(puzzle, Loc(5, 1))
