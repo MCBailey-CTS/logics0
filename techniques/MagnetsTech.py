@@ -1,8 +1,8 @@
 from typing import Optional
 
 from Loc import Loc
-from puzzles import Magnets
 from techniques.Technique import Technique
+from tests_files.test_magnets import Magnets
 
 
 class MagnetsTech(Technique):

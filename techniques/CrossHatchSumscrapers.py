@@ -1,9 +1,8 @@
-from puzzles import Sumscrapers
 from techniques.Technique import Technique
 
 
 class CrossHatchSumscrapers(Technique):
-    def solve0(self, puzzle: Sumscrapers) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         houses = []
         for index in range(len(puzzle)):

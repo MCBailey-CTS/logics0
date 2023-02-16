@@ -1,9 +1,8 @@
 from techniques.AbstractPaintingScraperAndHouse import AbstractPaintingScraperAndHouse
-from puzzles import AbstractPainting
 from typing import Optional
 from Loc import Loc
 class AbstractPaintingTech(AbstractPaintingScraperAndHouse):
-    def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
+    def solve1(self, puzzle, scraper: Optional[int], house: list[Loc]) -> int:
         edits = 0
         solved_abstract = []
         solved_empty = []

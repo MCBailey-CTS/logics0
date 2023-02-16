@@ -1,8 +1,6 @@
-from puzzles import Sudoku
-from techniques.Technique import Technique
-from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 from Loc import Loc
-from colorama import Fore
+from puzzles import Sudoku
+from techniques.BaseUniqueRectangle import BaseUniqueRectangle
 
 
 class AvoidableRectangleType1(BaseUniqueRectangle):

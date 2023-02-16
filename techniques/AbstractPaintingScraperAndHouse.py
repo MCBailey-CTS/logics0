@@ -1,4 +1,3 @@
-from puzzles import AbstractPainting
 from typing import Optional
 from abc import abstractmethod
 from Loc import Loc
@@ -7,10 +6,10 @@ from techniques.Technique import Technique
 
 class AbstractPaintingScraperAndHouse(Technique):
     @abstractmethod
-    def solve1(self, puzzle: AbstractPainting, scraper: Optional[int], house: list[Loc]) -> int:
+    def solve1(self, puzzle, scraper: Optional[int], house: list[Loc]) -> int:
         raise NotImplementedError()
 
-    def solve0(self, puzzle: AbstractPainting) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for index in range(len(puzzle)):
             row_house = puzzle.house_row(index)

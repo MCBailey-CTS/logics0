@@ -1,9 +1,10 @@
 from typing import Optional, Union
 
-from puzzles import Puzzle
 from Loc import Loc
 import numpy
 from colorama import Fore, Style
+
+from Puzzle import Puzzle
 
 
 class Sudoku(Puzzle):

@@ -1,8 +1,37 @@
 import pytest
 
+from Loc import Loc
 from _defaults import default_test_puzzle
-from puzzles import AbstractPainting
 from solving import Solving
+from tests_files.test_power_grid import PowerGrid
+
+
+class AbstractPainting(PowerGrid):
+    def __init__(self, puzzle: str) -> None:
+        super().__init__(puzzle)
+
+    def __is_solved0(self, house: list[Loc], power: int | None) -> bool:
+        ABSTRACT = 1
+        EMPTY = 0
+
+        candidates_array = [self.cell_candidates(loc) for loc in house]
+
+        all_cells_solved = [len(candidates_array[index]) == 1 for index in range(len(candidates_array))]
+
+        if not all(all_cells_solved):
+            return False
+
+        solved_abstract_locs = [loc for loc in house if self.is_cell_solved(loc, ABSTRACT)]
+
+        return power is None or power == len(solved_abstract_locs)
+
+    def is_solved(self) -> bool:
+        for index in range(len(self)):
+            if not self.__is_solved0(self.house_row(index), self.east_scraper(index)):
+                return False
+            if not self.__is_solved0(self.house_col(index), self.south_scraper(index)):
+                return False
+        return True
 
 
 def test_abstract_painting_001():

@@ -1,7 +1,414 @@
 import pytest
 
-from puzzles import Magnets, Puzzle
-from solving import Solving
+from Puzzle import Puzzle
+from typing import Optional
+
+from techniques import MagnetsTech
+
+PLUS = '+'
+MINUS = '-'
+EMPTY = '.'
+from Loc import Loc
+from colorama import Fore, Style, Back
+import numpy
+
+
+class Magnets:
+    def __init__(self, __puzzle: str) -> None:
+        __array = []
+        for line in __puzzle.replace('\n', ' ', -1).split(' '):
+            if len(line) > 0:
+                __array.append(line)
+        self.__id = __array[0]
+        self.__length = int(__array[1])
+        __array.pop(0)
+        __array.pop(0)
+
+        # __temp = []
+        #
+        # for item in __array:
+
+        self.__grid = numpy.reshape(__array, (self.__length + 2, self.__length + 2))
+
+        # for r in range(len(self)):
+        #     for c in range(len(self)):
+        #         string: str = self.__grid[r][c]
+        #
+        #         if len(string) == 4:
+        #             continue
+        #
+        #         if '#' in string:
+        #             self.__grid[r][c] = '####'
+        #
+        #         if len(string) == 1 and string.isalpha():
+        #             self.__grid[r][c] = f'+-.{string}'
+
+    def to_string_with_grid(self) -> str:
+        #  ┼────┼────┼────┼────┼
+
+        g = self.__grid
+
+        # ┴
+        # │
+        # ┼
+        # ┬
+        # └
+        # ├
+        # ┐
+        # ┤
+        # ┘
+        # ┌
+        # ─
+
+        # string = ''
+        # string += f'┌────┬────┬────┬────┐\n'
+        # string += f'│{g[0][0]}│{g[0][1]}│{g[0][2]}│{g[0][3]}│ {g[0][4]} {g[0][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[1][0]}│{g[1][1]}│{g[1][2]}│{g[1][3]}│ {g[1][4]} {g[1][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[2][0]}│{g[2][1]}│{g[2][2]}│{g[2][3]}│ {g[2][4]} {g[2][5]}\n'
+        # string += f'├────┼────┼────┼────┤\n'
+        # string += f'│{g[3][0]}│{g[3][1]}│{g[3][2]}│{g[3][3]}│ {g[3][4]} {g[3][5]}\n'
+        # string += f'└────┴────┴────┴────┘\n'
+        # string += f'  {g[4][0]}   {g[4][1]}   {g[4][2]}   {g[4][3]}   {g[4][4]}  {g[4][5]}\n'
+        # string += f'  {g[5][0]}   {g[5][1]}   {g[5][2]}   {g[5][3]}   {g[5][4]}  {g[5][5]}\n'
+
+        def to_row_cell_string(puzzle: Magnets, __r: int) -> str:
+            __string0 = '│'
+            __row = puzzle.house_row(__r)
+            for i in range(len(puzzle) - 1):
+                l0 = __row[i]
+                l1 = __row[i + 1]
+                __string0 += f'{puzzle.__grid[l0.row][l0.col]}'
+                __string0 += ' ' if self.cell_fence(l0) == self.cell_fence(l1) else '│'
+            __string0 += f'{puzzle.__grid[__row[-1].row][__row[-1].col]}'
+            return f'{__string0}│ {puzzle.__grid[__r][len(self)]} {puzzle.__grid[__r][len(self) + 1]}\n'
+
+        def get_top_row_border(puzzle: Magnets) -> str:
+            __string0 = '┌'
+            for i in range(len(puzzle) - 1):
+                __string0 += '────┬'
+            return f'{__string0}────┐\n'
+
+        def get_bottom_row_border(puzzle: Magnets) -> str:
+            __string0 = '└'
+            for i in range(len(puzzle) - 1):
+                __string0 += '────┴'
+            return f'{__string0}────┘\n'
+
+        def get_inner_row_border(puzzle: Magnets, __r: int) -> str:
+            __string = '├'
+
+            __row0 = puzzle.house_row(__r)
+            __row1 = puzzle.house_row(__r + 1)
+
+            for l0, l1 in zip(__row0, __row1):
+                f0 = puzzle.cell_fence(l0)
+                f1 = puzzle.cell_fence(l1)
+
+                # __string += '    ' if f0 == f1 else '┼────'
+                __string += '    ' if f0 == f1 else '────'
+
+            return __string + '\n'
+
+            # return f'├────┼────┼────┼────┤\n'
+
+        def get_southern_magnet_numbers(puzzle: Magnets, __r: int) -> str:
+            __string = "  "
+            __string += "".join(f'{puzzle.__grid[__r][i]}   ' for i in range(len(puzzle)))
+            __string = __string.strip()
+            return f'  {__string}   {puzzle.__grid[__r][len(puzzle)]}  {puzzle.__grid[__r][len(puzzle) + 1]}\n'
+
+        string = get_top_row_border(self)
+
+        for __r in range(len(self) - 1):
+            string += to_row_cell_string(self, __r)
+            string += get_inner_row_border(self, __r)
+
+        string += to_row_cell_string(self, len(self) - 1)
+        string += get_bottom_row_border(self)
+        string += get_southern_magnet_numbers(self, len(self))
+        string += get_southern_magnet_numbers(self, len(self) + 1)
+
+        return string
+
+    def to_string(self, color=True) -> str:
+
+        if self.__id == "001.magnets":
+            return self.to_string_with_grid()
+
+        __string = f'{self.__id}\n'
+        __string += f'{self.__length}\n'
+
+        for r in range(len(self)):
+            for c in range(len(self) + 2):
+                loc = Loc(r, c)
+                __temp: str = self.__grid[loc.row][loc.col]
+
+                # if color and __temp.startswith('+__'):
+                #     __string += f'{Back.GREEN}{Fore.RED}{__temp}{Fore.RESET}{Back.RESET} '
+                # elif color and __temp.startswith('_-_'):
+                #     __string += f'{Fore.CYAN}{__temp}{Fore.RESET} '
+                # else:
+                #     __string += f'{__temp} '
+                if color and __temp.startswith('+__'):
+                    __string += f'{Back.GREEN}{Fore.RED}{__temp}{Fore.RESET}{Back.RESET} '
+                elif color and __temp.startswith('_-_'):
+                    __string += f'{Fore.CYAN}{__temp}{Fore.RESET} '
+                else:
+                    __string += f'{__temp} '
+            __string += '\n'
+
+        for c in range(len(self)):
+            __string += f'{self.__grid[len(self)][c].strip().ljust(4)} '
+        __string += f'{self.__grid[len(self)][len(self)]} '
+        __string += f'{self.__grid[len(self)][len(self) + 1]} '
+        __string += '\n'
+
+        for c in range(len(self)):
+            __string += f'{self.__grid[len(self) + 1][c].ljust(4)} '
+        __string += f'{self.__grid[len(self) + 1][len(self)]} '
+        __string += f'{self.__grid[len(self) + 1][len(self) + 1]} '
+        __string += '\n'
+
+        return __string
+
+    def __str__(self) -> str:
+        return self.to_string()
+
+    def __len__(self):
+        return self.__length
+
+    def is_solved(self):
+        for fence_house in self.house_fences():
+            loc0_candidates = self.cell_candidates(fence_house[0])
+            loc1_candidates = self.cell_candidates(fence_house[1])
+
+            if len(loc0_candidates) > 1 or len(loc1_candidates) > 1:
+                return False
+
+        return True
+
+    def rem(self, locs: list[Loc], candidates: list) -> int:
+        edits = 0
+
+        for loc in locs:
+            for candidate in candidates:
+                cell_candidates = self.cell_candidates(loc)
+                if candidate not in cell_candidates:
+                    continue
+                self.__grid[loc.row][loc.col] = self.__grid[loc.row][loc.col].replace(candidate, "_")
+                edits += 1
+
+        return edits
+
+    def cell_candidates(self, loc: Loc) -> list[str]:
+        string = self.__grid[loc.row][loc.col]
+        lst: list[str] = []
+        if PLUS in string:
+            lst.append(PLUS)
+        if MINUS in string:
+            lst.append(MINUS)
+        if EMPTY in string:
+            lst.append(EMPTY)
+        return lst
+
+    # def unsolved_cells(self) -> set[Loc]:
+    #     return self.__un_solved_locs
+
+    # def solved_cells(self) -> set[Loc]:
+    #     return self.__solved_locs
+
+    def expected_candidates(self) -> list[int]:
+        return [i + 1 for i in range(self.__length)]
+
+    def id(self) -> str:
+        return self.__id
+
+    @property
+    def length(self) -> int:
+        return self.__length
+
+    def plus_row_value(self, row_index: int) -> Optional[int]:
+        string: str = self.__grid[row_index][len(self)]
+        if not string.isnumeric():
+            return None
+        return int(string)
+
+    def minus_row_value(self, row_index: int) -> Optional[int]:
+        string: str = self.__grid[row_index][len(self) + 1]
+        if not string.isnumeric():
+            return None
+        return int(string)
+
+    def house_row(self, row_index: int) -> list[Loc]:
+        house = []
+        for i in range(0, self.__length):
+            house.append(Loc(row_index, i))
+        return house
+
+    def plus_col_value(self, col_index: int) -> Optional[int]:
+        string: str = self.__grid[len(self)][col_index].replace(".", "", -1)
+        if not string.isnumeric():
+            return None
+        return int(string)
+
+    def minus_col_value(self, col_index: int) -> Optional[int]:
+        string: str = self.__grid[len(self) + 1][col_index].replace(".", "", -1)
+        if not string.isnumeric():
+            return None
+        return int(string)
+
+    def house_col(self, col_index: int) -> list[Loc]:
+        house = []
+        for i in range(0, self.__length):
+            house.append(Loc(i, col_index))
+        return house
+
+    def is_magnet_cell(self, loc: Loc) -> bool:
+        return '#' not in self.__grid[loc.row][loc.col]
+
+    def house_fence(self, loc: Loc) -> str:
+        fence = self.__grid[loc.row][loc.col] \
+            .replace(PLUS, "") \
+            .replace(MINUS, "") \
+            .replace(EMPTY, "") \
+            .replace("_", "")
+
+        if len(fence) != 1:
+            raise ValueError(f"could not find fence in magnets cell {loc}")
+
+        return fence
+
+    def house_fences(self) -> list[list[Loc]]:
+        dct = {}
+        for r in range(self.__length):
+            for c in range(self.__length):
+                loc = Loc(r, c)
+                if not self.is_magnet_cell(loc):
+                    continue
+                fence = self.house_fence(loc)
+                if fence not in dct:
+                    dct[fence] = []
+                dct[fence].append(loc)
+
+        # print(dct)
+
+        houses = []
+        for fence in dct:
+            houses.append(dct[fence])
+        return houses
+
+    def cell_fence(self, loc: Loc) -> str:
+        return "".join([s for s in self.__grid[loc.row][loc.col] if s.isalpha()])
+
+
+def magnets_techniques() -> list:
+    return [MagnetsTech()]
+
+
+@staticmethod
+def magnets_zero_rows_actual():
+    return f"""
+        magnets_zero_rows_actual.magnets
+        2
+        ++ ???? ???? $$
+        00 +-.a +-.a ??
+        ?? +-.b +-.b 00
+        $$ ???? ???? --     
+        """
+
+
+@staticmethod
+def magnets_zero_rows_expected():
+    return f"""
+        magnets_zero_rows_expected.magnets
+        2
+        ++ ???? ???? $$
+        00 _-.a _-.a ??
+        ?? +_.b +_.b 00
+        $$ ???? ???? --     
+        """
+
+
+@staticmethod
+def magnets_zero_cols_actual():
+    return f"""
+        magnets_zero_cols_actual.magnets
+        2
+        ++ 0000 ???? $$
+        ?? +-.a +-.a ??
+        ?? +-.b +-.b ??
+        $$ ???? 0000 --     
+        """
+
+
+@staticmethod
+def magnets_zero_cols_expected():
+    return f"""
+        magnets_zero_cols_expected.magnets
+        2
+        ++ 0000 ???? $$
+        ?? _-.a +_.a ??
+        ?? _-.b +_.b ??
+        $$ ???? 0000 --     
+        """
+
+
+@staticmethod
+def magnets_pairs_actual():
+    return f"""
+        magnets_pair_actual.magnets
+        4
+        ++ ???? ???? ???? ???? $$
+        ?? +-_a +-.a +-.c +-.g ??
+        ?? +-.b +-.b +-.c +-.g ??
+        ?? +-.d _-.e +-.f +_.h ??
+        ?? +-.d +-.e +-.f +-.h ??
+        $$ ???? ???? ???? ???? --     
+        """
+
+
+@staticmethod
+def magnets_pairs_expected():
+    return f"""
+        magnets_pair_expected.magnets
+        4
+        ++ ???? ???? ???? ???? $$
+        ?? +-_a +-_a +-.c +-.g ??
+        ?? +-.b +-.b +-.c +-.g ??
+        ?? +-.d _-.e +-.f +_.h ??
+        ?? +-.d +_.e +-.f _-.h ??        
+        $$ ???? ???? ???? ???? --     
+        """
+
+
+@staticmethod
+def magnets_full_house_even_actual():
+    return f"""
+        magnets_full_house_actual.magnets
+        4
+        ++ ???? ???? ..02 ???? $$
+        02 +-.a +-.a +-.c +-.g 02
+        ?? +-.b +-.b +-.c +-.g ??
+        ?? +-.d +-.e +-.f +-.h ??
+        ?? +-.d +-.e +-.f +-.h ??
+        $$ ???? ???? ..02 ???? --     
+        """
+
+
+@staticmethod
+def magnets_full_house_even_expected():
+    return f"""
+        magnets_full_house_expected.magnets
+        4
+        ++ ???? ???? ..02 ???? $$
+        02 +-_a +-_a +-_c +-_g 02
+        ?? +-.b +-.b +-_c +-.g ??
+        ?? +-.d +-.e +-_f +-.h ??
+        ?? +-.d +-.e +-_f +-.h ??
+        $$ ???? ???? ..02 ???? --     
+        """
 
 
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
@@ -28,6 +435,7 @@ def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
     print(puzzle)
     return False
 
+
 @pytest.mark.skip('skipped')
 def test_magnets_001():
     # ┼────┼────┼────┼────┼
@@ -53,12 +461,10 @@ def test_magnets_001():
     """
     puzzle = Magnets(puzzle_string)
 
-
-
     print(puzzle)
 
     assert False
-    # assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    # assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_002():
@@ -72,7 +478,7 @@ def test_magnets_002():
     02   01   02   02   ++ $$
     01   02   02   02   $$ --
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_003():
@@ -87,7 +493,7 @@ def test_magnets_003():
     01   01   02   02   02   ++ $$
     02   02   01   01   02   $$ --
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_004():
@@ -102,7 +508,7 @@ def test_magnets_004():
     1 2 2 3 2 + $
     1 2 2 2 3 $ +
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_005():
@@ -117,7 +523,7 @@ def test_magnets_005():
     2 1 2 ? 2 + $
     ? ? ? 2 2 $ -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -133,7 +539,7 @@ def test_magnets_006():
     ? ? 3 ? ? + $
     ? 2 2 2 2 $ -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_007():
@@ -148,7 +554,7 @@ def test_magnets_007():
     2 1 1 1 2 + $
     2 1 2 0 2 $ -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_008():
@@ -163,7 +569,7 @@ def test_magnets_008():
     02   01   01   02   02   + $
     02   01   02   01   02   $ -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -179,7 +585,7 @@ def test_magnets_009():
     1 ? ? ? ? + .
     2 ? ? 2 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -195,7 +601,7 @@ def test_magnets_010():
     ? ? ? ? ? + .
     2 ? 2 2 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_011():
@@ -211,7 +617,7 @@ def test_magnets_011():
     2 2 2 1 3 3 + .
     2 3 1 1 3 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -228,7 +634,7 @@ def test_magnets_012():
     1 3 3 1 1 2 + .
     2 2 3 1 1 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_013():
@@ -244,7 +650,7 @@ def test_magnets_013():
     3 2 2 1 2 2 + .
     2 3 2 1 2 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -261,7 +667,7 @@ def test_magnets_014():
     ? ? ? 2 3 ? + .
     ? ? 2 2 3 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -278,7 +684,7 @@ def test_magnets_015():
     ? ? ? ? 0 ? + .
     ? ? ? ? ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_016():
@@ -294,7 +700,7 @@ def test_magnets_016():
     2 3 2 2 2 1 + .
     3 2 2 1 3 1 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -311,7 +717,7 @@ def test_magnets_017():
     2 2 0 2 2 2 + .
     2 1 2 1 2 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 def test_magnets_018():
@@ -327,7 +733,7 @@ def test_magnets_018():
     2 3 2 1 3 0 + .
     3 2 2 0 1 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -344,7 +750,7 @@ def test_magnets_019():
     3 3 2 1 2 3 + .
     3 3 1 2 3 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -361,7 +767,7 @@ def test_magnets_020():
     1 3 1 2 2 3 + .
     1 3 2 1 3 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -378,7 +784,7 @@ def test_magnets_021():
     2 3 1 1 3 2 + .
     2 3 1 3 1 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -395,7 +801,7 @@ def test_magnets_022():
     3 2 3 2 2 3 + .
     3 2 2 2 3 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -412,7 +818,7 @@ def test_magnets_023():
     3 3 ? 2 ? ? + .
     3 3 1 2 2 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -429,7 +835,7 @@ def test_magnets_024():
     3 ? ? ? 2 ? + .
     1 ? 2 3 ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -446,7 +852,7 @@ def test_magnets_025():
     2 3 2 ? 1 3 + .
     ? 2 3 ? ? 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -463,7 +869,7 @@ def test_magnets_027():
     ? ? 1 ? ? ? + .
     3 2 2 ? ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -481,7 +887,7 @@ def test_magnets_028():
     1 3 2 2 2 2 3 + .
     3 0 3 2 2 1 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -499,7 +905,7 @@ def test_magnets_029():
     2 3 1 ? ? ? ? + .
     ? ? ? ? ? 3 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -517,7 +923,7 @@ def test_magnets_030():
     ? ? ? 2 3 ? 3 + .
     ? ? ? ? ? ? 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -535,7 +941,7 @@ def test_magnets_031():
     3 3 2 3 1 3 3 + .
     3 3 3 3 1 2 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -553,7 +959,7 @@ def test_magnets_032():
     3 2 0 3 3 3 3 + .
     3 2 1 3 2 3 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -571,7 +977,7 @@ def test_magnets_033():
     ? ? 2 ? 4 1 ? + .
     ? ? ? 2 ? ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -589,7 +995,7 @@ def test_magnets_034():
     4 ? 3 ? 3 ? ? + .
     2 ? ? ? 2 ? 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -607,7 +1013,7 @@ def test_magnets_035():
     ? 0 3 2 2 0 4 + .
     ? 1 ? ? ? ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -625,7 +1031,7 @@ def test_magnets_036():
     ? ? ? 3 ? 2 3 + .
     2 2 ? ? ? 3 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -643,7 +1049,7 @@ def test_magnets_037():
     ? 2 2 3 ? 1 ? + .
     2 ? ? 2 ? 0 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -662,7 +1068,7 @@ def test_magnets_038():
     3 3 2 3 2 3 4 3 + .
     4 1 3 3 2 3 4 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -681,7 +1087,7 @@ def test_magnets_039():
     4 3 3 2 2 4 2 3 + .
     4 4 3 1 4 2 3 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -700,7 +1106,7 @@ def test_magnets_040():
     4 ? ? 2 ? 3 ? ? + .
     3 ? ? ? 2 1 ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -719,7 +1125,7 @@ def test_magnets_041():
     2 4 2 2 1 4 ? ? + .
     ? ? 3 ? 1 4 ? 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -738,7 +1144,7 @@ def test_magnets_042():
     2 2 2 4 3 2 2 2 + .
     4 1 2 3 3 1 2 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -757,7 +1163,7 @@ def test_magnets_043():
     3 2 4 1 2 1 2 3 + .
     3 2 3 3 1 1 3 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -776,7 +1182,7 @@ def test_magnets_044():
     2 1 3 3 4 4 4 3 + .
     0 3 3 4 3 4 3 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -795,7 +1201,7 @@ def test_magnets_045():
     3 3 1 1 4 3 2 3 + .
     2 4 1 2 2 3 3 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -814,7 +1220,7 @@ def test_magnets_046():
     3 3 2 2 2 2 3 3 + .
     2 4 1 4 2 2 2 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -833,7 +1239,7 @@ def test_magnets_047():
     3 2 2 1 1 3 1 2 + .
     1 4 1 1 2 2 1 3  . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -852,7 +1258,7 @@ def test_magnets_048():
     ? 2 ? 4 ? 1 ? 2 + .
     2 ? 2 ? 1 ? 3 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -871,7 +1277,7 @@ def test_magnets_049():
     2 2 2 3 2 1 2 2 + .
     3 2 2 1 1 3 2 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -890,7 +1296,7 @@ def test_magnets_050():
     4 2 3 1 3 2 2 3 + .
     3 3 2 2 3 2 1 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -909,7 +1315,7 @@ def test_magnets_051():
     3 3 4 3 2 4 3 3 + .
     3 4 2 3 3 4 4 2 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -928,7 +1334,7 @@ def test_magnets_052():
     3 4 4 4 1 2 1 4 + .
     3 4 4 3 3 1 2 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -947,7 +1353,7 @@ def test_magnets_053():
     3 2 4 1 3 3 4 3 + .
     3 2 3 3 2 3 3 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -966,7 +1372,7 @@ def test_magnets_054():
     2 4 2 4 3 4 1 4 + .
     3 3 3 3 4 1 4 3 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -985,7 +1391,7 @@ def test_magnets_055():
     4 2 1 4 1 1 3 4 + .
     3 2 2 3 2 1 3 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1004,7 +1410,7 @@ def test_magnets_056():
     4 2 2 3 3 1 4 2 + .
     3 3 2 2 3 1 3 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1023,7 +1429,7 @@ def test_magnets_057():
     3 3 ? 1 2 ? ? 3 + .
     3 ? ? ? 2 ? 3 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1042,7 +1448,7 @@ def test_magnets_058():
     ? 4 1 ? 4 3 2 2 + .
     ? ? 0 ? 2 ? ? 1 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1061,7 +1467,7 @@ def test_magnets_059():
     2 ? 3 2 3 ? ? 2 + .
     ? 3 4 ? 3 ? ? 1 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1080,7 +1486,7 @@ def test_magnets_060():
     2 3 ? ? ? ? 3 3 + .
     ? ? ? ? ? 1 4 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1099,7 +1505,7 @@ def test_magnets_063():
     3 ? 0 ? 3 3 ? 3 + .
     ? ? 1 ? 3 ? ? ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1120,7 +1526,7 @@ def test_magnets_082():
     5 5 3 5 3 1 3 3 3 4 + .
     5 5 3 5 3 3 1 2 4 4 . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 # @pytest.mark.skip("skip")
@@ -1141,7 +1547,7 @@ def test_magnets_083():
     5   2   2   4   5   5   4   4   2   3 + $
     4   3   3   3   5   4   5   4   2   3 $ -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1162,7 +1568,7 @@ def test_magnets_119():
     ? 5 ? 5 ? 3 3 5 5 ? + .
     4 3 ? 4 ? 2 ? 4 5 ? . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())
 
 
 @pytest.mark.skip("skip")
@@ -1179,4 +1585,4 @@ def test_magnets_026():
     2    3    ?    3    ?    3    + .
     3    2    ?    2    ?    ?    . -
     """
-    assert default_test_puzzle(puzzle_string, Magnets, Solving.magnets_techniques())
+    assert default_test_puzzle(puzzle_string, Magnets, magnets_techniques())

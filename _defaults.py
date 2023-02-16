@@ -1,10 +1,9 @@
-from puzzles import Puzzle
 
 EXPLICITLY = "explicitly"
 
 
 def default_test_explicit_actual_expected(constructor, technique, actual, expected) -> bool:
-    actual_puzzle: Puzzle = constructor(actual)
+    actual_puzzle = constructor(actual)
     expected_puzzle = constructor(expected)
     technique.solve0(actual_puzzle)
     actual_string = str(actual_puzzle).replace(actual_puzzle.id(), "")
@@ -21,7 +20,7 @@ def default_test_explicit_actual_expected(constructor, technique, actual, expect
 
 
 def default_test_puzzle(puzzle_string, constructor, techniques) -> bool:
-    puzzle: Puzzle = constructor(puzzle_string)
+    puzzle = constructor(puzzle_string)
     edits = 0
     edit_dict = {}
     while True:

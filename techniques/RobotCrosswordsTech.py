@@ -2,7 +2,6 @@ import itertools
 from abc import abstractmethod
 
 from techniques.Technique import Technique
-from puzzles import RobotCrosswords
 from Loc import Loc
 
 
@@ -78,10 +77,10 @@ from Loc import Loc
 
 class BaseRobotCrosswordsTech(Technique):
     @abstractmethod
-    def solve1(self, puzzle: RobotCrosswords, house: list[Loc]) -> int:
+    def solve1(self, puzzle, house: list[Loc]) -> int:
         raise NotImplementedError()
 
-    def solve0(self, puzzle: RobotCrosswords) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for i in range(len(puzzle)):
 
@@ -106,7 +105,7 @@ class BaseRobotCrosswordsTech(Technique):
 
 
 class RobotCrosswordsTech(BaseRobotCrosswordsTech):
-    def solve1(self, puzzle: RobotCrosswords, house: list[Loc]) -> int:
+    def solve1(self, puzzle, house: list[Loc]) -> int:
         edits = 0
 
         for loc0 in house:
@@ -122,7 +121,7 @@ class RobotCrosswordsTech(BaseRobotCrosswordsTech):
 
 
 class RobotCrosswordsPowerSet(BaseRobotCrosswordsTech):
-    def solve1(self, puzzle: RobotCrosswords, house: list[Loc]) -> int:
+    def solve1(self, puzzle, house: list[Loc]) -> int:
         edits = 0
 
         house_set = set(house)

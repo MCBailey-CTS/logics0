@@ -1,8 +1,6 @@
 from numpy import ndarray
 from typing import Union, Optional
 
-from puzzles import Puzzle
-
 
 class Loc:
     def __init__(self, r: int, c: int, fence: Optional[str] = None):
@@ -150,9 +148,7 @@ class Loc:
             __next = __next.west()
         return __locs
 
-
-
-    def vector_locs(self, vector: 'Loc', stop_predicate)->'list[Loc]':
+    def vector_locs(self, vector: 'Loc', stop_predicate) -> 'list[Loc]':
         __return: 'list[Loc]' = []
 
         __loc = self
@@ -160,7 +156,6 @@ class Loc:
         while not stop_predicate(__loc):
             __return.append(__loc)
             __loc = Loc(__loc.row + vector.row, __loc.col + vector.col)
-
 
         return __return
 

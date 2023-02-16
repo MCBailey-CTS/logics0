@@ -1,6 +1,5 @@
-from puzzles import Sudoku
-from colorama import Fore
 from Loc import Loc
+from puzzles import Sudoku
 from techniques.Technique import Technique
 
 

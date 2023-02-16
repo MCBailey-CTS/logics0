@@ -1,11 +1,10 @@
 
 
-from puzzles import Parks1
 from Loc import Loc
 from techniques.Technique import Technique
 
 
-def solve_two_cell(puzzle: Parks1, cell0: Loc, cell1: Loc, candidate: int) -> int:
+def solve_two_cell(puzzle, cell0: Loc, cell1: Loc, candidate: int) -> int:
     edits = 0
     if cell0.row == cell1.row:
         for row in set(range(len(puzzle))).difference([cell0.row]):
@@ -54,7 +53,7 @@ def solve_two_cell(puzzle: Parks1, cell0: Loc, cell1: Loc, candidate: int) -> in
 
 class Parks1XWing(Technique):
 
-    def solve_one_cell(self, puzzle: Parks1, cell0: Loc, candidate: int) -> int:
+    def solve_one_cell(self, puzzle, cell0: Loc, candidate: int) -> int:
 
         edits = 0
         # need to find the next cell to form a base
@@ -72,7 +71,7 @@ class Parks1XWing(Technique):
 
         return edits
 
-    def solve0(self, puzzle: Parks1) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for r in range(len(puzzle)):
             for c in range(len(puzzle)):

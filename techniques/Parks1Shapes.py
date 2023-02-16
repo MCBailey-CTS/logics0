@@ -1,9 +1,8 @@
-from puzzles import Parks1
 from techniques.Technique import Technique
 
 
 class Parks1Shapes(Technique):
-    def solve0(self, puzzle: Parks1) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         # for fence in puzzle.fences():
         #     house = puzzle.house_fence(fence)

@@ -3,7 +3,6 @@ from colorama import Fore
 from Loc import Loc
 from techniques.Technique import Technique
 
-from puzzles import PowerGrid
 
 
 def power_grid_techniques() -> list:
@@ -27,7 +26,7 @@ def power_grid_techniques() -> list:
 
 class PowerGridLength9Power7(Technique):
 
-    def solve1(self, puzzle: PowerGrid, house: list[Loc], power: int) -> int:
+    def solve1(self, puzzle, house: list[Loc], power: int) -> int:
         edits = 0
         solved_cells = [loc for loc in house if puzzle.grid[loc.row][loc.col] == "1_"]
 
@@ -50,7 +49,7 @@ class PowerGridLength9Power7(Technique):
             edits += puzzle.rem([loc], [1])
         return edits
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         if len(puzzle) != 9:
@@ -74,7 +73,7 @@ class PowerGridLength9Power7(Technique):
 
 class PowerGridOnePowerSolvedBadMath(Technique):
 
-    def solve1(self, puzzle: PowerGrid, house: list[Loc], power: int) -> int:
+    def solve1(self, puzzle, house: list[Loc], power: int) -> int:
         edits = 0
         if not all(loc.row == 0 for loc in house):
             return edits
@@ -90,7 +89,7 @@ class PowerGridOnePowerSolvedBadMath(Technique):
             edits += puzzle.rem([house[index]], [1])
         return edits
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         if len(puzzle) != 9:
@@ -114,7 +113,7 @@ class PowerGridOnePowerSolvedBadMath(Technique):
 
 class PowerGridHiddenPowerPair(Technique):
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         if len(puzzle) != 9:
@@ -144,7 +143,7 @@ class PowerGridHiddenPowerPair(Technique):
 
 class PowerGrid2Solved(Technique):
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         if len(puzzle) != 9:
@@ -171,7 +170,7 @@ class PowerGrid2Solved(Technique):
 
 class PowerGrid1Solved1Unsolved(Technique):
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         if len(puzzle) != 9:
             return edits
@@ -188,7 +187,7 @@ class PowerGrid1Solved1Unsolved(Technique):
 
 
 class PowerGridTouchingPower(Technique):
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         for r in range(len(puzzle)):
@@ -204,7 +203,7 @@ class PowerGridTouchingPower(Technique):
 
 
 class PowerGridBothPowersSolved(Technique):
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         for index in range(len(puzzle)):
@@ -226,7 +225,7 @@ class PowerGridBothPowersSolved(Technique):
 
 class PowerGridRequirePower(Technique):
 
-    def solve0(self, puzzle: PowerGrid) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         if len(puzzle) != 9:
             return edits
