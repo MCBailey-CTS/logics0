@@ -5,7 +5,7 @@ from colorama import Fore
 
 class XyWing(Technique):
 
-    # def solve1(self, puzzle: Sudoku, pincer0: Loc)->int:
+    # def solve1(self, puzzle, pincer0: Loc)->int:
     #     edits = 0
     #
     #     for r in range(len(puzzle)):

@@ -70,7 +70,8 @@ class Sudoku(Puzzle):
                 if len(self.cell_candidates(loc)) > 1:
                     self.__unsolved_locs.add(loc)
 
-    def rem(self, locs: Loc| list[Loc]| set[Loc], candidates: iter) -> int:
+    # def rem(self, locs: Loc| list[Loc]| set[Loc], candidates: iter) -> int:
+    def rem(self, locs: Loc | list[Loc] | set[Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             return self.rem([locs], candidates)
@@ -216,6 +217,7 @@ class Sudoku(Puzzle):
         return string
 
 
+# @staticmethod
 def sudoku_techniques() -> list:
     return [
         CrossHatch(),
