@@ -4,9 +4,10 @@ from colorama import Fore, Style
 
 from Loc import Loc
 from Puzzle import Puzzle
+from tech import tech
+from techniques.TennerHiddenSingle import TennerHiddenSingle
 
 EXPLICITLY = "EXPLICITLY"
-
 
 
 class Tenner(Puzzle):
@@ -26,8 +27,8 @@ class Tenner(Puzzle):
             temp = []
             split = array[row].replace("-1", "0123456789", -1) \
                 .replace("\r", " ", -1) \
-                .replace("\t", " ", -1)\
-                .replace("  ", " ", -1)\
+                .replace("\t", " ", -1) \
+                .replace("  ", " ", -1) \
                 .strip().split(' ')
 
             for t in split:
@@ -153,21 +154,31 @@ class Tenner(Puzzle):
             string += '\n'
         return string
 
-    def house_row_cell_locs(self, loc_row: int|Loc) -> list[Loc]:
+    def house_row_cell_locs(self, loc_row: int | Loc) -> list[Loc]:
         if isinstance(loc_row, Loc):
             return self.house_row_cell_locs(loc_row.row)
         return [Loc(loc_row, col) for col in range(self.col_length)]
 
-    def house_col_cell_locs(self, loc_col: int|Loc) -> list[Loc]:
+    def house_col_cell_locs(self, loc_col: int | Loc) -> list[Loc]:
         if isinstance(loc_col, Loc):
             return self.house_col_cell_locs(loc_col.col)
         return [Loc(row, loc_col) for row in range(len(self))]
 
-    def total(self, col: int) -> int|None:
+    def total(self, col: int) -> int | None:
         string = self.grid[len(self)][col]
         if string.isnumeric():
             return int(string)
         return None
+
+
+def tenner_techniques() -> list:
+    return [tech.TennerCrossHatch(),
+            tech.TennerNakedPair(),
+            tech.TennerHiddenPair(),
+            TennerHiddenSingle(),
+            tech.TennerTotalHiddenSingle(),
+            tech.TennerPowerSetTotals(),
+            tech.TennerNakedPairColumn()]
 
 # @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
 #
@@ -210,10 +221,6 @@ class Tenner(Puzzle):
 #             Solving.tenner_techniques()):
 #         return
 #     assert False
-
-
-
-
 
 
 # @staticmethod

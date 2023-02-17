@@ -2,8 +2,9 @@ import pytest
 
 from Loc import Loc
 from _defaults import default_test_puzzle
-from puzzles import *
-from solving import Solving
+from tech import tech
+from techniques.CrossHatchSumscrapers import CrossHatchSumscrapers
+from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
 from tests_files.test_sumscrapers import Sumscrapers
 
 EXPLICITLY = "EXPLICITLY"
@@ -32,6 +33,11 @@ class Skyscrapers(Sumscrapers):
         return skyscraper == current
 
 
+def skyscrapers_techniques() -> list:
+    return [
+        CrossHatchSumscrapers(), HiddenSingleSumscrapers(), tech.SkyscrapersN(), tech.Skyscrapers1(),
+        tech.SkyscrapersRange()
+    ]
 
 # @staticmethod
 # def skyscrapers_explicit_cross_hatch_actual():
@@ -134,7 +140,7 @@ def test_skyscrapers_001():
         03   02   02   01 $ $ 
         01   03   02   02   $ $
         """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 def test_skyscrapers_002():
@@ -148,7 +154,7 @@ def test_skyscrapers_002():
     2 2 4 1 $ $
     2 2 1 4 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 def test_skyscrapers_003():
@@ -162,7 +168,7 @@ def test_skyscrapers_003():
     4 1 2 2 $ $
     1 4 2 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -177,7 +183,7 @@ def test_skyscrapers_004():
     3 1 2 2 $ $
     2 3 3 1 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 def test_skyscrapers_005():
@@ -191,7 +197,7 @@ def test_skyscrapers_005():
     3 1 ? 2 $ $
     1 3 ? 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -206,7 +212,7 @@ def test_skyscrapers_006():
      3 ? ? 2 $ $
      ? 3 ? ? $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -221,7 +227,7 @@ def test_skyscrapers_007():
      2 2 ? ? $ $
      ? ? 1 ? $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -236,7 +242,7 @@ def test_skyscrapers_008():
      ? ? 3 ? $ $
      ? 1 ? 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -251,7 +257,7 @@ def test_skyscrapers_009():
     ? 2 3 ? ? ?
     ? ? ? ? ? ?
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -267,7 +273,7 @@ def test_skyscrapers_010():
     2 3 3 1 2 $ $
     3 1 2 3 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -283,7 +289,7 @@ def test_skyscrapers_011():
     4 1 2 2 3 $ $
     1 4 2 2 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -299,7 +305,7 @@ def test_skyscrapers_012():
     2 1 2 4 3 $ $
     2 3 1 2 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -315,7 +321,7 @@ def test_skyscrapers_013():
     4 0 0 1 0 $ $
     0 0 0 2 4 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -331,7 +337,7 @@ def test_skyscrapers_014():
     1 ? 2 3 ? $ $
     ? 1 ? 2 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -347,7 +353,7 @@ def test_skyscrapers_015():
     3 1 2 0 2 $ $
     2 0 4 0 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -363,7 +369,7 @@ def test_skyscrapers_016():
     4 0 0 4 0 $ $
     1 0 3 0 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -379,7 +385,7 @@ def test_skyscrapers_017():
     0 0 5 2 0 $ $
     0 4 0 0 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -396,7 +402,7 @@ def test_skyscrapers_018():
     5 2 2 4 3 1 $ $
     2 2 3 1 3 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -414,7 +420,7 @@ def test_skyscrapers_019():
     2 5 3 2 3 1 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -432,7 +438,7 @@ def test_skyscrapers_020():
     3 4 2 5 1 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -450,7 +456,7 @@ def test_skyscrapers_021():
     3 2 5 2 1 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -467,7 +473,7 @@ def test_skyscrapers_022():
     2 3 4 3 2 1 $ $
     2 1 2 4 3 4 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -485,7 +491,7 @@ def test_skyscrapers_023():
     4 0 0 0 2 1 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -502,7 +508,7 @@ def test_skyscrapers_024():
     0 3 4 0 0 4 $ $
     3 3 0 4 0 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -519,7 +525,7 @@ def test_skyscrapers_025():
     0 2 2 3 4 0 $ $
     0 0 0 2 0 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -536,7 +542,7 @@ def test_skyscrapers_026():
     1 0 0 3 2 3 $ $
     3 2 0 2 1 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -555,7 +561,7 @@ def test_skyscrapers_027():
     2 1 2 2 3 3 4 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -574,7 +580,7 @@ def test_skyscrapers_028():
     0 0 3 3 0 5 0 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -593,7 +599,7 @@ def test_skyscrapers_029():
     3 4 4 0 2 0 4 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -612,7 +618,7 @@ def test_skyscrapers_030():
     2 4 3 2 0 0 0 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -630,7 +636,7 @@ def test_skyscrapers_tcbig_001():
     2 4 3 3 3 2 1 $ $
     3 1 2 3 2 ? ? $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -649,7 +655,7 @@ def test_skyscrapers_tcbig_002():
        5       3       3       2       2       1       ?    ? ?
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -668,7 +674,7 @@ def test_skyscrapers_tcbig_003():
     1 ? 2 ? ? ? 3 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -687,7 +693,7 @@ def test_skyscrapers_tcbig_004():
     5 ? 3 4 1 2 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -705,7 +711,7 @@ def test_skyscrapers_tcbig_013():
     3 2 4 3 2 1 2 $ $
     2 0 3 2 5 3 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -723,7 +729,7 @@ def test_skyscrapers_tcbig_019():
     2 3 3 2 1 0 0 $ $
     3 1 0 0 3 2 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -742,7 +748,7 @@ def test_skyscrapers_tcbig_030():
     4 4 2 0 3 0 0 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -761,7 +767,7 @@ def test_skyscrapers_tcbig_033():
     2 0 1 0 0 2 3 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -780,7 +786,7 @@ def test_skyscrapers_tcbig_039():
     3 2 2 ? 3 5 ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -798,7 +804,7 @@ def test_skyscrapers_tcbig_046():
     ? 3 ? 2 4 3 ? ? ?
     2 3 3 4 2 1 3 ? ?
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -818,7 +824,7 @@ def test_skyscrapers_tcbig_062():
     ? 3 5 3 1 3 ? 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -838,7 +844,7 @@ def test_skyscrapers_tcbig_068():
     1 ? ? 3 2 2 ? 3 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -858,7 +864,7 @@ def test_skyscrapers_tcbig_087():
     2 ? ? 4 3 3 ? 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -878,7 +884,7 @@ def test_skyscrapers_tcbig_093():
     4 4 ? 2 5 2 3 4 1 $ $
     ? ? 2 4 1 3 2 ? 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -898,7 +904,7 @@ def test_skyscrapers_tcbig_100():
     2 ? 2 3 1 ? 4 3 5 $ $
     3 3 3 ? 4 4 1 3 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -919,7 +925,7 @@ def test_skyscrapers_tcbig_119():
     3 1 3 ? ? ? ? ? ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 def test_skyscrapers_tc_001():
@@ -933,7 +939,7 @@ def test_skyscrapers_tc_001():
     2 3 4 1 $ $
     2 2 1 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 def test_skyscrapers_tc_002():
@@ -947,7 +953,7 @@ def test_skyscrapers_tc_002():
     1 2 3 4 $ $
     2 2 2 1 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -963,7 +969,7 @@ def test_skyscrapers_tc_003():
     2 4 3 1 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -978,7 +984,7 @@ def test_skyscrapers_tc_004():
     1 3 2 2 . .
     3 2 3 1 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -993,7 +999,7 @@ def test_skyscrapers_tc_005():
     1 2 3 4 $ $
     2 2 2 1 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1009,7 +1015,7 @@ def test_skyscrapers_tc_006():
     1 4 2 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1024,7 +1030,7 @@ def test_skyscrapers_tc_007():
     2 1 3 2 . .
     1 3 2 3 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1039,7 +1045,7 @@ def test_skyscrapers_tc_008():
     2 4 1 3 . .
     2 1 2 2 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1054,7 +1060,7 @@ def test_skyscrapers_tc_009():
     2 2 4 1 . .
     2 2 1 4 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1070,7 +1076,7 @@ def test_skyscrapers_tc_010():
     3 2 3 1 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1086,7 +1092,7 @@ def test_skyscrapers_tc_011():
     2 1 3 ? . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1101,7 +1107,7 @@ def test_skyscrapers_tc_012():
     3 2 1 2 . .
     2 1 3 3 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1116,7 +1122,7 @@ def test_skyscrapers_tc_013():
     4 ? 2 3 $ $
     1 2 2 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1132,7 +1138,7 @@ def test_skyscrapers_tc_014():
     4 . 1 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1148,7 +1154,7 @@ def test_skyscrapers_tc_015():
     4 1 2 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1164,7 +1170,7 @@ def test_skyscrapers_tc_016():
     3 3 1 2 2 . .
     1 2 2 2 4 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1181,7 +1187,7 @@ def test_skyscrapers_tc_017():
     2 1 2 3 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1198,7 +1204,7 @@ def test_skyscrapers_tc_018():
     3 3 2 3 1 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1214,7 +1220,7 @@ def test_skyscrapers_tc_019():
     1 2 3 4 2 $ $
     3 2 2 1 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1231,7 +1237,7 @@ def test_skyscrapers_tc_025():
     4 3 4 ? 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1248,7 +1254,7 @@ def test_skyscrapers_tc_026():
     4 2 ? 2 3 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1264,7 +1270,7 @@ def test_skyscrapers_tc_027():
     ? ? 2 ? 4 . .
     2 4 ? ? 1 . .
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1281,7 +1287,7 @@ def test_skyscrapers_tc_028():
     ? ? 1 3 3 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1298,7 +1304,7 @@ def test_skyscrapers_tc_029():
     ? ? 4 3 2 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1315,7 +1321,7 @@ def test_skyscrapers_tc_030():
     2 1 2 ? 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1332,7 +1338,7 @@ def test_skyscrapers_tc_031():
     2 2 1 ? 4 . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1349,7 +1355,7 @@ def test_skyscrapers_tc_032():
     ? ? 3 2 ? . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1366,7 +1372,7 @@ def test_skyscrapers_tc_033():
     0 2 3 0 3 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1383,7 +1389,7 @@ def test_skyscrapers_tc_034():
     ? 2 2 ? ? . .
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1400,7 +1406,7 @@ def test_skyscrapers_tc_038():
     ? 4 1 ? 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1416,7 +1422,7 @@ def test_skyscrapers_tc_039():
     4 2 4 1 2 $ $
     0 0 0 0 0 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1432,7 +1438,7 @@ def test_skyscrapers_tc_046():
     ? 3 3 ? ? $ $
     4 2 1 2 3 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1448,7 +1454,7 @@ def test_skyscrapers_tc_051():
     ? ? ? 3 3 $ $
     4 ? 2 1 2 $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1464,7 +1470,7 @@ def test_skyscrapers_tc_052():
     2 ? 3 ? 2 $ $
     2 4 ? ? ? $ $
     """
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1481,7 +1487,7 @@ def test_skyscrapers_tc_056():
     3 ? 3 ? 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1498,7 +1504,7 @@ def test_skyscrapers_tc_057():
     2 4 3 ? ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1516,7 +1522,7 @@ def test_skyscrapers_tc_062():
     2 3 0 5 0 1 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1534,7 +1540,7 @@ def test_skyscrapers_tc_068():
     3 0 2 3 2 2 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1552,7 +1558,7 @@ def test_skyscrapers_tc_087():
     0 0 3 0 3 0 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1570,7 +1576,7 @@ def test_skyscrapers_tc_093():
     ? 2 4 ? ? 4 $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1588,7 +1594,7 @@ def test_skyscrapers_tc_100():
     ? 1 2 2 ? ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1606,7 +1612,7 @@ def test_skyscrapers_tc_119():
     ? ? 2 ? ? ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -1624,7 +1630,7 @@ def test_skyscrapers_tc_130():
     ? ? 3 4 3 ? $ $
     """
 
-    assert default_test_puzzle(puzzle_string, Skyscrapers, Solving.skyscrapers_techniques())
+    assert default_test_puzzle(puzzle_string, Skyscrapers, skyscrapers_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")

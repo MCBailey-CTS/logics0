@@ -1,5 +1,8 @@
 # from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 # from techniques.LockedCandidatesPointing import LockedCandidatesPointing
+from tech import tech
+from techniques.CrossHatch import CrossHatch
+from techniques.NakedPair import NakedPair
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -8,6 +11,20 @@ EXPLICITLY = "EXPLICITLY"
 # from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 
 EXPLICITLY = "EXPLICITLY"
+
+
+def kropki_techniques() -> list:
+    return [
+        tech.KropkiBlack(),
+        tech.KropkiWhite(),
+        tech.KropkiEmpty(),
+        CrossHatch(),
+        tech.KropkiBb(),
+        tech.KropkiBw(),
+        NakedPair(),
+        tech.KropkiDominatingEmpty(),
+        tech.KropkiDiamond()
+    ]
 
 # @pytest.mark.parametrize("constructor, technique, actual, expected", [
 #

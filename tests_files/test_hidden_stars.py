@@ -1,4 +1,6 @@
 
+def hidden_stars_techniques() -> list:
+    return []
 # @staticmethod
 # def hidden_stars_001():
 #     return f"""

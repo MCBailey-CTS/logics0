@@ -2,7 +2,7 @@ import pytest
 
 from Loc import Loc
 from _defaults import default_test_puzzle
-from solving import Solving
+from techniques.AbstractPaintingTech import AbstractPaintingTech
 from tests_files.test_power_grid import PowerGrid
 
 
@@ -34,6 +34,14 @@ class AbstractPainting(PowerGrid):
         return True
 
 
+
+def abstractpainting_techniques() -> list:
+    return [
+        AbstractPaintingTech()
+    ]
+
+
+
 def test_abstract_painting_001():
     puzzle_string = f"""
     001.abstractpainting
@@ -44,7 +52,7 @@ def test_abstract_painting_001():
     10d 10d 10c 10c 02
     01   02   04   04   $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_002():
@@ -57,7 +65,7 @@ def test_abstract_painting_002():
     10b 10c 10c 10d 02
     03 01 03 04 $$
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_003():
@@ -70,7 +78,7 @@ def test_abstract_painting_003():
     10c 10c 10d 10d 2
     2 2 4 2        $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_004():
@@ -83,7 +91,7 @@ def test_abstract_painting_004():
     10b 10b 10b 10d 3
     2 1 4 2 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_005():
@@ -96,7 +104,7 @@ def test_abstract_painting_005():
     10b 10b 10e 10e 2
     1 4 3 2 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_006():
@@ -109,7 +117,7 @@ def test_abstract_painting_006():
     10b 10c 10c 10e 1
     4 ? 3 2 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_007():
@@ -126,7 +134,7 @@ def test_abstract_painting_007():
         
         
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -140,7 +148,7 @@ def test_abstract_painting_008():
     10c 10c 10d 10d ?
     3 3 2 3          $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_009():
@@ -153,7 +161,7 @@ def test_abstract_painting_009():
     10b 10b 10c 10c ?
     3 2 3 3
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_018():
@@ -167,7 +175,7 @@ def test_abstract_painting_018():
     10c 10c 10d 10d 10d 3
     2 2 2 5 5 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_019():
@@ -181,7 +189,7 @@ def test_abstract_painting_019():
     10d 10d 10e 10g 10g 3
     1 2 3 5 5 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_025():
@@ -195,7 +203,7 @@ def test_abstract_painting_025():
     10b 10c 10c 10e 10e 1
     5 4 ? 2 1 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_027():
@@ -209,7 +217,7 @@ def test_abstract_painting_027():
     10b 10c 10c 10e 10f ?
     3 2 2 5 3 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_028():
@@ -223,7 +231,7 @@ def test_abstract_painting_028():
     10b 10c 10d 10d 10d 4
     2 3 4 5 ? $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_029():
@@ -237,7 +245,7 @@ def test_abstract_painting_029():
     10d 10e 10e 10e 10e 5
     ? 3 3 3 1 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_030():
@@ -251,7 +259,7 @@ def test_abstract_painting_030():
     10b 10b 10b 10d 10e 1
     3 2 ? 2 5 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -267,7 +275,7 @@ def test_abstract_painting_031():
     10f 10f 10g 10g 10h 10h ?
     3 5 3 4 3 1     $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -281,7 +289,7 @@ def test_abstract_painting_010():
     10d 10d 10e 10e 2
     ? 2 3 3 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_011():
@@ -295,7 +303,7 @@ def test_abstract_painting_011():
     10c 10d 10e 10e 10f 4
     1 3 4 4 ? $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -310,7 +318,7 @@ def test_abstract_painting_012():
     10c 10c 10d 10e 10f 2
     4 4 2 2  ? $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -325,7 +333,7 @@ def test_abstract_painting_013():
     10b 10b 10b 10e 10f ?
     3 3 3 3 3          $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -340,7 +348,7 @@ def test_abstract_painting_014():
     10b 10b 10c 10c 10c 2
     5 4 ? 3 3 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_015():
@@ -354,7 +362,7 @@ def test_abstract_painting_015():
     10b 10b 10c 10c 10d 3
     1 ? 3 2 2 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_016():
@@ -368,7 +376,7 @@ def test_abstract_painting_016():
     10b 10b 10d 10d 10d 5
     5 5 1 1 2 $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_017():
@@ -382,7 +390,7 @@ def test_abstract_painting_017():
     10b 10b 10c 10c 10d 3
     5 5 2 1 3    $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -398,7 +406,7 @@ def test_abstract_painting_035():
     10e 10f 10f 10g 10g 10g 3
     4 4 ? ? 4 ?     $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 def test_abstract_painting_036():
@@ -413,7 +421,7 @@ def test_abstract_painting_036():
     10e 10e 10e 10h 10h 10h 6
     1 5 3 4 3 ?     $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -430,7 +438,7 @@ def test_abstract_painting_051():
     10c 10c 10i 10i 10i 10j 10j 3
     ? 3 ? 3 ? 4 ?      $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -448,7 +456,7 @@ def test_abstract_painting_101():
     10d 10e 10e 10e 10j 10j 10j 10j ?
     4 ? ? 4 ? 3 2 ?       $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -467,7 +475,7 @@ def test_abstract_painting_151():
     10d 10d 10d 10d 10h 10h 10i 10j 10j ?
     ? 7 5 4 ? 7 ? ? ?       $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -487,4 +495,4 @@ def test_abstract_painting_191():
     10d 10d 10e 10f 10f 10f 10g 10g 10h 10h ?
     6 4 ? 5 ? 5 ? ? 4 ?         $
     """
-    assert default_test_puzzle(puzzle_string, AbstractPainting, Solving.abstractpainting_techniques())
+    assert default_test_puzzle(puzzle_string, AbstractPainting, abstractpainting_techniques())

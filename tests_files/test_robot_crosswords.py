@@ -3,7 +3,8 @@ from Puzzle import Puzzle
 from _defaults import default_test_puzzle
 import pytest
 
-from solving import Solving
+from techniques.RobotCrosswordsTech import RobotCrosswordsTech, RobotCrosswordsPowerSet
+
 
 class RobotCrosswords(Puzzle):
     def __init__(self, puzzle: str) -> None:
@@ -84,6 +85,8 @@ class RobotCrosswords(Puzzle):
                     houses.append(list(house0))
         return houses
 
+def robot_crosswords_techniques() -> list:
+    return [RobotCrosswordsTech(), RobotCrosswordsPowerSet()]
 
 def test_robot_crosswords_002():
     puzzle_string = f"""
@@ -95,7 +98,7 @@ def test_robot_crosswords_002():
     . . . x 9
     x 7 . 9 8
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 def test_robot_crosswords_003():
@@ -108,7 +111,7 @@ def test_robot_crosswords_003():
     7 . x 3 .
     x 5 2 . .
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -122,7 +125,7 @@ def test_robot_crosswords_004():
     2 . . 4 x
     x 4 x 5 4
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 # @pytest.mark.skip("skipped")
@@ -136,7 +139,7 @@ def test_robot_crosswords_005():
     4 3 x 7 .
     3 . . 6 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 # @pytest.mark.skip("skipped")
@@ -151,7 +154,7 @@ def test_robot_crosswords_006():
     3 . 5 . x 1
     x . . . 4 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -166,7 +169,7 @@ def test_robot_crosswords_007():
     . 2 . x . .
     2 x . 4 x 6
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -181,7 +184,7 @@ def test_robot_crosswords_008():
     2 x 3 x 5 4
     1 . . 3 x 5
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -196,7 +199,7 @@ def test_robot_crosswords_009():
     . 5 x . x .
     . x 6 . 7 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -211,7 +214,7 @@ def test_robot_crosswords_010():
     5 x 5 . . .
     x . . 7 . x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -226,7 +229,7 @@ def test_robot_crosswords_011():
     6 7 x . . .
     x . 5 x 2 3
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -241,7 +244,7 @@ def test_robot_crosswords_012():
     x 9 x 4 . 6
     8 . . . x 7
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -256,7 +259,7 @@ def test_robot_crosswords_013():
     2 1 x 3 . 4
     3 x 4 . 1 .
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -271,7 +274,7 @@ def test_robot_crosswords_014():
     x 2 x . . .
     2 . 4 x 2 3
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -286,7 +289,7 @@ def test_robot_crosswords_015():
     _ _ _ x 4 x
     7 x _ 6 _ 4
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -302,7 +305,7 @@ def test_robot_crosswords_031():
     8 . x 6 x 2 3
     9 x 2 . . 3 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -318,7 +321,7 @@ def test_robot_crosswords_034():
     4 5 x . 3 . x
     x . 7 x . . .
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -334,7 +337,7 @@ def test_robot_crosswords_035():
     x . 5 x . . 2
     . . . 1 x 4 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -350,7 +353,7 @@ def test_robot_crosswords_036():
     . x 2 . 4 x 5
     1 . . x 2 4 3
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -367,7 +370,7 @@ def test_robot_crosswords_071():
     7 x . x . . . 3
     x 2 . 5 4 3 x 4
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -385,7 +388,7 @@ def test_robot_crosswords_101():
     3 . . . x . . 6 .
     2 . x 5 3 . . x 5
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -404,7 +407,7 @@ def test_robot_crosswords_141():
     . . . x . 7 x 2 . x
     x . 7 . 8 x . . . 3
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -424,7 +427,7 @@ def test_robot_crosswords_171():
     x . x 2 . . . 1 x . 8
     4 . . . x 5 4 x 8 7 x
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -445,4 +448,4 @@ def test_robot_crosswords_186():
     . x 3 . . . x 3 . . 7 .
     x 1 . x 2 . . 1 x 6 x 7
     """
-    assert default_test_puzzle(puzzle_string, RobotCrosswords, Solving.robot_crosswords_techniques())
+    assert default_test_puzzle(puzzle_string, RobotCrosswords, robot_crosswords_techniques())

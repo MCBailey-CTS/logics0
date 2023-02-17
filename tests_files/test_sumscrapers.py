@@ -2,6 +2,9 @@
 # from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from Loc import Loc
 from Puzzle import Puzzle
+from tech import tech
+from techniques.CrossHatchSumscrapers import CrossHatchSumscrapers
+from techniques.HiddenSingleSumscrapers import HiddenSingleSumscrapers
 
 EXPLICITLY = "EXPLICITLY"
 
@@ -139,6 +142,11 @@ class Sumscrapers(Puzzle):
                 return False
 
         return True
+
+
+def sumscrapers_techniques() -> list:
+    return [tech.SumscrapersTech(), CrossHatchSumscrapers(), HiddenSingleSumscrapers(),
+            tech.SumscrapersSecondInLine(), tech.SumscrapersLastIsMax(), tech.SumscrapersNextToScraper()]
 
 # @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
 #

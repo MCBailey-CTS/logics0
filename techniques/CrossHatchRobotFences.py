@@ -2,7 +2,7 @@ from techniques.Technique import Technique
 
 
 class CrossHatchRobotFences(Technique):
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         for cell in list(puzzle.unsolved_cells()):
             neighbors = set(puzzle.house_row(cell.row) + puzzle.house_col(cell.col) + puzzle.house_fence(puzzle.cell_fence(cell)))

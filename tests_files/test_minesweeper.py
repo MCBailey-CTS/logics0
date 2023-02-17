@@ -9,7 +9,7 @@ import pytest
 from Loc import Loc
 from Puzzle import Puzzle
 from _defaults import default_test_puzzle
-from solving import Solving
+from tech import tech
 
 
 class Minesweeper(Puzzle):

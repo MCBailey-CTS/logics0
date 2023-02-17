@@ -7,6 +7,7 @@
 #
 #
 from Loc import Loc
+from tech import tech
 from tests_files.test_lighten_up import LightenUp
 
 
@@ -63,6 +64,12 @@ class Lighthouses(LightenUp):
         locs = set(rows + cols)
         locs.remove(loc)
         return [loc0 for loc0 in locs if self.is_candidate_cell(loc0)]
+
+
+def lighthouses_techniques() -> list:
+    return [tech.LighthousesTech()]
+
+
 #
 # # @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
 # #

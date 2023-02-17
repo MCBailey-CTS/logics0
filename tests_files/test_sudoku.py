@@ -6,8 +6,8 @@ import pytest
 from Loc import Loc
 from Puzzle import Puzzle
 from _defaults import default_test_puzzle
-from solving import Solving
-from tech import tech
+from techniques import *
+from techniques.AlmostLockedCandidatesClaiming import AlmostLockedCandidatesClaiming
 from techniques.AvoidableRectangleType1 import AvoidableRectangleType1
 from techniques.AvoidableRectangleType2 import AvoidableRectangleType2
 from techniques.Bug import Bug
@@ -17,12 +17,10 @@ from techniques.HiddenUniqueRectangle import HiddenUniqueRectangle
 from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 from techniques.NakedPair import NakedPair
-from techniques.SashimiXWing import SashimiXWing
 from techniques.UniqueRectangleType1 import UniqueRectangleType1
 from techniques.UniqueRectangleType2 import UniqueRectangleType2
 from techniques.UniqueRectangleType3 import UniqueRectangleType3
 from techniques.UniqueRectangleType4 import UniqueRectangleType4
-from techniques import *
 from techniques.WxyzWing import WxyzWing
 from techniques.XyWing import XyWing
 from techniques.XyzWing import XyzWing
@@ -72,7 +70,7 @@ class Sudoku(Puzzle):
                 if len(self.cell_candidates(loc)) > 1:
                     self.__unsolved_locs.add(loc)
 
-    def rem(self, locs: Union[Loc, list[Loc], set[Loc]], candidates: iter) -> int:
+    def rem(self, locs: Loc| list[Loc]| set[Loc], candidates: iter) -> int:
         edits = 0
         if isinstance(locs, Loc):
             return self.rem([locs], candidates)
@@ -216,6 +214,27 @@ class Sudoku(Puzzle):
                     string += f'{self.grid[r][c].ljust(len(self))} '
             string += '\n'
         return string
+
+
+def sudoku_techniques() -> list:
+    return [
+        CrossHatch(),
+        HiddenSingle(),
+        NakedPair(),
+        LockedCandidatesPointing(),
+        LockedCandidatesClaiming(),
+        UniqueRectangleType1(),
+        UniqueRectangleType2(),
+        UniqueRectangleType4(),
+        # FinnedXWing(),
+        Bug(),
+        tech.HiddenPair(),
+        # tech.NakedTriple(),
+        # tech.XWing(),
+        # XyWing(),
+        # SwordFish(),
+        # JellyFish(),
+    ]
 
 
 def to_sudoku(length: int, actual: str, _id: str) -> Sudoku:
@@ -6193,8 +6212,6 @@ def test_sudoku_4x4_ar2_chute_goofy_south_control():
 #
 #
 
-from tech import tech
-
 
 # from tests_explicit.test_small_explicit import solve
 
@@ -6317,7 +6334,6 @@ def test_sudoku_explicit_simple_coloring():
 #
 #
 #
-from tech import tech
 
 
 # from tests_explicit.test_small_explicit import solve
@@ -6438,7 +6454,6 @@ def test_sudoku_explicit_finned_jelly_fish_cols():
 # 123456789g 123456789g 123456789g    123456789h 123456789h 123456789h    123456789i 123456789i 123456789i
 
 
-from tech import tech
 # from tests_explicit.test_small_explicit import solve
 from techniques.FishyCycle import FishyCycle
 
@@ -6477,9 +6492,6 @@ _23456789g _23456789g 123456789g    _23456789h _23456789h 123456789h    _2345678
     if solve(9, actual, expected, FishyCycle()):
         return
     assert False
-
-
-from tech import tech
 
 
 # from tests_explicit.test_small_explicit import solve
@@ -6630,7 +6642,7 @@ def test_sudoku_almost_locked_candidates_0():
     ...|629|713
     931|574|...
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6648,7 +6660,7 @@ def test_sudoku_almost_locked_candidates_1():
     5 0 3 0 0 8 9 0 2
     0 8 0 0 5 0 0 0 0
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6669,7 +6681,7 @@ def test_sudoku_almost_locked_candidates_2():
     ..3|8..|.7.
     shashimi xwing
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6689,7 +6701,7 @@ def test_sudoku_almost_locked_candidates_3():
     .71|..3|629
     .2.|697|418
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6709,7 +6721,7 @@ def test_sudoku_almost_locked_candidates_4():
     ...|...|...
     41.|5..|6..
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6727,7 +6739,7 @@ def test_sudoku_almost_locked_candidates_5():
     5 0 0 0 0 0 7 0 2
     1 0 0 0 0 8 0 0 0
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6745,7 +6757,7 @@ def test_sudoku_almost_locked_candidates_6():
     1 4 3 9 2 6 7 5 8
     5 8 9 3 0 0 2 6 1
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6763,7 +6775,7 @@ def test_sudoku_avoidable_rectangle_type1_00():
     0g 0g 0g 5h 2h 9h 0i 0i 0i
     0g 8g 0g 0h 4h 0h 3i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6804,7 +6816,7 @@ def test_sudoku_avoidable_rectangle_type1_02():
     5g 0g 6g 9h 0h 0h 0i 0i 0i
     2g 0g 0g 0h 0h 8h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6822,7 +6834,7 @@ def test_sudoku_avoidable_rectangle_type1_03():
     1g 0g 0g 0h 0h 6h 0i 0i 9i
     0g 6g 0g 5h 4h 0h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6840,7 +6852,7 @@ def test_sudoku_avoidable_rectangle_type1_04():
     3g 0g 0g 2h 0h 0h 6i 4i 9i
     9g 4g 0g 3h 8h 0h 2i 7i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6858,7 +6870,7 @@ def test_sudoku_avoidable_rectangle_type1_05():
     0g 0g 0g 0h 0h 0h 0i 3i 0i
     0g 5g 0g 1h 4h 0h 9i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6876,7 +6888,7 @@ def test_sudoku_avoidable_rectangle_type1_07():
     0g 0g 0g 0h 0h 0h 0i 2i 4i
     0g 4g 0g 7h 0h 0h 0i 0i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6894,7 +6906,7 @@ def test_sudoku_avoidable_rectangle_type1_08():
     0g 0g 0g 1h 9h 0h 0i 4i 0i
     0g 0g 0g 8h 0h 7h 3i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6912,7 +6924,7 @@ def test_sudoku_avoidable_rectangle_type1_09():
     0g 3g 6g 0h 0h 0h 8i 2i 7i
     0g 0g 0g 3h 0h 0h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6930,7 +6942,7 @@ def test_sudoku_avoidable_rectangle_type1_10():
     0g 0g 6g 5h 0h 0h 3i 0i 0i
     0g 0g 0g 4h 0h 0h 7i 6i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6948,7 +6960,7 @@ def test_sudoku_avoidable_rectangle_type1_11():
     0g 0g 4g 0h 0h 0h 0i 6i 0i
     0g 0g 0g 0h 1h 0h 4i 2i 7i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6966,7 +6978,7 @@ def test_sudoku_avoidable_rectangle_type1_12():
     9g 0g 0g 0h 0h 0h 4i 5i 0i
     0g 1g 0g 2h 0h 0h 7i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -6984,7 +6996,7 @@ def test_sudoku_avoidable_rectangle_type1_13():
     6g 5g 1g 0h 0h 0h 3i 7i 4i
     2g 8g 7g 4h 3h 5h 6i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7002,7 +7014,7 @@ def test_sudoku_avoidable_rectangle_type2_0():
     0g 0g 7g 8h 0h 0h 3i 6i 5i
     5g 8g 6g 0h 0h 0h 2i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7020,7 +7032,7 @@ def test_sudoku_finned_x_wing_02():
     1g 6g 9g 0h 7h 8h 0i 4i 0i
     0g 7g 4g 3h 1h 6h 0i 9i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7038,7 +7050,7 @@ def test_sudoku_finned_x_wing_03():
     6g 0g 2g 3h 0h 8h 0i 0i 0i
     0g 3g 0g 4h 2h 0h 6i 1i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7056,7 +7068,7 @@ def test_sudoku_hidden_quad_0():
     7g 2g 0g 0h 6h 0h 0i 0i 0i
     0g 8g 0g 5h 0h 1h 0i 0i 2i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7074,7 +7086,7 @@ def test_sudoku_hidden_quad_1():
     0g 0g 2g 6h 0h 7h 0i 0i 1i
     0g 0g 0g 4h 0h 0h 3i 7i 6i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7092,7 +7104,7 @@ def test_sudoku_hidden_quad_2():
     0g 6g 0g 7h 0h 0h 0i 0i 0i
     0g 1g 0g 3h 0h 0h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7110,7 +7122,7 @@ def test_sudoku_hidden_quad_3():
     0g 3g 0g 2h 7h 0h 0i 0i 0i
     0g 0g 7g 0h 0h 3h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7128,7 +7140,7 @@ def test_sudoku_hidden_quad_4():
     0g 0g 0g 5h 1h 3h 0i 0i 0i
     0g 0g 0g 9h 0h 2h 0i 6i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7146,7 +7158,7 @@ def test_sudoku_hidden_quad_8():
     0g 0g 0g 4h 3h 7h 0i 0i 0i
     0g 8g 0g 6h 1h 9h 2i 5i 3i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7164,7 +7176,7 @@ def test_sudoku_hidden_quad_9():
     1g 7g 5g 4h 6h 2h 8i 9i 3i
     4g 6g 8g 7h 9h 3h 5i 1i 2i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7182,7 +7194,7 @@ def test_sudoku_hidden_triple_0():
     1g 6g 0g 0h 0h 0h 0i 8i 0i
     4g 7g 0g 0h 0h 5h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7200,7 +7212,7 @@ def test_sudoku_hidden_triple_2():
     4g 0g 9g 0h 2h 6h 1i 0i 0i
     0g 7g 0g 0h 5h 9h 0i 4i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7218,7 +7230,7 @@ def test_sudoku_hidden_triple_3():
     6g 0g 0g 8h 5h 0h 0i 0i 3i
     0g 8g 0g 4h 1h 0h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7236,7 +7248,7 @@ def test_sudoku_hidden_triple_4():
     3g 6g 0g 8h 0h 7h 0i 1i 0i
     0g 0g 1g 0h 0h 4h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7255,7 +7267,7 @@ _a _a _a 0b 7b 0b 0c 0c 0c
 0g 0g 0g 0h 3h 0h 0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7274,7 +7286,7 @@ _a _a 4a 0b 2b 0b 0c 0c 0c
 9g 3g 0g 0h 0h 0h 0i 2i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7292,7 +7304,7 @@ def test_sudoku_naked_quad_0():
     0g 0g 0g 2h 0h 0h 4i 5i 0i
     0g 0g 0g 1h 0h 9h 7i 2i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7310,7 +7322,7 @@ def test_sudoku_naked_quad_1():
     4g 0g 6g 0h 0h 8h 0i 1i 0i
     0g 0g 5g 9h 0h 1h 0i 0i 3i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7329,7 +7341,7 @@ def test_sudoku_naked_quad_2():
     7g 0g 0g 3h 0h 0h 0i 9i 0i
     9g 4g 0g 0h 8h 5h 0i 0i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7347,7 +7359,7 @@ def test_sudoku_naked_quad_3():
     8g 2g 0g 5h 0h 0h 0i 0i 0i
     0g 0g 9g 0h 4h 0h 0i 0i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7365,7 +7377,7 @@ _a 4a 1a 0b 0b 0b 0c 0c 0c
 0g 0g 0g 1h 6h 3h 4i 5i 8i
 0g 0g 0g 4h 0h 0h 9i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7383,7 +7395,7 @@ _a 4a 1a 0b 0b 0b 0c 0c 0c
 0g 0g 0g 1h 6h 3h 4i 5i 8i
 0g 0g 0g 4h 0h 0h 9i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7401,7 +7413,7 @@ _a 4a 1a 0b 0b 0b 0c 0c 0c
 0g 0g 0g 1h 6h 3h 4i 5i 8i
 0g 0g 0g 4h 0h 0h 9i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7419,7 +7431,7 @@ def test_sudoku_wxyz_wing_7():
 7g 0g 3g 0h 6h 0h 0i 9i 5i
 6g 2g 1g 4h 5h 9h 7i 8i 3i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7437,7 +7449,7 @@ _a 6a 3a 8b 0b 4b 5c 7c 2c
 0g 4g 0g 3h 0h 0h 7i 2i 1i
 7g 0g 0g 0h 4h 0h 8i 0i 9i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7456,7 +7468,7 @@ _a _a _a 8b 0b 0b 1c 6c 7c
 0g 2g 5g 6h 0h 0h 0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7475,7 +7487,7 @@ def test_sudoku_w_wing_type_d_1():
 0g 6g 5g 0h 7h 9h 0i 2i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7494,7 +7506,7 @@ _a _a 2a 8b 7b 4b 5c 1c 0c
 1g 9g 3g 4h 8h 0h 2i 0i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7513,7 +7525,7 @@ _a 5a _a 8b 0b 0b 0c 9c 0c
 0g 7g 0g 0h 6h 0h 1i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7532,7 +7544,7 @@ _a 5a _a 0b 0b 0b 9c 3c 0c
 2g 8g 4g 0h 7h 0h 1i 6i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7551,7 +7563,7 @@ _a _a _a 0b 4b 0b 0c 0c 0c
 0g 3g 1g 0h 0h 5h 2i 6i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7570,7 +7582,7 @@ _a _a _a 0b 0b 0b 0c 2c 0c
 2g 0g 7g 6h 0h 0h 0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7588,7 +7600,7 @@ _a _a _a 3b 0b 0b 0c 8c 5c
 5g 8g 0g 0h 0h 3h 0i 0i 0i
 0g 0g 0g 1h 0h 0h 0i 3i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7606,7 +7618,7 @@ _a _a _a 3b 0b 0b 0c 8c 5c
 5g 8g 0g 0h 0h 3h 0i 0i 0i
 0g 0g 0g 1h 0h 0h 0i 3i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7625,7 +7637,7 @@ _a _a _a 3b 0b 0b 0c 8c 5c
 0g 0g 0g 1h 0h 0h 0i 3i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7644,7 +7656,7 @@ def test_sudoku_xyz_wing_4():
 9g 6g 7g 4h 3h 2h 1i 8i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7663,7 +7675,7 @@ _a 3a 8a 0b 0b 2b 0c 7c 0c
 0g 0g 0g 0h 0h 0h 0i 0i 4i
 0g 8g 0g 0h 0h 5h 0i 9i 3i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7681,7 +7693,7 @@ _a _a 5a 7b 6b 2b 3c 1c 9c
 1g 5g 4g 9h 7h 8h 6i 2i 3i
 9g 2g 6g 5h 4h 3h 7i 8i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7700,7 +7712,7 @@ _a _a 3a 2b 6b 8b 0c 9c 0c
 2g 0g 7g 5h 8h 0h 0i 0i 4i
 5g 9g 4g 6h 3h 2h 7i 1i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7718,7 +7730,7 @@ _a _a 6a 3b 5b 8b 0c 4c 0c
 6g 0g 5g 1h 0h 2h 0i 0i 7i
 0g 8g 0g 5h 0h 9h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7737,7 +7749,7 @@ def test_sudoku_xyz_wing_9():
 2g 7g 5g 0h 1h 9h 0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7754,7 +7766,7 @@ _a 7a 3a 9b 2b 0b 6c 8c 4c
 0g 0g 0g 0h 0h 0h 8i 9i 5i
 0g 0g 8g 2h 9h 0h 4i 7i 1i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7772,7 +7784,7 @@ _a 9a 7a 1b 8b 6b 0c 0c 0c
 0g 4g 0g 8h 6h 9h 0i 0i 7i
 9g 2g 0g 3h 5h 7h 6i 0i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7791,7 +7803,7 @@ _a 9a 7a 1b 8b 6b 0c 0c 0c
 9g 2g 0g 3h 5h 7h 6i 0i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7810,7 +7822,7 @@ _a _a _a 0b 0b 3b 6c 7c 4c
 3g 9g 8g 5h 2h 0h 0i 6i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7829,7 +7841,7 @@ _a _a 8a 0b 0b 0b 9c 0c 5c
 0g 5g 7g 2h 4h 6h 8i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7848,7 +7860,7 @@ _a 8a _a 7b 0b 0b 3c 1c 4c
 6g 1g 5g 0h 7h 0h 9i 3i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7867,7 +7879,7 @@ def test_sudoku_xy_wing_07():
 3g 9g 4g 0h 0h 5h 0i 8i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7885,7 +7897,7 @@ _a 7a _a 9b 6b 5b 0c 8c 0c
 5g 9g 7g 2h 1h 4h 8i 3i 6i
 0g 6g 0g 3h 9h 7h 5i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7903,7 +7915,7 @@ def test_sudoku_xy_wing_09():
     3g 1g 5g 0h 4h 6h 0i 9i 7i
     2g 7g 4g 0h 0h 0h 0i 1i 6i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7922,7 +7934,7 @@ _a 6a _a 4b 0b 1b 0c 8c 0c
 0g 1g 6g 0h 0h 8h 0i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7941,7 +7953,7 @@ def test_sudoku_xy_wing_11():
 4g 6g 1g 0h 0h 9h 7i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7959,7 +7971,7 @@ def test_sudoku_x_wing_0():
     5g 0g 0g 0h 9h 0h 0i 0i 1i
     4g 0g 7g 0h 0h 0h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7977,7 +7989,7 @@ def test_sudoku_x_wing_1():
     7g 9g _________g 2h _________h 5h _________i _________i 4i
     5g _________g _________g _________h 4h _________h _________i 7i _________i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -7996,7 +8008,7 @@ def test_sudoku_x_wing_2():
 8g 7g 0g 1h 6h 5h 0i 3i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8014,7 +8026,7 @@ def test_sudoku_x_wing_3():
     9g 7g 5g 3h 2h 1h 6i 8i 4i
     4g 0g 3g 7h 0h 9h 2i 1i 5i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_south_east_in_rows():
@@ -8031,7 +8043,7 @@ def test_sudoku_unique_rectangle_type1_south_east_in_rows():
 0g 5g 3g 9h 0h 7h 6i 1i 0i
 7g 6g 9g 0h 1h 5h 0i 8i 3i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_south_west_in_cols():
@@ -8049,7 +8061,7 @@ _a 8a 3a 6b 4b 0b 0c 0c 2c
 0g 0g 0g 0h 7h 2h 0i 0i 6i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_north_east_in_cols():
@@ -8066,7 +8078,7 @@ def test_sudoku_unique_rectangle_type1_north_east_in_cols():
 4g 8g 5g 9h 3h 1h 2i 6i 7i
 3g 2g 1g 7h 0h 0h 9i 4i 8i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_south_east_in_cols():
@@ -8083,7 +8095,7 @@ _a _a 9a 5b 3b 6b 2c 7c 8c
 7g 5g 3g 6h 8h 0h 1i 9i 0i
 0g 8g 2g 3h 0h 0h 0i 5i 7i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_north_west_in_rows():
@@ -8101,7 +8113,7 @@ def test_sudoku_unique_rectangle_type1_north_west_in_rows():
 7g 0g 1g 2h 0h 6h 8i 5i 4i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_north_east_in_rows():
@@ -8118,7 +8130,7 @@ def test_sudoku_unique_rectangle_type1_north_east_in_rows():
 7g 0g 8g 5h 0h 2h 4i 0i 9i
 3g 0g 9g 4h 0h 8h 5i 7i 2i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_north_west_in_cols():
@@ -8136,7 +8148,7 @@ _a 3a 4a 0b 0b 7b 0c 2c 0c
 8g 7g 2g 6h 1h 4h 5i 9i 3i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type1_south_west_in_rows():
@@ -8154,7 +8166,7 @@ def test_sudoku_unique_rectangle_type1_south_west_in_rows():
 2g 7g 0g 6h 0h 8h 5i 3i 4i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type2_east():
@@ -8171,7 +8183,7 @@ _a 9a 1a 8b 0b 3b 0c 2c 4c
 4g 5g 9g 2h 8h 1h 3i 6i 7i
 1g 6g 8g 5h 3h 7h 2i 4i 9i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type2_south():
@@ -8188,7 +8200,7 @@ _a 4a 2a 0b 0b 7b 0c 5c 3c
 7g 2g 4g 3h 0h 5h 0i 9i 0i
 5g 3g 1g 0h 8h 0h 0i 2i 7i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type2_west():
@@ -8205,7 +8217,7 @@ _a 7a 3a 9b 5b 0b 2c 6c 1c
 0g 0g 7g 3h 0h 6h 5i 2i 9i
 6g 2g 0g 5h 0h 0h 0i 0i 3i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type4_south_rows():
@@ -8222,7 +8234,7 @@ def test_sudoku_unique_rectangle_type4_south_rows():
         1g _g 7g _h 5h _h 9i 6i _i
         6g 3g _g _h 4h _h 5i _i 2i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type4_south_cols():
@@ -8240,7 +8252,7 @@ _a 5a _a 3b 7b 9b 6c 0c 4c
 9g 4g 2g 5h 3h 7h 8i 6i 1i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_unique_rectangle_type4_east_rows():
@@ -8326,7 +8338,7 @@ def test_sudoku_bug():
         2g 5g 9g 4h 1h 3h 8i 6i 7i
         3g 4g 6g 7h 8h 5h 2i 9i 1i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8345,7 +8357,7 @@ _a 4a 2a 8b 5b 9b 0c 3c 0c
 4g 0g 0g 5h 0h 8h 9i 0i 0i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8363,7 +8375,7 @@ def test_sudoku_hidden_quad_fence():
 4g 0g 0g 9h 0h 8h 0i 2i 3i
 0g 0g 0g 0h 4h 2h 0i 0i 5i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8382,7 +8394,7 @@ _a 7a 8a 0b 3b 1b 6c 0c 0c
 0g 0g 6g 0h 0h 0h 8i 0i 3i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8401,7 +8413,7 @@ _a 9a _a 0b 3b 1b 0c 4c 0c
 0g 0g 2g 9h 4h 5h 7i 0i 0i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8420,7 +8432,7 @@ _a _a _a 0b 0b 0b 0c 0c 0c
 0g 0g 0g 0h 0h 0h 0i 0i 0i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8438,7 +8450,7 @@ def test_sudoku_hidden_quad_col():
 1g 5g 9g 8h 0h 0h 2i 3i 4i
 6g 2g 7g 3h 0h 0h 1i 8i 9i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8493,7 +8505,7 @@ _a 7a _a 3b 1b 2b 9c 8c 5c
 2g 0g 0g 0h 3h 5h 1i 0i 0i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8512,7 +8524,7 @@ _a _a 2a 3b 4b 0b 5c 1c 6c
 2g 5g 0g 4h 1h 3h 6i 9i 0i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8530,7 +8542,7 @@ def test_sudoku_xyz_wing_rows():
 0g 1g 4g 5h 2h 0h 0i 0i 6i
 6g 2g 3g 8h 0h 7h 4i 0i 5i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8548,7 +8560,7 @@ def test_sudoku_xyz_wing_cols():
 4g 5g 8g 2h 7h 9h 1i 3i 6i
 6g 0g 9g 8h 1h 0h 4i 0i 0i
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8567,7 +8579,7 @@ def test_sudoku_w_wing_center_col():
 0g 9g 8g 5h 0h 1h 6i 7i 2i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8586,7 +8598,7 @@ _a _a 7a 0b 2b 4b 6c 1c 9c
 6g 7g 0g 4h 9h 2h 1i 0i 3i
 
         """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8599,7 +8611,7 @@ def test_sudoku_001_4x4():
     ___4b _2__b __3_d 1___d
     1___b __3_b ___4d _2__d
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8617,7 +8629,7 @@ def test_sudoku_bug_0():
     0g 4g 0g 0h 8h 0h 0i 0i 0i
     0g 0g 3g 5h 0h 7h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_hidden_pair_0():
@@ -8634,7 +8646,7 @@ def test_sudoku_hidden_pair_0():
     4g 2g 7g 9h 5h 8h 6i 1i 3i
     8g 1g 6g 2h 3h 4h 5i 9i 7i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_hidden_single_0():
@@ -8949,7 +8961,7 @@ def test_sudoku_naked_triple_7():
     0g 4g 0g 0h 0h 1h 7i 0i 0i
     0g 7g 1g 6h 2h 0h 0i 5i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -8967,7 +8979,7 @@ def test_sudoku_naked_triple_8():
     7g 5g 2g 1h 0h 0h 0i 0i 9i
     8g 9g 3g 0h 0h 0h 0i 1i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9092,7 +9104,7 @@ def test_sudoku_unique_rectangle_type1_04():
     _g 6g _g _h _h _h _i _i 1i
     _g _g 1g 5h _h _h _i 3i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9112,7 +9124,7 @@ def test_almost_locked_candidates_col():
     3g 0g 5g   0h 2h 7h   6i 0i 8i
     4g 7g 0g   0h 0h 8h   0i 5i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9132,7 +9144,7 @@ _a 5a 1a   3b 0b 0b   7c 0c 9c
 9g 4g 6g   8h 2h 3h   5i 1i 7i
 7g 1g 3g   9h 0h 0h   0i 0i 2i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9152,7 +9164,7 @@ _a _a 5a   6b 0b 3b   2c 8c 4c
 0g 3g 2g   9h 0h 8h   5i 7i 6i
 7g 6g 9g   0h 0h 0h   0i 4i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9172,7 +9184,7 @@ def test_als_xz():
 0g 0g 5g   2h 4h 0h   0i 0i 8i
 0g 0g 0g   0h 0h 0h   0i 0i 5i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9192,7 +9204,7 @@ _a 1a 9a   0b 3b 5b   0c 8c 0c
 5g 8g 4g   1h 2h 3h   6i 7i 9i
 0g 7g 0g   0h 0h 0h   0i 5i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9212,7 +9224,7 @@ _a 8a _a   3b 2b 0b   0c 0c 0c
 0g 0g 0g   0h 3h 1h   0i 4i 0i
 7g 1g 0g   0h 0h 0h   0i 8i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9232,7 +9244,7 @@ _a _a 6a   0b 3b 1b   0c 4c 0c
 0g 2g 0g   6h 9h 0h   7i 0i 0i
 0g 1g 0g   0h 0h 0h   4i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9252,7 +9264,7 @@ _a 6a _a   3b 0b 8b   0c 0c 7c
 7g 0g 0g   2h 0h 4h   0i 3i 0i
 6g 0g 0g   0h 0h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9272,7 +9284,7 @@ _a 6a _a   3b 0b 8b   0c 0c 7c
 7g 0g 0g   2h 0h 4h   0i 3i 0i
 6g 0g 0g   0h 0h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9292,7 +9304,7 @@ _a _a 5a   2b 4b 9b   6c 0c 0c
 5g 0g 0g   0h 0h 4h   0i 0i 0i
 0g 3g 0g   0h 0h 0h   9i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9312,7 +9324,7 @@ _a 7a _a   0b 6b 8b   5c 0c 0c
 3g 6g 0g   5h 0h 0h   0i 0i 4i
 0g 0g 7g   0h 0h 9h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9332,7 +9344,7 @@ _a 6a _a   2b 0b 3b   0c 0c 4c
 4g 0g 0g   6h 0h 9h   0i 7i 0i
 5g 0g 0g   0h 0h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9352,7 +9364,7 @@ _a 1a _a   0b 0b 0b   0c 0c 6c
 7g 0g 0g   0h 0h 0h   0i 6i 0i
 0g 9g 0g   0h 0h 4h   5i 3i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9372,7 +9384,7 @@ _a _a _a   0b 0b 5b   0c 9c 0c
 0g 0g 8g   5h 2h 4h   6i 0i 0i
 5g 0g 0g   0h 0h 0h   3i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9392,7 +9404,7 @@ _a _a _a   0b 0b 0b   7c 4c 2c
 0g 0g 0g   0h 9h 0h   0i 0i 4i
 4g 0g 0g   0h 0h 3h   2i 1i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9414,7 +9426,7 @@ _a 9a _a   8b 0b 0b   4c 0c 0c
 9g 3g 0g   5h 4h 0h   0i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9436,7 +9448,7 @@ _a 1a _a   0b 4b 0b   5c 0c 8c
 0g 0g 5g   0h 0h 2h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9458,7 +9470,7 @@ _a 4a 3a   6b 5b 8b   7c 0c 9c
 6g 0g 0g   7h 0h 2h   5i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9480,7 +9492,7 @@ _a 6a 5a   3b 2b 0b   9c 7c 8c
 7g 8g 3g   0h 0h 2h   6i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9502,7 +9514,7 @@ _a 1a _a   5b 9b 0b   0c 8c 0c
 0g 0g 2g   0h 8h 0h   4i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9524,7 +9536,7 @@ _a 5a _a   0b 0b 9b   0c 6c 0c
 0g 0g 1g   6h 9h 0h   0i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9546,7 +9558,7 @@ _a 9a _a   0b 1b 5b   0c 7c 8c
 0g 0g 0g   0h 0h 1h   0i 0i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9568,7 +9580,7 @@ def test_finned_swordfish_3():
 4g 0g 9g   5h 0h 0h   6i 0i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9590,7 +9602,7 @@ _a 9a _a   4b 3b 2b   6c 7c 5c
 0g 1g 3g   7h 0h 8h   0i 4i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9612,7 +9624,7 @@ _a 4a _a   3b 5b 0b   8c 7c 0c
 4g 3g 9g   5h 8h 0h   6i 2i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9634,7 +9646,7 @@ _a _a _a   7b 4b 2b   0c 0c 6c
 9g 5g 3g   2h 1h 7h   8i 6i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9656,7 +9668,7 @@ _a _a 8a   5b 0b 0b   3c 6c 0c
 6g 2g 0g   9h 0h 1h   0i 3i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9678,7 +9690,7 @@ _a _a 6a   5b 1b 0b   2c 3c 4c
 4g 0g 1g   0h 0h 0h   0i 2i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9700,7 +9712,7 @@ _a _a 1a   0b 0b 3b   0c 6c 0c
 0g 2g 0g   8h 0h 5h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9722,7 +9734,7 @@ _a 2a 4a   0b 0b 0b   0c 0c 5c
 0g 5g 1g   0h 9h 7h   4i 3i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9744,7 +9756,7 @@ _a 5a _a   0b 1b 0b   2c 6c 0c
 0g 0g 5g   1h 7h 0h   9i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9766,7 +9778,7 @@ _a _a 9a   0b 0b 1b   0c 6c 3c
 1g 0g 0g   0h 0h 0h   0i 3i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9788,7 +9800,7 @@ _a 7a 2a   0b 0b 0b   0c 0c 0c
 0g 0g 0g   0h 0h 0h   9i 1i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9810,7 +9822,7 @@ _a 2a _a   1b 0b 4b   3c 0c 7c
 0g 0g 0g   0h 3h 5h   0i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9832,7 +9844,7 @@ _a _a _a   5b 2b 3b   0c 0c 7c
 0g 1g 0g   2h 3h 7h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9854,7 +9866,7 @@ def test_finned_x_wing_15():
 1g 6g 8g   7h 2h 9h   4i 5i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9876,7 +9888,7 @@ _a 1a _a   0b 0b 0b   9c 3c 7c
 5g 7g 1g   2h 0h 4h   0i 8i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9898,7 +9910,7 @@ _a _a _a   1b 3b 9b   0c 0c 8c
 0g 0g 5g   6h 9h 3h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9920,7 +9932,7 @@ _a _a 9a   0b 0b 5b   0c 6c 0c
 9g 2g 0g   3h 0h 7h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9942,7 +9954,7 @@ def test_finned_x_wing_rows_1_fin():
 0g 3g 8g   9h 1h 0h   6i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9964,7 +9976,7 @@ _a _a 9a   7b 3b 0b   1c 8c 5c
 6g 8g 3g   9h 0h 2h   5i 7i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -9986,7 +9998,7 @@ _a 3a _a   0b 0b 0b   0c 8c 6c
 3g 8g 0g   0h 0h 0h   0i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10008,7 +10020,7 @@ def test_fishy_cycle_1():
 0g 6g 7g   0h 8h 3h   0i 2i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_hidden_pair_1():
@@ -10029,7 +10041,7 @@ def test_hidden_pair_1():
 6g 7g 4g   0h 5h 0h   8i 9i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_hidden_pair_col():
@@ -10050,7 +10062,7 @@ def test_hidden_pair_col():
 7g 1g 5g   8h 2h 6h   9i 4i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_hidden_pair_fence():
@@ -10071,7 +10083,7 @@ _a 9a 6a   0b 2b 0b   7c 3c 1c
 3g 8g 9g   0h 0h 0h   1i 6i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_hidden_pair_row():
@@ -10092,7 +10104,7 @@ def test_hidden_pair_row():
 8g 6g 7g   2h 4h 3h   5i 9i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10114,7 +10126,7 @@ _a _a 2a   0b 8b 0b   4c 3c 7c
 0g 0g 0g   0h 0h 2h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10136,7 +10148,7 @@ def test_hidden_quad_6():
 7g 4g 2g   8h 0h 0h   1i 5i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10158,7 +10170,7 @@ def test_hidden_quad_7():
 3g 5g 4g   2h 1h 6h   9i 7i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10180,7 +10192,7 @@ _a 6a _a   0b 0b 0b   0c 0c 2c
 5g 0g 4g   9h 0h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10202,7 +10214,7 @@ _a 7a 9a   0b 0b 6b   4c 1c 3c
 1g 9g 0g   3h 0h 0h   0i 4i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10224,7 +10236,7 @@ _a 3a _a   9b 5b 0b   0c 0c 4c
 0g 0g 4g   0h 0h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10246,7 +10258,7 @@ _a _a _a   0b 6b 8b   2c 0c 3c
 4g 9g 6g   5h 3h 2h   1i 8i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10268,7 +10280,7 @@ _a _a _a   0b 1b 5b   8c 0c 7c
 0g 0g 6g   0h 0h 1h   0i 3i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10290,7 +10302,7 @@ def test_hidden_unique_rectangle_5():
 0g 6g 9g   1h 4h 8h   7i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10312,7 +10324,7 @@ _a 8a _a   0b 6b 0b   4c 0c 2c
 0g 3g 7g   2h 0h 0h   5i 8i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10334,7 +10346,7 @@ _a 1a _a   4b 0b 3b   8c 0c 0c
 0g 0g 0g   3h 4h 8h   6i 2i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10356,7 +10368,7 @@ _a _a _a   7b 4b 0b   1c 8c 2c
 0g 8g 7g   5h 0h 4h   2i 6i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10378,7 +10390,7 @@ _a _a _a   0b 0b 2b   8c 4c 0c
 7g 0g 0g   0h 6h 4h   5i 3i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10400,7 +10412,7 @@ _a _a 3a   7b 0b 2b   9c 1c 6c
 2g 6g 7g   9h 0h 8h   5i 0i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10422,7 +10434,7 @@ _a 8a _a   0b 3b 0b   0c 5c 1c
 4g 0g 0g   0h 8h 0h   0i 7i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10444,7 +10456,7 @@ _a _a 6a   0b 0b 0b   0c 0c 0c
 0g 0g 9g   7h 0h 1h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10466,7 +10478,7 @@ _a _a _a   4b 5b 9b   0c 0c 0c
 0g 0g 5g   1h 0h 0h   7i 9i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10488,7 +10500,7 @@ _a _a _a   0b 9b 3b   7c 0c 1c
 0g 1g 9g   0h 2h 0h   3i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10510,7 +10522,7 @@ _a _a 5a   0b 6b 0b   9c 0c 7c
 2g 9g 8g   4h 3h 0h   5i 0i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10532,7 +10544,7 @@ _a 5a _a   9b 2b 0b   7c 0c 0c
 0g 0g 5g   7h 1h 0h   0i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_locked_candidates_claiming_col():
@@ -10553,8 +10565,8 @@ def test_locked_candidates_claiming_col():
 0g 2g 0g   3h 0h 6h   0i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_locked_candidates_claiming_row():
@@ -10575,7 +10587,7 @@ _a 3a 8a   0b 4b 0b   2c 0c 0c
 0g 0g 0g   7h 8h 0h   0i 4i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_locked_candidates_pointing_col():
@@ -10596,7 +10608,7 @@ def test_locked_candidates_pointing_col():
 1g 3g 5g   2h 7h 4h   9i 8i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_locked_candidates_pointing_row():
@@ -10617,7 +10629,7 @@ def test_locked_candidates_pointing_row():
 0g 3g 0g   8h 0h 7h   9i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10639,7 +10651,7 @@ _a 3a 8a   0b 1b 0b   0c 0c 0c
 0g 0g 4g   0h 8h 0h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10661,7 +10673,7 @@ _a 7a 9a   0b 0b 2b   0c 0c 1c
 0g 0g 1g   0h 0h 0h   0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_naked_pair_col():
@@ -10680,7 +10692,7 @@ def test_naked_pair_col():
     5g 9g 4g   0h 0h 2h   8i 6i 7i
     3g 8g 2g   0h 0h 7h   1i 9i 5i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10702,7 +10714,7 @@ def test_naked_pair_fence():
 8g 7g 5g   0h 0h 4h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_naked_pair_row():
@@ -10723,7 +10735,7 @@ def test_naked_pair_row():
 1g 2g 0g   3h 0h 0h   5i 6i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10745,7 +10757,7 @@ _a _a _a   2b 5b 0b   7c 0c 0c
 0g 0g 0g   0h 4h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10767,7 +10779,7 @@ _a 8a _a   0b 4b 0b   0c 0c 5c
 0g 7g 0g   4h 8h 0h   0i 3i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10789,7 +10801,7 @@ _a _a _a   9b 0b 5b   1c 0c 3c
 4g 3g 0g   0h 5h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10811,7 +10823,7 @@ _a _a 1a   2b 0b 5b   0c 9c 0c
 9g 1g 3g   4h 0h 7h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10833,7 +10845,7 @@ _a 2a _a   9b 5b 0b   0c 0c 0c
 5g 0g 0g   1h 8h 2h   6i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10855,7 +10867,7 @@ _a 1a _a   6b 0b 0b   0c 0c 0c
 0g 0g 0g   3h 0h 0h   0i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10877,7 +10889,7 @@ _a 6a _a   0b 2b 0b   5c 1c 4c
 8g 3g 0g   0h 7h 0h   2i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10899,7 +10911,7 @@ _a 6a _a   8b 1b 0b   0c 0c 4c
 4g 0g 5g   9h 8h 6h   0i 3i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10921,7 +10933,7 @@ _a _a 4a   0b 0b 0b   0c 0c 0c
 0g 0g 8g   3h 5h 0h   4i 9i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10943,7 +10955,7 @@ _a _a _a   2b 6b 7b   4c 5c 8c
 0g 0g 5g   9h 0h 0h   0i 6i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10965,7 +10977,7 @@ _a _a _a   6b 0b 2b   0c 0c 9c
 4g 0g 0g   1h 0h 0h   9i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -10987,7 +10999,7 @@ _a 4a 1a   7b 8b 2b   0c 9c 6c
 4g 5g 8g   6h 1h 3h   9i 2i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11009,7 +11021,7 @@ def test_remote_pair_2():
 7g 8g 1g   5h 0h 2h   0i 4i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11031,7 +11043,7 @@ def test_remote_pair_row():
 0g 2g 6g   9h 8h 0h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11053,7 +11065,7 @@ def test_shashimi_jellyfish_0():
 0g 2g 3g   0h 0h 6h   7i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11075,8 +11087,8 @@ _a _a _a   0b 0b 0b   3c 7c 0c
 0g 0g 0g   0h 9h 0h   5i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11098,7 +11110,7 @@ _a _a 6a   0b 0b 0b   5c 0c 0c
 3g 9g 2g   5h 0h 4h   7i 0i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11120,7 +11132,7 @@ _a 2a _a   6b 3b 0b   5c 8c 0c
 0g 9g 8g   0h 0h 3h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11142,7 +11154,7 @@ _a _a 9a   0b 6b 4b   0c 0c 7c
 6g 0g 0g   4h 9h 0h   3i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11164,7 +11176,7 @@ _a _a 3a   0b 9b 0b   0c 2c 0c
 3g 0g 0g   0h 0h 0h   2i 6i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11186,7 +11198,7 @@ _a _a 6a   0b 1b 0b   0c 0c 2c
 0g 7g 0g   0h 0h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11208,7 +11220,7 @@ _a 9a _a   0b 1b 3b   8c 0c 7c
 0g 2g 0g   8h 0h 7h   1i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11230,7 +11242,7 @@ _a 2a 7a   3b 9b 6b   5c 4c 0c
 0g 0g 0g   5h 0h 9h   3i 2i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11252,7 +11264,7 @@ def test_shashimi_swordfish_5():
 6g 8g 2g   0h 4h 0h   5i 0i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11274,7 +11286,7 @@ _a 6a _a   0b 9b 0b   0c 0c 3c
 0g 2g 9g   0h 5h 3h   1i 6i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11296,7 +11308,7 @@ _a 8a _a   0b 0b 5b   0c 0c 4c
 0g 6g 5g   0h 0h 4h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11318,7 +11330,7 @@ _a 2a 7a   9b 0b 6b   8c 0c 0c
 0g 6g 2g   0h 7h 9h   0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11340,7 +11352,7 @@ _a _a _a   0b 0b 6b   0c 7c 1c
 6g 0g 1g   0h 0h 2h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11362,7 +11374,7 @@ _a 6a _a   1b 0b 3b   0c 0c 2c
 0g 0g 3g   0h 5h 0h   0i 0i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11384,7 +11396,7 @@ _a _a _a   0b 0b 0b   5c 0c 0c
 2g 0g 0g   6h 0h 0h   9i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11406,7 +11418,7 @@ _a _a _a   9b 8b 4b   0c 0c 0c
 0g 0g 0g   0h 0h 7h   0i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11428,7 +11440,7 @@ _a _a _a   0b 0b 8b   0c 0c 6c
 9g 0g 3g   0h 6h 0h   0i 0i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11450,7 +11462,7 @@ _a _a 3a   0b 9b 8b   0c 4c 0c
 0g 0g 0g   0h 8h 0h   0i 9i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11472,7 +11484,7 @@ _a _a 4a   0b 0b 2b   7c 1c 5c
 4g 5g 0g   0h 7h 9h   1i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11494,7 +11506,7 @@ def test_shashimi_x_wing_06():
 0g 5g 2g   0h 0h 0h   3i 4i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11516,7 +11528,7 @@ def test_shashimi_x_wing_07():
 7g 2g 0g   1h 8h 6h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11538,7 +11550,7 @@ def test_shashimi_x_wing_08():
 7g 2g 0g   1h 8h 6h   0i 5i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11560,7 +11572,7 @@ _a 4a 9a   5b 1b 6b   7c 2c 0c
 4g 0g 0g   0h 5h 1h   9i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11582,7 +11594,7 @@ _a 6a 8a   0b 4b 0b   0c 0c 0c
 0g 1g 0g   0h 6h 4h   0i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11604,7 +11616,7 @@ def test_shashimi_x_wing_col_2_fins():
 3g 0g 1g   6h 9h 5h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11626,7 +11638,7 @@ _a 9a 3a   2b 0b 0b   5c 6c 7c
 5g 3g 2g   8h 0h 0h   0i 7i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11648,7 +11660,7 @@ _a 3a _a   6b 0b 9b   4c 8c 7c
 6g 7g 0g   9h 0h 5h   2i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11670,7 +11682,7 @@ _a _a 7a   9b 4b 6b   5c 2c 3c
 9g 7g 0g   0h 0h 0h   0i 4i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11692,7 +11704,7 @@ def test_simple_coloring_1():
 0g 2g 0g   6h 4h 9h   8i 1i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11714,7 +11726,7 @@ _a 7a 6a   0b 0b 4b   0c 3c 0c
 6g 0g 0g   4h 8h 0h   0i 0i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11736,7 +11748,7 @@ _a _a _a   0b 0b 0b   0c 2c 0c
 0g 0g 9g   1h 0h 2h   0i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11758,7 +11770,7 @@ _a 9a _a   5b 0b 4b   0c 1c 0c
 0g 0g 0g   0h 0h 0h   9i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11780,7 +11792,7 @@ _a _a 1a   2b 9b 0b   0c 3c 8c
 8g 0g 0g   1h 6h 2h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11802,7 +11814,7 @@ _a _a 6a   0b 0b 0b   9c 0c 3c
 0g 2g 0g   5h 0h 0h   3i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11824,7 +11836,7 @@ _a _a 5a   1b 0b 7b   4c 9c 8c
 0g 5g 8g   4h 1h 6h   0i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11846,7 +11858,7 @@ def test_swordfish_0():
 0g 0g 0g   0h 0h 0h   0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11868,7 +11880,7 @@ _a 9a _a   0b 5b 1b   0c 2c 8c
 0g 5g 8g   0h 4h 0h   2i 6i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11890,7 +11902,7 @@ _a _a 4a   9b 0b 6b   0c 3c 0c
 0g 0g 0g   0h 0h 0h   0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11912,7 +11924,7 @@ def test_swordfish_3():
 0g 0g 0g   0h 0h 3h   2i 7i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11934,7 +11946,7 @@ _a 5a _a   0b 6b 0b   9c 0c 0c
 9g 0g 0g   0h 0h 1h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11956,7 +11968,7 @@ _a 7a 6a   5b 2b 1b   8c 9c 0c
 9g 0g 2g   0h 5h 0h   1i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -11978,7 +11990,7 @@ _a _a 6a   3b 9b 0b   7c 0c 4c
 1g 0g 0g   0h 0h 9h   2i 4i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12000,7 +12012,7 @@ def test_swordfish_of_5_in_rows():
 6g 3g 0g   4h 0h 7h   9i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12022,7 +12034,7 @@ def test_swordfish_of_8_in_cols():
 9g 0g 0g   3h 0h 0h   0i 4i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12044,7 +12056,7 @@ _a _a _a   3b 0b 0b   0c 8c 5c
 0g 0g 0g   1h 0h 0h   0i 3i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12066,7 +12078,7 @@ _a _a 7a   0b 3b 0b   0c 0c 0c
 0g 3g 6g   0h 0h 8h   0i 0i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12088,7 +12100,7 @@ _a _a 5a   0b 6b 0b   0c 4c 0c
 0g 2g 0g   0h 9h 0h   3i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12110,7 +12122,7 @@ _a _a _a   0b 0b 8b   0c 0c 0c
 0g 0g 6g   0h 0h 0h   3i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12132,7 +12144,7 @@ _a 3a _a   0b 4b 0b   0c 9c 5c
 1g 6g 0g   0h 0h 8h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12154,7 +12166,7 @@ _a _a 3a   0b 6b 0b   0c 0c 0c
 0g 0g 0g   0h 0h 3h   6i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12176,7 +12188,7 @@ _a 5a 7a   0b 0b 4b   0c 0c 3c
 4g 0g 0g   0h 0h 2h   0i 0i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12198,7 +12210,7 @@ _a 9a _a   2b 0b 0b   7c 6c 1c
 2g 0g 7g   0h 0h 9h   4i 1i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12220,7 +12232,7 @@ def test_unique_rectangle_type3_east_col():
 0g 0g 6g   8h 5h 0h   2i 0i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12242,7 +12254,7 @@ def test_unique_rectangle_type3_east_fence():
 8g 1g 2g   0h 0h 7h   6i 0i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12264,7 +12276,7 @@ def test_unique_rectangle_type3_north_row():
 2g 5g 3g   0h 8h 0h   1i 4i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12286,7 +12298,7 @@ _a 6a _a   9b 0b 0b   1c 0c 5c
 7g 0g 6g   0h 9h 0h   2i 8i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12308,7 +12320,7 @@ def test_unique_rectangle_type3_west_fence():
 0g 8g 0g   0h 0h 1h   3i 5i 4i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12330,7 +12342,7 @@ _a 3a _a   0b 0b 0b   0c 4c 0c
 3g 0g 0g   1h 5h 0h   7i 9i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12352,7 +12364,7 @@ def test_wxyz_wing_19():
 7g 8g 1g   4h 2h 6h   9i 3i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12374,7 +12386,7 @@ _a _a _a   0b 5b 2b   1c 0c 9c
 0g 3g 0g   0h 0h 0h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12396,7 +12408,7 @@ _a _a _a   8b 3b 2b   0c 4c 1c
 0g 0g 7g   5h 4h 9h   8i 1i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12418,7 +12430,7 @@ _a _a 3a   0b 0b 4b   9c 5c 6c
 0g 0g 2g   0h 0h 0h   4i 0i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12440,7 +12452,7 @@ def test_wxyz_wing_cols_2_fences():
 8g 9g 4g   6h 3h 2h   5i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12462,7 +12474,7 @@ _a 5a 1a   0b 0b 0b   0c 0c 7c
 0g 0g 0g   0h 0h 7h   4i 6i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12484,7 +12496,7 @@ _a _a 9a   7b 4b 5b   2c 3c 6c
 0g 2g 4g   8h 0h 0h   3i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12506,7 +12518,7 @@ _a 7a 2a   3b 0b 0b   9c 0c 0c
 9g 4g 1g   5h 2h 3h   8i 7i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12528,7 +12540,7 @@ _a _a _a   0b 3b 0b   0c 0c 0c
 0g 0g 2g   0h 0h 3h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12550,7 +12562,7 @@ _a 5a _a   9b 7b 0b   6c 2c 0c
 2g 1g 3g   6h 0h 4h   0i 9i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12572,7 +12584,7 @@ _a 9a 5a   0b 0b 2b   1c 0c 0c
 1g 5g 0g   0h 0h 6h   0i 0i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12594,7 +12606,7 @@ _a 3a _a   2b 5b 6b   9c 0c 0c
 0g 0g 0g   5h 0h 3h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12616,7 +12628,7 @@ _a 8a _a   6b 7b 9b   3c 1c 5c
 6g 1g 0g   2h 0h 3h   0i 8i 7i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12638,7 +12650,7 @@ _a 2a 9a   0b 0b 1b   0c 7c 0c
 0g 0g 0g   0h 0h 0h   9i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12660,7 +12672,7 @@ _a _a _a   3b 9b 0b   0c 7c 6c
 7g 4g 0g   0h 3h 1h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12682,7 +12694,7 @@ def test_xy_wing_cols_2_fences():
 1g 2g 5g   7h 0h 0h   6i 0i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12704,7 +12716,7 @@ def test_xy_wing_north_east_3_fences():
 9g 3g 0g   0h 0h 0h   0i 6i 8i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12726,7 +12738,7 @@ def test_xy_wing_north_west_3_fences():
 3g 0g 0g   0h 6h 0h   8i 1i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12746,7 +12758,7 @@ def test_xy_wing_rows_2_fences():
 3g 4g 2g   6h 8h 9h   1i 5i 7i
 0g 0g 0g   5h 4h 1h   2i 3i 9i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12766,7 +12778,7 @@ _a _a _a   3b 6b 8b   0c 5c 9c
 5g 9g 4g   2h 3h 7h   8i 1i 6i
 0g 0g 0g   6h 4h 9h   5i 0i 2i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12786,7 +12798,7 @@ _a 9a _a   6b 0b 3b   0c 1c 0c
 1g 0g 0g   0h 0h 8h   9i 0i 6i
 9g 3g 0g   2h 1h 6h   0i 4i 5i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12806,7 +12818,7 @@ def test_x_chain():
 0g 3g 4g   7h 9h 6h   1i 0i 2i
 0g 0g 6g   0h 1h 2h   3i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -12826,7 +12838,7 @@ def test_x_chain_0():
     0g 5g 0g   2h 0h 0h   6i 0i 0i
     9g 4g 0g   0h 0h 5h   0i 7i 3i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 #
@@ -13369,7 +13381,7 @@ def test_difficult_04():
     2g 0g 4g   0h 0h 8h   0i 0i 9i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13391,7 +13403,7 @@ def test_difficult_05():
     9g 7g 5g   0h 0h 0h   0i 6i 3i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13413,7 +13425,7 @@ def test_difficult_08():
     5g 0g 0g   6h 4h 0h   8i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13435,7 +13447,7 @@ def test_difficult_15():
     0g 0g 0g   0h 0h 0h   0i 0i 2i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13457,7 +13469,7 @@ def test_difficult_20():
     0g 3g 0g   0h 9h 1h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13479,7 +13491,7 @@ def test_difficult_21():
     1g 5g 0g   0h 0h 3h   9i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13501,7 +13513,7 @@ def test_difficult_31():
     0g 4g 9g   8h 1h 6h   0i 7i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13519,7 +13531,7 @@ def test_sudoku_difficult_00():
     0g 0g 0g 0h 0h 0h 0i 0i 0i
     0g 8g 0g 0h 0h 7h 0i 0i 9i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13537,7 +13549,7 @@ def test_sudoku_difficult_02():
     0g 0g 0g 7h 0h 0h 3i 8i 0i
     0g 0g 1g 0h 0h 0h 2i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13592,7 +13604,7 @@ def test_sudoku_difficult_07():
     2g 3g 7g 0h 9h 0h 0i 0i 4i
     requires a remote pair
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13611,7 +13623,7 @@ def test_sudoku_difficult_09():
     0g 9g 6g 0h 3h 7h 8i 4i 0i
     unique rectangle type 1
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13648,7 +13660,7 @@ def test_sudoku_difficult_11():
     6g 0g 8g 0h 0h 4h 0i 9i 0i
     Unique Rectangle Type 3
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13701,7 +13713,7 @@ def test_sudoku_difficult_14():
     0g 3g 0g 1h 2h 9h 6i 7i 4i
     2g 1g 9g 6h 7h 4h 0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_difficult_16():
@@ -13718,7 +13730,7 @@ def test_sudoku_difficult_16():
     3g 0g 8g 1h 6h 2h 0i 4i 9i
     6g 2g 9g 0h 7h 0h 8i 1i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -13738,7 +13750,7 @@ def test_sudoku_difficult_17():
     uniqe rec3
     remote pair
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 def test_sudoku_difficult_18():
@@ -13895,7 +13907,7 @@ def test_sudoku_difficult_28():
     0g 0g 9g 7h 0h 0h 0i 0i 0i
     0g 6g 0g 0h 0h 3h 0i 8i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14004,7 +14016,7 @@ def test_sudoku_difficult_35():
     0g 5g 0g 0h 1h 7h 3i 0i 0i
     0g 0g 0g 2h 0h 0h 4i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14435,7 +14447,7 @@ def test_annoying_00():
     0g 5g 6g   0h 9h 0h   2i 0i 7i
     0g 3g 0g   1h 0h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14455,7 +14467,7 @@ def test_annoying_02():
     8g 7g 0g   0h 4h 0h   6i 3i 0i
     1g 3g 0g   0h 6h 0h   8i 4i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14475,7 +14487,7 @@ def test_annoying_05():
     0g 2g 0g   3h 0h 5h   8i 6i 0i
     3g 0g 6g   0h 7h 8h   2i 1i 5i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14495,7 +14507,7 @@ def test_annoying_06():
     0g 0g 0g   0h 2h 0h   1i 0i 0i
     0g 0g 1g   9h 0h 0h   0i 0i 2i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14515,7 +14527,7 @@ def test_annoying_07():
     0g 0g 3g   0h 6h 0h   0i 0i 0i
     8g 9g 4g   3h 2h 1h   7i 5i 6i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14535,7 +14547,7 @@ def test_annoying_11():
     0g 1g 0g   2h 6h 8h   0i 0i 0i
     7g 0g 2g   9h 3h 1h   6i 0i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14555,7 +14567,7 @@ def test_annoying_13():
     3g 0g 6g   4h 8h 7h   5i 0i 2i
     7g 0g 8g   0h 0h 0h   6i 3i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14576,7 +14588,7 @@ def test_annoying_17():
     1g 5g 0g   3h 7h 2h   4i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14596,7 +14608,7 @@ def test_annoying_22():
     1g 0g 8g   7h 0h 9h   3i 0i 0i
     0g 0g 0g   0h 0h 8h   2i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14616,7 +14628,7 @@ def test_annoying_23():
     9g 0g 0g   4h 0h 0h   0i 0i 0i
     0g 5g 0g   0h 3h 0h   0i 9i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14636,7 +14648,7 @@ def test_annoying_25():
     0g 2g 9g   6h 3h 0h   0i 0i 0i
     5g 7g 0g   0h 9h 0h   0i 0i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14656,7 +14668,7 @@ def test_annoying_26():
     0g 0g 0g   0h 0h 0h   8i 0i 0i
     9g 0g 0g   5h 3h 2h   0i 6i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14676,7 +14688,7 @@ def test_annoying_27():
     0g 0g 0g   0h 0h 0h   0i 0i 4i
     0g 0g 8g   0h 3h 9h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14696,7 +14708,7 @@ def test_annoying_28():
     0g 3g 8g   1h 7h 9h   0i 0i 6i
     0g 0g 0g   4h 6h 0h   0i 0i 8i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14716,7 +14728,7 @@ def test_annoying_29():
     4g 0g 8g   0h 0h 0h   7i 0i 0i
     0g 0g 9g   0h 5h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14736,7 +14748,7 @@ def test_annoying_30():
     0g 0g 6g   0h 0h 0h   0i 0i 9i
     0g 0g 0g   0h 0h 2h   7i 4i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14756,7 +14768,7 @@ def test_annoying_32():
     0g 0g 2g   3h 0h 9h   7i 1i 0i
     0g 0g 8g   0h 0h 7h   6i 4i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14776,7 +14788,7 @@ def test_annoying_33():
     7g 0g 0g   0h 8h 0h   0i 9i 6i
     0g 0g 0g   0h 0h 0h   0i 7i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14796,7 +14808,7 @@ def test_annoying_35():
     5g 7g 0g   0h 0h 0h   0i 0i 3i
     0g 0g 0g   0h 0h 0h   1i 9i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14814,7 +14826,7 @@ def test_sudoku_annoying_01():
     . 7 . 8 . 5 4 3 .
     4 . 8 . 7 . . 1 .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14832,7 +14844,7 @@ def test_sudoku_annoying_03():
     . 7 4 2 1 . . 8 6
     . 2 . 7 . 3 4 . 1
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14850,7 +14862,7 @@ def test_sudoku_annoying_04():
     . . . . 2 . . . 6
     . . 6 9 . . 2 8 .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14868,7 +14880,7 @@ def test_sudoku_annoying_08():
     4 9 1 . 2 8 5 3 .
     7 6 . . . 9 2 8 1
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14886,7 +14898,7 @@ def test_sudoku_annoying_09():
     5 . 3 1 . 7 2 . 8
     7 . . 5 . 3 . 4 .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14904,7 +14916,7 @@ def test_sudoku_annoying_10():
     6 . 4 3 . . 5 2 1
     . 1 2 . 4 . . . 3
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14922,7 +14934,7 @@ def test_sudoku_annoying_12():
     7 9 3 8 1 6 5 2 4
     8 2 6 5 . . . 1 .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14940,7 +14952,7 @@ def test_sudoku_annoying_14():
     . . 8 . . . . 4 9
     . 9 . 3 . 4 . . .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14958,7 +14970,7 @@ def test_sudoku_annoying_15():
     5 7 6 8 1 4 9 2 3
     8 4 9 3 7 2 5 1 6
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14976,7 +14988,7 @@ def test_sudoku_annoying_16():
     1 4 6 . . 5 . . .
     7 . 3 8 . 6 . . 5
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -14994,7 +15006,7 @@ def test_sudoku_annoying_18():
     . . 6 . . 7 3 . 1
     . . . . . 1 6 . .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15012,7 +15024,7 @@ def test_sudoku_annoying_19():
     . . 3 2 . 4 7 . 5
     . 8 . . 5 3 . . .
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15032,7 +15044,7 @@ def test_sudoku_annoying_20():
     ...|36.|59.
     .2.|..7|..8
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15052,7 +15064,7 @@ def test_sudoku_annoying_21():
     ..2|.13|..5
     .9.|8.6|.2.
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15072,7 +15084,7 @@ def test_sudoku_annoying_24():
     37.|1..|..6
     ..2|..9|..3
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15092,7 +15104,7 @@ def test_sudoku_annoying_31():
     ...|.8.|..7
     86.|9.3|4..
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15112,7 +15124,7 @@ def test_sudoku_annoying_36():
     5.1|3..|.8.
     7..|...|...
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15132,7 +15144,7 @@ def test_devious_1():
     0g 0g 0g   0h 1h 3h   6i 0i 9i
     0g 0g 0g   5h 0h 6h   8i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15152,7 +15164,7 @@ def test_devious_2():
     6g 0g 0g   1h 0h 0h   0i 7i 0i
     0g 0g 7g   0h 0h 0h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15172,7 +15184,7 @@ def test_devious_3():
     0g 4g 0g   1h 0h 8h   0i 3i 0i
     0g 0g 0g   0h 0h 7h   0i 0i 4i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15192,7 +15204,7 @@ def test_devious_4():
     4g 0g 0g   0h 3h 0h   0i 0i 0i
     0g 0g 1g   2h 6h 8h   0i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15212,7 +15224,7 @@ def test_devious_5():
     0g 2g 0g   0h 0h 1h   0i 0i 3i
     0g 0g 0g   7h 0h 0h   6i 0i 0i
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15234,7 +15246,7 @@ def test_devious_6():
     0g 0g 5g   7h 0h 0h   0i 0i 1i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15256,7 +15268,7 @@ def test_devious_7():
     0g 0g 0g   1h 0h 0h   2i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15278,7 +15290,7 @@ def test_devious_8():
     0g 0g 0g   7h 0h 0h   0i 0i 5i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15300,7 +15312,7 @@ def test_fiendish_0():
     0g 0g 0g   0h 0h 9h   0i 8i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15322,7 +15334,7 @@ def test_diabolical_0():
     0g 0g 7g   0h 0h 5h   0i 0i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15344,7 +15356,7 @@ def test_nightmare_0():
     7g 0g 4g   5h 0h 6h   8i 2i 0i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @pytest.mark.skip("skipped")
@@ -15366,7 +15378,7 @@ def test_maelstrom_0():
     0g 7g 0g   0h 0h 0h   0i 0i 6i
 
     """
-    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())
+    assert default_test_puzzle(puzzle_string, Sudoku, sudoku_techniques())
 
 
 @mark.skip("EXPLICITLY")

@@ -1,12 +1,11 @@
 from colorama import Fore
-from puzzles import Sudoku
 from Loc import Loc
 from techniques.Technique import Technique
 
 
 class WxyzWing(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
 
         pivot = Loc(4, 4)

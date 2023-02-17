@@ -3,7 +3,7 @@ from Loc import Loc
 from colorama import Fore, Style
 class FishyCycle(Technique):
 
-    def solve0(self, puzzle: Sudoku) -> int:
+    def solve0(self, puzzle) -> int:
         edits = 0
         row0 = puzzle.house_row(2)
         row1 = puzzle.house_row(7)

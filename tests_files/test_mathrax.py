@@ -2,13 +2,35 @@ import pytest
 
 from Puzzle import Mathrax
 from _defaults import default_test_puzzle
-from solving import Solving
-
+from tech import tech
+from techniques.CrossHatch import CrossHatch
+from techniques.NakedPair import NakedPair
 
 # from techniques.LockedCandidatesClaiming import LockedCandidatesClaiming
 # from techniques.LockedCandidatesPointing import LockedCandidatesPointing
 
 EXPLICITLY = "EXPLICITLY"
+
+
+def mathrax_techniques() -> list:
+    return [
+        CrossHatch(),
+        tech.MathraxMathAddition(),
+        tech.MathraxMathSubtraction(),
+        tech.MathraxMathMultiplication(),
+        tech.MathraxMathDivision(),
+        tech.MathraxMath04XWing(),
+        tech.MathraxMath01MinusXWing(),
+        tech.MathraxMath02MinusXWing(),
+        tech.MathraxOdd(),
+        tech.MathraxEven(),
+        NakedPair(),
+        tech.NakedTriple(),
+        tech.MathraxMath04MinusXWing(),
+        # tech.XWing(),
+        tech.HiddenPair()
+    ]
+
 
 # @pytest.mark.parametrize("constructor, technique, actual, expected", [
 
@@ -267,7 +289,7 @@ def test_mathrax_001():
     .... ... .... 01- .... ... ....
     __3_ ... 1234 ... 1234 ... 1234
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_002():
@@ -282,7 +304,7 @@ def test_mathrax_002():
     .... ... .... ... .... 04x ....
     1234 ... 1___ ... 1234 ... ___4
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_003():
@@ -297,7 +319,7 @@ def test_mathrax_003():
     .... 01- .... 05+ .... ... ....
     1234 ... 1234 ... 1234 ... 1234
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_004():
@@ -312,7 +334,7 @@ def test_mathrax_004():
     .... ... .... 01- .... ... ....
     1234 ... 1234 ... 1234 ... 1234
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_005():
@@ -329,7 +351,7 @@ def test_mathrax_005():
         ..... ... ..... ... ..... ... ..... ... .....
         1____ ... 12345 ... 12345 ... 12345 ... __3__
         """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -347,7 +369,7 @@ def test_mathrax_006():
     ..... ... ..... 01- ..... ... ..... ... .....
     12345 ... 12345 ... 12345 ... 12345 ... 12345
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_007():
@@ -364,7 +386,7 @@ def test_mathrax_007():
     ..... ... ..... ... ..... 01- ..... 02- .....
     12345 ... 12345 ... 12345 ... 12345 ... 12345
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -382,7 +404,7 @@ def test_mathrax_008():
     ..... ... ..... 01- ..... ... ..... ... .....
     12345 ... 12345 ... 12345 ... 12345 ... 12345
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -402,7 +424,7 @@ def test_mathrax_009():
     ...... ... ...... ... ...... ... ...... 09+ ...... ... ......
     123456 ... 123456 ... _2____ ... 123456 ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_010():
@@ -421,7 +443,7 @@ def test_mathrax_010():
     ...... 06x ...... ... ...... 08+ ...... ... ...... ... ......
     123456 ... 123456 ... 123456 ... 123456 ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_011():
@@ -440,7 +462,7 @@ def test_mathrax_011():
     ...... 02- ...... 04- ...... ... ...... 06+ ...... 03/ ......
     123456 ... 123456 ... 123456 ... ____5_ ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_012():
@@ -459,7 +481,7 @@ def test_mathrax_012():
     ...... ... ...... ... ...... 05+ ...... ... ...... ... ......
     123456 ... 123456 ... 123456 ... 123456 ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -479,7 +501,7 @@ def test_mathrax_013():
     ...... ... ...... ... ...... ... ...... 03/ ...... ... ......
     123456 ... 123456 ... 123456 ... 1_____ ... 123456 ... _____5
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -499,7 +521,7 @@ def test_mathrax_014():
     ...... 07+ ...... 02/ ...... ... ...... ... ...... 01- ......
     123456 ... 123456 ... 123456 ... 123456 ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -519,7 +541,7 @@ def test_mathrax_015():
     ...... ... ...... ... ...... 04- ...... ... ...... ... ......
     123456 ... 123456 ... 123456 ... 123456 ... 123456 ... 123456
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -541,7 +563,7 @@ def test_mathrax_016():
     ....... 06+ ....... ... ....... ... ....... ... ....... 11+ ....... 01- .......
     1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 def test_mathrax_017():
@@ -562,7 +584,7 @@ def test_mathrax_017():
     ....... ... ....... ... ....... ... ....... ... ....... ... ....... ... .......
     1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... ____5__
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -584,7 +606,7 @@ def test_mathrax_018():
     ....... 04+ ....... 06+ ....... ... ....... ... ....... 01- ....... ... .......
     1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -606,7 +628,7 @@ def test_mathrax_020():
     ....... ... ....... ... ....... ... ....... ... ....... ... ....... ... .......
     1______ ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... ____5__ ... 1234567
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())
 
 
 @pytest.mark.skip("EXPLICITLY")
@@ -628,4 +650,4 @@ def test_mathrax_019():
     ....... ... ....... ... ....... 01- ....... ... ....... ... ....... 05+ .......
     1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567 ... 1234567
     """
-    assert default_test_puzzle(puzzle_string, Mathrax, Solving.mathrax_techniques())
+    assert default_test_puzzle(puzzle_string, Mathrax, mathrax_techniques())

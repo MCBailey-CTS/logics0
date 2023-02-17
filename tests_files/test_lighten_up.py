@@ -9,6 +9,7 @@
 #
 from Loc import Loc
 from Puzzle import Puzzle
+from tech import tech
 
 
 class LightenUp(Puzzle):
@@ -120,6 +121,8 @@ class LightenUp(Puzzle):
             string += '\n'
         return string
 
+def lightenup_techniques() -> list:
+    return [tech.LightenUpTech()]
 #
 # # @pytest.mark.parametrize("puzzle_string, constructor, techniques", [
 # #

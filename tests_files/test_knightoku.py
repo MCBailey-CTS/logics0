@@ -1,3 +1,9 @@
+from tests_files.test_sudoku import sudoku_techniques
+
+
+def knightoku_techniques() -> list:
+    # return [CrossHatchKnightoku()] + Solving.sudoku_techniques()
+    return sudoku_techniques()
 
 # @staticmethod
 # def knightoku_001():
