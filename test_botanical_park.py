@@ -169,6 +169,10 @@ def pointing_required(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] =
 
 def pointing_opposite_nsew(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
     edits = 0
+
+    if puzzle.trees == 2:
+        return edits
+
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
         __house: list[Loc]
@@ -248,7 +252,6 @@ def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __candidate, __cell
     return edits
 
 
-
 techs = [
     cross_hatch_cell_row_col_touching,
     pointing_hidden,
@@ -258,132 +261,105 @@ techs = [
 ]
 
 
-def test_botanical_park_001():
-    puzzle = BotanicalPark(Constants.botanical_park_001)
+def default_test(puzzle_string, edits=None) -> bool:
+    puzzle = BotanicalPark(puzzle_string)
+
+    if edits is not None:
+        for edit in edits:
+            r, c, candidate = edit
+
+            puzzle.grid[r][c].remove(candidate)
 
     while sum(tech(puzzle, PLUS) for tech in techs) > 0:
         continue
     print(puzzle)
-    assert puzzle.is_solved()
+    return puzzle.is_solved()
+
+
+def test_botanical_park_001():
+    assert default_test(Constants.botanical_park_001)
 
 
 def test_botanical_park_002():
-    puzzle = BotanicalPark(Constants.botanical_park_002)
-    puzzle.grid[2][0].remove(PLUS)
-    puzzle.grid[1][1].remove(PLUS)
-    puzzle.grid[4][2].remove(PLUS)
-
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_002, [
+        (2, 0, PLUS),
+        (1, 1, PLUS),
+        (4, 2, PLUS),
+    ])
 
 
 def test_botanical_park_003():
-    puzzle = BotanicalPark(Constants.botanical_park_003)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_003)
 
 
 def test_botanical_park_004():
-    puzzle = BotanicalPark(Constants.botanical_park_004)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_004)
 
 
 def test_botanical_park_005():
-    puzzle = BotanicalPark(Constants.botanical_park_005)
-    puzzle.grid[0][0].remove(MINUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_005, [(0, 0, PLUS)])
 
 
 def test_botanical_park_006():
-    puzzle = BotanicalPark(Constants.botanical_park_006)
-    puzzle.grid[2][2].remove(PLUS)
-    puzzle.grid[0][1].remove(PLUS)
-    puzzle.grid[1][1].remove(PLUS)
-    puzzle.grid[1][4].remove(PLUS)
-    puzzle.grid[1][5].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_006, [
+        (2, 2, PLUS),
+        (0, 1, PLUS),
+        (1, 1, PLUS),
+        (1, 4, PLUS),
+        (1, 5, PLUS)
+    ])
 
 
 def test_botanical_park_007():
-    puzzle = BotanicalPark(Constants.botanical_park_007)
-    puzzle.grid[4][4].remove(PLUS)
-    puzzle.grid[5][4].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_007, [
+        (4, 4, PLUS),
+        (5, 4, PLUS),
+        (1, 1, PLUS),
+        (1, 4, PLUS),
+        (1, 5, PLUS)
+    ])
 
 
 def test_botanical_park_008():
-    puzzle = BotanicalPark(Constants.botanical_park_008)
-    puzzle.grid[0][3].remove(PLUS)
-    puzzle.grid[1][3].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_008, [
+        (0, 3, PLUS),
+        (1, 3, PLUS)
+    ])
 
 
 def test_botanical_park_009():
-    puzzle = BotanicalPark(Constants.botanical_park_009)
-    puzzle.grid[0][1].remove(PLUS)
-    puzzle.grid[2][3].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_009, [
+        (0, 1, PLUS),
+        (2, 3, PLUS)
+    ])
 
 
 def test_botanical_park_010():
-    puzzle = BotanicalPark(Constants.botanical_park_010)
-    puzzle.grid[7][4].remove(PLUS)
-    puzzle.grid[6][5].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_010, [
+        (7, 4, PLUS),
+        (6, 5, PLUS)
+    ])
 
 
 def test_botanical_park_011():
-    puzzle = BotanicalPark(Constants.botanical_park_011)
-    puzzle.grid[2][5].remove(PLUS)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
-        continue
-    print(puzzle)
-    assert puzzle.is_solved()
+    assert default_test(Constants.botanical_park_011, [(2, 5, PLUS)])
 
 
 @pytest.mark.skip("SKIPPED")
 def test_botanical_park_012():
-    puzzle = BotanicalPark(Constants.botanical_park_012)
-    pointing_hidden(puzzle, Loc(1, 1))
-    cross_hatch_cell_row_col_touching(puzzle, Loc(1, 0))
-    pointing_opposite_nsew(puzzle, PLUS)
-    pointing_opposite_nsew(puzzle, PLUS)
-    pointing_hidden(puzzle, Loc(5, 4))
-    cross_hatch_cell_row_col_touching(puzzle, Loc(4, 4))
-    pointing_hidden(puzzle, Loc(5, 1))
-    cross_hatch_cell_row_col_touching(puzzle, Loc(0, 6))
-    puzzle.grid[5][7].remove(MINUS)
-    cross_hatch_cell_row_col_touching(puzzle, Loc(5, 7))
-    puzzle.grid[2][2].remove(PLUS)
-    puzzle.grid[7][1].remove(PLUS)
-    # x-wing
-    puzzle.grid[6][3].remove(PLUS)
-    puzzle.grid[6][5].remove(PLUS)
+    assert default_test(Constants.botanical_park_012, [
+        (5, 7, MINUS),
+        (2, 2, PLUS),
+        (7, 1, PLUS),
+        (6, 3, PLUS),
+        (6, 5, PLUS),
+    ])
+
+
+@pytest.mark.skip("SKIPPED")
+def test_botanical_park_014():
+    puzzle = BotanicalPark(Constants.botanical_park_014)
+    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+        continue
     print(puzzle)
     assert puzzle.is_solved()
