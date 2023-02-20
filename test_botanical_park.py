@@ -29,6 +29,8 @@ MINUS = '-'
 class BotanicalPark:
     def __init__(self, __json) -> None:
         self.__json = __json
+        print(__json)
+
         self.id = self.__json['id']
         self.trees = self.__json['trees']
         temp = self.__json['grid']
@@ -67,6 +69,10 @@ def pointing_hidden(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = N
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
         __house: list[Loc]
+
+        if isinstance(_cell_string, str):
+            _cell_string = _cell_string.strip()
+
         match _cell_string:
             case 'nn':
                 __house = __loc.north_locs()
@@ -117,6 +123,9 @@ def pointing_required(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] =
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
         __house: list[Loc]
+
+        if isinstance(_cell_string, str):
+            _cell_string = _cell_string.strip()
         match _cell_string:
             case 'nn':
                 __house = __loc.north_locs()
@@ -176,6 +185,8 @@ def pointing_opposite_nsew(puzzle: BotanicalPark, __candidate, __loc: Optional[L
     if __loc is not None:
         _cell_string = puzzle.grid[__loc.row][__loc.col]
         __house: list[Loc]
+        if isinstance(_cell_string, str):
+            _cell_string = _cell_string.strip()
         match _cell_string:
             case 'nn':
                 __house = __loc.south_locs(len(puzzle))
@@ -260,6 +271,28 @@ techs = [
     pointing_opposite_nsew
 ]
 
+LENGTH = 'length'
+TREES = 'trees'
+GRID = 'grid'
+TECHS = 'techs'
+puzzles_dict = {
+    'botanical_park_001': {
+        'id': 'botanical_park_001',
+        LENGTH: 5,
+        TREES: 1,
+        GRID: [
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
+        ],
+        TECHS: [
+
+        ]
+    }
+}
+
 
 def default_test(puzzle_string, edits=None) -> bool:
     puzzle = BotanicalPark(puzzle_string)
@@ -277,7 +310,11 @@ def default_test(puzzle_string, edits=None) -> bool:
 
 
 def test_botanical_park_001():
-    assert default_test(Constants.botanical_park_001)
+    from main import puzzles_dict
+
+    temp = puzzles_dict['botanical_park_001']
+
+    assert  default_test(puzzles_dict['botanical_park_001'])
 
 
 def test_botanical_park_002():

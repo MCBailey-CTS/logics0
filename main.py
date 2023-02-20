@@ -1,68 +1,54 @@
-# from Loc import Loc
+import json
 
+LENGTH = 'length'
+TREES = 'trees'
+GRID = 'grid'
+TECHS = 'techs'
+puzzles_dict = {
+    'botanical_park_001': {
+        'id': 'botanical_park_001',
+        LENGTH: 5,
+        TREES: 1,
+        GRID: [
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
+            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
+        ],
+        TECHS:[
 
-def prRed(skk): print("\033[91m {}\033[00m".format(skk))
+        ]
+    }
+}
 
+# GRID: {
+#     0: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+#     1: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
+#     2: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+#     3: [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
+#     4: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
+# }
 
-def prGreen(skk): print("\033[92m {}\033[00m".format(skk))
+botanical_park_001 = {
 
+}
+# { '
+#    "id"     : "001.botanical_park", '
+#    "length" : 5, '
+#    "trees"  : 1, '
+#    "grid"   : '
+#        ['
+#            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+#            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn"      ], '
+#            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]], '
+#            [["+", "-"], ["+", "-"], "ee",       ["+", "-"], ["+", "-"]], '
+#            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]  '
+#        ]'
+# }'
 
-def prYellow(skk): print("\033[93m {}\033[00m".format(skk))
-
-
-def prLightPurple(skk): print("\033[94m {}\033[00m".format(skk))
-
-
-def prPurple(skk): print("\033[95m {}\033[00m".format(skk))
-
-
-def prCyan(skk): print("\033[96m {}\033[00m".format(skk))
-
-
-def prLightGray(skk): print("\033[97m {}\033[00m".format(skk))
-
-
-def prBlack(skk): print("\033[98m {}\033[00m".format(skk))
-
- # temp = [1,2,3,4,]
- #    print(temp)
- #    print([*temp])
- #    # next()
- #    # breakpoint()
- #    #
- #    # print("hello world")
- #
- #    import os, glob
- #
- #
- #    path = 'C:\Repos\logics0\skip_files'
- #    for filename in glob.glob(os.path.join(path, '*')):
- #        with open(os.path.join(os.getcwd(), filename), 'r') as f:
- #            temp = os.path.split(filename)
- #
- #            result = '@pytest.mark.skip("skipped")\n'
- #            name = temp[1].split(".")[0]
- #            result += f'def test_{name}():\n'
- #            result += f'    puzzle_string = f"""\n'
- #            result += f'    {name}.sudoku\n'
- #            result += f'    9\n'
- #            result += f.read().replace('9 $ $ $ $ $ $ $ $', '', -1) + '\n'
- #            result += f'    """\n'
- #            result += f'    assert default_test_puzzle(puzzle_string, Sudoku, Solving.sudoku_techniques())\n'
- #
- #            print(result)
 
 if __name__ == "__main__":
-    puzzle_string = f"""
-       003.botanical_park
-       5
-       +- +- +- +- +-
-       +- +- ww +- +-
-       +- +- +- +- +-
-       +- +- +- +- +-
-       +- +- nw +- nn
-       1
-       """
-    puzzle = BotanicalPark(puzzle_string)
-    puzzle.solve()
-    print(puzzle)
+    json_string = json.dumps(puzzles_dict, indent=1)
+
+    print(json_string)
