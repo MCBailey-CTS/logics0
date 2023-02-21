@@ -5,6 +5,10 @@ import pytest
 
 from Loc import Loc
 from Constants import Constants
+from tech import tech
+
+with open('data.json', 'r') as file:
+    puzzle_dict: dict = json.load(file)
 
 # hidden_stars_001 = json.loads(
 #     '{ '
@@ -64,234 +68,213 @@ class BotanicalPark:
         return string
 
 
-def pointing_hidden(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
-    edits = 0
-    if __loc is not None:
-        _cell_string = puzzle.grid[__loc.row][__loc.col]
-        __house: list[Loc]
-
-        if isinstance(_cell_string, str):
-            _cell_string = _cell_string.strip()
-
-        match _cell_string:
-            case 'nn':
-                __house = __loc.north_locs()
-            case 'ww':
-                __house = __loc.west_locs()
-            case 'ss':
-                __house = __loc.south_locs(len(puzzle))
-            case 'ee':
-                __house = __loc.east_locs(len(puzzle))
-            case 'ne':
-                __house = __loc.north_east_locs(len(puzzle))
-            case 'nw':
-                __house = __loc.north_west_locs(len(puzzle))
-            # case 'se':
-            #     __house = __loc.south_east_locs(len(puzzle))
-            case 'sw':
-                __house = __loc.south_west_locs(len(puzzle))
-            case _:
-                return edits
-        __house = [_l for _l in __house if
-                   len(puzzle.grid[_l.row][_l.col]) and __candidate in puzzle.grid[_l.row][_l.col]]
-
-        if len(__house) != 1:
-            return edits
-        # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
-        #     temp: list = puzzle.grid[__house[0].row][__house[0].col]
-        #     temp.remove(MINUS)
-        #     edits += 1
-
-        for __other in list(puzzle.grid[__house[0].row][__house[0].col]):
-            if __other == __candidate:
-                continue
-
-            # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
-            #     temp: list =
-            puzzle.grid[__house[0].row][__house[0].col].remove(__other)
-            edits += 1
-        return edits
-    for r in range(len(puzzle)):
-        for c in range(len(puzzle)):
-            edits += pointing_hidden(puzzle, __candidate, Loc(r, c))
-    return edits
-
-
-def pointing_required(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
-    edits = 0
-
-    if __loc is not None:
-        _cell_string = puzzle.grid[__loc.row][__loc.col]
-        __house: list[Loc]
-
-        if isinstance(_cell_string, str):
-            _cell_string = _cell_string.strip()
-        match _cell_string:
-            case 'nn':
-                __house = __loc.north_locs()
-            case 'ww':
-                __house = __loc.west_locs()
-            case 'ss':
-                __house = __loc.south_locs(len(puzzle))
-            case 'ee':
-                __house = __loc.east_locs(len(puzzle))
-            case 'ne':
-                __house = __loc.north_east_locs(len(puzzle))
-            case 'nw':
-                __house = __loc.north_west_locs(len(puzzle))
-            # case 'se':
-            #     __house = __loc.south_east_locs(len(puzzle))
-            # case 'sw':
-            #     __house = __loc.south_west_locs(len(puzzle))
-            case _:
-                return edits
-
-        if len(__house) == 2 and __house[0].is_next_to(__house[1]):
-            __l0 = __house[0]
-            __l1 = __house[1]
-
-            __remove: Optional[list[Loc]] = None
-
-            if __house[0].in_same_row(__house[1]):
-                __remove = [__loc for __loc in
-                            [__house[0].south(), __house[0].north(), __house[1].south(), __house[1].north()]
-                            if __loc.is_valid_sudoku(len(puzzle))]
-            elif __house[0].in_same_col(__house[1]):
-                __remove = [__loc for __loc in
-                            [__house[0].west(), __house[0].east(), __house[1].west(), __house[1].east()]
-                            if __loc.is_valid_sudoku(len(puzzle))]
-
-            if __remove is not None:
-                for __loc in __remove:
-                    __candidates: list = puzzle.grid[__loc.row][__loc.col]
-
-                    if __candidate in __candidates:
-                        __candidates.remove(__candidate)
-                        edits += 1
-
-        return edits
-    for r in range(len(puzzle)):
-        for c in range(len(puzzle)):
-            edits += pointing_required(puzzle, __candidate, Loc(r, c))
-    return edits
-
-
-def pointing_opposite_nsew(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
-    edits = 0
-
-    if puzzle.trees == 2:
-        return edits
-
-    if __loc is not None:
-        _cell_string = puzzle.grid[__loc.row][__loc.col]
-        __house: list[Loc]
-        if isinstance(_cell_string, str):
-            _cell_string = _cell_string.strip()
-        match _cell_string:
-            case 'nn':
-                __house = __loc.south_locs(len(puzzle))
-            case 'ww':
-                __house = __loc.east_locs(len(puzzle))
-            case 'ss':
-                __house = __loc.north_locs()
-            case 'ee':
-                __house = __loc.west_locs()
-            case _:
-                return edits
-        for __l in __house:
-            if __candidate in puzzle.grid[__l.row][__l.col]:
-                puzzle.grid[__l.row][__l.col].remove(__candidate)
-                edits += 1
-        return edits
-    for r in range(len(puzzle)):
-        for c in range(len(puzzle)):
-            edits += pointing_opposite_nsew(puzzle, __candidate, Loc(r, c))
-    return edits
-
-
-def hidden_single_cell_neighbors(puzzle: BotanicalPark, __candidate, __neighbors: list[Loc]) -> int:
-    edits = 0
-    iterator = (__loc for __loc in __neighbors if __candidate in puzzle.grid[__loc.row][__loc.col])
-    __first = next(iterator)
-    __second = next(iterator, None)
-    if __second is not None:
-        return edits
-    for __other_candidate in list(puzzle.grid[__first.row][__first.col]):
-        if __other_candidate == __candidate:
-            continue
-        puzzle.grid[__first.row][__first.col].remove(__other_candidate)
-        edits += 1
-    return edits
-
-
-def hidden_single_row_col(puzzle: BotanicalPark, __candidate) -> int:
-    edits = 0
-    for i in range(len(puzzle)):
-        edits += hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(i, len(puzzle)))
-        edits += hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(i, len(puzzle)))
-    return edits
-
-
-def cross_hatch_cell_neighbors(puzzle: BotanicalPark, __cell: Loc, __candidate, __neighbors: list[Loc]) -> int:
-    edits = 0
-    __neighbors = set(__neighbors)
-    __neighbors.discard(__cell)
-    __candidates = puzzle.grid[__cell.row][__cell.col]
-    if len(__candidates) != 1 or __candidate not in __candidates:
-        return edits
-    for __other in __neighbors:
-        __other_candidates: list = puzzle.grid[__other.row][__other.col]
-        if __candidate not in __other_candidates:
-            continue
-        __other_candidates.remove(__candidate)
-        edits += 1
-    return edits
-
-
-def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __candidate, __cell: Loc | None = None) -> int:
-    edits = 0
-
-    if __cell is not None:
-        edits += cross_hatch_cell_neighbors(puzzle, __cell, PLUS,
-                                            Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col,
-                                                                                                   len(puzzle)))
-        return cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.surrounding(__cell, len(puzzle))) + edits
-
-    for r in range(len(puzzle)):
-        for c in range(len(puzzle)):
-            edits += cross_hatch_cell_row_col_touching(puzzle, PLUS, Loc(r, c))
-    return edits
+#
+# def pointing_hidden(puzzle: BotanicalPark, __candidate, __loc: Loc | None = None) -> int:
+#     edits = 0
+#     if __loc is not None:
+#         _cell_string = puzzle.grid[__loc.row][__loc.col]
+#         __house: list[Loc]
+#
+#         if isinstance(_cell_string, str):
+#             _cell_string = _cell_string.strip()
+#
+#         match _cell_string:
+#             case 'nn':
+#                 __house = __loc.north_locs()
+#             case 'ww':
+#                 __house = __loc.west_locs()
+#             case 'ss':
+#                 __house = __loc.south_locs(len(puzzle))
+#             case 'ee':
+#                 __house = __loc.east_locs(len(puzzle))
+#             case 'ne':
+#                 __house = __loc.north_east_locs(len(puzzle))
+#             case 'nw':
+#                 __house = __loc.north_west_locs(len(puzzle))
+#             # case 'se':
+#             #     __house = __loc.south_east_locs(len(puzzle))
+#             case 'sw':
+#                 __house = __loc.south_west_locs(len(puzzle))
+#             case _:
+#                 return edits
+#         __house = [_l for _l in __house if
+#                    len(puzzle.grid[_l.row][_l.col]) and __candidate in puzzle.grid[_l.row][_l.col]]
+#
+#         if len(__house) != 1:
+#             return edits
+#         # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+#         #     temp: list = puzzle.grid[__house[0].row][__house[0].col]
+#         #     temp.remove(MINUS)
+#         #     edits += 1
+#
+#         for __other in list(puzzle.grid[__house[0].row][__house[0].col]):
+#             if __other == __candidate:
+#                 continue
+#
+#             # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+#             #     temp: list =
+#             puzzle.grid[__house[0].row][__house[0].col].remove(__other)
+#             edits += 1
+#         return edits
+#     for r in range(len(puzzle)):
+#         for c in range(len(puzzle)):
+#             edits += pointing_hidden(puzzle, __candidate, Loc(r, c))
+#     return edits
+#
+#
+# def pointing_required(puzzle: BotanicalPark, __candidate, __loc: Loc | None = None) -> int:
+#     edits = 0
+#
+#     if __loc is not None:
+#         _cell_string = puzzle.grid[__loc.row][__loc.col]
+#         __house: list[Loc]
+#
+#         if isinstance(_cell_string, str):
+#             _cell_string = _cell_string.strip()
+#         match _cell_string:
+#             case 'nn':
+#                 __house = __loc.north_locs()
+#             case 'ww':
+#                 __house = __loc.west_locs()
+#             case 'ss':
+#                 __house = __loc.south_locs(len(puzzle))
+#             case 'ee':
+#                 __house = __loc.east_locs(len(puzzle))
+#             case 'ne':
+#                 __house = __loc.north_east_locs(len(puzzle))
+#             case 'nw':
+#                 __house = __loc.north_west_locs(len(puzzle))
+#             # case 'se':
+#             #     __house = __loc.south_east_locs(len(puzzle))
+#             # case 'sw':
+#             #     __house = __loc.south_west_locs(len(puzzle))
+#             case _:
+#                 return edits
+#
+#         if len(__house) == 2 and __house[0].is_next_to(__house[1]):
+#             __l0 = __house[0]
+#             __l1 = __house[1]
+#
+#             __remove: Optional[list[Loc]] = None
+#
+#             if __house[0].in_same_row(__house[1]):
+#                 __remove = [__loc for __loc in
+#                             [__house[0].south(), __house[0].north(), __house[1].south(), __house[1].north()]
+#                             if __loc.is_valid_sudoku(len(puzzle))]
+#             elif __house[0].in_same_col(__house[1]):
+#                 __remove = [__loc for __loc in
+#                             [__house[0].west(), __house[0].east(), __house[1].west(), __house[1].east()]
+#                             if __loc.is_valid_sudoku(len(puzzle))]
+#
+#             if __remove is not None:
+#                 for __loc in __remove:
+#                     __candidates: list = puzzle.grid[__loc.row][__loc.col]
+#
+#                     if __candidate in __candidates:
+#                         __candidates.remove(__candidate)
+#                         edits += 1
+#
+#         return edits
+#     for r in range(len(puzzle)):
+#         for c in range(len(puzzle)):
+#             edits += pointing_required(puzzle, __candidate, Loc(r, c))
+#     return edits
+#
+#
+# def pointing_opposite_nsew(puzzle: BotanicalPark, __candidate, __loc: Optional[Loc] = None) -> int:
+#     edits = 0
+#
+#     if puzzle.trees == 2:
+#         return edits
+#
+#     if __loc is not None:
+#         _cell_string = puzzle.grid[__loc.row][__loc.col]
+#         __house: list[Loc]
+#         if isinstance(_cell_string, str):
+#             _cell_string = _cell_string.strip()
+#         match _cell_string:
+#             case 'nn':
+#                 __house = __loc.south_locs(len(puzzle))
+#             case 'ww':
+#                 __house = __loc.east_locs(len(puzzle))
+#             case 'ss':
+#                 __house = __loc.north_locs()
+#             case 'ee':
+#                 __house = __loc.west_locs()
+#             case _:
+#                 return edits
+#         for __l in __house:
+#             if __candidate in puzzle.grid[__l.row][__l.col]:
+#                 puzzle.grid[__l.row][__l.col].remove(__candidate)
+#                 edits += 1
+#         return edits
+#     for r in range(len(puzzle)):
+#         for c in range(len(puzzle)):
+#             edits += pointing_opposite_nsew(puzzle, __candidate, Loc(r, c))
+#     return edits
+#
+#
+# def hidden_single_cell_neighbors(puzzle: BotanicalPark, __candidate, __neighbors: list[Loc]) -> int:
+#     edits = 0
+#     iterator = (__loc for __loc in __neighbors if __candidate in puzzle.grid[__loc.row][__loc.col])
+#     __first = next(iterator)
+#     __second = next(iterator, None)
+#     if __second is not None:
+#         return edits
+#     for __other_candidate in list(puzzle.grid[__first.row][__first.col]):
+#         if __other_candidate == __candidate:
+#             continue
+#         puzzle.grid[__first.row][__first.col].remove(__other_candidate)
+#         edits += 1
+#     return edits
+#
+#
+# def hidden_single_row_col(puzzle: BotanicalPark, __candidate) -> int:
+#     edits = 0
+#     for i in range(len(puzzle)):
+#         edits += hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(i, len(puzzle)))
+#         edits += hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(i, len(puzzle)))
+#     return edits
+#
+#
+# def cross_hatch_cell_neighbors(puzzle: BotanicalPark, __cell: Loc, __candidate, __neighbors: list[Loc]) -> int:
+#     edits = 0
+#     __neighbors = set(__neighbors)
+#     __neighbors.discard(__cell)
+#     __candidates = puzzle.grid[__cell.row][__cell.col]
+#     if len(__candidates) != 1 or __candidate not in __candidates:
+#         return edits
+#     for __other in __neighbors:
+#         __other_candidates: list = puzzle.grid[__other.row][__other.col]
+#         if __candidate not in __other_candidates:
+#             continue
+#         __other_candidates.remove(__candidate)
+#         edits += 1
+#     return edits
+#
+#
+# def cross_hatch_cell_row_col_touching(puzzle: BotanicalPark, __candidate, __cell: Loc | None = None) -> int:
+#     edits = 0
+#
+#     if __cell is not None:
+#         edits += cross_hatch_cell_neighbors(puzzle, __cell, PLUS,
+#                                             Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col,
+#                                                                                                    len(puzzle)))
+#         return cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.surrounding(__cell, len(puzzle))) + edits
+#
+#     for r in range(len(puzzle)):
+#         for c in range(len(puzzle)):
+#             edits += cross_hatch_cell_row_col_touching(puzzle, PLUS, Loc(r, c))
+#     return edits
 
 
 techs = [
-    cross_hatch_cell_row_col_touching,
-    pointing_hidden,
-    hidden_single_row_col,
-    pointing_required,
-    pointing_opposite_nsew
+    tech.cross_hatch_cell_row_col_touching,
+    tech.pointing_hidden,
+    tech.hidden_single_row_col,
+    tech.pointing_required,
+    tech.pointing_opposite_nsew
 ]
-
-LENGTH = 'length'
-TREES = 'trees'
-GRID = 'grid'
-TECHS = 'techs'
-puzzles_dict = {
-    'botanical_park_001': {
-        'id': 'botanical_park_001',
-        LENGTH: 5,
-        TREES: 1,
-        GRID: [
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
-        ],
-        TECHS: [
-
-        ]
-    }
-}
 
 
 def default_test(puzzle_string, edits=None) -> bool:
@@ -303,34 +286,26 @@ def default_test(puzzle_string, edits=None) -> bool:
 
             puzzle.grid[r][c].remove(candidate)
 
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+    while sum(tech0(puzzle, PLUS) for tech0 in techs) > 0:
         continue
     print(puzzle)
     return puzzle.is_solved()
 
 
-def test_botanical_park_001():
-    from main import puzzles_dict
-
-    temp = puzzles_dict['botanical_park_001']
-
-    assert  default_test(puzzles_dict['botanical_park_001'])
-
-
-def test_botanical_park_002():
-    assert default_test(Constants.botanical_park_002, [
-        (2, 0, PLUS),
-        (1, 1, PLUS),
-        (4, 2, PLUS),
-    ])
-
-
-def test_botanical_park_003():
-    assert default_test(Constants.botanical_park_003)
-
-
-def test_botanical_park_004():
-    assert default_test(Constants.botanical_park_004)
+@pytest.mark.parametrize("puzzle, edits",
+                         [
+                             [puzzle_dict['botanical_park'][0], []],
+                             [puzzle_dict['botanical_park'][1], [
+                                 (2, 0, PLUS),
+                                 (1, 1, PLUS),
+                                 (4, 2, PLUS),
+                             ]],
+                             [puzzle_dict['botanical_park'][2], []],
+                             [puzzle_dict['botanical_park'][3], []],
+                         ]
+                         )
+def test_botanical_park(puzzle, edits):
+    assert default_test(puzzle, edits)
 
 
 def test_botanical_park_005():
@@ -396,7 +371,7 @@ def test_botanical_park_012():
 @pytest.mark.skip("SKIPPED")
 def test_botanical_park_014():
     puzzle = BotanicalPark(Constants.botanical_park_014)
-    while sum(tech(puzzle, PLUS) for tech in techs) > 0:
+    while sum(tech0(puzzle, PLUS) for tech0 in techs) > 0:
         continue
     print(puzzle)
     assert puzzle.is_solved()

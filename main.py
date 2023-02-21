@@ -6,17 +6,16 @@ GRID = 'grid'
 TECHS = 'techs'
 puzzles_dict = {
     'botanical_park_001': {
-        'id': 'botanical_park_001',
         LENGTH: 5,
         TREES: 1,
-        GRID: [
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
-            [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
-        ],
-        TECHS:[
+        GRID: {
+            0: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            1: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], "nn      "],
+            2: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]],
+            3: [["+", "-"], ["+", "-"], "ee      ", ["+", "-"], ["+", "-"]],
+            4: [["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"], ["+", "-"]]
+        },
+        TECHS: [
 
         ]
     }
@@ -49,6 +48,14 @@ botanical_park_001 = {
 
 
 if __name__ == "__main__":
-    json_string = json.dumps(puzzles_dict, indent=1)
 
-    print(json_string)
+    with open('data.json', 'r') as file:
+        puzzle_dict = json.load(file)
+
+    # json_string = json.dumps(puzzle_dict, indent=4, skipkeys=)
+
+
+    # json_string = json.dumps(puzzles_dict, indent=1)
+    #
+    # print(json_string)
+    print(puzzle_dict.keys())

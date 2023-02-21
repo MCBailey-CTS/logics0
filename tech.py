@@ -7,8 +7,11 @@ from Loc import Loc
 from techniques.BaseSudokuHouseTechnique import BaseSudokuHouseTechnique
 from techniques.NakedPair import NakedPair
 from techniques.Technique import Technique
+# from test_botanical_park import BotanicalPark
 
 
+PLUS = '+'
+MINUS = '-'
 # from tests_files.test_lighten_up import LightenUp
 
 
@@ -3084,4 +3087,204 @@ class tech:
             #     unsolved = [loc for loc in house if puzzle.is_cell_solved(loc, 1)]
 
             return edits
+
+    @staticmethod
+    def pointing_hidden(puzzle, __candidate, __loc: Loc | None = None) -> int:
+        edits = 0
+        if __loc is not None:
+            _cell_string = puzzle.grid[__loc.row][__loc.col]
+            __house: list[Loc]
+
+            if isinstance(_cell_string, str):
+                _cell_string = _cell_string.strip()
+
+            match _cell_string:
+                case 'nn':
+                    __house = __loc.north_locs()
+                case 'ww':
+                    __house = __loc.west_locs()
+                case 'ss':
+                    __house = __loc.south_locs(len(puzzle))
+                case 'ee':
+                    __house = __loc.east_locs(len(puzzle))
+                case 'ne':
+                    __house = __loc.north_east_locs(len(puzzle))
+                case 'nw':
+                    __house = __loc.north_west_locs(len(puzzle))
+                # case 'se':
+                #     __house = __loc.south_east_locs(len(puzzle))
+                case 'sw':
+                    __house = __loc.south_west_locs(len(puzzle))
+                case _:
+                    return edits
+            __house = [_l for _l in __house if
+                       len(puzzle.grid[_l.row][_l.col]) and __candidate in puzzle.grid[_l.row][_l.col]]
+
+            if len(__house) != 1:
+                return edits
+            # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+            #     temp: list = puzzle.grid[__house[0].row][__house[0].col]
+            #     temp.remove(MINUS)
+            #     edits += 1
+
+            for __other in list(puzzle.grid[__house[0].row][__house[0].col]):
+                if __other == __candidate:
+                    continue
+
+                # if len(__house) == 1 and MINUS in puzzle.grid[__house[0].row][__house[0].col]:
+                #     temp: list =
+                puzzle.grid[__house[0].row][__house[0].col].remove(__other)
+                edits += 1
+            return edits
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
+                edits += tech.pointing_hidden(puzzle, __candidate, Loc(r, c))
+        return edits
+
+    @staticmethod
+    def pointing_required(puzzle, __candidate, __loc: Loc | None = None) -> int:
+        edits = 0
+
+        if __loc is not None:
+            _cell_string = puzzle.grid[__loc.row][__loc.col]
+            __house: list[Loc]
+
+            if isinstance(_cell_string, str):
+                _cell_string = _cell_string.strip()
+            match _cell_string:
+                case 'nn':
+                    __house = __loc.north_locs()
+                case 'ww':
+                    __house = __loc.west_locs()
+                case 'ss':
+                    __house = __loc.south_locs(len(puzzle))
+                case 'ee':
+                    __house = __loc.east_locs(len(puzzle))
+                case 'ne':
+                    __house = __loc.north_east_locs(len(puzzle))
+                case 'nw':
+                    __house = __loc.north_west_locs(len(puzzle))
+                # case 'se':
+                #     __house = __loc.south_east_locs(len(puzzle))
+                # case 'sw':
+                #     __house = __loc.south_west_locs(len(puzzle))
+                case _:
+                    return edits
+
+            if len(__house) == 2 and __house[0].is_next_to(__house[1]):
+                __l0 = __house[0]
+                __l1 = __house[1]
+
+                __remove: Optional[list[Loc]] = None
+
+                if __house[0].in_same_row(__house[1]):
+                    __remove = [__loc for __loc in
+                                [__house[0].south(), __house[0].north(), __house[1].south(), __house[1].north()]
+                                if __loc.is_valid_sudoku(len(puzzle))]
+                elif __house[0].in_same_col(__house[1]):
+                    __remove = [__loc for __loc in
+                                [__house[0].west(), __house[0].east(), __house[1].west(), __house[1].east()]
+                                if __loc.is_valid_sudoku(len(puzzle))]
+
+                if __remove is not None:
+                    for __loc in __remove:
+                        __candidates: list = puzzle.grid[__loc.row][__loc.col]
+
+                        if __candidate in __candidates:
+                            __candidates.remove(__candidate)
+                            edits += 1
+
+            return edits
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
+                edits += tech.pointing_required(puzzle, __candidate, Loc(r, c))
+        return edits
+
+    @staticmethod
+    def pointing_opposite_nsew(puzzle, __candidate, __loc: Optional[Loc] = None) -> int:
+        edits = 0
+
+        if puzzle.trees == 2:
+            return edits
+
+        if __loc is not None:
+            _cell_string = puzzle.grid[__loc.row][__loc.col]
+            __house: list[Loc]
+            if isinstance(_cell_string, str):
+                _cell_string = _cell_string.strip()
+            match _cell_string:
+                case 'nn':
+                    __house = __loc.south_locs(len(puzzle))
+                case 'ww':
+                    __house = __loc.east_locs(len(puzzle))
+                case 'ss':
+                    __house = __loc.north_locs()
+                case 'ee':
+                    __house = __loc.west_locs()
+                case _:
+                    return edits
+            for __l in __house:
+                if __candidate in puzzle.grid[__l.row][__l.col]:
+                    puzzle.grid[__l.row][__l.col].remove(__candidate)
+                    edits += 1
+            return edits
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
+                edits += tech.pointing_opposite_nsew(puzzle, __candidate, Loc(r, c))
+        return edits
+
+    @staticmethod
+    def hidden_single_cell_neighbors(puzzle, __candidate, __neighbors: list[Loc]) -> int:
+        edits = 0
+        iterator = (__loc for __loc in __neighbors if __candidate in puzzle.grid[__loc.row][__loc.col])
+        __first = next(iterator)
+        __second = next(iterator, None)
+        if __second is not None:
+            return edits
+        for __other_candidate in list(puzzle.grid[__first.row][__first.col]):
+            if __other_candidate == __candidate:
+                continue
+            puzzle.grid[__first.row][__first.col].remove(__other_candidate)
+            edits += 1
+        return edits
+
+    @staticmethod
+    def hidden_single_row_col(puzzle, __candidate) -> int:
+        edits = 0
+        for i in range(len(puzzle)):
+            edits += tech.hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_row(i, len(puzzle)))
+            edits += tech.hidden_single_cell_neighbors(puzzle, PLUS, Loc.house_col(i, len(puzzle)))
+        return edits
+
+    @staticmethod
+    def cross_hatch_cell_neighbors(puzzle, __cell: Loc, __candidate, __neighbors: list[Loc]) -> int:
+        edits = 0
+        __neighbors = set(__neighbors)
+        __neighbors.discard(__cell)
+        __candidates = puzzle.grid[__cell.row][__cell.col]
+        if len(__candidates) != 1 or __candidate not in __candidates:
+            return edits
+        for __other in __neighbors:
+            __other_candidates: list = puzzle.grid[__other.row][__other.col]
+            if __candidate not in __other_candidates:
+                continue
+            __other_candidates.remove(__candidate)
+            edits += 1
+        return edits
+
+    @staticmethod
+    def cross_hatch_cell_row_col_touching(puzzle, __candidate, __cell: Loc | None = None) -> int:
+        edits = 0
+
+        if __cell is not None:
+            edits += tech.cross_hatch_cell_neighbors(puzzle, __cell, PLUS,
+                                                Loc.house_row(__cell.row, len(puzzle)) + Loc.house_col(__cell.col,
+                                                                                                       len(puzzle)))
+            return tech.cross_hatch_cell_neighbors(puzzle, __cell, PLUS, Loc.surrounding(__cell, len(puzzle))) + edits
+
+        for r in range(len(puzzle)):
+            for c in range(len(puzzle)):
+                edits += tech.cross_hatch_cell_row_col_touching(puzzle, PLUS, Loc(r, c))
+        return edits
+
 # 4742
